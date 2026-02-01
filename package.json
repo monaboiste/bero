@@ -9,13 +9,17 @@
     "astro": "astro",
     "lint": "ultracite check",
     "lint:fix": "ultracite fix",
-    "test": "vitest"
+    "test:unit": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "astro": "^5.16.16"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.12",
+    "@playwright/test": "^1.58.1",
+    "@types/node": "^25.1.0",
     "ultracite": "^7.1.1",
     "vitest": "^4.0.18"
   }
