@@ -14,7 +14,9 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "astro": "^5.16.16"
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.16",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.12",
