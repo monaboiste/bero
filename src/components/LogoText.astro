@@ -1,0 +1,113 @@
+---
+interface Props {
+  variant?: "light" | "dark" | "mono";
+  size?: "sm" | "md" | "lg";
+  class?: string;
+}
+
+const { variant = "light", size = "md", class: className = "" } = Astro.props;
+
+// Size presets
+const sizes = {
+  sm: {
+    main: "1.5rem", // ~24pt
+    bero: "1.125rem", // ~18pt
+    separator: "2.5rem",
+    gap: "0.25rem",
+  },
+  md: {
+    main: "2.125rem", // ~34pt (33.8pt)
+    bero: "1.625rem", // ~26pt
+    separator: "3.5rem",
+    gap: "0.5rem",
+  },
+  lg: {
+    main: "3rem", // ~48pt
+    bero: "2.25rem", // ~36pt
+    separator: "5rem",
+    gap: "0.75rem",
+  },
+};
+
+const sizeScheme = sizes[size];
+
+// Tailwind classes for text colors based on variant
+let studioClass = "";
+let tapicerskieClass = "";
+let beroClass = "";
+let separatorClass = "";
+
+if (variant === "light") {
+  studioClass = "text-foreground"; // black in light mode
+  tapicerskieClass = "text-accent"; // red in both modes
+  beroClass = "text-foreground"; // black in light mode
+  separatorClass = "bg-foreground"; // black in light mode
+} else if (variant === "dark") {
+  studioClass = "text-background"; // white in dark mode
+  tapicerskieClass = "text-accent"; // red in both modes
+  beroClass = "text-background"; // white in dark mode
+  separatorClass = "bg-background"; // white in dark mode
+} else if (variant === "mono") {
+  studioClass = "text-foreground"; // black in light mode, white in dark mode
+  tapicerskieClass = "text-foreground"; // black in light mode, white in dark mode
+  beroClass = "text-foreground"; // black in light mode, white in dark mode
+  separatorClass = "bg-foreground"; // black in light mode, white in dark mode
+}
+---
+
+<div
+  class={`inline-flex items-start ${className}`}
+  style={{ fontFamily: 'var(--font-sans)' }}
+>
+  <!-- Vertical separator line -->
+  <div
+    class={`mr-3 ${separatorClass}`}
+    style={{
+      width: '2px',
+      height: `${sizeScheme.separator}`,
+      flexShrink: 0,
+    }}
+  />
+
+  <!-- Text content -->
+  <div class="flex flex-col" style={{ gap: `${sizeScheme.gap}` }}>
+    <!-- "studio" - Regular -->
+    <div
+      class={studioClass}
+      style={{
+        fontSize: `${sizeScheme.main}`,
+        fontWeight: 'var(--font-weight-normal)',
+        lineHeight: 1,
+        letterSpacing: '-0.02em',
+      }}
+    >
+      studio
+    </div>
+
+    <!-- "tapicerskie" - Bold, Red -->
+    <div
+      class={tapicerskieClass}
+      style={{
+        fontSize: `${sizeScheme.main}`,
+        fontWeight: 'var(--font-weight-medium)',
+        lineHeight: 1,
+        letterSpacing: '-0.02em',
+      }}
+    >
+      tapicerskie
+    </div>
+
+    <!-- "BERO" - Bold, Uppercase -->
+    <div
+      class={beroClass}
+      style={{
+        fontSize: `${sizeScheme.bero}`,
+        fontWeight: 'var(--font-weight-medium)',
+        lineHeight: 1,
+        letterSpacing: '0.1em',
+      }}
+    >
+      BERO
+    </div>
+  </div>
+</div>
