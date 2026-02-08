@@ -1,5 +1,6 @@
 ---
-import { Facebook, Instagram, Mail, Phone } from "@lucide/astro";
+import { Mail, Phone } from "@lucide/astro";
+import Facebook from "simple-icons-astro/Facebook";
 
 const currentYear = new Date().getFullYear();
 
@@ -23,10 +24,7 @@ const legalLinks = [
   { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
 ];
 
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-];
+const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
 ---
 
 <footer class="bg-primary text-primary-foreground">
@@ -34,13 +32,6 @@ const socialLinks = [
     <div class="mb-8 grid gap-8 md:grid-cols-4">
       <!-- About -->
       <div class="md:col-span-2">
-        <img
-          src="/logo-dark.svg"
-          alt="Studio Tapicerskie BERO"
-          class="mb-4 h-10 w-auto brightness-0 invert"
-          width="150"
-          height="40"
-        >
         <p class="mb-4 text-sm text-primary-foreground/80">
           {content.aboutText}
         </p>
