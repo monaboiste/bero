@@ -109,14 +109,18 @@ if (variant === "light") {
     <!-- Text content -->
     <div class="flex flex-col" style={{ gap: `${sizeScheme.gap}` }}>
       <!-- "studio tapicerskie" - inline -->
-      <div style={{ fontSize: `${sizeScheme.main}`, lineHeight: 1, letterSpacing: "-0.02em" }}>
+      <div
+        style={{ fontSize: `${sizeScheme.main}`, lineHeight: 1, letterSpacing: "-0.02em" }}
+      >
         <span
           class={studioClass}
           style={{ fontWeight: 'var(--font-weight-normal)' }}
-        >studio </span><span
+          >studio
+        </span><span
           class={tapicerskieClass}
           style={{ fontWeight: 'var(--font-weight-medium)' }}
-        >tapicerskie</span>
+          >tapicerskie</span
+        >
       </div>
 
       <!-- "BERO" - Bold, Uppercase -->
