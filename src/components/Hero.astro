@@ -1,0 +1,69 @@
+---
+import { ArrowRight } from "@lucide/astro";
+
+// TODO: static mock content - will be replaced with CMS data later
+const content = {
+  subtitle: "Profesjonalne usługi tapicerskie",
+  title: "Tradycja spotyka nowoczesność",
+  description:
+    "Przywracamy życie Twoim ulubionym meblom. Ponad 20 lat doświadczenia w renowacji i tworzeniu wyjątkowych tapicerek.",
+  cta: "Skontaktuj się z nami",
+  featured: "Nasze realizacje",
+  // TODO: replace this unspash image
+  heroImage:
+    "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=1920",
+};
+---
+
+<section
+  id="home"
+  class="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
+>
+  <div class="absolute inset-0 z-0">
+    <img
+      src={content.heroImage}
+      alt="Luxury upholstery"
+      class="h-full w-full object-cover"
+      width="1920"
+      height="1080"
+    >
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
+    ></div>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <h1 class="mb-6 text-5xl font-bold text-white md:text-7xl">
+        {content.title}
+      </h1>
+
+      <p class="mb-8 text-xl leading-relaxed text-gray-200 md:text-2xl">
+        {content.description}
+      </p>
+
+      <div class="flex flex-col gap-4 sm:flex-row">
+        <a
+          href="#contact"
+          class="group flex items-center justify-center space-x-2 rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
+        >
+          <span>{content.cta}</span>
+          <ArrowRight
+            class="h-5 w-5 transition-transform group-hover:translate-x-1"
+          />
+        </a>
+
+        <a
+          href="#projects"
+          class="rounded-lg border border-white/30 bg-white/10 px-8 py-4 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
+        >
+          {content.featured}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="absolute right-0 bottom-0 left-0 z-10 h-32 bg-gradient-to-t from-background to-transparent"
+  ></div>
+</section>
