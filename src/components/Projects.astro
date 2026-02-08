@@ -1,0 +1,78 @@
+---
+// Static mock content - will be replaced with CMS data later
+const content = {
+  title: "Nasze Realizacje",
+  subtitle: "Galeria wybranych projektów",
+};
+
+const projects = [
+  {
+    id: "1",
+    title: "Renowacja fotela klubowego",
+    description:
+      "Kompleksowa odnowa klasycznego fotela klubowego ze skóry naturalnej",
+    image:
+      "https://images.unsplash.com/photo-1768573264026-b540abdc3384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYXJtY2hhaXIlMjByZXN0b3JhdGlvbnxlbnwxfHx8fDE3NzA1Nzg3MTZ8MA&ixlib=rb-4.1.0&q=80&w=800",
+    date: "2024",
+  },
+  {
+    id: "2",
+    title: "Nowoczesny fotel tapicerowany",
+    description: "Stworzenie eleganckiego fotela z aksamitnym wykończeniem",
+    image:
+      "https://images.unsplash.com/photo-1753362752045-2c3fdf2d04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjaGFpciUyMHVwaG9sc3RlcnklMjBkZXRhaWx8ZW58MXx8fHwxNzcwNTc4NzE2fDA&ixlib=rb-4.1.0&q=80&w=800",
+    date: "2024",
+  },
+  {
+    id: "3",
+    title: "Zestaw mebli tapicerowanych",
+    description: "Kompleksowa tapicerka zestawu salonowego",
+    image:
+      "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=800",
+    date: "2023",
+  },
+];
+---
+
+<section id="projects" class="bg-secondary py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 text-center">
+      <h2 class="mb-4 text-4xl md:text-5xl">{content.title}</h2>
+      <p class="text-xl text-muted-foreground">{content.subtitle}</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => (
+          <article class="group cursor-pointer">
+            <div class="relative overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl">
+              <div class="aspect-[4/3] overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </div>
+              {/* Hover overlay */}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div class="absolute right-0 bottom-0 left-0 translate-y-4 transform p-6 text-white transition-transform duration-300 group-hover:translate-y-0">
+                  <div class="mb-2 flex items-center justify-between"></div>
+                  <h3 class="mb-2 text-xl">{project.title}</h3>
+                  <p class="text-sm text-gray-200">{project.description}</p>
+                </div>
+              </div>
+              {/* Default visible content */}
+              <div class="p-6">
+                <h3 class="mb-2 text-xl">{project.title}</h3>
+                <p class="text-sm text-muted-foreground">
+                  {project.description}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))}
+    </div>
+  </div>
+</section>

@@ -1,7 +1,7 @@
 {
   "editor.defaultFormatter": "biomejs.biome",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.formatOnPaste": true,
   "emmet.showExpandedAbbreviation": "never",
   "[javascript]": {
@@ -46,8 +46,5 @@
   "[mdx]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit",
-    "source.organizeImports.biome": "explicit"
-  }
+  "editor.codeActionsOnSave": {}
 }

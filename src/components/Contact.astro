@@ -1,0 +1,222 @@
+---
+import { Mail, MapPin, Phone, Send } from "@lucide/astro";
+
+// Static mock content - will be replaced with CMS data later
+const content = {
+  title: "Kontakt",
+  subtitle: "Skontaktuj się z nami",
+  address: "ul. Przykładowa 123, 00-000 Warszawa",
+  phone: "+48 123 456 789",
+  email: "kontakt@studiotapicerskie.pl",
+  formLabels: {
+    name: "Imię i nazwisko",
+    email: "Adres e-mail",
+    message: "Wiadomość",
+    consent: "Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z",
+    privacyPolicy: "Polityką Prywatności",
+    send: "Wyślij wiadomość",
+  },
+};
+
+const contactInfo = [
+  { icon: MapPin, label: content.address },
+  { icon: Phone, label: content.phone },
+  { icon: Mail, label: content.email },
+];
+---
+
+<section id="contact" class="bg-secondary py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-16 text-center">
+      <h2 class="mb-4 text-4xl md:text-5xl">{content.title}</h2>
+      <p class="text-xl text-muted-foreground">{content.subtitle}</p>
+    </div>
+
+    <div class="grid gap-12 md:grid-cols-2">
+      <!-- Contact Info -->
+      <div>
+        <div class="mb-12 space-y-8">
+          {contactInfo.map((info) => {
+              const Icon = info.icon;
+              return (
+                <div class="flex items-start space-x-4">
+                  <div class="shrink-0">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
+                      <Icon class="h-6 w-6 text-accent" />
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-lg">{info.label}</p>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+
+        <div class="aspect-video overflow-hidden rounded-lg bg-muted">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.5283457!2d21.012229!3d52.229676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzQ2LjgiTiAyMcKwMDAnNDQuMCJF!5e0!3m2!1sen!2spl!4v1234567890"
+            width="100%"
+            height="100%"
+            style="border: 0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Location map"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div>
+        <form id="contact-form" class="space-y-6">
+          <!-- Honeypot field - hidden from users -->
+          <input
+            type="text"
+            name="website"
+            class="hidden"
+            tabindex="-1"
+            autocomplete="off"
+          >
+
+          <!-- Name field -->
+          <div>
+            <label for="name" class="mb-2 block">
+              {content.formLabels.name}
+              <span class="text-accent">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full rounded-lg border border-border bg-background px-4 py-3 transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+            >
+          </div>
+
+          <!-- Email field -->
+          <div>
+            <label for="email" class="mb-2 block">
+              {content.formLabels.email}
+              <span class="text-accent">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full rounded-lg border border-border bg-background px-4 py-3 transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+            >
+          </div>
+
+          <!-- Message field -->
+          <div>
+            <label for="message" class="mb-2 block">
+              {content.formLabels.message}
+              <span class="text-accent">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="w-full resize-none rounded-lg border border-border bg-background px-4 py-3 transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
+            ></textarea>
+          </div>
+
+          <!-- Consent checkbox -->
+          <div>
+            <label class="flex cursor-pointer items-start space-x-3">
+              <input
+                type="checkbox"
+                name="consent"
+                required
+                class="mt-1 h-5 w-5 rounded border-border text-accent focus:ring-2 focus:ring-accent"
+              >
+              <span class="text-sm">
+                {content.formLabels.consent}
+                <a
+                  href="/polityka-prywatnosci"
+                  class="text-accent hover:underline"
+                >
+                  {content.formLabels.privacyPolicy}
+                </a>. <span class="text-accent">*</span>
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit button -->
+          <button
+            type="submit"
+            class="flex w-full items-center justify-center space-x-2 rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <span>{content.formLabels.send}</span>
+            <Send class="h-5 w-5" />
+          </button>
+
+          <!-- Status messages -->
+          <div
+            id="form-success"
+            class="hidden rounded-lg border border-green-200 bg-green-50 p-4 text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-200"
+          >
+            Dziękujemy! Wiadomość została wysłana.
+          </div>
+          <div
+            id="form-error"
+            class="hidden rounded-lg border border-red-200 bg-red-50 p-4 text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200"
+          >
+            Wystąpił błąd. Spróbuj ponownie.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const setupContactForm = () => {
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const successMsg = document.getElementById("form-success");
+    const errorMsg = document.getElementById("form-error");
+
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Honeypot check
+      const honeypot = form.querySelector<HTMLInputElement>(
+        'input[name="website"]'
+      );
+      if (honeypot?.value) {
+        return;
+      }
+
+      const submitBtn = form.querySelector<HTMLButtonElement>(
+        'button[type="submit"]'
+      );
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "<span>Wysyłanie...</span>";
+      }
+
+      // Simulate form submission (in production, this would send to a backend)
+      setTimeout(() => {
+        successMsg?.classList.remove("hidden");
+        errorMsg?.classList.add("hidden");
+        form.reset();
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<span>Wyślij wiadomość</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>`;
+        }
+
+        setTimeout(() => {
+          successMsg?.classList.add("hidden");
+        }, 5000);
+      }, 1500);
+    });
+  };
+
+  setupContactForm();
+  document.addEventListener("astro:page-load", setupContactForm);
+</script>
