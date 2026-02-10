@@ -44,8 +44,7 @@ const projects = [
     </div>
 
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {
-        projects.map((project, index) => (
+      {projects.map((project, index) => (
           <div
             class="project-card group h-full cursor-pointer"
             style={`--delay: ${index * 0.1}s`}
@@ -107,8 +106,7 @@ const projects = [
               </div>
             </div>
           </div>
-        ))
-      }
+        ))}
     </div>
 
     <!-- View All Button -->
@@ -127,7 +125,8 @@ const projects = [
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M9 5l7 7-7 7"></path>
+            d="M9 5l7 7-7 7"
+          ></path>
         </svg>
       </button>
     </div>
@@ -166,7 +165,7 @@ const projects = [
           }
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     for (const card of cards) {
