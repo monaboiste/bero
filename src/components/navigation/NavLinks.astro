@@ -20,7 +20,11 @@ const directionClasses =
 
 <div class={`${directionClasses} ${className}`}>
   {items.map((item) => (
-      <a href={item.href} class="transition-colors hover:text-accent">
+      <a 
+        href={item.href} 
+        data-testid={`nav-link-${item.href.replace('#', '')}`}
+        class="transition-colors hover:text-accent"
+      >
         {item.label}
       </a>
     ))}
