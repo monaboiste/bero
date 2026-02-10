@@ -3,7 +3,7 @@
   "extends": ["ultracite/core", "ultracite/astro"],
   "overrides": [
     {
-      "includes": ["**/*.astro"],
+      "includes": ["**/*.astro", "**/*.test.ts"],
       "linter": {
         "rules": {
           "style": {

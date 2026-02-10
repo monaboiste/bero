@@ -9,7 +9,7 @@
     "astro": "astro",
     "lint": "ultracite check",
     "lint:fix": "ultracite fix",
-    "test:unit": "vitest",
+    "test:unit": "vitest --run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
