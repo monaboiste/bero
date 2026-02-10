@@ -1,0 +1,70 @@
+---
+import { Mail, Phone } from "@lucide/astro";
+import Facebook from "simple-icons-astro/Facebook";
+import SocialLinks from "../ui/SocialLinks.astro";
+import FooterLinks from "./FooterLinks.astro";
+
+const currentYear = new Date().getFullYear();
+
+// Static mock content - will be replaced with CMS data later
+const content = {
+  aboutText:
+    "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem w renowacji i tworzeniu mebli tapicerowanych.",
+  rights: `\u00A9 ${currentYear} Studio Tapicerskie BERO. Wszelkie prawa zastrzezone.`,
+  phone: "+48 123 456 789",
+  email: "kontakt@studiotapicerskie.pl",
+};
+
+const quickLinks = [
+  { label: "Strona glowna", href: "#home" },
+  { label: "Realizacje", href: "#projects" },
+  { label: "O nas", href: "#about" },
+  { label: "Kontakt", href: "#contact" },
+];
+
+const legalLinks = [{ label: "Polityka prywatnosci", href: "/privacy-policy" }];
+
+const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
+---
+
+<footer class="bg-primary text-primary-foreground">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mb-8 grid gap-8 md:grid-cols-4">
+      <!-- About -->
+      <div class="md:col-span-2">
+        <p class="mb-4 text-sm text-primary-foreground/80">
+          {content.aboutText}
+        </p>
+        <SocialLinks links={socialLinks} />
+      </div>
+
+      <!-- Quick Links -->
+      <FooterLinks title="Szybkie linki" links={quickLinks} />
+
+      <!-- Legal -->
+      <div>
+        <FooterLinks title="Informacje prawne" links={legalLinks} />
+        <div class="mt-6 space-y-2">
+          <div
+            class="flex items-center space-x-2 text-sm text-primary-foreground/80"
+          >
+            <Phone class="h-4 w-4" />
+            <span>{content.phone}</span>
+          </div>
+          <div
+            class="flex items-center space-x-2 text-sm text-primary-foreground/80"
+          >
+            <Mail class="h-4 w-4" />
+            <span>{content.email}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="border-t border-white/10 pt-8 text-center text-sm text-primary-foreground/60"
+    >
+      {content.rights}
+    </div>
+  </div>
+</footer>

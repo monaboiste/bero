@@ -1,0 +1,27 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: NavItem[];
+  direction?: "row" | "column";
+  class?: string;
+}
+
+const { items, direction = "row", class: className = "" } = Astro.props;
+
+const directionClasses =
+  direction === "row"
+    ? "flex items-center space-x-8"
+    : "flex flex-col space-y-4";
+---
+
+<div class={`${directionClasses} ${className}`}>
+  {items.map((item) => (
+      <a href={item.href} class="transition-colors hover:text-accent">
+        {item.label}
+      </a>
+    ))}
+</div>

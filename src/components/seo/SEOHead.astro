@@ -1,0 +1,35 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  type?: string;
+}
+
+// TODO: i18n - defaults will come from i18n config
+const {
+  title = "Studio Tapicerskie BERO",
+  description = "Profesjonalne uslugi tapicerskie - renowacja mebli, tapicerowanie na zamowienie. Ponad 20 lat doswiadczenia.",
+  image,
+  url,
+  type = "website",
+} = Astro.props;
+---
+
+<!-- SEO -->
+<title>{title}</title>
+<meta name="description" content={description}>
+
+<!-- Open Graph -->
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:type" content={type}>
+{url && <meta property="og:url" content={url} />}
+{image && <meta property="og:image" content={image} />}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+{image && <meta name="twitter:image" content={image} />}

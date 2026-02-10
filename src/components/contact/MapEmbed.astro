@@ -1,0 +1,22 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  class?: string;
+}
+
+const { src, title = "Location map", class: className = "" } = Astro.props;
+---
+
+<div class={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`}>
+  <iframe
+    src={src}
+    width="100%"
+    height="100%"
+    style="border: 0;"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title={title}
+  ></iframe>
+</div>

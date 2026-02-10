@@ -1,0 +1,95 @@
+---
+import { Award, Clock, Heart, Users } from "@lucide/astro";
+import SectionHeader from "../ui/SectionHeader.astro";
+import StatCard from "../ui/StatCard.astro";
+import ServiceCard from "./ServiceCard.astro";
+
+// Static mock content - will be replaced with CMS data later
+const content = {
+  title: "O Nas",
+  subtitle: "Pasja i doswiadczenie w kazdym projekcie",
+  story:
+    "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem w branzy tapicerskiej. Specjalizujemy sie w profesjonalnej renowacji i tworzeniu mebli tapicerowanych, laczac tradycyjne rzemioslo z nowoczesnymi technikami.",
+  mission:
+    "Nasza misja jest przywracanie piekna i funkcjonalnosci ulubionym meblom naszych klientow. Kazdy projekt traktujemy indywidualnie, dbajac o najdrobniejsze szczegoly.",
+  craftImage:
+    "https://images.unsplash.com/photo-1682718619781-252f23e21132?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmFmdHNtYW4lMjB3b3JraW5nJTIwZnVybml0dXJlfGVufDF8fHx8MTc3MDU3ODcxNnww&ixlib=rb-4.1.0&q=80&w=800",
+};
+
+const stats = [
+  { icon: Clock, value: "20+", label: "Lat doswiadczenia" },
+  { icon: Award, value: "500+", label: "Zrealizowanych projektow" },
+  { icon: Users, value: "100%", label: "Zadowolonych klientow" },
+  { icon: Heart, value: "\u221E", label: "Pasja w kazdym detalu" },
+];
+
+const services = [
+  {
+    title: "Renowacja mebli",
+    description:
+      "Przywracamy zycie starym meblom i wydobywamy ich dawny charakter",
+  },
+  {
+    title: "Wymiana tapicerki",
+    description:
+      "Odswiezamy wyglad mebli, dobierajac tkaniny dopasowane do wnetrza",
+  },
+  {
+    title: "Naprawa konstrukcji",
+    description: "Wzmacniamy stelaze i przywracamy pelna stabilnosc mebli",
+  },
+  {
+    title: "Tapicerstwo samochodowe",
+    description:
+      "Regeneracja foteli i podsufitek - estetyka wnetrza jak z salonu",
+  },
+];
+---
+
+<section id="about" class="py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader title={content.title} subtitle={content.subtitle} />
+
+    <!-- Story Section -->
+    <div class="mb-20 grid items-center gap-12 md:grid-cols-2">
+      <div>
+        <img
+          src={content.craftImage}
+          alt="Craftsman working"
+          class="h-auto w-full rounded-lg shadow-xl"
+          width="800"
+          height="600"
+          loading="lazy"
+        >
+      </div>
+      <div>
+        <p class="mb-6 text-lg leading-relaxed">{content.story}</p>
+        <p class="leading-relaxed text-muted-foreground">{content.mission}</p>
+
+        <div class="mt-8">
+          <span
+            class="font-accent text-3xl text-accent italic md:text-4xl"
+            style="font-family: var(--font-accent);"
+          >
+            BERO
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4">
+      {stats.map((stat) => <StatCard icon={stat.icon} value={stat.value} label={stat.label} />)}
+    </div>
+
+    <!-- Services -->
+    <div>
+      <h3 class="mb-12 text-center text-3xl">Nasze Uslugi</h3>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {services.map((service) => (
+            <ServiceCard title={service.title} description={service.description} />
+          ))}
+      </div>
+    </div>
+  </div>
+</section>
