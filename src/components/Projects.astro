@@ -3,6 +3,8 @@
 const content = {
   title: "Nasze Realizacje",
   subtitle: "Galeria wybranych projektów",
+  viewAll: "Zobacz wszystkie realizacje",
+  viewMore: "Zobacz więcej",
 };
 
 const projects = [
@@ -12,24 +14,24 @@ const projects = [
     description:
       "Kompleksowa odnowa klasycznego fotela klubowego ze skóry naturalnej",
     image:
-      "https://images.unsplash.com/photo-1768573264026-b540abdc3384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYXJtY2hhaXIlMjByZXN0b3JhdGlvbnxlbnwxfHx8fDE3NzA1Nzg3MTZ8MA&ixlib=rb-4.1.0&q=80&w=800",
-    date: "2024",
+      "https://images.unsplash.com/photo-1768573264026-b540abdc3384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYXJtY2hhaXIlMjByZXN0b3JhdGlvbnxlbnwxfHx8fDE3NzA1Nzg3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    date: "2026-02-12",
   },
   {
     id: "2",
     title: "Nowoczesny fotel tapicerowany",
     description: "Stworzenie eleganckiego fotela z aksamitnym wykończeniem",
     image:
-      "https://images.unsplash.com/photo-1753362752045-2c3fdf2d04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjaGFpciUyMHVwaG9sc3RlcnklMjBkZXRhaWx8ZW58MXx8fHwxNzcwNTc4NzE2fDA&ixlib=rb-4.1.0&q=80&w=800",
-    date: "2024",
+      "https://images.unsplash.com/photo-1753362752045-2c3fdf2d04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjaGFpciUyMHVwaG9sc3RlcnklMjBkZXRhaWx8ZW58MXx8fHwxNzcwNTc4NzE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    date: "2026-01-06",
   },
   {
     id: "3",
     title: "Zestaw mebli tapicerowanych",
     description: "Kompleksowa tapicerka zestawu salonowego",
     image:
-      "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=800",
-    date: "2023",
+      "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+    date: "2025-12-01",
   },
 ];
 ---
@@ -42,37 +44,139 @@ const projects = [
     </div>
 
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {projects.map((project) => (
-          <article class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl">
-              <div class="aspect-[4/3] overflow-hidden">
+      {
+        projects.map((project, index) => (
+          <div
+            class="project-card group h-full cursor-pointer"
+            style={`--delay: ${index * 0.1}s`}
+          >
+            <div class="relative flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl">
+              {/* Image - fixed aspect ratio */}
+              <div class="relative aspect-[4/3] flex-shrink-0 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  width="800"
-                  height="600"
+                  class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  width="1080"
+                  height="810"
                   loading="lazy"
                 />
-              </div>
-              {/* Hover overlay */}
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div class="absolute right-0 bottom-0 left-0 translate-y-4 transform p-6 text-white transition-transform duration-300 group-hover:translate-y-0">
-                  <div class="mb-2 flex items-center justify-between"></div>
-                  <h3 class="mb-2 text-xl">{project.title}</h3>
-                  <p class="text-sm text-gray-200">{project.description}</p>
+                {/* Subtle overlay on hover */}
+                <div class="absolute inset-0 bg-black/0 transition-all duration-300 group-hover:bg-black/20" />
+
+                {/* Date badge - shows on hover */}
+                <div class="absolute top-4 right-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                  <span class="rounded-full bg-accent px-3 py-1 text-sm text-white shadow-lg">
+                    {project.date}
+                  </span>
                 </div>
               </div>
-              {/* Default visible content */}
-              <div class="p-6">
-                <h3 class="mb-2 text-xl">{project.title}</h3>
-                <p class="text-sm text-muted-foreground">
+
+              {/* Content - fixed height */}
+              <div class="flex flex-grow flex-col p-6">
+                <h3
+                  class="mb-3 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
+                  title={project.title}
+                >
+                  {project.title}
+                </h3>
+                <p
+                  class="mb-4 flex-grow line-clamp-3 text-sm text-muted-foreground"
+                  title={project.description}
+                >
                   {project.description}
                 </p>
+
+                {/* View more indicator */}
+                <div class="mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100">
+                  <span class="text-sm">{content.viewMore}</span>
+                  <svg
+                    class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
-          </article>
-        ))}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- View All Button -->
+    <div class="mt-12 text-center">
+      <button
+        class="group inline-flex items-center rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl cursor-pointer"
+      >
+        <span>{content.viewAll}</span>
+        <svg
+          class="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </section>
+
+<style>
+  .project-card {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .project-card.is-visible {
+    animation: fadeInUp 0.5s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  function initProjectCards() {
+    const cards = document.querySelectorAll(".project-card");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    for (const card of cards) {
+      observer.observe(card);
+    }
+  }
+
+  // Run on initial load
+  initProjectCards();
+
+  // Re-run after Astro view transitions
+  document.addEventListener("astro:after-swap", initProjectCards);
+</script>
