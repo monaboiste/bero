@@ -121,7 +121,7 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 - Use the & character for nesting selectors
 - Leverage the keyframes helper for animations
 
-#### TAILWIND
+#### TAILWIND v4
 
 - Use the @layer directive to organize styles into components, utilities, and base layers
 - Implement Just-in-Time (JIT) mode for development efficiency and smaller CSS bundles
