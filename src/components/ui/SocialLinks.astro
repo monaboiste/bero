@@ -1,0 +1,33 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+
+interface SocialLink {
+  icon: AstroComponentFactory;
+  href: string;
+  label: string;
+}
+
+interface Props {
+  links: SocialLink[];
+  class?: string;
+}
+
+const { links, class: className = "" } = Astro.props;
+---
+
+<div class={`flex space-x-4 ${className}`}>
+  {links.map((social) => {
+      const Icon = social.icon;
+      return (
+        <a
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-accent"
+          aria-label={social.label}
+        >
+          <Icon class="h-5 w-5" />
+        </a>
+      );
+    })}
+</div>

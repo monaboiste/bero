@@ -1,0 +1,47 @@
+---
+import { Moon, Sun } from "@lucide/astro";
+
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id = "theme-toggle", class: className = "" } = Astro.props;
+---
+
+<button
+  type="button"
+  id={id}
+  class={`rounded-lg p-2 transition-colors hover:bg-muted ${className}`}
+  aria-label="Przelacz motyw"
+>
+  <Sun class="hidden h-5 w-5 dark:block" />
+  <Moon class="block h-5 w-5 dark:hidden" />
+</button>
+
+<script>
+  function setupThemeToggle() {
+    const toggleTheme = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      if (isDark) {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      } else {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      }
+    };
+
+    // Bind all theme toggle buttons
+    const buttons = document.querySelectorAll("[id$='theme-toggle']");
+    for (const btn of buttons) {
+      // Remove old listeners by cloning
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode?.replaceChild(newBtn, btn);
+      newBtn.addEventListener("click", toggleTheme);
+    }
+  }
+
+  setupThemeToggle();
+  document.addEventListener("astro:page-load", setupThemeToggle);
+</script>

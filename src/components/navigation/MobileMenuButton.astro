@@ -1,0 +1,17 @@
+---
+import { Menu, X } from "@lucide/astro";
+import ThemeToggle from "../ui/ThemeToggle.astro";
+---
+
+<div class="flex items-center space-x-2 md:hidden">
+  <ThemeToggle id="mobile-theme-toggle" />
+  <button
+    type="button"
+    id="mobile-menu-btn"
+    class="rounded-lg p-2 transition-colors hover:bg-muted"
+    aria-label="Menu"
+  >
+    <Menu class="h-6 w-6" id="menu-icon" />
+    <X class="hidden h-6 w-6" id="close-icon" />
+  </button>
+</div>

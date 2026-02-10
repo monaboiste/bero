@@ -1,0 +1,23 @@
+---
+interface Props {
+  variant: "success" | "error";
+  id: string;
+  class?: string;
+}
+
+const { variant, id, class: className = "" } = Astro.props;
+
+const variantClasses = {
+  success:
+    "border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-200",
+  error:
+    "border-red-200 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200",
+};
+---
+
+<div
+  id={id}
+  class={`hidden rounded-lg border p-4 ${variantClasses[variant]} ${className}`}
+>
+  <slot />
+</div>

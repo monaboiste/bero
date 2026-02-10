@@ -1,0 +1,30 @@
+---
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  links: LinkItem[];
+  class?: string;
+}
+
+const { title, links, class: className = "" } = Astro.props;
+---
+
+<div class={className}>
+  <h3 class="mb-4 text-lg">{title}</h3>
+  <ul class="space-y-2">
+    {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="text-sm text-primary-foreground/80 transition-colors hover:text-accent"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+  </ul>
+</div>

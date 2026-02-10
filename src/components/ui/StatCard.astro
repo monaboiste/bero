@@ -1,0 +1,20 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import IconBadge from "./IconBadge.astro";
+
+interface Props {
+  icon: AstroComponentFactory;
+  value: string;
+  label: string;
+}
+
+const { icon: Icon, value, label } = Astro.props;
+---
+
+<div class="text-center">
+  <IconBadge size="lg" class="mb-4">
+    <Icon class="h-8 w-8 text-accent" />
+  </IconBadge>
+  <div class="mb-2 text-4xl">{value}</div>
+  <div class="text-sm text-muted-foreground">{label}</div>
+</div>
