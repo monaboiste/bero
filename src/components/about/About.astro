@@ -46,12 +46,15 @@ const services = [
 ];
 ---
 
-<section id="about" class="py-20">
+<section id="about" data-testid="about" class="py-20">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader title={content.title} subtitle={content.subtitle} />
 
     <!-- Story Section -->
-    <div class="mb-20 grid items-center gap-12 md:grid-cols-2">
+    <div
+      data-testid="about-story"
+      class="mb-20 grid items-center gap-12 md:grid-cols-2"
+    >
       <div>
         <img
           src={content.craftImage}
@@ -78,12 +81,15 @@ const services = [
     </div>
 
     <!-- Stats -->
-    <div class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4">
+    <div
+      data-testid="about-stats"
+      class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4"
+    >
       {stats.map((stat) => <StatCard icon={stat.icon} value={stat.value} label={stat.label} />)}
     </div>
 
     <!-- Services -->
-    <div>
+    <div data-testid="about-services">
       <h3 class="mb-12 text-center text-3xl">Nasze Uslugi</h3>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {services.map((service) => (

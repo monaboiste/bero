@@ -6,6 +6,7 @@ interface Props {
   required?: boolean;
   rows?: number;
   id?: string;
+  "data-testid"?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   required = false,
   rows = 5,
   id,
+  "data-testid": dataTestId,
 } = Astro.props;
 
 const fieldId = id || name;
@@ -34,6 +36,7 @@ const inputClasses =
         name={name}
         rows={rows}
         required={required}
+        data-testid={dataTestId}
         class={`${inputClasses} resize-none`}
       />
     ) : (
@@ -42,6 +45,7 @@ const inputClasses =
         id={fieldId}
         name={name}
         required={required}
+        data-testid={dataTestId}
         class={inputClasses}
       />
     )}

@@ -15,7 +15,7 @@ interface Props {
 const { items, class: className = "" } = Astro.props;
 ---
 
-<div class={`space-y-8 ${className}`}>
+<div data-testid="contact-info" class={`space-y-8 ${className}`}>
   {items.map((info) => {
       const Icon = info.icon;
       return (

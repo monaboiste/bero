@@ -27,11 +27,11 @@ const legalLinks = [{ label: "Polityka prywatnosci", href: "/privacy-policy" }];
 const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
 ---
 
-<footer class="bg-primary text-primary-foreground">
+<footer data-testid="footer" class="bg-primary text-primary-foreground">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
     <div class="mb-8 grid gap-8 md:grid-cols-4">
       <!-- About -->
-      <div class="md:col-span-2">
+      <div data-testid="footer-about" class="md:col-span-2">
         <p class="mb-4 text-sm text-primary-foreground/80">
           {content.aboutText}
         </p>
@@ -39,7 +39,9 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
       </div>
 
       <!-- Quick Links -->
-      <FooterLinks title="Szybkie linki" links={quickLinks} />
+      <div data-testid="footer-quick-links">
+        <FooterLinks title="Szybkie linki" links={quickLinks} />
+      </div>
 
       <!-- Legal -->
       <div>
@@ -62,6 +64,7 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
     </div>
 
     <div
+      data-testid="footer-copyright"
       class="border-t border-white/10 pt-8 text-center text-sm text-primary-foreground/60"
     >
       {content.rights}

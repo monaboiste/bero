@@ -22,7 +22,7 @@ const {
 ---
 
 {variant === "dropdown" ? (
-    <div class={`relative ${className}`}>
+    <div data-testid="language-selector" class={`relative ${className}`}>
       <button
         type="button"
         id="lang-btn"
@@ -51,7 +51,7 @@ const {
       </div>
     </div>
   ) : (
-    <div class={`flex space-x-4 ${className}`}>
+    <div data-testid="language-selector" class={`flex space-x-4 ${className}`}>
       {languages.map((lang) => (
         <button
           type="button"

@@ -8,7 +8,10 @@ interface Props {
 const { src, title = "Location map", class: className = "" } = Astro.props;
 ---
 
-<div class={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`}>
+<div
+  data-testid="contact-map"
+  class={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`}
+>
   <iframe
     src={src}
     width="100%"

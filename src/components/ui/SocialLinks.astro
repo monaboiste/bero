@@ -15,7 +15,7 @@ interface Props {
 const { links, class: className = "" } = Astro.props;
 ---
 
-<div class={`flex space-x-4 ${className}`}>
+<div data-testid="footer-social" class={`flex space-x-4 ${className}`}>
   {links.map((social) => {
       const Icon = social.icon;
       return (
