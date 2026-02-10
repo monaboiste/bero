@@ -20,9 +20,7 @@ const quickLinks = [
   { label: "Kontakt", href: "#contact" },
 ];
 
-const legalLinks = [
-  { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
-];
+const legalLinks = [{ label: "Polityka prywatności", href: "/privacy-policy" }];
 
 const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
 ---
@@ -36,7 +34,8 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
           {content.aboutText}
         </p>
         <div class="flex space-x-4">
-          {socialLinks.map((social) => {
+          {
+            socialLinks.map((social) => {
               const Icon = social.icon;
               return (
                 <a
@@ -49,7 +48,8 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
                   <Icon class="h-5 w-5" />
                 </a>
               );
-            })}
+            })
+          }
         </div>
       </div>
 
@@ -57,7 +57,8 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
       <div>
         <h3 class="mb-4 text-lg">Szybkie linki</h3>
         <ul class="space-y-2">
-          {quickLinks.map((link) => (
+          {
+            quickLinks.map((link) => (
               <li>
                 <a
                   href={link.href}
@@ -66,7 +67,8 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
                   {link.label}
                 </a>
               </li>
-            ))}
+            ))
+          }
         </ul>
       </div>
 
@@ -74,7 +76,8 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
       <div>
         <h3 class="mb-4 text-lg">Informacje prawne</h3>
         <ul class="space-y-2">
-          {legalLinks.map((link) => (
+          {
+            legalLinks.map((link) => (
               <li>
                 <a
                   href={link.href}
@@ -83,7 +86,8 @@ const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
                   {link.label}
                 </a>
               </li>
-            ))}
+            ))
+          }
         </ul>
         <div class="mt-6 space-y-2">
           <div
