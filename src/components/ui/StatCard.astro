@@ -11,7 +11,7 @@ interface Props {
 const { icon: Icon, value, label } = Astro.props;
 ---
 
-<div class="text-center">
+<div data-testid="stat-card" class="text-center">
   <IconBadge size="lg" class="mb-4">
     <Icon class="h-8 w-8 text-accent" />
   </IconBadge>
