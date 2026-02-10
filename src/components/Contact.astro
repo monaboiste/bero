@@ -37,11 +37,10 @@ const contactInfo = [
       <!-- Contact Info -->
       <div>
         <div class="mb-12 space-y-8">
-          {
-            contactInfo.map((info) => {
+          {contactInfo.map((info) => {
               const Icon = info.icon;
               return (
-                <div class="flex items-start space-x-4">
+                <div class="flex items-center space-x-4">
                   <div class="shrink-0">
                     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
                       <Icon class="h-6 w-6 text-accent" />
@@ -52,8 +51,7 @@ const contactInfo = [
                   </div>
                 </div>
               );
-            })
-          }
+            })}
         </div>
 
         <div class="aspect-video overflow-hidden rounded-lg bg-muted">
@@ -65,7 +63,8 @@ const contactInfo = [
             allowfullscreen
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Location map"></iframe>
+            title="Location map"
+          ></iframe>
         </div>
       </div>
 
@@ -79,7 +78,7 @@ const contactInfo = [
             class="hidden"
             tabindex="-1"
             autocomplete="off"
-          />
+          >
 
           <!-- Name field -->
           <div>
@@ -93,7 +92,7 @@ const contactInfo = [
               name="name"
               required
               class="w-full rounded-lg border border-border bg-background px-4 py-3 transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
-            />
+            >
           </div>
 
           <!-- Email field -->
@@ -108,7 +107,7 @@ const contactInfo = [
               name="email"
               required
               class="w-full rounded-lg border border-border bg-background px-4 py-3 transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
-            />
+            >
           </div>
 
           <!-- Message field -->
@@ -134,7 +133,7 @@ const contactInfo = [
                 name="consent"
                 required
                 class="mt-1 h-5 w-5 rounded border-border text-accent focus:ring-2 focus:ring-accent"
-              />
+              >
               <span class="text-sm">
                 {content.formLabels.consent}
                 <a href="/privacy-policy" class="text-accent hover:underline">
@@ -183,14 +182,14 @@ const contactInfo = [
 
       // Honeypot check
       const honeypot = form.querySelector<HTMLInputElement>(
-        'input[name="website"]',
+        'input[name="website"]'
       );
       if (honeypot?.value) {
         return;
       }
 
       const submitBtn = form.querySelector<HTMLButtonElement>(
-        'button[type="submit"]',
+        'button[type="submit"]'
       );
       if (submitBtn) {
         submitBtn.disabled = true;
