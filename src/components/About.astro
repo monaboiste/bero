@@ -61,7 +61,7 @@ const services = [
           width="800"
           height="600"
           loading="lazy"
-        />
+        >
       </div>
       <div>
         <p class="mb-6 text-lg leading-relaxed">{content.story}</p>
@@ -80,8 +80,7 @@ const services = [
 
     <!-- Stats -->
     <div class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4">
-      {
-        stats.map((stat) => {
+      {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <div class="text-center">
@@ -92,23 +91,20 @@ const services = [
               <div class="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           );
-        })
-      }
+        })}
     </div>
 
     <!-- Services -->
     <div>
       <h3 class="mb-12 text-center text-3xl">Nasze Usługi</h3>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {
-          services.map((service) => (
+        {services.map((service) => (
             <div class="rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:border-accent hover:shadow-lg">
               <div class="mb-4 h-1 w-12 bg-accent" />
               <h4 class="mb-3 text-xl">{service.title}</h4>
               <p class="text-muted-foreground">{service.description}</p>
             </div>
-          ))
-        }
+          ))}
       </div>
     </div>
   </div>
