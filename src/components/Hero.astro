@@ -17,6 +17,7 @@ const content = {
 
 <section
   id="home"
+  data-testid="hero"
   class="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
 >
   <div class="absolute inset-0 z-0">
@@ -34,7 +35,10 @@ const content = {
 
   <div class="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
     <div class="max-w-3xl">
-      <h1 class="mb-6 text-5xl font-bold text-white md:text-7xl">
+      <h1
+        data-testid="hero-title"
+        class="mb-6 text-5xl font-bold text-white md:text-7xl"
+      >
         {content.title}
       </h1>
 
@@ -45,6 +49,7 @@ const content = {
       <div class="flex flex-col gap-4 sm:flex-row">
         <a
           href="#contact"
+          data-testid="hero-cta-primary"
           class="group flex items-center justify-center space-x-2 rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
         >
           <span>{content.cta}</span>
@@ -55,6 +60,7 @@ const content = {
 
         <a
           href="#projects"
+          data-testid="hero-cta-secondary"
           class="rounded-lg border border-white/30 bg-white/10 px-8 py-4 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
         >
           {content.featured}
