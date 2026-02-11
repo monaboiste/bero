@@ -5,6 +5,8 @@ import ContactForm from "./ContactForm.astro";
 import ContactInfo from "./ContactInfo.astro";
 import MapEmbed from "./MapEmbed.astro";
 
+const SHOW_CONTACT_FORM = false;
+
 // Static mock content - will be replaced with CMS data later
 const content = {
   title: "Kontakt",
@@ -35,17 +37,31 @@ const contactItems = [
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader title={content.title} subtitle={content.subtitle} />
 
-    <div class="grid gap-12 md:grid-cols-2">
-      <!-- Contact Info + Map -->
-      <div>
-        <ContactInfo items={contactItems} class="mb-12" />
-        <MapEmbed src={content.mapSrc} title="Lokalizacja" />
-      </div>
+    {SHOW_CONTACT_FORM ? (
+      <div class="grid gap-12 md:grid-cols-2">
+        <!-- Contact Info + Map -->
+        <div>
+          <ContactInfo items={contactItems} class="mb-12" />
+          <MapEmbed src={content.mapSrc} title="Lokalizacja" />
+        </div>
 
-      <!-- Contact Form -->
-      <div>
-        <ContactForm labels={content.formLabels} />
+        <!-- Contact Form -->
+        <div>
+          <ContactForm labels={content.formLabels} />
+        </div>
       </div>
-    </div>
+    ) : (
+      <div class="grid gap-12 md:grid-cols-2">
+        <!-- Contact Info -->
+        <div>
+          <ContactInfo items={contactItems} />
+        </div>
+
+        <!-- Map -->
+        <div>
+          <MapEmbed src={content.mapSrc} title="Lokalizacja" />
+        </div>
+      </div>
+    )}
   </div>
 </section>
