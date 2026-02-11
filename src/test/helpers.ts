@@ -4,7 +4,7 @@ import {
 } from "astro/container";
 import type { ComponentProps } from "astro/types";
 
-// biome-ignore lint: noExplicitAny
+// biome-ignore lint: lint/suspicion/noExplicitAny
 type AstroComponentFactory = (...args: any[]) => any;
 
 type ComponentContainerRenderOptions<T extends AstroComponentFactory> = Omit<

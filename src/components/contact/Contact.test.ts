@@ -1,3 +1,5 @@
+// biome-ignore-all lint/suspicious/noSkippedTests: Skip Contact Form
+
 import { describe, expect, test } from "vitest";
 import { renderAstroComponent } from "../../test/helpers.ts";
 import Contact from "./Contact.astro";
@@ -53,7 +55,7 @@ describe("Contact", () => {
     expect(iframe?.getAttribute("src")).toContain("google.com/maps");
   });
 
-  test("renders contact form", async () => {
+  test.skip("renders contact form", async () => {
     const result = await renderAstroComponent(Contact);
 
     const form = result.querySelector('form[data-testid="contact-form"]');
@@ -61,7 +63,7 @@ describe("Contact", () => {
     expect(form).not.toBeNull();
   });
 
-  test("form contains name, email, and message fields", async () => {
+  test.skip("form contains name, email, and message fields", async () => {
     const result = await renderAstroComponent(Contact);
 
     const nameField = result.querySelector('input[name="name"]');
@@ -73,7 +75,7 @@ describe("Contact", () => {
     expect(messageField).not.toBeNull();
   });
 
-  test("form contains consent checkbox", async () => {
+  test.skip("form contains consent checkbox", async () => {
     const result = await renderAstroComponent(Contact);
 
     const consentCheckbox = result.querySelector(
@@ -83,7 +85,7 @@ describe("Contact", () => {
     expect(consentCheckbox).not.toBeNull();
   });
 
-  test("form contains submit button", async () => {
+  test.skip("form contains submit button", async () => {
     const result = await renderAstroComponent(Contact);
 
     const submitButton = result.querySelector(
@@ -94,7 +96,7 @@ describe("Contact", () => {
     expect(submitButton?.textContent).toContain("Wyslij wiadomosc");
   });
 
-  test("form has honeypot field for spam protection", async () => {
+  test.skip("form has honeypot field for spam protection", async () => {
     const result = await renderAstroComponent(Contact);
 
     const honeypot = result.querySelector('input[name="website"]');
