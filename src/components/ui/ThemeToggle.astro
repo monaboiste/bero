@@ -12,12 +12,12 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
 <button
   type="button"
   id={id}
-  data-testid="theme-toggle"
+  data-testid={id}
   class={`rounded-lg p-2 transition-colors hover:bg-muted ${className}`}
   aria-label="Przelacz motyw"
 >
-  <Sun class="hidden h-5 w-5 dark:block" />
-  <Moon class="block h-5 w-5 dark:hidden" />
+  <Sun class="hidden h-5 w-5 dark:block" data-testid="icon-sun" />
+  <Moon class="block h-5 w-5 dark:hidden" data-testid="icon-moon" />
 </button>
 
 <script>
