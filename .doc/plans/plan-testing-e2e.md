@@ -9,6 +9,9 @@
 ## Writing Tests
 
 * Place tests in `e2e/` folder
+* Group tests by feature e.g. `navigation/`
+* Use tags for platform specific tests, e.g. `@mobile`
+* Platform specific tests should have `.platform.test.ts` extension
 * Use `describe` to group flows, `test` for individual scenarios
 * Prefer realistic user flows (clicks, typing, navigation)
 * Use selectors via `data-testid` when possible (signal if there isn't any `data-testd` attribute and add it if necessary).
