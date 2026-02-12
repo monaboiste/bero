@@ -1,0 +1,21 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import StatCard from "../ui/StatCard.astro";
+
+interface Props {
+  stats: {
+    icon: AstroComponentFactory;
+    value: string;
+    label: string;
+  }[];
+}
+
+const { stats } = Astro.props;
+---
+
+<div
+  data-testid="about-stats"
+  class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4"
+>
+  {stats.map((stat) => <StatCard icon={stat.icon} value={stat.value} label={stat.label} />)}
+</div>

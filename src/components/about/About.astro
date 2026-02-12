@@ -1,8 +1,9 @@
 ---
 import { Award, Clock, Heart, Users } from "@lucide/astro";
 import SectionHeader from "../ui/SectionHeader.astro";
-import StatCard from "../ui/StatCard.astro";
-import ServiceCard from "./ServiceCard.astro";
+import AboutServices from "./AboutServices.astro";
+import AboutStats from "./AboutStats.astro";
+import StorySection from "./StorySection.astro";
 
 // Static mock content - will be replaced with CMS data later
 const content = {
@@ -49,53 +50,12 @@ const services = [
 <section id="about" data-testid="about" class="py-20">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader title={content.title} subtitle={content.subtitle} />
-
-    <!-- Story Section -->
-    <div
-      data-testid="about-story"
-      class="mb-20 grid items-center gap-12 md:grid-cols-2"
-    >
-      <div>
-        <img
-          src={content.craftImage}
-          alt="Craftsman working"
-          class="h-auto w-full rounded-lg shadow-xl"
-          width="800"
-          height="600"
-          loading="lazy"
-        >
-      </div>
-      <div>
-        <p class="mb-6 text-lg leading-relaxed">{content.story}</p>
-        <p class="leading-relaxed text-muted-foreground">{content.mission}</p>
-
-        <div class="mt-8">
-          <span
-            class="font-accent text-3xl text-accent md:text-4xl"
-            style="font-family: var(--font-accent);"
-          >
-            Bero
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div
-      data-testid="about-stats"
-      class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4"
-    >
-      {stats.map((stat) => <StatCard icon={stat.icon} value={stat.value} label={stat.label} />)}
-    </div>
-
-    <!-- Services -->
-    <div data-testid="about-services">
-      <h3 class="mb-12 text-center text-3xl">Nasze Uslugi</h3>
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {services.map((service) => (
-            <ServiceCard title={service.title} description={service.description} />
-          ))}
-      </div>
-    </div>
+    <StorySection
+      story={content.story}
+      mission={content.mission}
+      image={content.craftImage}
+    />
+    <AboutStats stats={stats} />
+    <AboutServices services={services} />
   </div>
 </section>
