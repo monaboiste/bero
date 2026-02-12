@@ -11,6 +11,9 @@ export default defineConfig({
     baseURL: "http://localhost:4321",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
+    launchOptions: {
+      args: ["--force-prefers-reduced-motion"],
+    },
   },
 
   projects: [
