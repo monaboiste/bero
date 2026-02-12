@@ -1,0 +1,38 @@
+---
+interface Props {
+  story: string;
+  mission: string;
+  image: string;
+}
+
+const { story, mission, image: craftImage } = Astro.props;
+---
+
+<div
+  data-testid="about-story"
+  class="mb-20 grid items-center gap-12 md:grid-cols-2"
+>
+  <div>
+    <img
+      src={craftImage}
+      alt="Craftsman working"
+      class="h-auto w-full rounded-lg shadow-xl"
+      width="800"
+      height="600"
+      loading="lazy"
+    >
+  </div>
+  <div>
+    <p class="mb-6 text-lg leading-relaxed">{story}</p>
+    <p class="leading-relaxed text-muted-foreground">{mission}</p>
+
+    <div class="mt-8">
+      <span
+        class="font-accent text-3xl text-accent md:text-4xl"
+        style="font-family: var(--font-accent);"
+      >
+        Bero
+      </span>
+    </div>
+  </div>
+</div>
