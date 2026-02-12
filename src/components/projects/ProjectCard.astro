@@ -4,7 +4,6 @@ interface Props {
   description: string;
   image: string;
   date?: string;
-  index?: number;
   viewMoreLabel?: string;
 }
 
@@ -13,16 +12,11 @@ const {
   description,
   image,
   date,
-  index = 0,
   viewMoreLabel = "Zobacz wiecej",
 } = Astro.props;
 ---
 
-<div
-  data-testid="project-card"
-  class="project-card group h-full cursor-pointer"
-  style={`--delay: ${index * 0.1}s`}
->
+<div data-testid="project-card" class="group h-full cursor-pointer">
   <div
     class="relative flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl"
   >
@@ -39,20 +33,16 @@ const {
       <!-- Subtle overlay on hover -->
       <div
         class="absolute inset-0 bg-black/0 transition-all duration-300 group-hover:bg-black/20"
-      />
+      ></div>
 
       <!-- Date badge - shows on hover -->
       {date && (
-      <div
-        class="absolute top-4 right-4 opacity-0 transition-all duration-300 group-hover:opacity-100"
-      >
-        <span
-          class="rounded-full bg-accent px-3 py-1 text-sm text-white shadow-lg"
-        >
-          {date}
-        </span>
-      </div>
-      )}
+          <div class="absolute top-4 right-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <span class="rounded-full bg-accent px-3 py-1 text-sm text-white shadow-lg">
+              {date}
+            </span>
+          </div>
+        )}
     </div>
 
     <!-- Content -->
