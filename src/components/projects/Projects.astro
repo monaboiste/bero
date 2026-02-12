@@ -62,7 +62,7 @@ const projects = [
     </div>
 
     <!-- View All Button -->
-    <div class="mt-12 text-center">
+    <div data-animate="projects-view-all-btn" class="mt-12 text-center">
       <button
         data-testid="projects-view-all"
         class="group inline-flex cursor-pointer items-center rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
@@ -91,6 +91,10 @@ const projects = [
     opacity: 0;
     transform: translateY(50px);
   }
+  [data-animate="projects-view-all-btn"] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 </style>
 
 <script>
@@ -107,4 +111,11 @@ const projects = [
     },
     { margin: "-50px" }
   );
+  inView("[data-animate='projects-view-all-btn']", (element, _) => {
+    animate(
+      element,
+      { opacity: [0, 1], y: [0, 20] },
+      { duration: 0.6, ease: "easeOut", delay: 0.3 }
+    );
+  });
 </script>
