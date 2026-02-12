@@ -8,7 +8,39 @@ interface Props {
 const { title, subtitle, class: className = "" } = Astro.props;
 ---
 
-<div class={`mb-16 text-center ${className}`}>
+<div data-animate="section-header" class={`mb-16 text-center ${className}`}>
   <h2 class="mb-4 text-4xl md:text-5xl">{title}</h2>
+
+  <div
+    data-animate="section-decoration"
+    class="mb-4 h-1 w-20 mx-auto bg-accent"
+  ></div>
+
   {subtitle && <p class="text-xl text-muted-foreground">{subtitle}</p>}
 </div>
+
+<style>
+  [data-animate="section-header"] {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  [data-animate="section-decoration"] {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+</style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  inView(
+    "[data-animate='section-header']",
+    (element, _) => {
+      animate(element, { opacity: 1, y: 0 }, { duration: 0.8 });
+    },
+    { margin: "-100px" }
+  );
+  inView("[data-animate='section-decoration']", (element, _) => {
+    animate(element, { scaleX: 1 }, { duration: 0.8, delay: 0.2 });
+  });
+</script>
