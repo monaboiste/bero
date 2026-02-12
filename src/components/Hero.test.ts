@@ -1,5 +1,10 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { renderAstroComponent } from "../test/helpers.ts";
+
+vi.mock("motion", () => ({
+  animate: vi.fn(),
+}));
+
 import Hero from "./Hero.astro";
 
 describe("Hero", () => {
