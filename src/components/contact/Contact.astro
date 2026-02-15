@@ -63,9 +63,11 @@ const contactItems = [
 </section>
 
 <style>
-  :root.js [data-animate="contact-map"] {
-    opacity: 0;
-    transform: scale(0.95);
+  @media (scripting: enabled) {
+    [data-animate="contact-map"] {
+      opacity: 0;
+      transform: scale(0.95);
+    }
   }
 </style>
 

@@ -14,7 +14,7 @@ const { title, description, image, url } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pl" class="no-js">
+<html lang="pl">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,8 +32,6 @@ const { title, description, image, url } = Astro.props;
     >
 
     <script is:inline>
-      document.documentElement.classList.remove("no-js");
-      document.documentElement.classList.add("js");
       (() => {
         const theme = localStorage.getItem("theme");
         if (theme === "dark") {

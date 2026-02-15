@@ -41,9 +41,11 @@ const { items, class: className = "" } = Astro.props;
 </div>
 
 <style>
-  :root.js [data-animate="contact-info-row"] {
-    opacity: 0;
-    transform: translateX(-20px);
+  @media (scripting: enabled) {
+    [data-animate="contact-info-row"] {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
   }
 </style>
 

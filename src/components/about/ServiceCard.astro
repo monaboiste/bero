@@ -21,9 +21,11 @@ const { title, description, class: className = "" } = Astro.props;
 </div>
 
 <style>
-  :root.js [data-animate="service-card-decoration"] {
-    transform: scaleX(0);
-    transform-origin: left;
+  @media (scripting: enabled) {
+    [data-animate="service-card-decoration"] {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
   }
 </style>
 

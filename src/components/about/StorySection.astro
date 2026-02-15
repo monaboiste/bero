@@ -38,17 +38,19 @@ const { story, mission, image: craftImage } = Astro.props;
 </div>
 
 <style>
-  :root.js [data-animate="about-story-img"] {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  :root.js [data-animate="about-story-mission"] {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  :root.js [data-animate="about-story-signature"] {
-    opacity: 0;
-    transform: scale(0.8);
+  @media (scripting: enabled) {
+    [data-animate="about-story-img"] {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    [data-animate="about-story-mission"] {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    [data-animate="about-story-signature"] {
+      opacity: 0;
+      transform: scale(0.8);
+    }
   }
 </style>
 
