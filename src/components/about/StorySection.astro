@@ -57,19 +57,19 @@ const { story, mission, image: craftImage } = Astro.props;
 
   inView(
     "[data-animate='about-story-img']",
-    (element, _) => {
+    (element) => {
       animate(element, { opacity: 1, x: 0 }, { duration: 0.8 });
     },
     { margin: "-100px" }
   );
   inView(
     "[data-animate='about-story-mission']",
-    (element, _) => {
+    (element) => {
       animate(element, { opacity: 1, x: 0 }, { duration: 0.8, delay: 0.2 });
     },
     { margin: "-100px" }
   );
-  inView("[data-animate='about-story-signature']", (element, _) => {
+  inView("[data-animate='about-story-signature']", (element) => {
     animate(element, { opacity: 1, scale: 1 }, { duration: 0.6, delay: 0.4 });
   });
 </script>
