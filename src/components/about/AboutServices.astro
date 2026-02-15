@@ -42,7 +42,7 @@ const { services } = Astro.props;
 </style>
 
 <script>
-  import { animate, inView, stagger } from "motion";
+  import { animate, inView } from "motion";
 
   inView("[data-animate='about-services-title']", (element) => {
     animate(element, { opacity: 1, y: 0 }, { duration: 0.6, ease: "easeOut" });
@@ -51,19 +51,23 @@ const { services } = Astro.props;
   inView(
     "[data-animate='about-services-grid']",
     (grid) => {
-      const cards = grid.querySelectorAll(
+      const cards = grid.querySelectorAll<HTMLElement>(
         "[data-animate='about-services-card']"
       );
 
-      animate(
-        cards,
-        { opacity: 1, y: 0 },
-        {
-          duration: 0.5,
-          delay: stagger(0.15),
-          ease: "easeOut",
-        }
-      );
+      cards.forEach((card, index) => {
+        animate(
+          card,
+          { opacity: 1, y: 0 },
+          {
+            delay: index * 0.08,
+            type: "spring",
+            stiffness: 480,
+            damping: 20,
+            mass: 1,
+          }
+        );
+      });
     },
     { margin: "-50px" }
   );
