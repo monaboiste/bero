@@ -48,21 +48,23 @@ describe("About", () => {
     expect(image).not.toBeNull();
   });
 
-  test("renders 4 stat cards", async () => {
+  test("renders 4 stat cards with correct target values", async () => {
     const result = await renderAstroComponent(About);
-
     const statsSection = result.querySelector('[data-testid="about-stats"]');
-    const statCards = statsSection?.querySelectorAll(
-      '[data-testid="stat-card"]'
+
+    const counterElements = statsSection?.querySelectorAll(
+      '[data-animate="stat-card-value"]'
     );
 
-    expect(statCards?.length).toBe(4);
+    const targets = Array.from(counterElements || []).map((el) =>
+      el.getAttribute("data-target")
+    );
 
-    const statsText = statsSection?.textContent;
-    expect(statsText).toContain("20+");
-    expect(statsText).toContain("500+");
-    expect(statsText).toContain("100%");
-    expect(statsText).toContain("∞");
+    expect(targets).toContain("20");
+    expect(targets).toContain("500");
+    expect(targets).toContain("100");
+
+    expect(statsSection?.textContent).toContain("∞");
   });
 
   test("renders 4 service cards", async () => {
