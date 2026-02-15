@@ -57,7 +57,7 @@ const { services } = Astro.props;
         "[data-animate='about-services-card']"
       );
 
-      cards.forEach((card, index) => {
+      for (const [index, card] of cards.entries()) {
         animate(
           card,
           { opacity: 1, y: 0 },
@@ -69,7 +69,7 @@ const { services } = Astro.props;
             mass: 1,
           }
         );
-      });
+      }
     },
     { margin: "-50px" }
   );
