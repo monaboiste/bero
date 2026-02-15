@@ -8,11 +8,7 @@ interface Props {
 }
 
 // TODO: i18n - languages will come from i18n config
-const languages = [
-  { code: "pl", label: "Polski" },
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-];
+const languages = [{ code: "pl", label: "Polski" }];
 
 const {
   variant = "dropdown",
@@ -38,7 +34,6 @@ const {
         class="absolute right-0 mt-2 hidden w-32 overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
         {languages
-          .filter((lang) => lang.code !== "de")
           .map((lang) => (
             <button
               type="button"
