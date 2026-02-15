@@ -12,7 +12,22 @@ const { title, description, class: className = "" } = Astro.props;
   data-testid="service-card"
   class={`rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:border-accent hover:shadow-lg ${className}`}
 >
-  <div class="mb-4 h-1 w-12 bg-accent" />
+  <div data-animate="service-card-decoration" class="mb-4 h-1 w-12 bg-accent" />
   <h4 class="mb-3 text-xl">{title}</h4>
   <p class="text-muted-foreground">{description}</p>
 </div>
+
+<style>
+  [data-animate="service-card-decoration"] {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+</style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  inView("[data-animate='service-card-decoration']", (element) => {
+    animate(element, { scaleX: 1 }, { duration: 0.6, delay: 0.3 });
+  });
+</script>
