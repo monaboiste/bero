@@ -31,13 +31,15 @@ const { services } = Astro.props;
 </div>
 
 <style>
-  :root.js [data-animate="about-services-title"] {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  :root.js [data-animate="about-services-card"] {
-    opacity: 0;
-    transform: translateY(30px);
+  @media (scripting: enabled) {
+    [data-animate="about-services-title"] {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    [data-animate="about-services-card"] {
+      opacity: 0;
+      transform: translateY(30px);
+    }
   }
 </style>
 

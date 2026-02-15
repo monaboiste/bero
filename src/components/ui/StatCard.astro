@@ -42,9 +42,11 @@ const isValueAnimatable = valueNumeric !== undefined && valueNumeric !== null;
 </div>
 
 <style>
-  :root.js [data-animate="stat-card"] {
-    opacity: 0;
-    transform: translateY(50px);
+  @media (scripting: enabled) {
+    [data-animate="stat-card"] {
+      opacity: 0;
+      transform: translateY(50px);
+    }
   }
 </style>
 

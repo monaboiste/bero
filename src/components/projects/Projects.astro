@@ -87,13 +87,15 @@ const projects = [
 </section>
 
 <style>
-  :root.js [data-animate="project-card"] {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  :root.js [data-animate="projects-view-all-btn"] {
-    opacity: 0;
-    transform: translateY(20px);
+  @media (scripting: enabled) {
+    [data-animate="project-card"] {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    [data-animate="projects-view-all-btn"] {
+      opacity: 0;
+      transform: translateY(20px);
+    }
   }
 </style>
 

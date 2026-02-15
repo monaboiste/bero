@@ -79,14 +79,16 @@ const content = {
 </section>
 
 <style>
-  :root.js [data-animate="hero-title"],
-  :root.js [data-animate="hero-description"] {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  :root.js [data-animate="hero-cta"] {
-    opacity: 0;
-    transform: translateY(20px);
+  @media (scripting: enabled) {
+    [data-animate="hero-title"],
+    [data-animate="hero-description"] {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    [data-animate="hero-cta"] {
+      opacity: 0;
+      transform: translateY(20px);
+    }
   }
 </style>
 

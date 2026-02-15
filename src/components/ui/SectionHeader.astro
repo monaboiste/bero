@@ -20,13 +20,15 @@ const { title, subtitle, class: className = "" } = Astro.props;
 </div>
 
 <style>
-  :root.js [data-animate="section-header"] {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  :root.js [data-animate="section-decoration"] {
-    transform: scaleX(0);
-    transform-origin: center;
+  @media (scripting: enabled) {
+    [data-animate="section-header"] {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    [data-animate="section-decoration"] {
+      transform: scaleX(0);
+      transform-origin: center;
+    }
   }
 </style>
 
