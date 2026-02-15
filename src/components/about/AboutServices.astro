@@ -20,7 +20,7 @@ const { services } = Astro.props;
     class="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
   >
     {services.map((service) => (
-        <div data-animate="about-services-card">
+        <div data-animate="about-services-card" class="h-full">
           <ServiceCard
             title={service.title}
             description={service.description}
