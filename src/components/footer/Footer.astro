@@ -1,5 +1,6 @@
 ---
 import { Mail, Phone } from "@lucide/astro";
+import { Instagram } from "simple-icons-astro";
 import Facebook from "simple-icons-astro/Facebook";
 import SocialLinks from "../ui/SocialLinks.astro";
 import FooterLinks from "./FooterLinks.astro";
@@ -24,7 +25,18 @@ const quickLinks = [
 
 const legalLinks = [{ label: "Polityka prywatnosci", href: "/privacy-policy" }];
 
-const socialLinks = [{ icon: Facebook, href: "#", label: "Facebook" }];
+const socialLinks = [
+  {
+    icon: Facebook,
+    href: "https://www.facebook.com/BERO1234",
+    label: "Facebook",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/studio.tapicerskie.bero",
+    label: "Instagram",
+  },
+];
 ---
 
 <footer data-testid="footer" class="bg-primary text-primary-foreground">
