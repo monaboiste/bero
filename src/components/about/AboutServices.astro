@@ -12,10 +12,59 @@ const { services } = Astro.props;
 ---
 
 <div data-testid="about-services">
-  <h3 class="mb-12 text-center text-3xl">Nasze Uslugi</h3>
-  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+  <h3 data-animate="about-services-title" class="mb-12 text-center text-3xl">
+    Nasze Uslugi
+  </h3>
+  <div
+    data-animate="about-services-grid"
+    class="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+  >
     {services.map((service) => (
-      <ServiceCard title={service.title} description={service.description} />
-    ))}
+        <div data-animate="about-services-card">
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+          />
+        </div>
+      ))}
   </div>
 </div>
+
+<style>
+  [data-animate="about-services-title"] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  [data-animate="about-services-card"] {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  inView("[data-animate='about-services-title']", (element) => {
+    animate(element, { opacity: 1, y: 0 }, { duration: 0.6, ease: "easeOut" });
+  });
+
+  inView(
+    "[data-animate='about-services-grid']",
+    (grid) => {
+      const cards = grid.querySelectorAll(
+        "[data-animate='about-services-card']"
+      );
+
+      animate(
+        cards,
+        { opacity: 1, y: 0 },
+        {
+          duration: 0.5,
+          delay: stagger(0.15),
+          ease: "easeOut",
+        }
+      );
+    },
+    { margin: "-50px" }
+  );
+</script>
