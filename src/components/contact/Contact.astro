@@ -22,7 +22,7 @@ const content = {
     privacyPolicy: "Polityka Prywatnosci",
     send: "Wyslij wiadomosc",
   },
-  mapSrc:
+  mapSource:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.5283457!2d21.012229!3d52.229676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzQ2LjgiTiAyMcKwMDAnNDQuMCJF!5e0!3m2!1sen!2spl!4v1234567890",
 };
 
@@ -38,30 +38,26 @@ const contactItems = [
     <SectionHeader title={content.title} subtitle={content.subtitle} />
 
     {SHOW_CONTACT_FORM ? (
-      <div class="grid gap-12 md:grid-cols-2">
-        <!-- Contact Info + Map -->
-        <div>
-          <ContactInfo items={contactItems} class="mb-12" />
-          <MapEmbed src={content.mapSrc} title="Lokalizacja" />
-        </div>
+        <div class="grid gap-12 md:grid-cols-2">
+          <div>
+            <ContactInfo items={contactItems} class="mb-12" />
+            <MapEmbed src={content.mapSource} title="Lokalizacja" />
+          </div>
 
-        <!-- Contact Form -->
-        <div>
-          <ContactForm labels={content.formLabels} />
+          <div>
+            <ContactForm labels={content.formLabels} />
+          </div>
         </div>
-      </div>
-    ) : (
-      <div class="grid gap-12 md:grid-cols-2">
-        <!-- Contact Info -->
-        <div>
-          <ContactInfo items={contactItems} />
-        </div>
+      ) : (
+        <div class="grid gap-12 md:grid-cols-2">
+          <div>
+            <ContactInfo items={contactItems} />
+          </div>
 
-        <!-- Map -->
-        <div>
-          <MapEmbed src={content.mapSrc} title="Lokalizacja" />
+          <div>
+            <MapEmbed src={content.mapSource} title="Lokalizacja" />
+          </div>
         </div>
-      </div>
-    )}
+      )}
   </div>
 </section>
