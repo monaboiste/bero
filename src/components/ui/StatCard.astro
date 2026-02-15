@@ -31,8 +31,7 @@ const isValueAnimatable = valueNumeric !== undefined && valueNumeric !== null;
           data-target={valueNumeric}
           data-suffix={suffix}
         >
-          {initialValueNumeric}
-          {suffix}
+          {valueNumeric}{suffix}
         </span>
       ) : (
         <span>{suffix}</span>
