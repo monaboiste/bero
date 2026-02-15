@@ -35,12 +35,12 @@ const { title, subtitle, class: className = "" } = Astro.props;
 
   inView(
     "[data-animate='section-header']",
-    (element, _) => {
+    (element) => {
       animate(element, { opacity: 1, y: 0 }, { duration: 0.8 });
     },
     { margin: "-100px" }
   );
-  inView("[data-animate='section-decoration']", (element, _) => {
+  inView("[data-animate='section-decoration']", (element) => {
     animate(element, { scaleX: 1 }, { duration: 0.8, delay: 0.2 });
   });
 </script>
