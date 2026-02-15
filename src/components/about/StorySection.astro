@@ -12,7 +12,7 @@ const { story, mission, image: craftImage } = Astro.props;
   data-testid="about-story"
   class="mb-20 grid items-center gap-12 md:grid-cols-2"
 >
-  <div>
+  <div data-animate="about-story-img">
     <img
       src={craftImage}
       alt="Craftsman working"
@@ -22,11 +22,11 @@ const { story, mission, image: craftImage } = Astro.props;
       loading="lazy"
     >
   </div>
-  <div>
+  <div data-animate="about-story-mission">
     <p class="mb-6 text-lg leading-relaxed">{story}</p>
     <p class="leading-relaxed text-muted-foreground">{mission}</p>
 
-    <div class="mt-8">
+    <div data-animate="about-story-signature" class="mt-8">
       <span
         class="font-accent text-3xl text-accent md:text-4xl"
         style="font-family: var(--font-accent);"
@@ -36,3 +36,40 @@ const { story, mission, image: craftImage } = Astro.props;
     </div>
   </div>
 </div>
+
+<style>
+  [data-animate="about-story-img"] {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  [data-animate="about-story-mission"] {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  [data-animate="about-story-signature"] {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+</style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  inView(
+    "[data-animate='about-story-img']",
+    (element, _) => {
+      animate(element, { opacity: 1, x: 0 }, { duration: 0.8 });
+    },
+    { margin: "-100px" }
+  );
+  inView(
+    "[data-animate='about-story-mission']",
+    (element, _) => {
+      animate(element, { opacity: 1, x: 0 }, { duration: 0.8, delay: 0.2 });
+    },
+    { margin: "-100px" }
+  );
+  inView("[data-animate='about-story-signature']", (element, _) => {
+    animate(element, { opacity: 1, scale: 1 }, { duration: 0.6, delay: 0.4 });
+  });
+</script>
