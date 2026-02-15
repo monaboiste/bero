@@ -14,8 +14,36 @@ const { stats } = Astro.props;
 ---
 
 <div
+  data-animate="about-stats"
   data-testid="about-stats"
   class="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4"
 >
-  {stats.map((stat) => <StatCard icon={stat.icon} value={stat.value} label={stat.label} />)}
+  {stats.map((stat) => (
+      <div data-animate="about-stats-card">
+        <StatCard icon={stat.icon} value={stat.value} label={stat.label} />
+      </div>
+    ))}
 </div>
+
+<style>
+  [data-animate="about-stats-card"] {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  inView(
+    "[data-animate='about-stats']",
+    () => {
+      animate(
+        "[data-animate='about-stats-card']",
+        { opacity: 1, scale: 1 },
+        { duration: 0.5, ease: "easeOut", delay: stagger(0.1) }
+      );
+    },
+    { margin: "-50px" }
+  );
+</script>
