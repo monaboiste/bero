@@ -18,10 +18,24 @@ const content = {
 };
 
 const stats = [
-  { icon: Clock, value: "20+", label: "Lat doswiadczenia" },
-  { icon: Award, value: "500+", label: "Zrealizowanych projektow" },
-  { icon: Users, value: "100%", label: "Zadowolonych klientow" },
-  { icon: Heart, value: "\u221E", label: "Pasja w kazdym detalu" },
+  { icon: Clock, valueNumeric: 20, suffix: "+", label: "Lat doswiadczenia" },
+  {
+    icon: Award,
+    valueNumeric: 500,
+    suffix: "+",
+    label: "Zrealizowanych projektow",
+  },
+  {
+    icon: Users,
+    valueNumeric: 100,
+    suffix: "%",
+    label: "Zadowolonych klientow",
+  },
+  {
+    icon: Heart,
+    suffix: "\u221E",
+    label: "Pasja w kazdym detalu",
+  },
 ];
 
 const services = [
