@@ -54,10 +54,29 @@ const contactItems = [
             <ContactInfo items={contactItems} />
           </div>
 
-          <div>
+          <div data-animate="contact-map">
             <MapEmbed src={content.mapSource} title="Lokalizacja" />
           </div>
         </div>
       )}
   </div>
 </section>
+
+<style>
+  [data-animate="contact-map"] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+</style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  inView("[data-animate='contact-map']", (element) => {
+    animate(
+      element,
+      { opacity: 1, scale: 1 },
+      { duration: 0.6, ease: "easeOut", delay: 0.3 }
+    );
+  });
+</script>
