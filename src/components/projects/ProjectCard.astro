@@ -7,6 +7,7 @@ interface Props {
   image: string;
   date?: string;
   viewMoreLabel?: string;
+  projectId?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   image,
   date,
   viewMoreLabel = "Zobacz wiecej",
+  projectId,
 } = Astro.props;
 ---
 

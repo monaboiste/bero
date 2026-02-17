@@ -1,0 +1,50 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+import Footer from "../../components/footer/Footer.astro";
+import Navigation from "../../components/navigation/Navigation.astro";
+import ProjectsGallery from "../../components/projects/gallery/ProjectsGallery.astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import {
+  getProjects,
+  getProjectsPage,
+  PROJECTS_PER_PAGE,
+} from "../../data/projects";
+import Layout from "../../layouts/Layout.astro";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  const allProjects = getProjects();
+  const totalPages = Math.ceil(allProjects.length / PROJECTS_PER_PAGE);
+
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: i === 0 ? undefined : String(i + 1) },
+    props: { page: i + 1 },
+  }));
+}
+
+interface Props {
+  page: number;
+}
+
+const { page } = Astro.props;
+const paginatedProjects = getProjectsPage(page, PROJECTS_PER_PAGE);
+---
+
+<Layout
+  title="Wszystkie Realizacje | Studio Tapicerskie BERO"
+  description="Galeria wszystkich realizacji Studio Tapicerskiego BERO. Zobacz nasze projekty tapicerskie - renowacje, meble na wymiar i wiele wiecej."
+>
+  <Navigation />
+  <main class="bg-secondary pt-28 pb-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeader
+        title="Wszystkie Realizacje"
+        subtitle="Galeria naszych projektów tapicerskich"
+      />
+
+      <ProjectsGallery paginatedProjects={paginatedProjects} />
+    </div>
+  </main>
+  <Footer />
+</Layout>
