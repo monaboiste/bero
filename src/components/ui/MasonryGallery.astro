@@ -27,6 +27,7 @@ const { images, columns = 3, class: className = "" } = Astro.props;
         data-gallery="masonry-gallery"
         data-type="image"
         data-description={image.description}
+        data-animate="masonry-tile"
         data-testid="masonry-tile"
       >
         <div class="masonry-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
@@ -66,6 +67,13 @@ const { images, columns = 3, class: className = "" } = Astro.props;
   @media (max-width: 639px) {
     .masonry-gallery {
       column-count: 1;
+    }
+  }
+
+  @media (scripting: enabled) {
+    [data-animate="masonry-tile"] {
+      opacity: 0;
+      transform: translateY(40px);
     }
   }
 </style>
@@ -155,6 +163,18 @@ const { images, columns = 3, class: className = "" } = Astro.props;
     }
   }
 </style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  inView(
+    "[data-animate='masonry-tile']",
+    (tile) => {
+      animate(tile, { opacity: 1, y: 0 }, { duration: 0.5, ease: "easeOut" });
+    },
+    { margin: "-50px" }
+  );
+</script>
 
 <script>
   import GLightbox from "glightbox";
