@@ -12,7 +12,7 @@ interface Props {
   class?: string;
 }
 
-const { images, columns = 2, date: _date, class: className = "" } = Astro.props;
+const { images, columns = 3, class: className = "" } = Astro.props;
 ---
 
 <div
@@ -21,39 +21,37 @@ const { images, columns = 2, date: _date, class: className = "" } = Astro.props;
   style={`--masonry-columns: ${columns};`}
 >
   {images.map((image) => (
-    <a
-      href={image.src}
-      class="glightbox masonry-tile-link"
-      data-gallery="masonry-gallery"
-      data-type="image"
-      data-description={image.description}
-      data-testid="masonry-tile"
-    >
-      <div class="masonry-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
-        <img
-          src={image.src}
-          alt={image.alt}
-          loading="lazy"
-          class="block w-full transition-transform duration-300 group-hover:scale-105"
-        />
-        {image.description && (
-          <div
-            data-testid="masonry-tile-caption"
-            class="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
-          >
-            <p class="text-sm text-white">
-              {image.description}
-            </p>
-          </div>
-        )}
-      </div>
-    </a>
-  ))}
+      <a
+        href={image.src}
+        class="glightbox masonry-tile-link"
+        data-gallery="masonry-gallery"
+        data-type="image"
+        data-description={image.description}
+        data-testid="masonry-tile"
+      >
+        <div class="masonry-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            class="block w-full transition-transform duration-300 group-hover:scale-105"
+          />
+          {image.description && (
+            <div
+              data-testid="masonry-tile-caption"
+              class="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
+            >
+              <p class="text-sm text-white">{image.description}</p>
+            </div>
+          )}
+        </div>
+      </a>
+    ))}
 </div>
 
 <style>
   .masonry-gallery {
-    column-count: var(--masonry-columns, 2);
+    column-count: var(--masonry-columns, 3);
     column-gap: 1rem;
   }
 
@@ -73,52 +71,34 @@ const { images, columns = 2, date: _date, class: className = "" } = Astro.props;
 </style>
 
 <style is:global>
-  /* GLightbox skin: bero */
+  /* GLightbox skin */
+
+  .glightbox-bero .gslide-media img,
+  .glightbox-bero .gslide-image img {
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
   .glightbox-bero .gslide-description {
-    background: #1a1a1a;
-    border-radius: 0 0 0.625rem 0.625rem;
+    background: var(--card);
+    border-radius: 0 0 var(--radius) var(--radius);
   }
 
   .glightbox-bero .gdesc-inner {
     padding: 22px 20px;
   }
 
-  .glightbox-bero .gslide-title {
-    font-family: "Montserrat", system-ui, sans-serif;
-    color: #ffffff;
-    font-size: 1em;
-    font-weight: 400;
-    margin-bottom: 19px;
-    line-height: 1.4em;
-  }
-
   .glightbox-bero .gslide-desc {
-    font-family: "Montserrat", system-ui, sans-serif;
-    color: #999999;
+    font-family: var(--font-sans);
+    color: var(--muted-foreground);
     font-size: 0.86em;
     margin-bottom: 0;
     line-height: 1.4em;
   }
 
-  .glightbox-bero .gslide-media {
-    overflow: hidden;
-  }
-
-  .glightbox-bero .gslide-video {
-    background: #000;
-  }
-
-  .glightbox-bero .gclose,
-  .glightbox-bero .gnext,
-  .glightbox-bero .gprev {
-    background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 4px;
-  }
-
-  .glightbox-bero .gclose path,
-  .glightbox-bero .gnext path,
-  .glightbox-bero .gprev path {
-    fill: #fff;
+  .glightbox-bero .gbtn {
+    fill: var(--muted-foreground);
+    background-color: var(--border);
+    border-radius: var(--radius);
   }
 
   .glightbox-bero .gprev {
@@ -150,32 +130,13 @@ const { images, columns = 2, date: _date, class: className = "" } = Astro.props;
     height: auto;
   }
 
-  .glightbox-bero .gclose:hover {
+  .glightbox-bero .gbtn:hover {
     opacity: 1;
   }
 
   @media (min-width: 769px) {
-    .glightbox-bero .gslide-media {
-      box-shadow: 1px 2px 9px 0 rgba(0, 0, 0, 0.65);
-    }
-
-    .glightbox-bero .description-left .gdesc-inner,
-    .glightbox-bero .description-right .gdesc-inner {
-      position: absolute;
-      height: 100%;
-      overflow-y: auto;
-    }
-
-    .glightbox-bero .gclose,
-    .glightbox-bero .gnext,
-    .glightbox-bero .gprev {
+    .glightbox-bero .gbtn {
       background-color: rgba(0, 0, 0, 0.32);
-    }
-
-    .glightbox-bero .gclose:hover,
-    .glightbox-bero .gnext:hover,
-    .glightbox-bero .gprev:hover {
-      background-color: rgba(0, 0, 0, 0.7);
     }
 
     .glightbox-bero .gprev {
