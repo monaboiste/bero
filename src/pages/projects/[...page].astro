@@ -1,8 +1,10 @@
 ---
+import { date } from "astro:schema";
 import { ArrowLeft } from "@lucide/astro";
 import Footer from "../../components/footer/Footer.astro";
 import Navigation from "../../components/navigation/Navigation.astro";
 import ProjectsGallery from "../../components/projects/gallery/ProjectsGallery.astro";
+import MasonryGallery from "../../components/ui/MasonryGallery.astro";
 import SectionHeader from "../../components/ui/SectionHeader.astro";
 import {
   getProjects,
@@ -43,7 +45,16 @@ const paginatedProjects = getProjectsPage(page, PROJECTS_PER_PAGE);
         subtitle="Galeria naszych projektów tapicerskich"
       />
 
-      <ProjectsGallery paginatedProjects={paginatedProjects} />
+      <MasonryGallery
+        images={paginatedProjects.data.map((proj) => {
+          return {
+            src: proj.image,
+            alt: proj.title,
+            description: proj.title,
+            date: proj.date,
+          };
+        })}
+      />
     </div>
   </main>
   <Footer />
