@@ -7,18 +7,13 @@ interface Props extends Omit<JSX.HTMLAttributes, "class"> {
   class?: string;
 }
 
-const {
-  src,
-  title = "Location map",
-  class: className = "",
-  ...rest
-} = Astro.props;
+const { src, title = "Location map", class: className, ...rest } = Astro.props;
 ---
 
 <div
   {...rest}
   data-testid="contact-map"
-  class={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`}
+  class:list={["aspect-video overflow-hidden rounded-lg bg-muted", className]}
 >
   <iframe
     src={src}

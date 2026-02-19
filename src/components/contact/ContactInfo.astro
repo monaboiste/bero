@@ -1,5 +1,6 @@
 ---
 import IconBadge from "@components/ui/IconBadge.astro";
+import type { JSX } from "astro/jsx-runtime";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 interface ContactItem {
@@ -7,18 +8,18 @@ interface ContactItem {
   label: string;
 }
 
-interface Props {
+interface Props extends Omit<JSX.HTMLAttributes, "class"> {
   items: ContactItem[];
   class?: string;
 }
 
-const { items, class: className = "" } = Astro.props;
+const { items, class: className } = Astro.props;
 ---
 
 <div
   data-animate="contact-info"
   data-testid="contact-info"
-  class={`space-y-8 ${className}`}
+  class:list={["space-y-8", className]}
 >
   {items.map((info) => {
       const Icon = info.icon;
