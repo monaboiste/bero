@@ -1,16 +1,23 @@
 ---
+import type { JSX } from "astro/jsx-runtime";
+
 interface NavItem {
   label: string;
   href: string;
 }
 
-interface Props {
+interface Props extends Omit<JSX.HTMLAttributes, "class"> {
   items: NavItem[];
   direction?: "row" | "column";
   class?: string;
 }
 
-const { items, direction = "row", class: className = "" } = Astro.props;
+const {
+  items,
+  direction = "row",
+  class: className = "",
+  ...rest
+} = Astro.props;
 
 const directionClasses =
   direction === "row"
@@ -18,11 +25,11 @@ const directionClasses =
     : "flex flex-col space-y-4";
 ---
 
-<div class={`${directionClasses} ${className}`}>
+<div {...rest} class={`${directionClasses} ${className}`}>
   {items.map((item) => (
-      <a 
-        href={item.href} 
-        data-testid={`nav-link-${item.href.replace('#', '')}`}
+      <a
+        href={item.href}
+        data-testid={`nav-link-${item.href.replace("#", "")}`}
         class="transition-colors hover:text-accent"
       >
         {item.label}
