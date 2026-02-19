@@ -1,13 +1,12 @@
 ---
 import type { JSX } from "astro/jsx-runtime";
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   image: {
     src: string;
     alt: string;
   };
   date?: string;
-  class?: string;
 }
 
 const { image, date, class: className, ...rest } = Astro.props;
