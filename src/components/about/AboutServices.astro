@@ -19,13 +19,13 @@ const { services } = Astro.props;
     data-animate="about-services-grid"
     class="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
   >
-    {services.map((service) => 
-          <ServiceCard
-            data-animate="about-services-card"
-            title={service.title}
-            description={service.description}
-          />
-      )}
+    {services.map((service) => (
+        <ServiceCard
+          data-animate="about-services-card"
+          title={service.title}
+          description={service.description}
+        />
+      ))}
   </div>
 </div>
 
