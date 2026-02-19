@@ -1,5 +1,5 @@
+import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
-import { renderAstroComponent } from "../../test/helpers.ts";
 
 vi.mock("motion", () => ({
   animate: vi.fn(),
