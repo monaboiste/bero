@@ -11,6 +11,27 @@
           }
         }
       }
+    },
+    {
+      "includes": ["**/*.astro", "**/*.ts", "!**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off",
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@test/*"],
+                    "message": "Using test/* in production is prohibited."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }
