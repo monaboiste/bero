@@ -25,7 +25,6 @@ const {
   data-testid="project-card"
   image={{ src: image, alt: title }}
   date={date}
-  class="cursor-pointer"
 >
   <h3
     class="mb-3 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
@@ -41,7 +40,7 @@ const {
   </p>
 
   <div
-    class="mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
+    class="cursor-pointer mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
   >
     <span class="text-sm">{viewMoreLabel}</span>
     <svg
