@@ -1,0 +1,45 @@
+---
+interface Props {
+  image: {
+    src: string;
+    alt: string;
+  };
+  date?: string;
+  class?: string;
+  "data-testid"?: string;
+}
+
+const { image, date, class: className } = Astro.props;
+---
+
+<div class:list={["group h-full", className]}>
+  <div
+    class="relative flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl"
+  >
+    <div class="relative aspect-[4/3] flex-shrink-0 overflow-hidden">
+      <img
+        src={image.src}
+        alt={image.alt}
+        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        width="1080"
+        height="810"
+        loading="lazy"
+      >
+      <div
+        class="absolute inset-0 bg-black/0 transition-all duration-300 group-hover:bg-black/20"
+      ></div>
+
+      {date && (
+          <div class="absolute top-4 right-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <span class="rounded-full bg-accent px-3 py-1 text-sm text-white shadow-lg">
+              {date}
+            </span>
+          </div>
+        )}
+    </div>
+
+    <div class="flex flex-grow flex-col p-6">
+      <slot />
+    </div>
+  </div>
+</div>
