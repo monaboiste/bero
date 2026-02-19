@@ -1,14 +1,22 @@
 ---
-interface Props {
+import type { JSX } from "astro/jsx-runtime";
+
+interface Props extends Omit<JSX.HTMLAttributes, "class"> {
   src: string;
   title?: string;
   class?: string;
 }
 
-const { src, title = "Location map", class: className = "" } = Astro.props;
+const {
+  src,
+  title = "Location map",
+  class: className = "",
+  ...rest
+} = Astro.props;
 ---
 
 <div
+  {...rest}
   data-testid="contact-map"
   class={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`}
 >
