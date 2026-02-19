@@ -1,5 +1,5 @@
+import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test } from "vitest";
-import { renderAstroComponent } from "../../test/helpers.ts";
 import SEOHead from "./SEOHead.astro";
 
 describe("SEOHead", () => {

@@ -1,7 +1,7 @@
 // biome-ignore-all lint/suspicious/noSkippedTests: Skip Contact Form
 
+import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test } from "vitest";
-import { renderAstroComponent } from "../../test/helpers.ts";
 import Contact from "./Contact.astro";
 
 describe("Contact", () => {
