@@ -8,9 +8,8 @@ interface ContactItem {
   label: string;
 }
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   items: ContactItem[];
-  class?: string;
 }
 
 const { items, class: className } = Astro.props;

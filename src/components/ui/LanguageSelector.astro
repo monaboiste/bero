@@ -2,10 +2,9 @@
 import { Globe } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   variant?: "dropdown" | "inline";
   currentLang?: string;
-  class?: string;
 }
 
 // TODO: i18n - languages will come from i18n config

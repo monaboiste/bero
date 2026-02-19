@@ -2,10 +2,7 @@
 import { Moon, Sun } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
-  id?: string;
-  class?: string;
-}
+interface Props extends JSX.HTMLAttributes {}
 
 const { id = "theme-toggle", class: className } = Astro.props;
 ---

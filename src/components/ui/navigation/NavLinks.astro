@@ -6,10 +6,9 @@ interface NavItem {
   href: string;
 }
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   items: NavItem[];
   direction?: "row" | "column";
-  class?: string;
 }
 
 const { items, direction = "row", class: className, ...rest } = Astro.props;

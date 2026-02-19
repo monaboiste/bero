@@ -1,10 +1,9 @@
 ---
 import type { JSX } from "astro/jsx-runtime";
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   variant: "success" | "error";
   id: string;
-  class?: string;
 }
 
 const { variant, id, class: className } = Astro.props;

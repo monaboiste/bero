@@ -8,9 +8,8 @@ interface SocialLink {
   label: string;
 }
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   links: SocialLink[];
-  class?: string;
 }
 
 const { links, class: className } = Astro.props;

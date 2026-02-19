@@ -4,10 +4,9 @@ import logoDark from "@assets/logo/chair-dark.png";
 import logoLight from "@assets/logo/chair-white.png";
 import type { JSX } from "astro/jsx-runtime";
 
-interface Props extends Omit<JSX.HTMLAttributes, "class"> {
+interface Props extends JSX.HTMLAttributes {
   variant?: "light" | "dark";
   size?: "sm" | "md" | "lg";
-  class?: string;
 }
 
 const { variant = "light", size = "md", class: className } = Astro.props;
