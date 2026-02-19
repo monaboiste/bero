@@ -1,17 +1,17 @@
 ---
 import { date } from "astro:schema";
+import ProjectsGallery from "@components/projects/gallery/ProjectsGallery.astro";
+import Footer from "@components/ui/footer/Footer.astro";
+import MasonryGallery from "@components/ui/MasonryGallery.astro";
+import Navigation from "@components/ui/navigation/Navigation.astro";
+import SectionHeader from "@components/ui/SectionHeader.astro";
+import Layout from "@layouts/Layout.astro";
 import { ArrowLeft } from "@lucide/astro";
-import Footer from "../../components/footer/Footer.astro";
-import Navigation from "../../components/navigation/Navigation.astro";
-import ProjectsGallery from "../../components/projects/gallery/ProjectsGallery.astro";
-import MasonryGallery from "../../components/ui/MasonryGallery.astro";
-import SectionHeader from "../../components/ui/SectionHeader.astro";
 import {
   getProjects,
   getProjectsPage,
   PROJECTS_PER_PAGE,
 } from "../../data/projects";
-import Layout from "../../layouts/Layout.astro";
 
 export const prerender = true;
 

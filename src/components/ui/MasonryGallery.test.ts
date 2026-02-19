@@ -1,5 +1,5 @@
+import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test } from "vitest";
-import { renderAstroComponent } from "../../test/helpers.ts";
 import type { GalleryImage } from "./MasonryGallery.astro";
 import MasonryGallery from "./MasonryGallery.astro";
 

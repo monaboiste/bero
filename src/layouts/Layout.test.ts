@@ -1,5 +1,5 @@
+import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test } from "vitest";
-import { renderAstroComponent } from "../test/helpers.ts";
 import Layout from "./Layout.astro";
 
 describe("Layout", () => {
