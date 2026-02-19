@@ -13,19 +13,18 @@ const { services } = Astro.props;
 
 <div data-testid="about-services">
   <h3 data-animate="about-services-title" class="mb-12 text-center text-3xl">
-    Nasze Uslugi
+    Nasze Usługi
   </h3>
   <div
     data-animate="about-services-grid"
     class="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
   >
     {services.map((service) => (
-        <div data-animate="about-services-card" class="h-full">
-          <ServiceCard
-            title={service.title}
-            description={service.description}
-          />
-        </div>
+        <ServiceCard
+          data-animate="about-services-card"
+          title={service.title}
+          description={service.description}
+        />
       ))}
   </div>
 </div>

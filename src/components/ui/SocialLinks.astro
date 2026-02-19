@@ -1,4 +1,5 @@
 ---
+import type { JSX } from "astro/jsx-runtime";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 interface SocialLink {
@@ -7,15 +8,14 @@ interface SocialLink {
   label: string;
 }
 
-interface Props {
+interface Props extends JSX.HTMLAttributes {
   links: SocialLink[];
-  class?: string;
 }
 
-const { links, class: className = "" } = Astro.props;
+const { links, class: className } = Astro.props;
 ---
 
-<div data-testid="footer-social" class={`flex space-x-4 ${className}`}>
+<div data-testid="footer-social" class:list={["flex space-x-4", className]}>
   {links.map((social) => {
       const Icon = social.icon;
       return (

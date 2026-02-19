@@ -25,9 +25,12 @@ const navItems = [
       <Logo size="md" />
 
       <!-- Desktop Navigation -->
-      <div data-testid="nav-links-desktop" class="hidden md:flex">
-        <NavLinks items={navItems} direction="row" />
-      </div>
+      <NavLinks
+        items={navItems}
+        direction="row"
+        data-testid="nav-links-desktop"
+        class="hidden md:flex"
+      />
 
       <!-- Right side controls (desktop) -->
       <div class="hidden items-center space-x-4 md:flex">

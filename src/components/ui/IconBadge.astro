@@ -1,10 +1,11 @@
 ---
-interface Props {
+import type { JSX } from "astro/jsx-runtime";
+
+interface Props extends JSX.HTMLAttributes {
   size?: "sm" | "md" | "lg";
-  class?: string;
 }
 
-const { size = "md", class: className = "" } = Astro.props;
+const { size = "md", class: className } = Astro.props;
 
 const sizeClasses = {
   sm: { container: "h-10 w-10", icon: "h-5 w-5" },
@@ -16,8 +17,8 @@ const scheme = sizeClasses[size];
 ---
 
 <div
-  class={`inline-flex items-center justify-center rounded-full bg-accent/10 ${scheme.container} ${className}`}
   data-icon-size={scheme.icon}
+  class:list={["inline-flex items-center justify-center rounded-full bg-accent/10", className]}
 >
   <slot />
 </div>
