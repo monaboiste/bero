@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { renderAstroComponent } from "../../test/helpers.ts";
+import { renderAstroComponent } from "../../../test/helpers.ts";
 import Navigation from "./Navigation.astro";
 
 describe("Navigation", () => {
