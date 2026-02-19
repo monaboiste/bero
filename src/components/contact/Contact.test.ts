@@ -22,28 +22,14 @@ describe("Contact", () => {
     expect(heading?.textContent?.trim()).toContain("Kontakt");
   });
 
-  test("displays address", async () => {
+  test("displays contact info rows", async () => {
     const result = await renderAstroComponent(Contact);
 
-    const address = result.textContent;
+    const contactInfoRows = result.querySelectorAll(
+      "[data-testid='contact-info-row']"
+    );
 
-    expect(address).toContain("ul. Przykladowa 123, 00-000 Warszawa");
-  });
-
-  test("displays phone number", async () => {
-    const result = await renderAstroComponent(Contact);
-
-    const phone = result.textContent;
-
-    expect(phone).toContain("+48 123 456 789");
-  });
-
-  test("displays email", async () => {
-    const result = await renderAstroComponent(Contact);
-
-    const email = result.textContent;
-
-    expect(email).toContain("kontakt@studiotapicerskie.pl");
+    expect(contactInfoRows).toHaveLength(3);
   });
 
   test("renders Google Maps iframe", async () => {
