@@ -18,7 +18,12 @@ const {
 } = Astro.props;
 ---
 
-<Card image={{src: image, alt: title}} date={date} class="cursor-pointer">
+<Card
+  data-testid="project-card"
+  image={{src: image, alt: title}}
+  date={date}
+  class="cursor-pointer"
+>
   <h3
     class="mb-3 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
     title={title}
