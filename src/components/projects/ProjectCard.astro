@@ -1,4 +1,6 @@
 ---
+import Card from "../ui/Card.astro";
+
 interface Props {
   title: string;
   description: string;
@@ -16,69 +18,36 @@ const {
 } = Astro.props;
 ---
 
-<div data-testid="project-card" class="group h-full cursor-pointer">
-  <div
-    class="relative flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl"
+<Card image={{src: image, alt: title}} date={date} class="cursor-pointer">
+  <h3
+    class="mb-3 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
+    title={title}
   >
-    <!-- Image - fixed aspect ratio -->
-    <div class="relative aspect-[4/3] flex-shrink-0 overflow-hidden">
-      <img
-        src={image}
-        alt={title}
-        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        width="1080"
-        height="810"
-        loading="lazy"
-      >
-      <!-- Subtle overlay on hover -->
-      <div
-        class="absolute inset-0 bg-black/0 transition-all duration-300 group-hover:bg-black/20"
-      ></div>
+    {title}
+  </h3>
+  <p
+    class="mb-4 flex-grow line-clamp-3 text-sm text-muted-foreground"
+    title={description}
+  >
+    {description}
+  </p>
 
-      <!-- Date badge - shows on hover -->
-      {date && (
-          <div class="absolute top-4 right-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
-            <span class="rounded-full bg-accent px-3 py-1 text-sm text-white shadow-lg">
-              {date}
-            </span>
-          </div>
-        )}
-    </div>
-
-    <!-- Content -->
-    <div class="flex flex-grow flex-col p-6">
-      <h3
-        class="mb-3 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
-        title={title}
-      >
-        {title}
-      </h3>
-      <p
-        class="mb-4 flex-grow line-clamp-3 text-sm text-muted-foreground"
-        title={description}
-      >
-        {description}
-      </p>
-
-      <!-- View more indicator -->
-      <div
-        class="mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
-      >
-        <span class="text-sm">{viewMoreLabel}</span>
-        <svg
-          class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
-      </div>
-    </div>
+  <div
+    class="mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
+  >
+    <span class="text-sm">{viewMoreLabel}</span>
+    <svg
+      class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"
+      ></path>
+    </svg>
   </div>
-</div>
+</Card>
