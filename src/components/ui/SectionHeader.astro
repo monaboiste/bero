@@ -1,14 +1,19 @@
 ---
-interface Props {
+import type { JSX } from "astro/jsx-runtime";
+
+interface Props extends Omit<JSX.HTMLAttributes, "class"> {
   title: string;
   subtitle?: string;
   class?: string;
 }
 
-const { title, subtitle, class: className = "" } = Astro.props;
+const { title, subtitle, class: className } = Astro.props;
 ---
 
-<div data-animate="section-header" class={`mb-16 text-center ${className}`}>
+<div
+  data-animate="section-header"
+  class:list={["mb-16 text-center", className]}
+>
   <h2 class="mb-4 text-4xl md:text-5xl">{title}</h2>
 
   <div
