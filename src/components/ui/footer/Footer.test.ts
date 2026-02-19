@@ -33,6 +33,17 @@ describe("Footer", () => {
     expect(facebookLink).not.toBeNull();
   });
 
+  test("renders social media link for Instagram", async () => {
+    const result = await renderAstroComponent(Footer);
+
+    const socialLinks = result.querySelectorAll("a");
+    const instagramLink = Array.from(socialLinks).find((link) =>
+      link.getAttribute("aria-label")?.includes("Instagram")
+    );
+
+    expect(instagramLink).not.toBeNull();
+  });
+
   test("renders quick navigation links", async () => {
     const result = await renderAstroComponent(Footer);
 
@@ -60,7 +71,7 @@ describe("Footer", () => {
 
     const phoneText = result.textContent;
 
-    expect(phoneText).toContain("+48 123 456 789");
+    expect(phoneText).toContain("+48 720 770 960");
   });
 
   test("displays email address", async () => {
@@ -68,7 +79,7 @@ describe("Footer", () => {
 
     const emailText = result.textContent;
 
-    expect(emailText).toContain("kontakt@studiotapicerskie.pl");
+    expect(emailText).toContain("szumnyfilip@gmail.com");
   });
 
   test("displays copyright with current year", async () => {

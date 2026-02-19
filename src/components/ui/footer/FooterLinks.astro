@@ -1,16 +1,17 @@
 ---
+import type { JSX } from "astro/jsx-runtime";
+
 interface LinkItem {
   label: string;
   href: string;
 }
 
-interface Props {
+interface Props extends JSX.HTMLAttributes {
   title: string;
   links: LinkItem[];
-  class?: string;
 }
 
-const { title, links, class: className = "" } = Astro.props;
+const { title, links, class: className } = Astro.props;
 ---
 
 <div class={className}>

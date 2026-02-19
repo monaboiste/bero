@@ -12,16 +12,15 @@ const { story, mission, image: craftImage } = Astro.props;
   data-testid="about-story"
   class="mb-20 grid items-center gap-12 md:grid-cols-2"
 >
-  <div data-animate="about-story-img">
-    <img
-      src={craftImage}
-      alt="Craftsman working"
-      class="h-auto w-full rounded-lg shadow-xl"
-      width="800"
-      height="600"
-      loading="lazy"
-    >
-  </div>
+  <img
+    data-animate="about-story-img"
+    src={craftImage}
+    alt="Craftsman working"
+    class="h-auto w-full rounded-lg shadow-xl"
+    width="800"
+    height="600"
+    loading="lazy"
+  >
   <div data-animate="about-story-mission">
     <p class="mb-6 text-lg leading-relaxed">{story}</p>
     <p class="leading-relaxed text-muted-foreground">{mission}</p>

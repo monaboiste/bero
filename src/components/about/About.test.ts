@@ -94,6 +94,6 @@ describe("About", () => {
     );
     const servicesHeader = servicesSection?.querySelector("h3");
 
-    expect(servicesHeader?.textContent).toContain("Nasze Uslugi");
+    expect(servicesHeader?.textContent).toContain("Nasze Usługi");
   });
 });

@@ -1,18 +1,18 @@
 ---
-interface Props {
+import type { JSX } from "astro/jsx-runtime";
+
+interface Props extends JSX.HTMLAttributes {
   image: {
     src: string;
     alt: string;
   };
   date?: string;
-  class?: string;
-  "data-testid"?: string;
 }
 
-const { image, date, class: className } = Astro.props;
+const { image, date, class: className, ...rest } = Astro.props;
 ---
 
-<div class:list={["group h-full", className]}>
+<div {...rest} class:list={["group h-full", className]}>
   <div
     class="relative flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl"
   >

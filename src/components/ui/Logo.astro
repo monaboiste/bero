@@ -2,14 +2,14 @@
 import { Image } from "astro:assets";
 import logoDark from "@assets/logo/chair-dark.png";
 import logoLight from "@assets/logo/chair-white.png";
+import type { JSX } from "astro/jsx-runtime";
 
-interface Props {
+interface Props extends JSX.HTMLAttributes {
   variant?: "light" | "dark";
   size?: "sm" | "md" | "lg";
-  class?: string;
 }
 
-const { variant = "light", size = "md", class: className = "" } = Astro.props;
+const { variant = "light", size = "md", class: className } = Astro.props;
 
 // Size presets — image, text, and separator dimensions per size
 const sizes = {
@@ -69,7 +69,7 @@ if (variant === "light") {
 <a
   href="#home"
   data-testid="logo"
-  class={`shrink-0 ${className} flex items-center ${sizeScheme.containerGap}`}
+  class:list={["shrink-0 flex items-center", sizeScheme.containerGap, className]}
 >
   <!-- Logo Image -->
   <div class="flex-shrink-0">
@@ -111,15 +111,19 @@ if (variant === "light") {
     <div class="flex flex-col" style={{ gap: `${sizeScheme.gap}` }}>
       <!-- "studio tapicerskie" - inline -->
       <div
-        style={{ fontSize: `${sizeScheme.main}`, lineHeight: 1, letterSpacing: "-0.02em" }}
+        style={{
+          fontSize: `${sizeScheme.main}`,
+          lineHeight: 1,
+          letterSpacing: "-0.02em",
+        }}
       >
         <span
           class={studioClass}
-          style={{ fontWeight: 'var(--font-weight-normal)' }}
+          style={{ fontWeight: "var(--font-weight-normal)" }}
           >studio
         </span><span
           class={tapicerskieClass}
-          style={{ fontWeight: 'var(--font-weight-bold)' }}
+          style={{ fontWeight: "var(--font-weight-bold)" }}
           >tapicerskie</span
         >
       </div>
@@ -129,7 +133,7 @@ if (variant === "light") {
         class={beroClass}
         style={{
           fontSize: `${sizeScheme.bero}`,
-          fontWeight: 'var(--font-weight-bold)',
+          fontWeight: "var(--font-weight-bold)",
           lineHeight: 1,
         }}
       >

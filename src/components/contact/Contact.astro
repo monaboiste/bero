@@ -39,24 +39,20 @@ const contactItems = [
 
     {SHOW_CONTACT_FORM ? (
         <div class="grid gap-12 md:grid-cols-2">
-          <div>
-            <ContactInfo items={contactItems} class="mb-12" />
-            <MapEmbed src={content.mapSource} title="Lokalizacja" />
-          </div>
+          <ContactInfo items={contactItems} class="mb-12" />
+          <MapEmbed src={content.mapSource} title="Lokalizacja" />
 
-          <div>
-            <ContactForm labels={content.formLabels} />
-          </div>
+          <ContactForm labels={content.formLabels} />
         </div>
       ) : (
         <div class="grid gap-12 md:grid-cols-2">
-          <div>
-            <ContactInfo items={contactItems} />
-          </div>
+          <ContactInfo items={contactItems} />
 
-          <div data-animate="contact-map">
-            <MapEmbed src={content.mapSource} title="Lokalizacja" />
-          </div>
+            <MapEmbed
+              data-animate="contact-map"
+              src={content.mapSource}
+              title="Lokalizacja"
+            />
         </div>
       )}
   </div>

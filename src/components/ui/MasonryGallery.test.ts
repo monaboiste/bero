@@ -81,17 +81,17 @@ describe("MasonryGallery", () => {
 
     const gallery = result.querySelector('[data-testid="masonry-gallery"]');
 
-    expect(gallery?.getAttribute("style")).toContain("--masonry-columns: 2");
+    expect(gallery?.getAttribute("style")).toContain("--masonry-columns: 3");
   });
 
   test("accepts custom column count", async () => {
     const result = await renderAstroComponent(MasonryGallery, {
-      props: { images: sampleImages, columns: 3 },
+      props: { images: sampleImages, columns: 55 },
     });
 
     const gallery = result.querySelector('[data-testid="masonry-gallery"]');
 
-    expect(gallery?.getAttribute("style")).toContain("--masonry-columns: 3");
+    expect(gallery?.getAttribute("style")).toContain("--masonry-columns: 55");
   });
 
   test("applies custom class", async () => {

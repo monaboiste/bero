@@ -1,19 +1,17 @@
 ---
 import { Moon, Sun } from "@lucide/astro";
+import type { JSX } from "astro/jsx-runtime";
 
-interface Props {
-  id?: string;
-  class?: string;
-}
+interface Props extends JSX.HTMLAttributes {}
 
-const { id = "theme-toggle", class: className = "" } = Astro.props;
+const { id = "theme-toggle", class: className } = Astro.props;
 ---
 
 <button
   type="button"
   id={id}
   data-testid={id}
-  class={`rounded-lg p-2 transition-colors hover:bg-muted ${className}`}
+  class:list={["rounded-lg p-2 transition-colors hover:bg-muted", className]}
   aria-label="Przelacz motyw"
 >
   <Sun class="hidden h-5 w-5 dark:block" data-testid="icon-sun" />
