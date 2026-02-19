@@ -12,20 +12,15 @@ interface Props extends Omit<JSX.HTMLAttributes, "class"> {
   class?: string;
 }
 
-const {
-  items,
-  direction = "row",
-  class: className = "",
-  ...rest
-} = Astro.props;
-
-const directionClasses =
-  direction === "row"
-    ? "flex items-center space-x-8"
-    : "flex flex-col space-y-4";
+const { items, direction = "row", class: className, ...rest } = Astro.props;
 ---
 
-<div {...rest} class={`${directionClasses} ${className}`}>
+<div
+  {...rest}
+  class:list={[direction === "row"
+    ? "flex items-center space-x-8"
+    : "flex flex-col space-y-4", className]}
+>
   {items.map((item) => (
       <a
         href={item.href}
