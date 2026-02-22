@@ -40,7 +40,7 @@ const { images, columns = 3, class: className = "" } = Astro.props;
           {image.description && (
             <div
               data-testid="masonry-tile-caption"
-              class="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
+              class="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
             >
               <p class="text-sm text-white">{image.description}</p>
             </div>
@@ -87,7 +87,7 @@ const { images, columns = 3, class: className = "" } = Astro.props;
   }
 
   .glightbox-bero .gslide-description {
-    background: var(--card);
+    background: var(--popover);
     border-radius: 0 0 var(--radius) var(--radius);
   }
 
@@ -188,13 +188,107 @@ const { images, columns = 3, class: className = "" } = Astro.props;
       return;
     }
 
-    GLightbox({
+    const lightbox = GLightbox({
       selector: ".glightbox",
       skin: "bero",
-      touchNavigation: true,
+      // Disable GLightbox's built-in touch/drag navigation entirely.
+      // Its touchNavigation relies on stale UA-sniffing (isMobile/isTouch)
+      // and has an `imageZoomed` flag that can get stuck, permanently
+      // blocking swipe. Its draggable binds mousedown/up/move which fires
+      // alongside pointer events. Both systems would double-fire
+      // nextSlide/prevSlide together with our custom handler below,
+      // causing a visible "flash" (GLightbox has no guard against
+      // concurrent navigation calls). We replace them with a single
+      // pointer-event-based handler that works on both desktop and mobile.
+      touchNavigation: false,
+      draggable: false,
       loop: false,
-      zoomable: true,
-      draggable: true,
+      zoomable: false,
+    });
+
+    // Swipe / drag navigation via Pointer Events.
+    // Works uniformly across desktop (mouse) and mobile (touch) because
+    // PointerEvent abstracts both input types.  We guard against
+    // concurrent navigations with an `isAnimating` flag so that rapid
+    // swipes cannot cause a double-fire flash.
+    const SWIPE_THRESHOLD = 50;
+    const ANIMATION_SETTLE_MS = 400; // GLightbox slide animation is 300ms
+
+    let startX: number | null = null;
+    let startY: number | null = null;
+    let tracking = false;
+    let isAnimating = false;
+
+    function onPointerDown(e: PointerEvent): void {
+      if (!e.isPrimary) {
+        return;
+      }
+      startX = e.clientX;
+      startY = e.clientY;
+      tracking = true;
+    }
+
+    function onPointerUp(e: PointerEvent): void {
+      if (!tracking) {
+        return;
+      }
+      if (!e.isPrimary) {
+        return;
+      }
+      if (startX === null || startY === null) {
+        return;
+      }
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      startX = null;
+      startY = null;
+      tracking = false;
+
+      if (isAnimating) {
+        return;
+      }
+
+      // Only act on predominantly-horizontal swipes
+      if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+        isAnimating = true;
+        if (dx < 0) {
+          lightbox.nextSlide();
+        } else {
+          lightbox.prevSlide();
+        }
+        setTimeout(() => {
+          isAnimating = false;
+        }, ANIMATION_SETTLE_MS);
+      }
+    }
+
+    function onPointerCancel(): void {
+      startX = null;
+      startY = null;
+      tracking = false;
+    }
+
+    lightbox.on("open", () => {
+      const slider = document.getElementById("glightbox-slider");
+      if (!slider) {
+        return;
+      }
+      slider.addEventListener("pointerdown", onPointerDown);
+      slider.addEventListener("pointerup", onPointerUp);
+      slider.addEventListener("pointercancel", onPointerCancel);
+    });
+
+    lightbox.on("close", () => {
+      const slider = document.getElementById("glightbox-slider");
+      if (!slider) {
+        return;
+      }
+      slider.removeEventListener("pointerdown", onPointerDown);
+      slider.removeEventListener("pointerup", onPointerUp);
+      slider.removeEventListener("pointercancel", onPointerCancel);
+      isAnimating = false;
     });
   }
 
