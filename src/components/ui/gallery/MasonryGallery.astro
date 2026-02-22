@@ -91,6 +91,12 @@ const { images, columns = 3, class: className = "" } = Astro.props;
     border-radius: 0 0 var(--radius) var(--radius);
   }
 
+  /* Hide the description overlay in the mobile lightbox (zoom view)
+     to keep the UI clean — the caption is already visible on the tile. */
+  .glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
+    display: none;
+  }
+
   .glightbox-bero .gdesc-inner {
     padding: 22px 20px;
   }
