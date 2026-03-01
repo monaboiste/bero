@@ -14,8 +14,11 @@ interface Props extends JSX.HTMLAttributes {
 
 const { title, links, class: className } = Astro.props;
 
+const HASH_RE = /^\/?#/;
+const SLASH_RE = /^\//;
+
 function getTestId(link: LinkItem) {
-  return link.testId ?? link.href.replace(/^\/?#/, "").replace(/^\//, "");
+  return link.testId ?? link.href.replace(HASH_RE, "").replace(SLASH_RE, "");
 }
 ---
 
