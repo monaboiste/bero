@@ -166,6 +166,11 @@ const { images, columns = 3, class: className } = Astro.props;
     opacity: 1;
   }
 
+  /* Mobile lightbox: fit images to their longest edge without cropping. */
+  .glightbox-mobile .glightbox-container.glightbox-bero .gslide-image img {
+    object-fit: contain;
+  }
+
   .glightbox-bero .gdesc-inner {
     padding: 22px 24px;
   }
@@ -416,6 +421,21 @@ const { images, columns = 3, class: className } = Astro.props;
       }
     }
 
+    // On mobile, GLightbox sets an inline `height` on <img> from the
+    // data-height attribute (meant for desktop padding only). Remove it
+    // so the image can size naturally via CSS object-fit: contain.
+    function clearMobileInlineHeight(): void {
+      if (!document.body.classList.contains("glightbox-mobile")) {
+        return;
+      }
+      const img = document.querySelector(
+        ".gslide.current .gslide-image img"
+      ) as HTMLImageElement | null;
+      if (img) {
+        img.style.height = "";
+      }
+    }
+
     for (const tile of document.querySelectorAll(".glightbox")) {
       tile.addEventListener(
         "click",
@@ -436,10 +456,12 @@ const { images, columns = 3, class: className } = Astro.props;
       slider.addEventListener("pointerdown", onPointerDown);
       slider.addEventListener("pointerup", onPointerUp);
       slider.addEventListener("pointercancel", onPointerCancel);
+      clearMobileInlineHeight();
     });
 
     lightbox.on("slide_changed", () => {
       hideAllMobileDescs();
+      clearMobileInlineHeight();
     });
 
     lightbox.on("close", () => {
