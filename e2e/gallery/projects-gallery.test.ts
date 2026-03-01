@@ -6,10 +6,10 @@ test.describe("Projects gallery", () => {
   });
 
   test("renders project tiles with images", async ({ page }) => {
-    const tiles = page.getByTestId("masonry-tile");
+    const tiles = page.getByTestId("gallery-tile");
     await expect(tiles.first()).toBeAttached();
 
-    const images = page.locator('[data-testid="masonry-tile"] img');
+    const images = page.locator('[data-testid="gallery-tile"] img');
     await expect(images.first()).toBeAttached();
 
     for (const img of await images.all()) {
@@ -18,7 +18,7 @@ test.describe("Projects gallery", () => {
   });
 
   test("every tile has a description caption", async ({ page }) => {
-    const captions = page.getByTestId("masonry-tile-caption");
+    const captions = page.getByTestId("gallery-tile-caption");
     await expect(captions.first()).toBeAttached();
 
     for (const caption of await captions.all()) {
@@ -48,16 +48,16 @@ test.describe("Projects gallery", () => {
   });
 
   test("clicking a tag shows only matching tiles", async ({ page }) => {
-    const allTilesBefore = await page.getByTestId("masonry-tile").count();
+    const allTilesBefore = await page.getByTestId("gallery-tile").count();
 
     await page.getByTestId("tag-filter-fotele").click();
 
     await expect(
-      page.locator('[data-testid="masonry-tile"].hidden').first()
+      page.locator('[data-testid="gallery-tile"].hidden').first()
     ).toBeAttached();
 
     const visibleTiles = page.locator(
-      '[data-testid="masonry-tile"]:not(.hidden)'
+      '[data-testid="gallery-tile"]:not(.hidden)'
     );
     const visibleCount = await visibleTiles.count();
     expect(visibleCount).toBeGreaterThan(0);
@@ -72,13 +72,13 @@ test.describe("Projects gallery", () => {
   test("clicking Wszystkie resets filter", async ({ page }) => {
     await page.getByTestId("tag-filter-renowacja").click();
     await expect(
-      page.locator('[data-testid="masonry-tile"].hidden').first()
+      page.locator('[data-testid="gallery-tile"].hidden').first()
     ).toBeAttached();
 
     await page.getByTestId("tag-filter-all").click();
 
     await expect(
-      page.locator('[data-testid="masonry-tile"].hidden')
+      page.locator('[data-testid="gallery-tile"].hidden')
     ).toHaveCount(0);
   });
 
@@ -94,10 +94,10 @@ test.describe("Projects gallery", () => {
     page,
   }) => {
     const highlighted = page.locator(
-      '[data-testid="masonry-tile"][data-highlight]'
+      '[data-testid="gallery-tile"][data-highlight]'
     );
     const regular = page.locator(
-      '[data-testid="masonry-tile"]:not([data-highlight])'
+      '[data-testid="gallery-tile"]:not([data-highlight])'
     );
 
     await expect(highlighted.first()).toBeAttached();
@@ -120,11 +120,11 @@ test.describe("Projects gallery", () => {
     await expect(krzeslaBtn).toHaveAttribute("aria-pressed", "true");
 
     await expect(
-      page.locator('[data-testid="masonry-tile"].hidden').first()
+      page.locator('[data-testid="gallery-tile"].hidden').first()
     ).toBeAttached();
 
     const visibleTiles = page.locator(
-      '[data-testid="masonry-tile"]:not(.hidden)'
+      '[data-testid="gallery-tile"]:not(.hidden)'
     );
     expect(await visibleTiles.count()).toBeGreaterThan(0);
 

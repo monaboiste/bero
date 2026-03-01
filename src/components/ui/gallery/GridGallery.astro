@@ -20,23 +20,23 @@ const { images, columns = 3, class: className } = Astro.props;
 ---
 
 <div
-  data-testid="masonry-gallery"
-  class:list={["masonry-gallery", className]}
-  style={`--masonry-columns: ${columns};`}
+  data-testid="gallery"
+  class:list={["gallery", className]}
+  style={`--gallery-columns: ${columns};`}
 >
   {images.map((image) => (
       <a
         href={image.src}
-        class:list={["glightbox masonry-tile-link", image.highlight && "masonry-tile-link--highlight"]}
-        data-gallery="masonry-gallery"
+      class:list={["glightbox gallery-tile-link", image.highlight && "gallery-tile-link--highlight"]}
+      data-gallery="gallery"
         data-type="image"
         data-description={image.description}
         data-tags={image.tags?.join(",")}
         data-highlight={image.highlight ? "" : undefined}
-        data-animate="masonry-tile"
-        data-testid="masonry-tile"
+      data-animate="gallery-tile"
+      data-testid="gallery-tile"
       >
-        <div class="masonry-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
+        <div class="gallery-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
           <img
             src={image.src}
             alt={image.alt}
@@ -45,7 +45,7 @@ const { images, columns = 3, class: className } = Astro.props;
           />
           {image.description && (
             <div
-              data-testid="masonry-tile-caption"
+              data-testid="gallery-tile-caption"
               class="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
             >
               <p class="text-sm text-white">{image.description}</p>
@@ -57,36 +57,36 @@ const { images, columns = 3, class: className } = Astro.props;
 </div>
 
 <style>
-  .masonry-gallery {
+  .gallery {
     display: grid;
-    grid-template-columns: repeat(var(--masonry-columns, 3), 1fr);
+    grid-template-columns: repeat(var(--gallery-columns, 3), 1fr);
     grid-auto-flow: dense;
     gap: 1rem;
   }
 
-  .masonry-tile-link {
+  .gallery-tile-link {
     text-decoration: none;
     color: inherit;
   }
 
-  .masonry-tile-link--highlight {
+  .gallery-tile-link--highlight {
     grid-column: span 2;
     grid-row: span 2;
   }
 
   @media (max-width: 639px) {
-    .masonry-gallery {
+    .gallery {
       grid-template-columns: 1fr;
     }
 
-    .masonry-tile-link--highlight {
+    .gallery-tile-link--highlight {
       grid-column: span 1;
       grid-row: span 1;
     }
   }
 
   @media (scripting: enabled) {
-    [data-animate="masonry-tile"] {
+    [data-animate="gallery-tile"] {
       opacity: 0;
       transform: translateY(40px);
     }
@@ -189,7 +189,7 @@ const { images, columns = 3, class: className } = Astro.props;
   import { animate, inView } from "motion";
 
   inView(
-    "[data-animate='masonry-tile']",
+    "[data-animate='gallery-tile']",
     (tile) => {
       animate(tile, { opacity: 1, y: 0 }, { duration: 0.5, ease: "easeOut" });
     },
@@ -201,10 +201,8 @@ const { images, columns = 3, class: className } = Astro.props;
   import GLightbox from "glightbox";
   import "glightbox/dist/css/glightbox.min.css";
 
-  function setupMasonryGallery(): void {
-    const galleries = document.querySelectorAll(
-      '[data-testid="masonry-gallery"]'
-    );
+  function setupGallery(): void {
+    const galleries = document.querySelectorAll('[data-testid="gallery"]');
     if (galleries.length === 0) {
       return;
     }
@@ -313,6 +311,6 @@ const { images, columns = 3, class: className } = Astro.props;
     });
   }
 
-  setupMasonryGallery();
-  document.addEventListener("astro:page-load", setupMasonryGallery);
+  setupGallery();
+  document.addEventListener("astro:page-load", setupGallery);
 </script>

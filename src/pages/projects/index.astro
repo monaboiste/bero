@@ -1,7 +1,7 @@
 ---
 import TagFilter from "@components/projects/gallery/TagFilter.astro";
 import Footer from "@components/ui/footer/Footer.astro";
-import MasonryGallery from "@components/ui/gallery/MasonryGallery.astro";
+import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import Layout from "@layouts/Layout.astro";
@@ -27,7 +27,7 @@ const tags = getAllTags();
 
       <TagFilter tags={tags} />
 
-      <MasonryGallery
+      <GridGallery
         images={allProjects.map((proj) => ({
           src: proj.image,
           alt: proj.title,
@@ -46,7 +46,7 @@ const tags = getAllTags();
     const TAG_PARAM = "tag";
 
     const filterEl = document.querySelector('[data-testid="tag-filter"]');
-    const gallery = document.querySelector('[data-testid="masonry-gallery"]');
+    const gallery = document.querySelector('[data-testid="gallery"]');
     const hasElements = filterEl && gallery;
 
     if (!hasElements) {
@@ -56,7 +56,7 @@ const tags = getAllTags();
     const tagButtons =
       filterEl.querySelectorAll<HTMLButtonElement>("[data-tag]");
     const tiles = gallery.querySelectorAll<HTMLElement>(
-      "[data-testid='masonry-tile']"
+      "[data-testid='gallery-tile']"
     );
 
     function getActiveTag(): string {
