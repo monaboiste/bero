@@ -90,6 +90,29 @@ test.describe("Projects gallery", () => {
     await expect(page).not.toHaveURL(/tag=/);
   });
 
+  test("highlighted tiles exist and are larger than regular tiles @desktop", async ({
+    page,
+  }) => {
+    const highlighted = page.locator(
+      '[data-testid="masonry-tile"][data-highlight]'
+    );
+    const regular = page.locator(
+      '[data-testid="masonry-tile"]:not([data-highlight])'
+    );
+
+    await expect(highlighted.first()).toBeAttached();
+    await expect(regular.first()).toBeAttached();
+
+    const highlightBox = await highlighted.first().boundingBox();
+    const regularBox = await regular.first().boundingBox();
+
+    if (!(highlightBox && regularBox)) {
+      throw new Error("Could not get bounding box for tiles");
+    }
+
+    expect(highlightBox.width).toBeGreaterThan(regularBox.width);
+  });
+
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
     await page.goto("/projects?tag=Krzesla");
 
