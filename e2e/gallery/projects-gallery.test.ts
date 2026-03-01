@@ -122,13 +122,16 @@ test.describe("Projects gallery", () => {
     const desc = page.locator(".gslide.current .gslide-description");
     await expect(desc).toBeAttached();
     await expect(desc).not.toHaveClass(/gslide-desc-visible/);
+    await expect(desc).toHaveCSS("opacity", "0");
 
     const image = page.locator(".gslide.current .gslide-image img");
     await image.tap();
     await expect(desc).toHaveClass(/gslide-desc-visible/);
+    await expect(desc).toHaveCSS("opacity", "1");
 
     await image.tap();
     await expect(desc).not.toHaveClass(/gslide-desc-visible/);
+    await expect(desc).toHaveCSS("opacity", "0");
 
     await page.locator(".gclose").click();
   });

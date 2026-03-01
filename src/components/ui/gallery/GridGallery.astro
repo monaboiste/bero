@@ -136,10 +136,7 @@ const { images, columns = 3, class: className } = Astro.props;
     display: none;
   }
 
-  /* Mobile lightbox: description slides up from bottom on tap.
-     visibility:hidden ensures the description stays invisible during
-     the GLightbox gzoomIn open animation (which animates opacity on
-     the parent .gslide, so a child opacity:0 alone is not enough). */
+  /* Mobile lightbox: description slides up from bottom on tap. */
   .glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
     position: absolute;
     bottom: 0;
