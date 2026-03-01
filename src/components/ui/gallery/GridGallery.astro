@@ -347,6 +347,18 @@ const { images, columns = 3, class: className } = Astro.props;
       tracking = false;
     }
 
+    for (const tile of document.querySelectorAll(".glightbox")) {
+      tile.addEventListener(
+        "click",
+        () => {
+          if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+          }
+        },
+        { capture: true }
+      );
+    }
+
     lightbox.on("open", () => {
       const slider = document.getElementById("glightbox-slider");
       if (!slider) {
