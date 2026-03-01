@@ -26,47 +26,58 @@ const { images, columns = 3, class: className } = Astro.props;
   style={`--gallery-columns: ${columns};`}
 >
   {images.map((image) => {
-    const hasLightboxDesc = image.title || image.description || image.date;
-    const dateLabel = image.date?.slice(0, 7);
-    return (
-      <a
-        href={image.src}
-        class:list={["glightbox gallery-tile-link", image.highlight && "gallery-tile-link--highlight"]}
-        data-gallery="gallery"
-        data-type="image"
-        data-tags={image.tags?.join(",")}
-        data-highlight={image.highlight ? "" : undefined}
-        data-animate="gallery-tile"
-        data-testid="gallery-tile"
-      >
-        <div class="gallery-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
-          <img
-            src={image.src}
-            alt={image.alt}
-            loading="lazy"
-            class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          {(image.title || image.description) && (
-            <div
-              data-testid="gallery-tile-caption"
-              class="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
-            >
-              <p class="text-sm text-white">{image.title || image.description}</p>
+      const hasLightboxDesc = image.title || image.description || image.date;
+      const dateLabel = image.date?.slice(0, 7);
+      return (
+        <a
+          href={image.src}
+          class:list={[
+            "glightbox gallery-tile-link",
+            image.highlight && "gallery-tile-link--highlight",
+          ]}
+          data-gallery="gallery"
+          data-type="image"
+          data-tags={image.tags?.join(",")}
+          data-highlight={image.highlight ? "" : undefined}
+          data-animate="gallery-tile"
+          data-testid="gallery-tile"
+        >
+          <div class="gallery-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            {(image.title || image.description) && (
+              <div
+                data-testid="gallery-tile-caption"
+                class="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
+              >
+                <p class="text-sm text-white">
+                  {image.title || image.description}
+                </p>
+              </div>
+            )}
+          </div>
+          {hasLightboxDesc && (
+            <div class="glightbox-desc hidden">
+              <div class="lightbox-desc-header">
+                {image.title && (
+                  <h4 class="lightbox-desc-title">{image.title}</h4>
+                )}
+                {dateLabel && (
+                  <span class="lightbox-desc-date">{dateLabel}</span>
+                )}
+              </div>
+              {image.description && (
+                <p class="lightbox-desc-text">{image.description}</p>
+              )}
             </div>
           )}
-        </div>
-        {hasLightboxDesc && (
-          <div class="glightbox-desc hidden">
-            <div class="lightbox-desc-header">
-              {image.title && <h4 class="lightbox-desc-title">{image.title}</h4>}
-              {dateLabel && <span class="lightbox-desc-date">{dateLabel}</span>}
-            </div>
-            {image.description && <p class="lightbox-desc-text">{image.description}</p>}
-          </div>
-        )}
-      </a>
-    );
-  })}
+        </a>
+      );
+    })}
 </div>
 
 <style>
@@ -125,7 +136,10 @@ const { images, columns = 3, class: className } = Astro.props;
     display: none;
   }
 
-  /* Mobile lightbox: description slides up from bottom on tap */
+  /* Mobile lightbox: description slides up from bottom on tap.
+     visibility:hidden ensures the description stays invisible during
+     the GLightbox gzoomIn open animation (which animates opacity on
+     the parent .gslide, so a child opacity:0 alone is not enough). */
   .glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
     position: absolute;
     bottom: 0;
@@ -138,13 +152,17 @@ const { images, columns = 3, class: className } = Astro.props;
     border-radius: var(--radius) var(--radius) 0 0;
     background: rgba(0, 0, 0, 0.85);
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
   }
 
   .glightbox-mobile
     .glightbox-container.glightbox-bero
     .gslide-description.gslide-desc-visible {
     transform: translateY(0);
+    opacity: 1;
   }
 
   .glightbox-bero .gdesc-inner {
