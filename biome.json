@@ -13,6 +13,14 @@
       }
     },
     {
+      "includes": ["**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "performance": "off"
+        }
+      }
+    },
+    {
       "includes": ["**/*.astro", "**/*.ts", "!**/*.test.ts"],
       "linter": {
         "rules": {

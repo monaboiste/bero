@@ -1,4 +1,6 @@
 ---
+import type { JSX } from "astro/jsx-runtime";
+
 export interface GalleryImage {
   src: string;
   alt: string;
@@ -6,19 +8,19 @@ export interface GalleryImage {
   tags?: string[];
 }
 
-interface Props {
+interface Props extends JSX.HTMLAttributes {
   images: GalleryImage[];
   columns?: number;
   date?: string;
   class?: string;
 }
 
-const { images, columns = 3, class: className = "" } = Astro.props;
+const { images, columns = 3, class: className } = Astro.props;
 ---
 
 <div
   data-testid="masonry-gallery"
-  class={`masonry-gallery ${className}`}
+  class:list={["masonry-gallery", className]}
   style={`--masonry-columns: ${columns};`}
 >
   {images.map((image) => (
