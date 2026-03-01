@@ -23,7 +23,7 @@ describe("Navigation", () => {
     expect(logo).not.toBeNull();
   });
 
-  test("renders 4 navigation links for desktop", async () => {
+  test("renders 5 navigation links for desktop", async () => {
     const result = await renderAstroComponent(Navigation);
 
     const desktopNav = result.querySelector(
@@ -31,7 +31,7 @@ describe("Navigation", () => {
     );
     const links = desktopNav?.querySelectorAll("a");
 
-    expect(links?.length).toBe(4);
+    expect(links?.length).toBe(5);
   });
 
   test("links point to correct anchors", async () => {
@@ -41,11 +41,14 @@ describe("Navigation", () => {
     const projectsLink = result.querySelector('a[href="/#projects"]');
     const aboutLink = result.querySelector('a[href="/#about"]');
     const contactLink = result.querySelector('a[href="/#contact"]');
+    const galleryLink = result.querySelector('a[href="/projects"]');
 
     expect(homeLink).not.toBeNull();
     expect(projectsLink).not.toBeNull();
     expect(aboutLink).not.toBeNull();
     expect(contactLink).not.toBeNull();
+    expect(galleryLink).not.toBeNull();
+    expect(galleryLink?.textContent).toContain("Galeria");
   });
 
   test("contains theme toggle button", async () => {

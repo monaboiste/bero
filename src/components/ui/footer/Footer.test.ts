@@ -55,6 +55,7 @@ describe("Footer", () => {
     expect(quickLinks?.textContent).toContain("Realizacje");
     expect(quickLinks?.textContent).toContain("O nas");
     expect(quickLinks?.textContent).toContain("Kontakt");
+    expect(quickLinks?.textContent).toContain("Galeria");
   });
 
   test("renders legal link for privacy policy", async () => {
