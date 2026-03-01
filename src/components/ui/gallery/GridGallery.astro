@@ -1,0 +1,482 @@
+---
+import type { JSX } from "astro/jsx-runtime";
+
+export interface GalleryImage {
+  src: string;
+  alt: string;
+  description?: string;
+  title?: string;
+  date?: string;
+  tags?: string[];
+  highlight?: boolean;
+}
+
+interface Props extends JSX.HTMLAttributes {
+  images: GalleryImage[];
+  columns?: number;
+  class?: string;
+}
+
+const { images, columns = 3, class: className } = Astro.props;
+---
+
+<div
+  data-testid="gallery"
+  class:list={["gallery", className]}
+  style={`--gallery-columns: ${columns};`}
+>
+  {images.map((image) => {
+      const hasLightboxDesc = image.title || image.description || image.date;
+      const dateLabel = image.date?.slice(0, 7);
+      return (
+        <a
+          href={image.src}
+          class:list={[
+            "glightbox gallery-tile-link",
+            image.highlight && "gallery-tile-link--highlight",
+          ]}
+          data-gallery="gallery"
+          data-type="image"
+          data-height="calc(100vh - 4rem)"
+          data-tags={image.tags?.join(",")}
+          data-highlight={image.highlight ? "" : undefined}
+          data-animate="gallery-tile"
+          data-testid="gallery-tile"
+        >
+          <div class="gallery-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            {(image.title || image.description) && (
+              <div
+                data-testid="gallery-tile-caption"
+                class="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
+              >
+                <p class="text-sm text-white">
+                  {image.title || image.description}
+                </p>
+              </div>
+            )}
+          </div>
+          {hasLightboxDesc && (
+            <div class="glightbox-desc hidden">
+              <div class="lightbox-desc-header">
+                {image.title && (
+                  <h4 class="lightbox-desc-title">{image.title}</h4>
+                )}
+                {dateLabel && (
+                  <span class="lightbox-desc-date">{dateLabel}</span>
+                )}
+              </div>
+              {image.description && (
+                <p class="lightbox-desc-text">{image.description}</p>
+              )}
+            </div>
+          )}
+        </a>
+      );
+    })}
+</div>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(var(--gallery-columns, 3), 1fr);
+    grid-auto-flow: dense;
+    gap: 1rem;
+  }
+
+  .gallery-tile-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .gallery-tile-link--highlight {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  @media (max-width: 639px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-tile-link--highlight {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  @media (scripting: enabled) {
+    [data-animate="gallery-tile"] {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+  }
+</style>
+
+<style is:global>
+  /* GLightbox skin */
+
+  .glightbox-bero .gslide-media img,
+  .glightbox-bero .gslide-image img {
+    border-radius: var(--radius);
+  }
+
+  .glightbox-bero .gslide-description.description-bottom {
+    background: var(--popover);
+    border-radius: var(--radius);
+    margin-top: 0.75rem;
+    max-width: 700px;
+    max-height: 25vh;
+    overflow-y: auto;
+  }
+
+  /* Hide the built-in title — we render our own inside the description */
+  .glightbox-bero .gslide-title {
+    display: none;
+  }
+
+  /* Mobile lightbox: description slides up from bottom on tap. */
+  .glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    margin-top: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(100%);
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .glightbox-mobile
+    .glightbox-container.glightbox-bero
+    .gslide-description.gslide-desc-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Mobile lightbox: fit images to their longest edge without cropping. */
+  .glightbox-mobile .glightbox-container.glightbox-bero .gslide-image img {
+    object-fit: contain;
+  }
+
+  .glightbox-bero .gdesc-inner {
+    padding: 22px 24px;
+  }
+
+  .glightbox-bero .gslide-desc {
+    font-family: var(--font-sans);
+    color: var(--muted-foreground);
+    font-size: 0.86em;
+    margin-bottom: 0;
+    line-height: 1.4em;
+  }
+
+  /* Custom description layout */
+
+  .lightbox-desc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .lightbox-desc-title {
+    font-family: var(--font-sans);
+    font-size: 1.35em;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lightbox-desc-date {
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+    font-size: 0.8em;
+    font-weight: 600;
+    color: white;
+    background: var(--accent);
+    padding: 0.2em 0.65em;
+    border-radius: 9999px;
+    line-height: 1.5;
+    margin-top: 0.2em;
+  }
+
+  .lightbox-desc-text {
+    font-family: var(--font-sans);
+    color: var(--muted-foreground);
+    font-size: 0.86em;
+    line-height: 1.5em;
+    margin: 0.5em 0 0;
+  }
+
+  /* Mobile lightbox: light-on-dark text overrides */
+  .glightbox-mobile .glightbox-container.glightbox-bero .lightbox-desc-title {
+    color: #fff;
+  }
+
+  .glightbox-mobile .glightbox-container.glightbox-bero .lightbox-desc-text {
+    color: #a1a1a1;
+  }
+
+  .glightbox-bero .gbtn {
+    fill: var(--muted-foreground);
+    background-color: var(--border);
+    border-radius: var(--radius);
+  }
+
+  .glightbox-bero .gprev {
+    position: absolute;
+    top: -100%;
+    left: 30px;
+    width: 40px;
+    height: 50px;
+  }
+
+  .glightbox-bero .gnext {
+    position: absolute;
+    top: -100%;
+    right: 30px;
+    width: 40px;
+    height: 50px;
+  }
+
+  .glightbox-bero .gclose {
+    width: 35px;
+    height: 35px;
+    top: 15px;
+    right: 10px;
+    position: absolute;
+  }
+
+  .glightbox-bero .gclose svg {
+    width: 18px;
+    height: auto;
+  }
+
+  .glightbox-bero .gbtn {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  .glightbox-bero .gbtn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  @media (min-width: 769px) {
+    .glightbox-bero .ginner-container {
+      padding: 2rem;
+    }
+
+    .glightbox-bero .gprev {
+      top: 45%;
+    }
+
+    .glightbox-bero .gnext {
+      top: 45%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .glightbox-bero .gclose {
+      opacity: 0.7;
+      right: 20px;
+    }
+  }
+</style>
+
+<script>
+  import { animate, inView } from "motion";
+
+  inView(
+    "[data-animate='gallery-tile']",
+    (tile) => {
+      animate(tile, { opacity: 1, y: 0 }, { duration: 0.5, ease: "easeOut" });
+    },
+    { margin: "-50px" }
+  );
+</script>
+
+<script>
+  import GLightbox from "glightbox";
+  import "glightbox/dist/css/glightbox.min.css";
+
+  function setupGallery(): void {
+    const galleries = document.querySelectorAll('[data-testid="gallery"]');
+    if (galleries.length === 0) {
+      return;
+    }
+
+    const lightbox = GLightbox({
+      selector: ".glightbox",
+      skin: "bero",
+      // Disable GLightbox's built-in touch/drag navigation entirely.
+      // Its touchNavigation relies on stale UA-sniffing (isMobile/isTouch)
+      // and has an `imageZoomed` flag that can get stuck, permanently
+      // blocking swipe. Its draggable binds mousedown/up/move which fires
+      // alongside pointer events. Both systems would double-fire
+      // nextSlide/prevSlide together with our custom handler below,
+      // causing a visible "flash" (GLightbox has no guard against
+      // concurrent navigation calls). We replace them with a single
+      // pointer-event-based handler that works on both desktop and mobile.
+      touchNavigation: false,
+      draggable: false,
+      loop: false,
+      zoomable: false,
+      moreLength: 0,
+    });
+
+    // Swipe / drag navigation via Pointer Events.
+    // Works uniformly across desktop (mouse) and mobile (touch) because
+    // PointerEvent abstracts both input types.  We guard against
+    // concurrent navigations with an `isAnimating` flag so that rapid
+    // swipes cannot cause a double-fire flash.
+    const SWIPE_THRESHOLD = 50;
+    const TAP_THRESHOLD = 10;
+    const ANIMATION_SETTLE_MS = 400; // GLightbox slide animation is 300ms
+
+    let startX: number | null = null;
+    let startY: number | null = null;
+    let tracking = false;
+    let isAnimating = false;
+
+    function onPointerDown(e: PointerEvent): void {
+      if (!e.isPrimary) {
+        return;
+      }
+      startX = e.clientX;
+      startY = e.clientY;
+      tracking = true;
+    }
+
+    function onPointerUp(e: PointerEvent): void {
+      if (!tracking) {
+        return;
+      }
+      if (!e.isPrimary) {
+        return;
+      }
+      if (startX === null || startY === null) {
+        return;
+      }
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      startX = null;
+      startY = null;
+      tracking = false;
+
+      if (isAnimating) {
+        return;
+      }
+
+      // Only act on predominantly-horizontal swipes
+      if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+        isAnimating = true;
+        if (dx < 0) {
+          lightbox.nextSlide();
+        } else {
+          lightbox.prevSlide();
+        }
+        setTimeout(() => {
+          isAnimating = false;
+        }, ANIMATION_SETTLE_MS);
+        return;
+      }
+
+      // Tap (no significant movement) on mobile: toggle description
+      if (
+        Math.abs(dx) < TAP_THRESHOLD &&
+        Math.abs(dy) < TAP_THRESHOLD &&
+        document.body.classList.contains("glightbox-mobile")
+      ) {
+        const slide = document.querySelector(".gslide.current");
+        const desc = slide?.querySelector(".gslide-description");
+        desc?.classList.toggle("gslide-desc-visible");
+      }
+    }
+
+    function onPointerCancel(): void {
+      startX = null;
+      startY = null;
+      tracking = false;
+    }
+
+    function hideAllMobileDescs(): void {
+      for (const d of document.querySelectorAll(".gslide-desc-visible")) {
+        d.classList.remove("gslide-desc-visible");
+      }
+    }
+
+    // On mobile, GLightbox sets an inline `height` on <img> from the
+    // data-height attribute (meant for desktop padding only). Remove it
+    // so the image can size naturally via CSS object-fit: contain.
+    function clearMobileInlineHeight(): void {
+      if (!document.body.classList.contains("glightbox-mobile")) {
+        return;
+      }
+      const img = document.querySelector(
+        ".gslide.current .gslide-image img"
+      ) as HTMLImageElement | null;
+      if (img) {
+        img.style.height = "";
+      }
+    }
+
+    for (const tile of document.querySelectorAll(".glightbox")) {
+      tile.addEventListener(
+        "click",
+        () => {
+          if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+          }
+        },
+        { capture: true }
+      );
+    }
+
+    lightbox.on("open", () => {
+      const slider = document.getElementById("glightbox-slider");
+      if (!slider) {
+        return;
+      }
+      slider.addEventListener("pointerdown", onPointerDown);
+      slider.addEventListener("pointerup", onPointerUp);
+      slider.addEventListener("pointercancel", onPointerCancel);
+      clearMobileInlineHeight();
+    });
+
+    lightbox.on("slide_changed", () => {
+      hideAllMobileDescs();
+      clearMobileInlineHeight();
+    });
+
+    lightbox.on("close", () => {
+      const slider = document.getElementById("glightbox-slider");
+      if (!slider) {
+        return;
+      }
+      slider.removeEventListener("pointerdown", onPointerDown);
+      slider.removeEventListener("pointerup", onPointerUp);
+      slider.removeEventListener("pointercancel", onPointerCancel);
+      isAnimating = false;
+      hideAllMobileDescs();
+    });
+  }
+
+  setupGallery();
+  document.addEventListener("astro:page-load", setupGallery);
+</script>

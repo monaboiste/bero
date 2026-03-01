@@ -62,9 +62,10 @@ const projects = [
 
     <!-- View All Button -->
     <div data-animate="projects-view-all-btn" class="mt-12 text-center">
-      <button
+      <a
+        href="/projects"
         data-testid="projects-view-all"
-        class="group inline-flex cursor-pointer items-center rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
+        class="group inline-flex items-center rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
       >
         <span>{content.viewAll}</span>
         <svg
@@ -80,7 +81,7 @@ const projects = [
             d="M9 5l7 7-7 7"
           ></path>
         </svg>
-      </button>
+      </a>
     </div>
   </div>
 </section>

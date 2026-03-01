@@ -4,6 +4,7 @@ import type { JSX } from "astro/jsx-runtime";
 interface LinkItem {
   label: string;
   href: string;
+  testId?: string;
 }
 
 interface Props extends JSX.HTMLAttributes {
@@ -12,6 +13,13 @@ interface Props extends JSX.HTMLAttributes {
 }
 
 const { title, links, class: className } = Astro.props;
+
+const HASH_RE = /^\/?#/;
+const SLASH_RE = /^\//;
+
+function getTestId(link: LinkItem) {
+  return link.testId ?? link.href.replace(HASH_RE, "").replace(SLASH_RE, "");
+}
 ---
 
 <div class={className}>
@@ -21,7 +29,7 @@ const { title, links, class: className } = Astro.props;
         <li>
           <a
             href={link.href}
-            data-testid={`footer-link-${link.href.replace(/^[#/]/, "")}`}
+            data-testid={`footer-link-${getTestId(link)}`}
             class="text-sm text-primary-foreground/80 transition-colors hover:text-accent"
           >
             {link.label}

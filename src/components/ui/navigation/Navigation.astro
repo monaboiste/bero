@@ -2,16 +2,26 @@
 import LanguageSelector from "@components/ui/LanguageSelector.astro";
 import Logo from "@components/ui/Logo.astro";
 import ThemeToggle from "@components/ui/ThemeToggle.astro";
+import { Camera } from "@lucide/astro";
 import MobileMenu from "./MobileMenu.astro";
 import MobileMenuButton from "./MobileMenuButton.astro";
 import NavLinks from "./NavLinks.astro";
 
 // TODO: i18n
 const navItems = [
-  { label: "Strona glowna", href: "#home" },
-  { label: "Realizacje", href: "#projects" },
-  { label: "O nas", href: "#about" },
-  { label: "Kontakt", href: "#contact" },
+  { label: "Strona glowna", href: "/#home" },
+  { label: "Realizacje", href: "/#projects" },
+  { label: "O nas", href: "/#about" },
+  { label: "Kontakt", href: "/#contact" },
+  {
+    label: "Galeria",
+    href: "/projects",
+    highlight: true,
+    testId: "gallery",
+    icon: Camera,
+    iconClass:
+      "h-5 w-5 text-accent transition-transform duration-300 group-hover:scale-110",
+  },
 ];
 ---
 
