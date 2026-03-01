@@ -23,7 +23,7 @@ const { items, direction = "row", class: className, ...rest } = Astro.props;
   {items.map((item) => (
       <a
         href={item.href}
-        data-testid={`nav-link-${item.href.replace("#", "")}`}
+        data-testid={`nav-link-${item.href.replace(/^\/?#/, "")}`}
         class="transition-colors hover:text-accent"
       >
         {item.label}
