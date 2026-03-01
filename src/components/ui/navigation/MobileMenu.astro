@@ -1,5 +1,6 @@
 ---
 import LanguageSelector from "@components/ui/LanguageSelector.astro";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import NavLinks from "./NavLinks.astro";
 
 interface NavItem {
@@ -7,6 +8,8 @@ interface NavItem {
   href: string;
   highlight?: boolean;
   testId?: string;
+  icon?: AstroComponentFactory;
+  iconClass?: string;
 }
 
 interface Props {

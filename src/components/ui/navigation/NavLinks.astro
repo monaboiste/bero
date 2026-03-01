@@ -1,12 +1,14 @@
 ---
-import { Camera } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 interface NavItem {
   label: string;
   href: string;
   highlight?: boolean;
   testId?: string;
+  icon?: AstroComponentFactory;
+  iconClass?: string;
 }
 
 interface Props extends JSX.HTMLAttributes {
@@ -16,8 +18,11 @@ interface Props extends JSX.HTMLAttributes {
 
 const { items, direction = "row", class: className, ...rest } = Astro.props;
 
+const HASH_RE = /^\/?#/;
+const SLASH_RE = /^\//;
+
 function getTestId(item: NavItem) {
-  return item.testId ?? item.href.replace(/^\/?#/, "").replace(/^\//, "");
+  return item.testId ?? item.href.replace(HASH_RE, "").replace(SLASH_RE, "");
 }
 ---
 
@@ -27,25 +32,36 @@ function getTestId(item: NavItem) {
     ? "flex items-center space-x-8"
     : "flex flex-col space-y-4", className]}
 >
-  {items.map((item) =>
-    item.highlight ? (
+  {items.map((item) => {
+    const Icon = item.icon;
+    return item.highlight ? (
       <a
         href={item.href}
         data-testid={`nav-link-${getTestId(item)}`}
-        class="nav-highlight group relative inline-flex items-center gap-2 rounded-lg px-4 py-2 transition-all duration-300 hover:bg-accent/10 hover:text-accent"
+        class:list={[
+          "inline-flex items-center gap-2 rounded-lg px-4 py-2",
+          direction === "column"
+            ? "bg-accent/10 text-accent"
+            : "group relative transition-all duration-300 hover:bg-accent/10 hover:text-accent",
+        ]}
       >
-        <Camera class="h-5 w-5 text-accent transition-transform duration-300 group-hover:scale-110" />
+        {Icon && <Icon class:list={[item.iconClass]} />}
         <span>{item.label}</span>
-        <span class="absolute bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-3/4"></span>
+        {direction === "row" && (
+          <span class="absolute bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-3/4"></span>
+        )}
       </a>
     ) : (
       <a
         href={item.href}
         data-testid={`nav-link-${getTestId(item)}`}
-        class="transition-colors hover:text-accent"
+        class:list={[
+          "transition-colors hover:text-accent",
+          direction === "column" && "px-4",
+        ]}
       >
         {item.label}
       </a>
-    )
-  )}
+    );
+  })}
 </div>
