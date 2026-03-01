@@ -7,6 +7,7 @@ export interface Project {
   image: string;
   date: string;
   tags: string[];
+  highlight?: boolean;
 }
 
 const projects: Project[] = [
@@ -19,6 +20,7 @@ const projects: Project[] = [
       "https://images.unsplash.com/photo-1768573264026-b540abdc3384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYXJtY2hhaXIlMjByZXN0b3JhdGlvbnxlbnwxfHx8fDE3NzA1Nzg3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     date: "2026-02-12",
     tags: ["Fotele", "Renowacja"],
+    highlight: true,
   },
   {
     id: "2",
@@ -59,6 +61,7 @@ const projects: Project[] = [
       "https://images.unsplash.com/photo-1540574163026-643ea20ade25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-10-20",
     tags: ["Sofy", "Projekt indywidualny"],
+    highlight: true,
   },
   {
     id: "6",
@@ -129,6 +132,7 @@ const projects: Project[] = [
       "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-03-22",
     tags: ["Renowacja"],
+    highlight: true,
   },
   {
     id: "13",
