@@ -130,15 +130,21 @@ describe("GridGallery", () => {
     }
   });
 
-  test("tile description is passed to glightbox data attribute", async () => {
+  test("tile with description has a hidden glightbox-desc element", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },
     });
 
     const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
+    const desc0 = tiles[0].querySelector(".glightbox-desc");
+    const desc2 = tiles[2].querySelector(".glightbox-desc");
 
-    expect(tiles[0].getAttribute("data-description")).toBe("First photo");
-    expect(tiles[2].hasAttribute("data-description")).toBe(false);
+    expect(desc0).not.toBeNull();
+    expect(desc0?.classList.contains("hidden")).toBe(true);
+    expect(
+      desc0?.querySelector(".lightbox-desc-text")?.textContent?.trim()
+    ).toBe("First photo");
+    expect(desc2).toBeNull();
   });
 
   test("caption is rendered as a hover overlay", async () => {
@@ -206,13 +212,50 @@ describe("GridGallery", () => {
     }
   });
 
-  test("accepts date prop without error", async () => {
+  test("lightbox desc shows title and date badge when provided", async () => {
+    const images: GalleryImage[] = [
+      {
+        src: "/img/p.jpg",
+        alt: "Project",
+        title: "Fotel klubowy",
+        description: "Opis projektu",
+        date: "2025-01-15",
+      },
+    ];
+
     const result = await renderAstroComponent(GridGallery, {
-      props: { images: sampleImages, date: "2025-01-15" },
+      props: { images },
     });
 
-    const gallery = result.querySelector('[data-testid="gallery"]');
+    const tile = result.querySelector('[data-testid="gallery-tile"]');
+    const desc = tile?.querySelector(".glightbox-desc");
+    const title = desc?.querySelector(".lightbox-desc-title");
+    const date = desc?.querySelector(".lightbox-desc-date");
+    const text = desc?.querySelector(".lightbox-desc-text");
 
-    expect(gallery).not.toBeNull();
+    expect(title?.textContent?.trim()).toBe("Fotel klubowy");
+    expect(date?.textContent?.trim()).toBe("2025-01");
+    expect(text?.textContent?.trim()).toBe("Opis projektu");
+  });
+
+  test("caption shows title when title is provided", async () => {
+    const images: GalleryImage[] = [
+      {
+        src: "/img/p.jpg",
+        alt: "Project",
+        title: "Fotel klubowy",
+        description: "Opis projektu",
+      },
+    ];
+
+    const result = await renderAstroComponent(GridGallery, {
+      props: { images },
+    });
+
+    const caption = result.querySelector(
+      '[data-testid="gallery-tile-caption"] p'
+    );
+
+    expect(caption?.textContent?.trim()).toBe("Fotel klubowy");
   });
 });

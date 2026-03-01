@@ -31,7 +31,9 @@ const tags = getAllTags();
         images={allProjects.map((proj) => ({
           src: proj.image,
           alt: proj.title,
-          description: proj.title,
+          title: proj.title,
+          description: proj.description,
+          date: proj.date,
           tags: proj.tags,
           highlight: proj.highlight,
         }))}

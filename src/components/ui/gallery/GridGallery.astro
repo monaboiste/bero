@@ -5,6 +5,8 @@ export interface GalleryImage {
   src: string;
   alt: string;
   description?: string;
+  title?: string;
+  date?: string;
   tags?: string[];
   highlight?: boolean;
 }
@@ -12,7 +14,6 @@ export interface GalleryImage {
 interface Props extends JSX.HTMLAttributes {
   images: GalleryImage[];
   columns?: number;
-  date?: string;
   class?: string;
 }
 
@@ -24,17 +25,19 @@ const { images, columns = 3, class: className } = Astro.props;
   class:list={["gallery", className]}
   style={`--gallery-columns: ${columns};`}
 >
-  {images.map((image) => (
+  {images.map((image) => {
+    const hasLightboxDesc = image.title || image.description || image.date;
+    const dateLabel = image.date?.slice(0, 7);
+    return (
       <a
         href={image.src}
-      class:list={["glightbox gallery-tile-link", image.highlight && "gallery-tile-link--highlight"]}
-      data-gallery="gallery"
+        class:list={["glightbox gallery-tile-link", image.highlight && "gallery-tile-link--highlight"]}
+        data-gallery="gallery"
         data-type="image"
-        data-description={image.description}
         data-tags={image.tags?.join(",")}
         data-highlight={image.highlight ? "" : undefined}
-      data-animate="gallery-tile"
-      data-testid="gallery-tile"
+        data-animate="gallery-tile"
+        data-testid="gallery-tile"
       >
         <div class="gallery-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
           <img
@@ -43,17 +46,27 @@ const { images, columns = 3, class: className } = Astro.props;
             loading="lazy"
             class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
-          {image.description && (
+          {(image.title || image.description) && (
             <div
               data-testid="gallery-tile-caption"
               class="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
             >
-              <p class="text-sm text-white">{image.description}</p>
+              <p class="text-sm text-white">{image.title || image.description}</p>
             </div>
           )}
         </div>
+        {hasLightboxDesc && (
+          <div class="glightbox-desc hidden">
+            <div class="lightbox-desc-header">
+              {image.title && <h4 class="lightbox-desc-title">{image.title}</h4>}
+              {dateLabel && <span class="lightbox-desc-date">{dateLabel}</span>}
+            </div>
+            {image.description && <p class="lightbox-desc-text">{image.description}</p>}
+          </div>
+        )}
       </a>
-    ))}
+    );
+  })}
 </div>
 
 <style>
@@ -98,12 +111,18 @@ const { images, columns = 3, class: className } = Astro.props;
 
   .glightbox-bero .gslide-media img,
   .glightbox-bero .gslide-image img {
-    border-radius: var(--radius) var(--radius) 0 0;
+    border-radius: var(--radius);
   }
 
-  .glightbox-bero .gslide-description {
+  .glightbox-bero .gslide-description.description-bottom {
     background: var(--popover);
-    border-radius: 0 0 var(--radius) var(--radius);
+    border-radius: var(--radius);
+    margin-top: 0.75rem;
+  }
+
+  /* Hide the built-in title — we render our own inside the description */
+  .glightbox-bero .gslide-title {
+    display: none;
   }
 
   /* Hide the description overlay in the mobile lightbox (zoom view)
@@ -113,7 +132,7 @@ const { images, columns = 3, class: className } = Astro.props;
   }
 
   .glightbox-bero .gdesc-inner {
-    padding: 22px 20px;
+    padding: 22px 24px;
   }
 
   .glightbox-bero .gslide-desc {
@@ -122,6 +141,45 @@ const { images, columns = 3, class: className } = Astro.props;
     font-size: 0.86em;
     margin-bottom: 0;
     line-height: 1.4em;
+  }
+
+  /* Custom description layout */
+
+  .lightbox-desc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .lightbox-desc-title {
+    font-family: var(--font-sans);
+    font-size: 1.35em;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lightbox-desc-date {
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+    font-size: 0.8em;
+    font-weight: 600;
+    color: white;
+    background: var(--accent);
+    padding: 0.2em 0.65em;
+    border-radius: 9999px;
+    line-height: 1.5;
+    margin-top: 0.2em;
+  }
+
+  .lightbox-desc-text {
+    font-family: var(--font-sans);
+    color: var(--muted-foreground);
+    font-size: 0.86em;
+    line-height: 1.5em;
+    margin: 0.5em 0 0;
   }
 
   .glightbox-bero .gbtn {
