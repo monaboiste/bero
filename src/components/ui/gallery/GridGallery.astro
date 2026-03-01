@@ -129,6 +129,9 @@ const { images, columns = 3, class: className } = Astro.props;
     background: var(--popover);
     border-radius: var(--radius);
     margin-top: 0.75rem;
+    max-width: 700px;
+    max-height: 25vh;
+    overflow-y: auto;
   }
 
   /* Hide the built-in title — we render our own inside the description */
