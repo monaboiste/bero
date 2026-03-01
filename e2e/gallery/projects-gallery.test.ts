@@ -113,6 +113,26 @@ test.describe("Projects gallery", () => {
     expect(highlightBox.width).toBeGreaterThan(regularBox.width);
   });
 
+  test("tapping image in mobile lightbox toggles description @mobile", async ({
+    page,
+  }) => {
+    const firstTile = page.getByTestId("gallery-tile").first();
+    await firstTile.click();
+
+    const desc = page.locator(".gslide.current .gslide-description");
+    await expect(desc).toBeAttached();
+    await expect(desc).not.toHaveClass(/gslide-desc-visible/);
+
+    const image = page.locator(".gslide.current .gslide-image img");
+    await image.tap();
+    await expect(desc).toHaveClass(/gslide-desc-visible/);
+
+    await image.tap();
+    await expect(desc).not.toHaveClass(/gslide-desc-visible/);
+
+    await page.locator(".gclose").click();
+  });
+
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
     await page.goto("/projects?tag=Krzesla");
 

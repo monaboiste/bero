@@ -125,10 +125,26 @@ const { images, columns = 3, class: className } = Astro.props;
     display: none;
   }
 
-  /* Hide the description overlay in the mobile lightbox (zoom view)
-     to keep the UI clean — the caption is already visible on the tile. */
+  /* Mobile lightbox: description slides up from bottom on tap */
   .glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
-    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    margin-top: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .glightbox-mobile
+    .glightbox-container.glightbox-bero
+    .gslide-description.gslide-desc-visible {
+    transform: translateY(0);
   }
 
   .glightbox-bero .gdesc-inner {
@@ -180,6 +196,15 @@ const { images, columns = 3, class: className } = Astro.props;
     font-size: 0.86em;
     line-height: 1.5em;
     margin: 0.5em 0 0;
+  }
+
+  /* Mobile lightbox: light-on-dark text overrides */
+  .glightbox-mobile .glightbox-container.glightbox-bero .lightbox-desc-title {
+    color: #fff;
+  }
+
+  .glightbox-mobile .glightbox-container.glightbox-bero .lightbox-desc-text {
+    color: #a1a1a1;
   }
 
   .glightbox-bero .gbtn {
@@ -281,6 +306,7 @@ const { images, columns = 3, class: className } = Astro.props;
       draggable: false,
       loop: false,
       zoomable: false,
+      moreLength: 0,
     });
 
     // Swipe / drag navigation via Pointer Events.
@@ -289,6 +315,7 @@ const { images, columns = 3, class: className } = Astro.props;
     // concurrent navigations with an `isAnimating` flag so that rapid
     // swipes cannot cause a double-fire flash.
     const SWIPE_THRESHOLD = 50;
+    const TAP_THRESHOLD = 10;
     const ANIMATION_SETTLE_MS = 400; // GLightbox slide animation is 300ms
 
     let startX: number | null = null;
@@ -338,6 +365,18 @@ const { images, columns = 3, class: className } = Astro.props;
         setTimeout(() => {
           isAnimating = false;
         }, ANIMATION_SETTLE_MS);
+        return;
+      }
+
+      // Tap (no significant movement) on mobile: toggle description
+      if (
+        Math.abs(dx) < TAP_THRESHOLD &&
+        Math.abs(dy) < TAP_THRESHOLD &&
+        document.body.classList.contains("glightbox-mobile")
+      ) {
+        const slide = document.querySelector(".gslide.current");
+        const desc = slide?.querySelector(".gslide-description");
+        desc?.classList.toggle("gslide-desc-visible");
       }
     }
 
@@ -345,6 +384,12 @@ const { images, columns = 3, class: className } = Astro.props;
       startX = null;
       startY = null;
       tracking = false;
+    }
+
+    function hideAllMobileDescs(): void {
+      for (const d of document.querySelectorAll(".gslide-desc-visible")) {
+        d.classList.remove("gslide-desc-visible");
+      }
     }
 
     for (const tile of document.querySelectorAll(".glightbox")) {
@@ -369,6 +414,10 @@ const { images, columns = 3, class: className } = Astro.props;
       slider.addEventListener("pointercancel", onPointerCancel);
     });
 
+    lightbox.on("slide_changed", () => {
+      hideAllMobileDescs();
+    });
+
     lightbox.on("close", () => {
       const slider = document.getElementById("glightbox-slider");
       if (!slider) {
@@ -378,6 +427,7 @@ const { images, columns = 3, class: className } = Astro.props;
       slider.removeEventListener("pointerup", onPointerUp);
       slider.removeEventListener("pointercancel", onPointerCancel);
       isAnimating = false;
+      hideAllMobileDescs();
     });
   }
 
