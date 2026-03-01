@@ -1,0 +1,136 @@
+---
+import TagFilter from "@components/projects/gallery/TagFilter.astro";
+import Footer from "@components/ui/footer/Footer.astro";
+import MasonryGallery from "@components/ui/gallery/MasonryGallery.astro";
+import Navigation from "@components/ui/navigation/Navigation.astro";
+import SectionHeader from "@components/ui/SectionHeader.astro";
+import Layout from "@layouts/Layout.astro";
+import { getAllTags, getProjects } from "../../data/projects";
+
+export const prerender = true;
+
+const allProjects = getProjects();
+const tags = getAllTags();
+---
+
+<Layout
+  title="Wszystkie Realizacje | Studio Tapicerskie BERO"
+  description="Galeria wszystkich realizacji Studio Tapicerskiego BERO. Zobacz nasze projekty tapicerskie - renowacje, meble na wymiar i wiele wiecej."
+>
+  <Navigation />
+  <main class="bg-secondary pt-28 pb-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeader
+        title="Wszystkie Realizacje"
+        subtitle="Galeria naszych projektów tapicerskich"
+      />
+
+      <TagFilter tags={tags} />
+
+      <MasonryGallery
+        images={allProjects.map((proj) => ({
+          src: proj.image,
+          alt: proj.title,
+          description: proj.title,
+          tags: proj.tags,
+        }))}
+      />
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  function setupTagFilter(): void {
+    const TAG_PARAM = "tag";
+
+    const filterEl = document.querySelector('[data-testid="tag-filter"]');
+    const gallery = document.querySelector('[data-testid="masonry-gallery"]');
+    const hasElements = filterEl && gallery;
+
+    if (!hasElements) {
+      return;
+    }
+
+    const tagButtons =
+      filterEl.querySelectorAll<HTMLButtonElement>("[data-tag]");
+    const tiles = gallery.querySelectorAll<HTMLElement>(
+      "[data-testid='masonry-tile']"
+    );
+
+    function getActiveTag(): string {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(TAG_PARAM) ?? "";
+    }
+
+    function setActiveTag(tag: string): void {
+      const url = new URL(window.location.href);
+      if (tag) {
+        url.searchParams.set(TAG_PARAM, tag);
+      } else {
+        url.searchParams.delete(TAG_PARAM);
+      }
+      window.history.pushState({}, "", url.toString());
+    }
+
+    function updateButtonStates(activeTag: string): void {
+      for (const btn of tagButtons) {
+        const btnTag = btn.getAttribute("data-tag") ?? "";
+        const isActive = btnTag === activeTag;
+        btn.classList.toggle("tag-btn--active", isActive);
+        btn.setAttribute("aria-pressed", String(isActive));
+      }
+    }
+
+    function filterTiles(tag: string): void {
+      for (const tile of tiles) {
+        if (!tag) {
+          tile.classList.remove("hidden");
+          tile.style.opacity = "1";
+          tile.style.transform = "none";
+          continue;
+        }
+
+        const tileTags = tile.getAttribute("data-tags") ?? "";
+        const matches = tileTags.split(",").includes(tag);
+
+        if (matches) {
+          tile.classList.remove("hidden");
+          tile.style.opacity = "1";
+          tile.style.transform = "none";
+        } else {
+          tile.classList.add("hidden");
+        }
+      }
+    }
+
+    function applyFilter(tag: string): void {
+      setActiveTag(tag);
+      updateButtonStates(tag);
+      filterTiles(tag);
+    }
+
+    for (const btn of tagButtons) {
+      btn.addEventListener("click", () => {
+        const tag = btn.getAttribute("data-tag") ?? "";
+        applyFilter(tag);
+      });
+    }
+
+    window.addEventListener("popstate", () => {
+      const tag = getActiveTag();
+      updateButtonStates(tag);
+      filterTiles(tag);
+    });
+
+    // Apply initial filter from URL
+    const initialTag = getActiveTag();
+    if (initialTag) {
+      updateButtonStates(initialTag);
+      filterTiles(initialTag);
+    }
+  }
+
+  setupTagFilter();
+  document.addEventListener("astro:page-load", setupTagFilter);
+</script>

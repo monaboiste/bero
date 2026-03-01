@@ -1,0 +1,55 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<div
+  data-testid="tag-filter"
+  class="mb-12 flex flex-wrap items-center justify-center gap-3"
+>
+  <button
+    data-tag=""
+    data-testid="tag-filter-all"
+    class="tag-btn tag-btn--active cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300"
+    aria-pressed="true"
+  >
+    Wszystkie
+  </button>
+
+  {tags.map((tag) => (
+    <button
+      data-tag={tag}
+      data-testid={`tag-filter-${tag.toLowerCase().replace(/\s+/g, "-")}`}
+      class="tag-btn cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300"
+      aria-pressed="false"
+    >
+      {tag}
+    </button>
+  ))}
+</div>
+
+<style>
+  .tag-btn {
+    background-color: var(--muted);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+  }
+
+  .tag-btn:hover {
+    background-color: var(--border);
+  }
+
+  .tag-btn--active {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+    border-color: var(--accent);
+  }
+
+  .tag-btn--active:hover {
+    background-color: var(--accent);
+    opacity: 0.9;
+  }
+</style>

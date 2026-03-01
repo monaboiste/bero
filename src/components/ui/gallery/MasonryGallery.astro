@@ -3,6 +3,7 @@ export interface GalleryImage {
   src: string;
   alt: string;
   description?: string;
+  tags?: string[];
 }
 
 interface Props {
@@ -27,6 +28,7 @@ const { images, columns = 3, class: className = "" } = Astro.props;
         data-gallery="masonry-gallery"
         data-type="image"
         data-description={image.description}
+        data-tags={image.tags?.join(",")}
         data-animate="masonry-tile"
         data-testid="masonry-tile"
       >

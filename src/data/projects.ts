@@ -6,15 +6,7 @@ export interface Project {
   description: string;
   image: string;
   date: string;
-}
-
-export interface PaginatedResult<T> {
-  data: T[];
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  hasNext: boolean;
-  hasPrev: boolean;
+  tags: string[];
 }
 
 const projects: Project[] = [
@@ -26,6 +18,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1768573264026-b540abdc3384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYXJtY2hhaXIlMjByZXN0b3JhdGlvbnxlbnwxfHx8fDE3NzA1Nzg3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     date: "2026-02-12",
+    tags: ["Fotele", "Renowacja"],
   },
   {
     id: "2",
@@ -35,6 +28,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1753362752045-2c3fdf2d04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjaGFpciUyMHVwaG9sc3RlcnklMjBkZXRhaWx8ZW58MXx8fHwxNzcwNTc4NzE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
     date: "2026-01-06",
+    tags: ["Fotele", "Projekt indywidualny"],
   },
   {
     id: "3",
@@ -44,6 +38,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=1080",
     date: "2025-12-01",
+    tags: ["Sofy", "Fotele", "Projekt indywidualny"],
   },
   {
     id: "4",
@@ -53,6 +48,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-11-15",
+    tags: ["Krzesla", "Renowacja"],
   },
   {
     id: "5",
@@ -62,6 +58,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1540574163026-643ea20ade25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-10-20",
+    tags: ["Sofy", "Projekt indywidualny"],
   },
   {
     id: "6",
@@ -71,6 +68,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-09-08",
+    tags: ["Sofy", "Renowacja"],
   },
   {
     id: "7",
@@ -80,6 +78,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-08-25",
+    tags: ["Fotele", "Projekt indywidualny"],
   },
   {
     id: "8",
@@ -89,6 +88,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1524758631624-e2822e304c36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-07-12",
+    tags: ["Projekt indywidualny"],
   },
   {
     id: "9",
@@ -98,6 +98,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-06-30",
+    tags: ["Projekt indywidualny"],
   },
   {
     id: "10",
@@ -107,6 +108,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-05-18",
+    tags: ["Fotele", "Renowacja"],
   },
   {
     id: "11",
@@ -116,6 +118,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-04-05",
+    tags: ["Sofy", "Projekt indywidualny"],
   },
   {
     id: "12",
@@ -125,6 +128,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-03-22",
+    tags: ["Renowacja"],
   },
   {
     id: "13",
@@ -134,6 +138,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-02-14",
+    tags: ["Projekt indywidualny"],
   },
   {
     id: "14",
@@ -143,6 +148,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2025-01-10",
+    tags: ["Krzesla", "Projekt indywidualny"],
   },
   {
     id: "15",
@@ -152,6 +158,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2024-12-05",
+    tags: ["Fotele", "Projekt indywidualny"],
   },
   {
     id: "16",
@@ -161,6 +168,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2024-11-18",
+    tags: ["Projekt indywidualny"],
   },
   {
     id: "17",
@@ -170,6 +178,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1567016432779-094069958ea5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2024-10-30",
+    tags: ["Sofy", "Projekt indywidualny"],
   },
   {
     id: "18",
@@ -179,6 +188,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2024-09-15",
+    tags: ["Renowacja"],
   },
   {
     id: "19",
@@ -188,6 +198,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2024-08-20",
+    tags: ["Projekt indywidualny"],
   },
   {
     id: "20",
@@ -197,31 +208,20 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     date: "2024-07-08",
+    tags: ["Projekt indywidualny"],
   },
 ];
-
-export const PROJECTS_PER_PAGE = 9;
 
 export function getProjects(): Project[] {
   return projects;
 }
 
-export function getProjectsPage(
-  page: number,
-  perPage = 9
-): PaginatedResult<Project> {
-  const totalItems = projects.length;
-  const totalPages = Math.ceil(totalItems / perPage);
-  const currentPage = Math.max(1, Math.min(page, totalPages));
-  const start = (currentPage - 1) * perPage;
-  const end = start + perPage;
-
-  return {
-    data: projects.slice(start, end),
-    currentPage,
-    totalPages,
-    totalItems,
-    hasNext: currentPage < totalPages,
-    hasPrev: currentPage > 1,
-  };
+export function getAllTags(): string[] {
+  const tagSet = new Set<string>();
+  for (const project of projects) {
+    for (const tag of project.tags) {
+      tagSet.add(tag);
+    }
+  }
+  return Array.from(tagSet);
 }
