@@ -155,6 +155,57 @@ describe("MasonryGallery", () => {
     expect(caption?.classList.contains("group-hover:translate-y-0")).toBe(true);
   });
 
+  test("highlighted tile has data-highlight attribute and highlight class", async () => {
+    const images: GalleryImage[] = [
+      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
+      { src: "/img/r.jpg", alt: "Regular" },
+    ];
+
+    const result = await renderAstroComponent(MasonryGallery, {
+      props: { images },
+    });
+
+    const tiles = result.querySelectorAll('[data-testid="masonry-tile"]');
+
+    expect(tiles[0].hasAttribute("data-highlight")).toBe(true);
+    expect(tiles[0].classList.contains("masonry-tile-link--highlight")).toBe(
+      true
+    );
+  });
+
+  test("non-highlighted tile has no data-highlight attribute and no highlight class", async () => {
+    const images: GalleryImage[] = [
+      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
+      { src: "/img/r.jpg", alt: "Regular" },
+    ];
+
+    const result = await renderAstroComponent(MasonryGallery, {
+      props: { images },
+    });
+
+    const tiles = result.querySelectorAll('[data-testid="masonry-tile"]');
+
+    expect(tiles[1].hasAttribute("data-highlight")).toBe(false);
+    expect(tiles[1].classList.contains("masonry-tile-link--highlight")).toBe(
+      false
+    );
+  });
+
+  test("highlight defaults to false when omitted", async () => {
+    const result = await renderAstroComponent(MasonryGallery, {
+      props: { images: sampleImages },
+    });
+
+    const tiles = result.querySelectorAll('[data-testid="masonry-tile"]');
+
+    for (const tile of tiles) {
+      expect(tile.hasAttribute("data-highlight")).toBe(false);
+      expect(tile.classList.contains("masonry-tile-link--highlight")).toBe(
+        false
+      );
+    }
+  });
+
   test("accepts date prop without error", async () => {
     const result = await renderAstroComponent(MasonryGallery, {
       props: { images: sampleImages, date: "2025-01-15" },
