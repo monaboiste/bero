@@ -6,7 +6,7 @@ featured_image: "../../assets/cms/zestaw-salonowy.jpg"
 excerpt: "Kompleksowa tapicerka zestawu salonowego"
 description: "Kompleksowa tapicerka zestawu salonowego. Sofa, dwa fotele i pufa w jednolitej tkaninie."
 tags:
-  - "Sofy"
-  - "Fotele"
-  - "Projekt indywidualny"
+  - "sofas"
+  - "armchairs"
+  - "custom"
 ---

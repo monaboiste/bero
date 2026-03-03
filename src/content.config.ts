@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { PORTFOLIO_TAG_KEYS } from "./lib/tags";
 
 const portfolio = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/portfolio" }),
@@ -11,7 +12,9 @@ const portfolio = defineCollection({
       featured_image: image(),
       excerpt: z.string(),
       description: z.string(),
-      tags: z.array(z.string()).default([]),
+      tags: z
+        .array(z.enum(PORTFOLIO_TAG_KEYS as [string, ...string[]]))
+        .default([]),
     }),
 });
 

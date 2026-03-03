@@ -26,8 +26,8 @@ collections:
         widget: "select"
         multiple: true
         options:
-          - "Fotele"
-          - "Sofy"
-          - "Krzesła"
-          - "Renowacja"
-          - "Projekt indywidualny"
+          - { label: "Fotele", value: "armchairs" }
+          - { label: "Sofy", value: "sofas" }
+          - { label: "Krzesła", value: "chairs" }
+          - { label: "Renowacja", value: "restoration" }
+          - { label: "Projekt indywidualny", value: "custom" }
