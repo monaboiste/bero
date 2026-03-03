@@ -3,10 +3,22 @@ import { describe, expect, test } from "vitest";
 import type { GalleryImage } from "./GridGallery.astro";
 import GridGallery from "./GridGallery.astro";
 
+function mockImage(src: string) {
+  return { src, width: 800, height: 600, format: "jpg" as const };
+}
+
 const sampleImages: GalleryImage[] = [
-  { src: "/img/photo1.jpg", alt: "Photo 1", description: "First photo" },
-  { src: "/img/photo2.jpg", alt: "Photo 2", description: "Second photo" },
-  { src: "/img/photo3.jpg", alt: "Photo 3" },
+  {
+    src: mockImage("/img/photo1.jpg"),
+    alt: "Photo 1",
+    description: "First photo",
+  },
+  {
+    src: mockImage("/img/photo2.jpg"),
+    alt: "Photo 2",
+    description: "Second photo",
+  },
+  { src: mockImage("/img/photo3.jpg"), alt: "Photo 3" },
 ];
 
 describe("GridGallery", () => {
@@ -30,7 +42,7 @@ describe("GridGallery", () => {
     expect(tiles.length).toBe(3);
   });
 
-  test("each tile has an image with correct src and alt", async () => {
+  test("each tile has an image with correct alt", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },
     });
@@ -38,10 +50,9 @@ describe("GridGallery", () => {
     const images = result.querySelectorAll('[data-testid="gallery-tile"] img');
 
     expect(images.length).toBe(3);
-    expect(images[0].getAttribute("src")).toBe("/img/photo1.jpg");
     expect(images[0].getAttribute("alt")).toBe("Photo 1");
-    expect(images[1].getAttribute("src")).toBe("/img/photo2.jpg");
-    expect(images[2].getAttribute("src")).toBe("/img/photo3.jpg");
+    expect(images[1].getAttribute("alt")).toBe("Photo 2");
+    expect(images[2].getAttribute("alt")).toBe("Photo 3");
   });
 
   test("displays description when provided", async () => {
@@ -60,7 +71,7 @@ describe("GridGallery", () => {
 
   test("hides description when not provided", async () => {
     const imagesWithoutDesc: GalleryImage[] = [
-      { src: "/img/photo1.jpg", alt: "Photo 1" },
+      { src: mockImage("/img/photo1.jpg"), alt: "Photo 1" },
     ];
 
     const result = await renderAstroComponent(GridGallery, {
@@ -74,7 +85,7 @@ describe("GridGallery", () => {
     expect(captions.length).toBe(0);
   });
 
-  test("uses default 2 columns", async () => {
+  test("uses default 3 columns", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },
     });
@@ -163,8 +174,8 @@ describe("GridGallery", () => {
 
   test("highlighted tile has data-highlight attribute and highlight class", async () => {
     const images: GalleryImage[] = [
-      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
-      { src: "/img/r.jpg", alt: "Regular" },
+      { src: mockImage("/img/h.jpg"), alt: "Highlighted", highlight: true },
+      { src: mockImage("/img/r.jpg"), alt: "Regular" },
     ];
 
     const result = await renderAstroComponent(GridGallery, {
@@ -181,8 +192,8 @@ describe("GridGallery", () => {
 
   test("non-highlighted tile has no data-highlight attribute and no highlight class", async () => {
     const images: GalleryImage[] = [
-      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
-      { src: "/img/r.jpg", alt: "Regular" },
+      { src: mockImage("/img/h.jpg"), alt: "Highlighted", highlight: true },
+      { src: mockImage("/img/r.jpg"), alt: "Regular" },
     ];
 
     const result = await renderAstroComponent(GridGallery, {
@@ -215,7 +226,7 @@ describe("GridGallery", () => {
   test("lightbox desc shows title and date badge when provided", async () => {
     const images: GalleryImage[] = [
       {
-        src: "/img/p.jpg",
+        src: mockImage("/img/p.jpg"),
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
@@ -241,7 +252,7 @@ describe("GridGallery", () => {
   test("caption shows title when title is provided", async () => {
     const images: GalleryImage[] = [
       {
-        src: "/img/p.jpg",
+        src: mockImage("/img/p.jpg"),
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",

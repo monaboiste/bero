@@ -4,13 +4,13 @@ import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import Layout from "@layouts/Layout.astro";
-import { getAllTags, getProjects } from "../../data/projects";
+import { getAllPortfolioTags, getPortfolioEntries } from "../../lib/content";
 import TagFilter from "./TagFilter.astro";
 
 export const prerender = true;
 
-const allProjects = getProjects();
-const tags = getAllTags();
+const allProjects = await getPortfolioEntries();
+const tags = await getAllPortfolioTags();
 ---
 
 <Layout
@@ -28,14 +28,14 @@ const tags = getAllTags();
       <TagFilter tags={tags} />
 
       <GridGallery
-        images={allProjects.map((proj) => ({
-          src: proj.image,
-          alt: proj.title,
-          title: proj.title,
-          description: proj.description,
-          date: proj.date,
-          tags: proj.tags,
-          highlight: proj.highlight,
+        images={allProjects.map((entry) => ({
+          src: entry.data.featured_image,
+          alt: entry.data.title,
+          title: entry.data.title,
+          description: entry.data.description,
+          date: entry.data.date.toISOString().slice(0, 10),
+          tags: entry.data.tags,
+          highlight: entry.data.highlight,
         }))}
       />
     </div>

@@ -21,4 +21,13 @@ collections:
       # - { label: "Zdjęcie przed", name: "before_image", widget: "image" } # TODO: add support later
       - { label: "Krótki opis", name: "excerpt", widget: "text" }
       - { label: "Opis realizacji", name: "description", widget: "text" }
-      # TODO: add tags - multiselect
+      - label: "Tagi"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options:
+          - "Fotele"
+          - "Sofy"
+          - "Krzesła"
+          - "Renowacja"
+          - "Projekt indywidualny"

@@ -1,6 +1,63 @@
 import { renderAstroComponent } from "@test/helpers.ts";
-import { describe, expect, test } from "vitest";
-import Projects from "./Projects.astro";
+import { describe, expect, test, vi } from "vitest";
+
+vi.mock("../../lib/content", () => ({
+  getLatestPortfolioEntries: vi.fn().mockResolvedValue([
+    {
+      id: "1",
+      data: {
+        title: "Renowacja fotela klubowego",
+        excerpt: "Kompleksowa odnowa klasycznego fotela klubowego",
+        featured_image: {
+          src: "/img/mock1.jpg",
+          width: 800,
+          height: 600,
+          format: "jpg",
+        },
+        date: new Date("2026-02-12"),
+        highlight: true,
+        tags: ["Fotele", "Renowacja"],
+        description: "Pelny opis",
+      },
+    },
+    {
+      id: "2",
+      data: {
+        title: "Nowoczesny fotel tapicerowany",
+        excerpt: "Stworzenie eleganckiego fotela",
+        featured_image: {
+          src: "/img/mock2.jpg",
+          width: 800,
+          height: 600,
+          format: "jpg",
+        },
+        date: new Date("2026-01-06"),
+        highlight: false,
+        tags: ["Fotele"],
+        description: "Pelny opis 2",
+      },
+    },
+    {
+      id: "3",
+      data: {
+        title: "Zestaw mebli tapicerowanych",
+        excerpt: "Kompleksowa tapicerka zestawu salonowego",
+        featured_image: {
+          src: "/img/mock3.jpg",
+          width: 800,
+          height: 600,
+          format: "jpg",
+        },
+        date: new Date("2025-12-01"),
+        highlight: false,
+        tags: ["Sofy"],
+        description: "Pelny opis 3",
+      },
+    },
+  ]),
+}));
+
+const Projects = (await import("./Projects.astro")).default;
 
 describe("Projects", () => {
   test("renders section with id projects", async () => {
