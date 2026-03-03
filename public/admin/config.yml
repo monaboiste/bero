@@ -1,0 +1,24 @@
+# Decap CMS configuration
+local_backend: true
+backend:
+  name: github
+  repo: monaboiste/bero
+  branch: feat/cms # TODO: switch to master
+# TODO: introduce reasonable image size limit
+media_folder: "src/assets/cms"
+collections:
+  - name: "portfolio"
+    label: "Portfolio"
+    folder: "src/content/portfolio"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "gallery" }
+      - { label: "Tytuł realizacji", name: "title", widget: "string" }
+      - { label: "Data realizacji", name: "date", widget: "datetime" }
+      - { label: "Wyróżnij", name: "highlight", widget: "boolean", default: "true" }
+      - { label: "Zdjęcie", name: "featured_image", widget: "image" }
+      # - { label: "Zdjęcie przed", name: "before_image", widget: "image" } # TODO: add support later
+      - { label: "Krótki opis", name: "excerpt", widget: "text" }
+      - { label: "Opis realizacji", name: "description", widget: "text" }
+      # TODO: add tags - multiselect
