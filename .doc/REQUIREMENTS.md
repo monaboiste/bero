@@ -60,13 +60,11 @@ Portfolio website for an upholstery business serving as a marketing platform and
 
 ## 5. Admin Panel (CMS)
 
-- **Initial phase:** Decap CMS (git-based, `/admin` route)
+- Secure access via Sanity.io
 - Add/edit/delete projects
 - Manage translations
 - Update legal content
 - No-code editing for non-technical users
-- Content stored as Markdown files in repository
-- **Future:** switchable to API-based headless CMS (e.g. Sanity) via ContentProvider abstraction
 
 ---
 
@@ -86,61 +84,13 @@ Portfolio website for an upholstery business serving as a marketing platform and
 | Language   | **TypeScript**       | Type safety                                         |
 | Styling    | **Tailwind CSS**     | Rapid styling, theming                              |
 | Components | **DaisyUI**          | Tailwind-based component library                    |
-| CMS        | **Decap CMS**        | Git-based, no-code editing, `/admin` route          |
+| CMS        | **Sanity.io**        | Free tier, no-code editing                          |
 | Hosting    | **Cloudflare Pages** | Free, global CDN                                    |
 | Forms      | **Web3Forms**        | Serverless, spam filtering (CF Functions as backup) |
 
 ---
 
-## 8. Content Architecture
-
-### Content Model
-
-Each project (realization) has the following fields:
-
-- `title` – project title
-- `description` – short description
-- `date` – publication date
-- `images` – array of image paths
-- `slug` – URL-friendly identifier
-- `language` – `pl | en | de`
-
-### Folder Structure
-
-```
-src/
-  content/
-    realizations/
-      pl/
-      en/
-      de/
-```
-
-Each language version is a separate Markdown file, e.g.:
-
-```
-src/content/realizations/pl/sofa-renovation.md
-src/content/realizations/en/sofa-renovation.md
-src/content/realizations/de/sofa-renovation.md
-```
-
-### ContentProvider Abstraction
-
-To avoid vendor lock-in, content access is routed through a `ContentProvider` interface:
-
-```ts
-interface ContentProvider {
-  getAllRealizations(lang: string): Promise<Realization[]>
-  getRealizationBySlug(slug: string, lang: string): Promise<Realization>
-}
-```
-
-- **Default:** `AstroContentProvider` – reads from Astro collections, fully static
-- **Future:** `ApiContentProvider` – fetches from headless CMS (e.g. Sanity), switchable via config
-
----
-
-## 9. Non-Functional Requirements
+## 8. Non-Functional Requirements
 
 | Aspect      | Requirement                                         |
 | ----------- | --------------------------------------------------- |
@@ -151,47 +101,36 @@ interface ContentProvider {
 
 ---
 
-## 10. Deployment
+## 9. Deployment
 
 - **Platform:** Cloudflare Pages
-- **Method:** Auto-deploy from Git (content commits trigger rebuild)
+- **Method:** Auto-deploy from Git
 - **Features:** Preview builds for PRs, global CDN
 
 ---
 
-## 11. Image Optimization
+## 10. Image Optimization
 
-| Feature    | Implementation                         |
-| ---------- | -------------------------------------- |
-| Storage    | In-repository (initial phase)          |
-| Formats    | Build-time conversion to WebP/AVIF     |
-| Responsive | srcset via Astro image optimization    |
-| Loading    | Native lazy loading                    |
+| Feature    | Implementation                  |
+| ---------- | ------------------------------- |
+| CDN        | Sanity.io Image CDN (free tier) |
+| Formats    | Auto-conversion to WebP/AVIF    |
+| Responsive | Dynamic srcset via URL params   |
+| Loading    | Native lazy loading             |
 
-**Scalability path:** If repository grows too large, images move to object storage (S3 / Cloudflare R2). Markdown frontmatter references CDN URLs. No changes to components required.
-
----
-
-## 12. Deployment Phases
-
-| Phase | Scope |
-| ----- | ----- |
-| **Phase 1 – MVP** | Astro collections, Decap CMS, manual translations, images in repo, static hosting |
-| **Phase 2 – Optimization** | CDN-based image storage, gallery pagination improvements, SEO refinement |
-| **Phase 3 – Automation** | n8n translation pipeline (PL → EN/DE via DeepL or OpenAI), `needsReview` flag, editor review in Decap |
-| **Phase 4 – Scaling** | Switch ContentProvider to API-based headless CMS, preview environment |
+**URL Example:** `image.sanity.io/.../image.jpg?w=800&fm=webp&q=80`
 
 ---
 
-## 13. Future Considerations
+## 11. Future Considerations
 
 ### Technical
 
 | Topic                | Notes                                                                      |
 | -------------------- | -------------------------------------------------------------------------- |
 | Analytics            | Cloudflare Web Analytics - free, privacy-first, GDPR compliant, no cookies |
-| Backup Strategy      | Git repository serves as content backup; additional export scripts post-MVP |
-| Content Versioning   | Git history provides full content audit trail                              |
+| Backup Strategy      | Sanity CLI export for periodic backups (post-MVP)                          |
+| Content Versioning   | Sanity built-in history - configure rollback UI if needed                  |
 | Interaction Tracking | Custom events for clicks, time-on-element (evaluate after launch)          |
 
 ### Features

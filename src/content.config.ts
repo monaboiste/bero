@@ -10,7 +10,6 @@ const portfolio = defineCollection({
       date: z.coerce.date(),
       highlight: z.boolean().default(false),
       featured_image: image(),
-      excerpt: z.string(),
       description: z.string(),
       tags: z
         .array(z.enum(PORTFOLIO_TAG_KEYS as [string, ...string[]]))

@@ -7,7 +7,7 @@ vi.mock("../../lib/content", () => ({
       id: "1",
       data: {
         title: "Renowacja fotela klubowego",
-        excerpt: "Kompleksowa odnowa klasycznego fotela klubowego",
+        description: "Kompleksowa odnowa klasycznego fotela klubowego",
         featured_image: {
           src: "/img/mock1.jpg",
           width: 800,
@@ -17,14 +17,13 @@ vi.mock("../../lib/content", () => ({
         date: new Date("2026-02-12"),
         highlight: true,
         tags: ["Fotele", "Renowacja"],
-        description: "Pelny opis",
       },
     },
     {
       id: "2",
       data: {
         title: "Nowoczesny fotel tapicerowany",
-        excerpt: "Stworzenie eleganckiego fotela",
+        description: "Stworzenie eleganckiego fotela",
         featured_image: {
           src: "/img/mock2.jpg",
           width: 800,
@@ -34,14 +33,13 @@ vi.mock("../../lib/content", () => ({
         date: new Date("2026-01-06"),
         highlight: false,
         tags: ["Fotele"],
-        description: "Pelny opis 2",
       },
     },
     {
       id: "3",
       data: {
         title: "Zestaw mebli tapicerowanych",
-        excerpt: "Kompleksowa tapicerka zestawu salonowego",
+        description: "Kompleksowa tapicerka zestawu salonowego",
         featured_image: {
           src: "/img/mock3.jpg",
           width: 800,
@@ -51,7 +49,6 @@ vi.mock("../../lib/content", () => ({
         date: new Date("2025-12-01"),
         highlight: false,
         tags: ["Sofy"],
-        description: "Pelny opis 3",
       },
     },
   ]),
