@@ -9,15 +9,15 @@ export interface GalleryImage {
   title: string;
   date?: string;
   tags?: string[];
+  orientation?: "landscape" | "portrait";
 }
 
 interface Props extends JSX.HTMLAttributes {
   images: GalleryImage[];
-  columns?: number;
   class?: string;
 }
 
-const { images, columns = 3, class: className } = Astro.props;
+const { images, class: className } = Astro.props;
 ---
 
 <div
@@ -26,10 +26,11 @@ const { images, columns = 3, class: className } = Astro.props;
 >
   {images.map((image) => {
       const dateLabel = image.date?.slice(0, 7);
+      const isLandscape = image.orientation === "landscape";
       return (
         <a
           href={image.fullSrc ?? image.src}
-          class="glightbox gallery-tile-link block"
+          class:list={["glightbox gallery-tile-link block", isLandscape && "gallery-tile--landscape"]}
           data-gallery="gallery"
           data-type="image"
           data-height="calc(100vh - 4rem)"
@@ -72,7 +73,6 @@ const { images, columns = 3, class: className } = Astro.props;
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-auto-rows: 1fr;
     grid-auto-flow: dense;
     gap: 1rem;
   }
@@ -84,6 +84,15 @@ const { images, columns = 3, class: className } = Astro.props;
   }
 
   @media (min-width: 640px) {
+    .gallery-tile-link {
+      aspect-ratio: 3 / 4;
+    }
+
+    .gallery-tile--landscape {
+      grid-column: span 2;
+      aspect-ratio: 3 / 2;
+    }
+
     .gallery-tile {
       height: 100%;
     }

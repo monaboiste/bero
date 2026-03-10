@@ -93,24 +93,58 @@ describe("GridGallery", () => {
     }
   });
 
-  test("uses default 3 columns", async () => {
+  test("landscape tile has landscape class", async () => {
+    const images: GalleryImage[] = [
+      {
+        src: "/img/photo1.jpg",
+        fullSrc: "/img/photo1-full.jpg",
+        alt: "Landscape",
+        title: "Wide shot",
+        description: "A wide photo",
+        orientation: "landscape",
+      },
+    ];
+
+    const result = await renderAstroComponent(GridGallery, {
+      props: { images },
+    });
+
+    const tile = result.querySelector('[data-testid="gallery-tile"]');
+
+    expect(tile?.classList.contains("gallery-tile--landscape")).toBe(true);
+  });
+
+  test("portrait tile does not have landscape class", async () => {
+    const images: GalleryImage[] = [
+      {
+        src: "/img/photo1.jpg",
+        fullSrc: "/img/photo1-full.jpg",
+        alt: "Portrait",
+        title: "Tall shot",
+        description: "A tall photo",
+        orientation: "portrait",
+      },
+    ];
+
+    const result = await renderAstroComponent(GridGallery, {
+      props: { images },
+    });
+
+    const tile = result.querySelector('[data-testid="gallery-tile"]');
+
+    expect(tile?.classList.contains("gallery-tile--landscape")).toBe(false);
+  });
+
+  test("tile without orientation does not have landscape class", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },
     });
 
-    const gallery = result.querySelector('[data-testid="gallery"]');
+    const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
 
-    expect(gallery?.getAttribute("style")).toContain("--gallery-columns: 3");
-  });
-
-  test("accepts custom column count", async () => {
-    const result = await renderAstroComponent(GridGallery, {
-      props: { images: sampleImages, columns: 55 },
-    });
-
-    const gallery = result.querySelector('[data-testid="gallery"]');
-
-    expect(gallery?.getAttribute("style")).toContain("--gallery-columns: 55");
+    for (const tile of tiles) {
+      expect(tile.classList.contains("gallery-tile--landscape")).toBe(false);
+    }
   });
 
   test("applies custom class", async () => {
