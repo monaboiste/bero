@@ -6,15 +6,28 @@ import GridGallery from "./GridGallery.astro";
 const sampleImages: GalleryImage[] = [
   {
     src: "/img/photo1.jpg",
+    fullSrc: "/img/photo1-full.jpg",
     alt: "Photo 1",
+    title: "First title",
     description: "First photo",
+    date: "2025-01-15",
   },
   {
     src: "/img/photo2.jpg",
+    fullSrc: "/img/photo2-full.jpg",
     alt: "Photo 2",
+    title: "Second title",
     description: "Second photo",
+    date: "2025-02-20",
   },
-  { src: "/img/photo3.jpg", alt: "Photo 3" },
+  {
+    src: "/img/photo3.jpg",
+    fullSrc: "/img/photo3-full.jpg",
+    alt: "Photo 3",
+    title: "Third title",
+    description: "Third photo",
+    date: "2025-03-10",
+  },
 ];
 
 describe("GridGallery", () => {
@@ -51,7 +64,7 @@ describe("GridGallery", () => {
     expect(images[2].getAttribute("alt")).toBe("Photo 3");
   });
 
-  test("displays description when provided", async () => {
+  test("displays caption for each tile", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },
     });
@@ -60,25 +73,24 @@ describe("GridGallery", () => {
       '[data-testid="gallery-tile-caption"]'
     );
 
-    expect(captions.length).toBe(2);
-    expect(captions[0].textContent?.trim()).toBe("First photo");
-    expect(captions[1].textContent?.trim()).toBe("Second photo");
+    expect(captions.length).toBe(3);
+    expect(captions[0].textContent?.trim()).toBe("First title");
+    expect(captions[1].textContent?.trim()).toBe("Second title");
+    expect(captions[2].textContent?.trim()).toBe("Third title");
   });
 
-  test("hides description when not provided", async () => {
-    const imagesWithoutDesc: GalleryImage[] = [
-      { src: "/img/photo1.jpg", alt: "Photo 1" },
-    ];
-
+  test("every tile has a hidden glightbox-desc element", async () => {
     const result = await renderAstroComponent(GridGallery, {
-      props: { images: imagesWithoutDesc },
+      props: { images: sampleImages },
     });
 
-    const captions = result.querySelectorAll(
-      '[data-testid="gallery-tile-caption"]'
-    );
+    const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
 
-    expect(captions.length).toBe(0);
+    for (const tile of tiles) {
+      const desc = tile.querySelector(".glightbox-desc");
+      expect(desc).not.toBeNull();
+      expect(desc?.classList.contains("hidden")).toBe(true);
+    }
   });
 
   test("uses default 3 columns", async () => {
@@ -137,21 +149,19 @@ describe("GridGallery", () => {
     }
   });
 
-  test("tile with description has a hidden glightbox-desc element", async () => {
+  test("glightbox-desc contains description text", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },
     });
 
     const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
     const desc0 = tiles[0].querySelector(".glightbox-desc");
-    const desc2 = tiles[2].querySelector(".glightbox-desc");
 
     expect(desc0).not.toBeNull();
     expect(desc0?.classList.contains("hidden")).toBe(true);
     expect(
       desc0?.querySelector(".lightbox-desc-text")?.textContent?.trim()
     ).toBe("First photo");
-    expect(desc2).toBeNull();
   });
 
   test("caption is rendered as a hover overlay", async () => {
@@ -166,57 +176,6 @@ describe("GridGallery", () => {
     expect(caption?.classList.contains("absolute")).toBe(true);
     expect(caption?.classList.contains("translate-y-full")).toBe(true);
     expect(caption?.classList.contains("group-hover:translate-y-0")).toBe(true);
-  });
-
-  test("highlighted tile has data-highlight attribute and highlight class", async () => {
-    const images: GalleryImage[] = [
-      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
-      { src: "/img/r.jpg", alt: "Regular" },
-    ];
-
-    const result = await renderAstroComponent(GridGallery, {
-      props: { images },
-    });
-
-    const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
-
-    expect(tiles[0].hasAttribute("data-highlight")).toBe(true);
-    expect(tiles[0].classList.contains("gallery-tile-link--highlight")).toBe(
-      true
-    );
-  });
-
-  test("non-highlighted tile has no data-highlight attribute and no highlight class", async () => {
-    const images: GalleryImage[] = [
-      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
-      { src: "/img/r.jpg", alt: "Regular" },
-    ];
-
-    const result = await renderAstroComponent(GridGallery, {
-      props: { images },
-    });
-
-    const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
-
-    expect(tiles[1].hasAttribute("data-highlight")).toBe(false);
-    expect(tiles[1].classList.contains("gallery-tile-link--highlight")).toBe(
-      false
-    );
-  });
-
-  test("highlight defaults to false when omitted", async () => {
-    const result = await renderAstroComponent(GridGallery, {
-      props: { images: sampleImages },
-    });
-
-    const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
-
-    for (const tile of tiles) {
-      expect(tile.hasAttribute("data-highlight")).toBe(false);
-      expect(tile.classList.contains("gallery-tile-link--highlight")).toBe(
-        false
-      );
-    }
   });
 
   test("lightbox desc shows title and date badge when provided", async () => {

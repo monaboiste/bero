@@ -2,7 +2,6 @@ export interface PortfolioEntry {
   title: string;
   slug: string;
   date: string;
-  highlight: boolean;
   featuredImageUrl: string;
   featuredImageFullUrl: string;
   excerpt: string;
@@ -14,7 +13,6 @@ export interface RawSanityPortfolio {
   title: string | null;
   slug: string | null;
   date: string | null;
-  highlight: boolean | null;
   featuredImage: string | null;
   excerpt: string | null;
   description: string | null;

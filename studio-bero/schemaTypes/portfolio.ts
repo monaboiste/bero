@@ -54,13 +54,6 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "highlight",
-      title: "Highlight",
-      type: "boolean",
-      group: "common",
-      initialValue: false,
-    }),
-    defineField({
       name: "featuredImage",
       title: "Featured image",
       type: "image",
