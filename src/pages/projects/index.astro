@@ -4,8 +4,8 @@ import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import Layout from "@layouts/Layout.astro";
-import { getPortfolioEntries } from "../../lib/content";
-import { getTagLabel, PORTFOLIO_TAG_KEYS } from "../../lib/tags";
+import { getPortfolioEntries } from "@lib/content/content";
+import { getTagLabel, PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 import TagFilter from "./TagFilter.astro";
 
 export const prerender = true;

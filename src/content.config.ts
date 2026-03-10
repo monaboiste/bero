@@ -1,6 +1,6 @@
 import { defineCollection, z } from "astro:content";
+import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 import { glob } from "astro/loaders";
-import { PORTFOLIO_TAG_KEYS } from "./lib/tags";
 
 const portfolio = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/portfolio" }),

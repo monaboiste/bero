@@ -1,7 +1,7 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
 
-vi.mock("../../lib/content", () => ({
+vi.mock("@lib/content", () => ({
   getLatestPortfolioEntries: vi.fn().mockResolvedValue([
     {
       title: "Renowacja fotela klubowego",
