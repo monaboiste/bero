@@ -1,10 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
 import type { JSX } from "astro/jsx-runtime";
 
 export interface GalleryImage {
-  src: ImageMetadata;
+  src: string;
+  fullSrc?: string;
   alt: string;
   description?: string;
   title?: string;
@@ -32,7 +31,7 @@ const { images, columns = 3, class: className } = Astro.props;
       const dateLabel = image.date?.slice(0, 7);
       return (
         <a
-          href={image.src.src}
+          href={image.fullSrc ?? image.src}
           class:list={[
             "glightbox gallery-tile-link",
             image.highlight && "gallery-tile-link--highlight",
@@ -46,12 +45,9 @@ const { images, columns = 3, class: className } = Astro.props;
           data-testid="gallery-tile"
         >
           <div class="gallery-tile group relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
-            <Image
+            <img
               src={image.src}
               alt={image.alt}
-              widths={[400, 800]}
-              sizes={image.highlight ? "(max-width: 639px) 100vw, 66vw" : "(max-width: 639px) 100vw, 33vw"}
-              quality={80}
               loading="lazy"
               class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />

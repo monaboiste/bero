@@ -33,13 +33,14 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
 
       <GridGallery
         images={allProjects.map((entry) => ({
-          src: entry.data.featured_image,
-          alt: entry.data.title,
-          title: entry.data.title,
-          description: entry.data.description,
-          date: entry.data.date.toISOString().slice(0, 10),
-          tags: entry.data.tags,
-          highlight: entry.data.highlight,
+          src: entry.featuredImageUrl,
+          fullSrc: entry.featuredImageFullUrl,
+          alt: entry.title,
+          title: entry.title,
+          description: entry.description,
+          date: entry.date,
+          tags: entry.tags,
+          highlight: entry.highlight,
         }))}
       />
     </div>

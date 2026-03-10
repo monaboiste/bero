@@ -3,22 +3,18 @@ import { describe, expect, test } from "vitest";
 import type { GalleryImage } from "./GridGallery.astro";
 import GridGallery from "./GridGallery.astro";
 
-function mockImage(src: string) {
-  return { src, width: 800, height: 600, format: "jpg" as const };
-}
-
 const sampleImages: GalleryImage[] = [
   {
-    src: mockImage("/img/photo1.jpg"),
+    src: "/img/photo1.jpg",
     alt: "Photo 1",
     description: "First photo",
   },
   {
-    src: mockImage("/img/photo2.jpg"),
+    src: "/img/photo2.jpg",
     alt: "Photo 2",
     description: "Second photo",
   },
-  { src: mockImage("/img/photo3.jpg"), alt: "Photo 3" },
+  { src: "/img/photo3.jpg", alt: "Photo 3" },
 ];
 
 describe("GridGallery", () => {
@@ -71,7 +67,7 @@ describe("GridGallery", () => {
 
   test("hides description when not provided", async () => {
     const imagesWithoutDesc: GalleryImage[] = [
-      { src: mockImage("/img/photo1.jpg"), alt: "Photo 1" },
+      { src: "/img/photo1.jpg", alt: "Photo 1" },
     ];
 
     const result = await renderAstroComponent(GridGallery, {
@@ -174,8 +170,8 @@ describe("GridGallery", () => {
 
   test("highlighted tile has data-highlight attribute and highlight class", async () => {
     const images: GalleryImage[] = [
-      { src: mockImage("/img/h.jpg"), alt: "Highlighted", highlight: true },
-      { src: mockImage("/img/r.jpg"), alt: "Regular" },
+      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
+      { src: "/img/r.jpg", alt: "Regular" },
     ];
 
     const result = await renderAstroComponent(GridGallery, {
@@ -192,8 +188,8 @@ describe("GridGallery", () => {
 
   test("non-highlighted tile has no data-highlight attribute and no highlight class", async () => {
     const images: GalleryImage[] = [
-      { src: mockImage("/img/h.jpg"), alt: "Highlighted", highlight: true },
-      { src: mockImage("/img/r.jpg"), alt: "Regular" },
+      { src: "/img/h.jpg", alt: "Highlighted", highlight: true },
+      { src: "/img/r.jpg", alt: "Regular" },
     ];
 
     const result = await renderAstroComponent(GridGallery, {
@@ -226,7 +222,7 @@ describe("GridGallery", () => {
   test("lightbox desc shows title and date badge when provided", async () => {
     const images: GalleryImage[] = [
       {
-        src: mockImage("/img/p.jpg"),
+        src: "/img/p.jpg",
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
@@ -252,7 +248,7 @@ describe("GridGallery", () => {
   test("caption shows title when title is provided", async () => {
     const images: GalleryImage[] = [
       {
-        src: mockImage("/img/p.jpg"),
+        src: "/img/p.jpg",
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",

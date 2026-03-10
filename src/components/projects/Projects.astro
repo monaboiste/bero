@@ -25,10 +25,10 @@ const projects = await getLatestPortfolioEntries(3);
       {projects.map((project) => (
           <ProjectCard
             data-animate="project-card"
-            title={project.data.title}
-            description={project.data.description}
-            image={project.data.featured_image}
-            date={project.data.date.toISOString().slice(0, 10)}
+            title={project.title}
+            description={project.description}
+            image={project.featuredImageUrl}
+            date={project.date}
             viewMoreLabel={content.viewMore}
           />
         ))}

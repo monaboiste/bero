@@ -1,12 +1,11 @@
 ---
 import Card from "@components/ui/Card.astro";
-import type { ImageMetadata } from "astro";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {
   title: string;
   description: string;
-  image: ImageMetadata;
+  image: string;
   date?: string;
   viewMoreLabel?: string;
 }
