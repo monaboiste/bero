@@ -1,5 +1,3 @@
-import type { SanityImageSource } from "@sanity/image-url";
-
 export interface PortfolioEntry {
   title: string;
   slug: string;
@@ -16,7 +14,7 @@ export interface RawSanityPortfolio {
   slug: string | null;
   date: string | null;
   highlight: boolean | null;
-  featuredImage: SanityImageSource | null;
+  featuredImage: string | null;
   description: string | null;
   tags: string[] | null;
 }

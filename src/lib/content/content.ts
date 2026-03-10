@@ -8,11 +8,12 @@ const PORTFOLIO_FIELDS = `
   "slug": slug.${LANG}.current,
   date,
   highlight,
-  featuredImage,
+  "featuredImage": featuredImage.asset._ref,
   "description": description[_key == "${LANG}"][0].value,
   tags
 `;
 
+// TODO: PAGINATION!
 export async function getPortfolioEntries(): Promise<PortfolioEntry[]> {
   const entries = await sanityClient.fetch<RawSanityPortfolio[]>(
     `*[_type == "portfolio"] | order(date desc) { ${PORTFOLIO_FIELDS} }`
@@ -39,7 +40,7 @@ function mapSanityEntry(entry: RawSanityPortfolio): PortfolioEntry {
       ? urlFor(entry.featuredImage).width(800).format("webp").quality(80).url()
       : "",
     featuredImageFullUrl: entry.featuredImage
-      ? urlFor(entry.featuredImage).url()
+      ? urlFor(entry.featuredImage).width(1600).format("webp").quality(85).url()
       : "",
     description: entry.description ?? "",
     tags: entry.tags ?? [],
