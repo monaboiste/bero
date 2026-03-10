@@ -2,7 +2,7 @@ import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
 
 vi.mock("@lib/content/content", () => ({
-  getLatestPortfolioEntries: vi.fn().mockResolvedValue([
+  fetchPortfolio: vi.fn().mockResolvedValue([
     {
       title: "Renowacja fotela klubowego",
       slug: "renowacja-fotela-klubowego",
@@ -11,7 +11,6 @@ vi.mock("@lib/content/content", () => ({
       featuredImageUrl: "/img/mock1.jpg",
       featuredImageFullUrl: "/img/mock1-full.jpg",
       date: "2026-02-12",
-      highlight: true,
       tags: ["armchairs", "restoration"],
     },
     {
@@ -22,7 +21,6 @@ vi.mock("@lib/content/content", () => ({
       featuredImageUrl: "/img/mock2.jpg",
       featuredImageFullUrl: "/img/mock2-full.jpg",
       date: "2026-01-06",
-      highlight: false,
       tags: ["armchairs"],
     },
     {
@@ -33,7 +31,6 @@ vi.mock("@lib/content/content", () => ({
       featuredImageUrl: "/img/mock3.jpg",
       featuredImageFullUrl: "/img/mock3-full.jpg",
       date: "2025-12-01",
-      highlight: false,
       tags: ["sofas"],
     },
   ]),

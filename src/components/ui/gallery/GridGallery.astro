@@ -2,13 +2,13 @@
 import type { JSX } from "astro/jsx-runtime";
 
 export interface GalleryImage {
-  src: string;
-  fullSrc: string;
+  thumbnail: string;
+  url: string;
   alt: string;
   description: string;
   title: string;
   date?: string;
-  tags?: string[];
+  tags: string[];
   orientation?: "landscape" | "portrait";
 }
 
@@ -20,16 +20,13 @@ interface Props extends JSX.HTMLAttributes {
 const { images, class: className } = Astro.props;
 ---
 
-<div
-  data-testid="gallery"
-  class:list={["gallery", className]}
->
+<div data-testid="gallery" class:list={["gallery", className]}>
   {images.map((image) => {
       const dateLabel = image.date?.slice(0, 7);
       const isLandscape = image.orientation === "landscape";
       return (
         <a
-          href={image.fullSrc ?? image.src}
+          href={image.url}
           class:list={["glightbox gallery-tile-link block", isLandscape && "gallery-tile--landscape"]}
           data-gallery="gallery"
           data-type="image"
@@ -40,7 +37,7 @@ const { images, class: className } = Astro.props;
         >
           <div class="gallery-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
             <img
-              src={image.src}
+              src={image.thumbnail}
               alt={image.alt}
               loading="lazy"
               class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"

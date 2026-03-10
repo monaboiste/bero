@@ -4,13 +4,13 @@ import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import Layout from "@layouts/Layout.astro";
-import { getPortfolioEntries } from "@lib/content/content";
+import { fetchPortfolio } from "@lib/content/content";
 import { getTagLabel, PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 import TagFilter from "./TagFilter.astro";
 
 export const prerender = true;
 
-const allProjects = await getPortfolioEntries();
+const allProjects = await fetchPortfolio();
 const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
   key,
   label: getTagLabel(key),
@@ -33,13 +33,14 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
 
       <GridGallery
         images={allProjects.map((entry) => ({
-          src: entry.featuredImageUrl,
-          fullSrc: entry.featuredImageFullUrl,
+          thumbnail: entry.featuredImage.thumbnail,
+          url: entry.featuredImage.url,
           alt: entry.title,
           title: entry.title,
           description: entry.description,
           date: entry.date,
           tags: entry.tags,
+          orientation: entry.featuredImage.aspectRatio > 1 ? "landscape" : "portrait",
         }))}
       />
     </div>

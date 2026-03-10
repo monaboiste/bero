@@ -1,6 +1,6 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { getLatestPortfolioEntries } from "@lib/content/content";
+import { fetchPortfolio } from "@lib/content/content";
 import ProjectCard from "./ProjectCard.astro";
 
 const content = {
@@ -10,7 +10,7 @@ const content = {
   viewMore: "Zobacz wiecej",
 };
 
-const projects = await getLatestPortfolioEntries(3);
+const projects = await fetchPortfolio(3);
 ---
 
 <section id="projects" data-testid="projects" class="bg-secondary py-20">
@@ -27,7 +27,7 @@ const projects = await getLatestPortfolioEntries(3);
             data-animate="project-card"
             title={project.title}
             description={project.excerpt}
-            image={project.featuredImageUrl}
+            image={project.featuredImage.url}
             date={project.date}
             viewMoreLabel={content.viewMore}
           />

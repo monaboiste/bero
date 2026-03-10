@@ -5,24 +5,24 @@ import GridGallery from "./GridGallery.astro";
 
 const sampleImages: GalleryImage[] = [
   {
-    src: "/img/photo1.jpg",
-    fullSrc: "/img/photo1-full.jpg",
+    thumbnail: "/img/photo1.jpg",
+    url: "/img/photo1-full.jpg",
     alt: "Photo 1",
     title: "First title",
     description: "First photo",
     date: "2025-01-15",
   },
   {
-    src: "/img/photo2.jpg",
-    fullSrc: "/img/photo2-full.jpg",
+    thumbnail: "/img/photo2.jpg",
+    url: "/img/photo2-full.jpg",
     alt: "Photo 2",
     title: "Second title",
     description: "Second photo",
     date: "2025-02-20",
   },
   {
-    src: "/img/photo3.jpg",
-    fullSrc: "/img/photo3-full.jpg",
+    thumbnail: "/img/photo3.jpg",
+    url: "/img/photo3-full.jpg",
     alt: "Photo 3",
     title: "Third title",
     description: "Third photo",
@@ -96,8 +96,8 @@ describe("GridGallery", () => {
   test("landscape tile has landscape class", async () => {
     const images: GalleryImage[] = [
       {
-        src: "/img/photo1.jpg",
-        fullSrc: "/img/photo1-full.jpg",
+        thumbnail: "/img/photo1.jpg",
+        url: "/img/photo1-full.jpg",
         alt: "Landscape",
         title: "Wide shot",
         description: "A wide photo",
@@ -117,8 +117,8 @@ describe("GridGallery", () => {
   test("portrait tile does not have landscape class", async () => {
     const images: GalleryImage[] = [
       {
-        src: "/img/photo1.jpg",
-        fullSrc: "/img/photo1-full.jpg",
+        thumbnail: "/img/photo1.jpg",
+        url: "/img/photo1-full.jpg",
         alt: "Portrait",
         title: "Tall shot",
         description: "A tall photo",
@@ -215,7 +215,7 @@ describe("GridGallery", () => {
   test("lightbox desc shows title and date badge when provided", async () => {
     const images: GalleryImage[] = [
       {
-        src: "/img/p.jpg",
+        thumbnail: "/img/p.jpg",
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
@@ -241,7 +241,7 @@ describe("GridGallery", () => {
   test("caption shows title when title is provided", async () => {
     const images: GalleryImage[] = [
       {
-        src: "/img/p.jpg",
+        thumbnail: "/img/p.jpg",
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
