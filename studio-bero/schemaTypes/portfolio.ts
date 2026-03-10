@@ -18,10 +18,10 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Title (max 50 characters)",
       type: "internationalizedArrayString",
       group: "localized",
-      validation: requireAllLanguages("Title"),
+      validation: requireAllLanguages("Title", { maxLength: 50 }),
     }),
     defineField({
       name: "slug",
@@ -32,11 +32,19 @@ export default defineType({
       validation: requireAllSlugLanguages(),
     }),
     defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      description: "Short description for cards (max 150 characters)",
+      type: "internationalizedArrayString",
+      group: "localized",
+      validation: requireAllLanguages("Excerpt", { maxLength: 150 }),
+    }),
+    defineField({
       name: "description",
-      title: "Description",
+      title: "Description (max 850 characters)",
       type: "internationalizedArrayText",
       group: "localized",
-      validation: requireAllLanguages("Description"),
+      validation: requireAllLanguages("Description", { maxLength: 850 }),
     }),
     defineField({
       name: "date",
@@ -105,22 +113,36 @@ export default defineType({
   },
 });
 
-function requireAllLanguages(fieldLabel: string) {
+function requireAllLanguages(
+  fieldLabel: string,
+  options?: { maxLength?: number },
+) {
   return (rule: Rule) =>
     rule.custom<{ _key: string; value: string }[]>((value) => {
       if (!value || value.length === 0) {
         return `${fieldLabel} is mandatory`;
       }
-      const emptyItems = value.filter(
-        (item) => !item.value || item.value.trim() === "",
-      );
-      if (emptyItems.length > 0) {
-        return emptyItems.map((item) => ({
-          message: `${fieldLabel} is mandatory for language: ${item._key}`,
-          path: [{ _key: item._key }, "value"],
-        }));
+      const errors: {
+        message: string;
+        path: Array<{ _key: string } | string>;
+      }[] = [];
+      for (const item of value) {
+        if (!item.value || item.value.trim() === "") {
+          errors.push({
+            message: `${fieldLabel} is mandatory for language: ${item._key}`,
+            path: [{ _key: item._key }, "value"],
+          });
+        } else if (
+          options?.maxLength &&
+          item.value.length > options.maxLength
+        ) {
+          errors.push({
+            message: `${fieldLabel} must be at most ${options.maxLength} characters for language: ${item._key} (currently ${item.value.length})`,
+            path: [{ _key: item._key }, "value"],
+          });
+        }
       }
-      return true;
+      return errors.length > 0 ? errors : true;
     });
 }
 

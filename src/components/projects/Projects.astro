@@ -26,7 +26,7 @@ const projects = await getLatestPortfolioEntries(3);
           <ProjectCard
             data-animate="project-card"
             title={project.title}
-            description={project.description}
+            description={project.excerpt}
             image={project.featuredImageUrl}
             date={project.date}
             viewMoreLabel={content.viewMore}

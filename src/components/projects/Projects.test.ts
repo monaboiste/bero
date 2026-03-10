@@ -1,12 +1,13 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
 
-vi.mock("@lib/content", () => ({
+vi.mock("@lib/content/content", () => ({
   getLatestPortfolioEntries: vi.fn().mockResolvedValue([
     {
       title: "Renowacja fotela klubowego",
       slug: "renowacja-fotela-klubowego",
-      description: "Kompleksowa odnowa klasycznego fotela klubowego",
+      excerpt: "Kompleksowa odnowa klasycznego fotela klubowego",
+      description: "Długi opis renowacji fotela klubowego",
       featuredImageUrl: "/img/mock1.jpg",
       featuredImageFullUrl: "/img/mock1-full.jpg",
       date: "2026-02-12",
@@ -16,7 +17,8 @@ vi.mock("@lib/content", () => ({
     {
       title: "Nowoczesny fotel tapicerowany",
       slug: "nowoczesny-fotel-tapicerowany",
-      description: "Stworzenie eleganckiego fotela",
+      excerpt: "Stworzenie eleganckiego fotela",
+      description: "Długi opis nowoczesnego fotela",
       featuredImageUrl: "/img/mock2.jpg",
       featuredImageFullUrl: "/img/mock2-full.jpg",
       date: "2026-01-06",
@@ -26,7 +28,8 @@ vi.mock("@lib/content", () => ({
     {
       title: "Zestaw mebli tapicerowanych",
       slug: "zestaw-mebli-tapicerowanych",
-      description: "Kompleksowa tapicerka zestawu salonowego",
+      excerpt: "Kompleksowa tapicerka zestawu salonowego",
+      description: "Długi opis zestawu mebli",
       featuredImageUrl: "/img/mock3.jpg",
       featuredImageFullUrl: "/img/mock3-full.jpg",
       date: "2025-12-01",

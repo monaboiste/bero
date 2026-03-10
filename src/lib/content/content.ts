@@ -9,6 +9,7 @@ const PORTFOLIO_FIELDS = `
   date,
   highlight,
   "featuredImage": featuredImage.asset._ref,
+  "excerpt": excerpt[_key == "${LANG}"][0].value,
   "description": description[_key == "${LANG}"][0].value,
   tags
 `;
@@ -42,6 +43,7 @@ function mapSanityEntry(entry: RawSanityPortfolio): PortfolioEntry {
     featuredImageFullUrl: entry.featuredImage
       ? urlFor(entry.featuredImage).width(1600).format("webp").quality(85).url()
       : "",
+    excerpt: entry.excerpt ?? "",
     description: entry.description ?? "",
     tags: entry.tags ?? [],
   };
