@@ -68,11 +68,11 @@ export default defineType({
       of: [{ type: "string" }],
       options: {
         list: [
-          // TODO: locatized
-          { title: "Fotele", value: "armchairs" },
-          { title: "Sofy", value: "sofas" },
-          { title: "Krzesła", value: "chairs" },
-          { title: "Renowacja", value: "restoration" },
+          { title: "Armchairs", value: "armchairs" },
+          { title: "Sofas", value: "sofas" },
+          { title: "Chairs", value: "chairs" },
+          { title: "Restoration", value: "restoration" },
+          { title: "Automotive", value: "automotive" },
         ],
       },
     }),

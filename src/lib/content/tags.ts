@@ -3,6 +3,7 @@ export const PORTFOLIO_TAGS = {
   sofas: { pl: "Sofy" },
   chairs: { pl: "Krzesła" },
   restoration: { pl: "Renowacja" },
+  automotive: { pl: "Motoryzacja" },
 } as const;
 
 export type PortfolioTagKey = keyof typeof PORTFOLIO_TAGS;
