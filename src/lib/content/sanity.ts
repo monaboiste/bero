@@ -1,12 +1,12 @@
 import { createClient } from "@sanity/client";
 import {
   createImageUrlBuilder,
+  type SanityImageCrop,
   type SanityImageDimensions,
+  type SanityImageHotspot,
   type SanityImageObject,
-  type SanityImageSource,
 } from "@sanity/image-url";
 import type { Portfolio, PortfolioEntry } from "./types";
-import { E } from "simple-icons-astro";
 
 const sanityClient = createClient({
   projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
@@ -22,8 +22,10 @@ interface RawPortfolioEntry {
   slug?: string;
   date?: string;
   featuredImage: {
-    image: SanityImageObject;
+    assetRef: string;
     dimensions: SanityImageDimensions;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
   };
   excerpt?: string;
   description?: string;
@@ -41,12 +43,14 @@ export async function fetchPortfolio(
     "slug": slug[$lang].current,
     "date": date,
     "featuredImage": {
-      "image": featuredImage,
-      "dimensions": featuredImage.asset->metadata.dimensions
+      "assetRef": featuredImage.asset._ref,
+      "dimensions": featuredImage.asset->metadata.dimensions,
+      "crop": featuredImage.crop,
+      "hotspot": featuredImage.hotspot,
     },
     "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
     "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
-    "tags": tags
+    "tags": tags,
   }
   `;
   const slice = limit ? "[0...$limit]" : "";
@@ -72,32 +76,30 @@ function mapSanityEntry(entry: RawPortfolioEntry): PortfolioEntry {
 }
 
 function buildImage(entry: RawPortfolioEntry) {
-  // calculate
-  const dimensions = entry.featuredImage.dimensions;
-  const crop = entry.featuredImage.image.crop;
-  const adjustedWidth =
-    crop == null
-      ? dimensions.width
-      : dimensions.width * (1 - crop.left - crop.right);
-  const adjustedHeight =
-    crop == null
-      ? dimensions.height
-      : dimensions.height * (1 - crop.top - crop.bottom);
-  const adjustedAspectRatio = adjustedWidth / adjustedHeight;
-
   return {
     thumbnail: builder
-      .image(entry.featuredImage.image)
+      .image(entry.featuredImage.assetRef)
       .width(800)
       .format("webp")
       .quality(80)
       .url(),
     url: builder
-      .image(entry.featuredImage.image)
+      .image(entry.featuredImage.assetRef)
       .width(1600)
       .format("webp")
       .quality(85)
       .url(),
-    aspectRatio: adjustedAspectRatio,
+    aspectRatio: calculateAspectRatio(entry),
   };
 }
+
+function calculateAspectRatio(entry: RawPortfolioEntry) {
+  const { width, height } = entry.featuredImage.dimensions;
+  const { crop } = entry.featuredImage;
+
+  const croppedWidth = width * (1 - (crop?.left || 0) - (crop?.right || 0));
+  const croppedHeight = height * (1 - (crop?.top || 0) - (crop?.bottom || 0));
+
+  return croppedWidth / croppedHeight;
+}
+
