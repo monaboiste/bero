@@ -6,9 +6,7 @@ Desktop.ini
 # IDEs
 .idea/
 .vscode/*
-!.vscode/extensions.json
 !.vscode/launch.json
-!.vscode/settings.json
 *.swp
 *.swo
 
