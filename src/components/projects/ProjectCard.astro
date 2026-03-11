@@ -7,7 +7,6 @@ interface Props extends JSX.HTMLAttributes {
   description: string;
   image: string;
   date?: string;
-  viewMoreLabel?: string;
 }
 
 const {
@@ -15,7 +14,6 @@ const {
   description,
   image,
   date,
-  viewMoreLabel = "Zobacz wiecej",
   ...rest
 } = Astro.props;
 ---
@@ -38,23 +36,4 @@ const {
   >
     {description}
   </p>
-
-  <div
-    class="cursor-pointer mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
-  >
-    <span class="text-sm">{viewMoreLabel}</span>
-    <svg
-      class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 5l7 7-7 7"
-      ></path>
-    </svg>
-  </div>
 </Card>

@@ -7,7 +7,6 @@ const content = {
   title: "Nasze Realizacje",
   subtitle: "Galeria wybranych projektow",
   viewAll: "Zobacz wszystkie realizacje",
-  viewMore: "Zobacz wiecej",
 };
 
 const projects = await fetchPortfolio(3);
@@ -29,7 +28,6 @@ const projects = await fetchPortfolio(3);
             description={project.excerpt}
             image={project.featuredImage.url}
             date={project.date}
-            viewMoreLabel={content.viewMore}
           />
         ))}
     </div>
