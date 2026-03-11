@@ -11,6 +11,7 @@ const sampleImages: GalleryImage[] = [
     title: "First title",
     description: "First photo",
     date: "2025-01-15",
+    tags: [],
   },
   {
     thumbnail: "/img/photo2.jpg",
@@ -19,6 +20,7 @@ const sampleImages: GalleryImage[] = [
     title: "Second title",
     description: "Second photo",
     date: "2025-02-20",
+    tags: [],
   },
   {
     thumbnail: "/img/photo3.jpg",
@@ -27,6 +29,7 @@ const sampleImages: GalleryImage[] = [
     title: "Third title",
     description: "Third photo",
     date: "2025-03-10",
+    tags: [],
   },
 ];
 
@@ -101,6 +104,7 @@ describe("GridGallery", () => {
         alt: "Landscape",
         title: "Wide shot",
         description: "A wide photo",
+        tags: [],
         orientation: "landscape",
       },
     ];
@@ -122,6 +126,7 @@ describe("GridGallery", () => {
         alt: "Portrait",
         title: "Tall shot",
         description: "A tall photo",
+        tags: [],
         orientation: "portrait",
       },
     ];
@@ -216,10 +221,12 @@ describe("GridGallery", () => {
     const images: GalleryImage[] = [
       {
         thumbnail: "/img/p.jpg",
+        url: "",
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
         date: "2025-01-15",
+        tags: [],
       },
     ];
 
@@ -242,9 +249,11 @@ describe("GridGallery", () => {
     const images: GalleryImage[] = [
       {
         thumbnail: "/img/p.jpg",
+        url: "",
         alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
+        tags: [],
       },
     ];
 
