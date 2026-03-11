@@ -1,11 +1,5 @@
 import { createClient } from "@sanity/client";
-import {
-  createImageUrlBuilder,
-  type SanityImageCrop,
-  type SanityImageDimensions,
-  type SanityImageHotspot,
-  type SanityImageObject,
-} from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import type { Portfolio, PortfolioEntry } from "./types";
 
 const sanityClient = createClient({
@@ -23,9 +17,7 @@ interface RawPortfolioEntry {
   date?: string;
   featuredImage: {
     assetRef: string;
-    dimensions: SanityImageDimensions;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
+    aspectRatio: number;
   };
   excerpt?: string;
   description?: string;
@@ -44,9 +36,17 @@ export async function fetchPortfolio(
     "date": date,
     "featuredImage": {
       "assetRef": featuredImage.asset._ref,
-      "dimensions": featuredImage.asset->metadata.dimensions,
-      "crop": featuredImage.crop,
-      "hotspot": featuredImage.hotspot,
+      "aspectRatio": select(
+        (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0)) <= 0 => 1,
+        round(
+          (featuredImage.asset->metadata.dimensions.width *
+           (1 - coalesce(featuredImage.crop.left,0) - coalesce(featuredImage.crop.right,0)))
+          /
+          (featuredImage.asset->metadata.dimensions.height *
+           (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0))),
+          2
+        )
+      )
     },
     "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
     "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
@@ -89,17 +89,6 @@ function buildImage(entry: RawPortfolioEntry) {
       .format("webp")
       .quality(85)
       .url(),
-    aspectRatio: calculateAspectRatio(entry),
+    aspectRatio: entry.featuredImage.aspectRatio,
   };
 }
-
-function calculateAspectRatio(entry: RawPortfolioEntry) {
-  const { width, height } = entry.featuredImage.dimensions;
-  const { crop } = entry.featuredImage;
-
-  const croppedWidth = width * (1 - (crop?.left || 0) - (crop?.right || 0));
-  const croppedHeight = height * (1 - (crop?.top || 0) - (crop?.bottom || 0));
-
-  return croppedWidth / croppedHeight;
-}
-
