@@ -73,17 +73,7 @@ export const sanityApi = {
       "date": date,
       "featuredImage": {
         "assetRef": featuredImage.asset._ref,
-        "aspectRatio": select(
-          (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0)) <= 0 => 1,
-          round(
-            (featuredImage.asset->metadata.dimensions.width *
-             (1 - coalesce(featuredImage.crop.left,0) - coalesce(featuredImage.crop.right,0)))
-            /
-            (featuredImage.asset->metadata.dimensions.height *
-             (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0))),
-            2
-          )
-        )
+        "aspectRatio": featuredImage.asset->metadata.dimensions.aspectRatio
       },
       "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
       "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),

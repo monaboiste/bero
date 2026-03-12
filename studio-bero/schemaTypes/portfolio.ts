@@ -58,7 +58,6 @@ export default defineType({
       title: "Featured image",
       type: "image",
       group: "common",
-      options: { hotspot: true },
       validation: (rule) => rule.required(),
     }),
     defineField({
