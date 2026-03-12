@@ -12,38 +12,88 @@ const sanityClient = createClient({
 const builder = createImageUrlBuilder(sanityClient);
 
 export const sanityApi = {
-  // TODO: PAGINATION!
-  fetchPortfolio: async (lang: string, limit?: number): Promise<Portfolio> => {
-    const fields = `
-  {
-    "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
-    "slug": slug[$lang].current,
-    "date": date,
-    "featuredImage": {
-      "assetRef": featuredImage.asset._ref,
-      "aspectRatio": select(
-        (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0)) <= 0 => 1,
-        round(
-          (featuredImage.asset->metadata.dimensions.width *
-           (1 - coalesce(featuredImage.crop.left,0) - coalesce(featuredImage.crop.right,0)))
-          /
-          (featuredImage.asset->metadata.dimensions.height *
-           (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0))),
-          2
-        )
-      )
-    },
-    "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
-    "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
-    "tags": tags,
-  }
-  `;
-    const slice = limit ? "[0...$limit]" : "";
+  count: async (): Promise<number> => {
+    const query = /* groq */ `count(*[_type == "portfolio"])`;
+    return await sanityClient.fetch<number>(query);
+  },
 
-    const entries = await sanityClient.fetch<RawPortfolioEntry[]>(
-      `*[_type == "portfolio"] | order(date desc) ${slice} ${fields}`,
-      { lang, limit }
-    );
+  fetchPortfolioPage: async (
+    lang: string,
+    page: { start: number; end: number }
+  ): Promise<Portfolio> => {
+    const query = /* groq */ `
+    *[_type == "portfolio"]
+    | order(date desc)
+    [$start...$end]
+    {
+      "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
+      "slug": slug[$lang].current,
+      "date": date,
+      "featuredImage": {
+        "assetRef": featuredImage.asset._ref,
+        "aspectRatio": select(
+          (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0)) <= 0 => 1,
+          round(
+            (featuredImage.asset->metadata.dimensions.width *
+             (1 - coalesce(featuredImage.crop.left,0) - coalesce(featuredImage.crop.right,0)))
+            /
+            (featuredImage.asset->metadata.dimensions.height *
+             (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0))),
+            2
+          )
+        )
+      },
+      "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
+      "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
+      "tags": tags
+    }`;
+
+    const entries = await sanityClient.fetch<RawPortfolioEntry[]>(query, {
+      lang,
+      ...page,
+    });
+
+    return entries.map(mapSanityEntry);
+  },
+
+  fetchPortfolioLatestProjects: async (
+    lang: string,
+    limit: number
+  ): Promise<Portfolio> => {
+    if (limit < 0) {
+      throw new Error("[limit] parameter must be positive");
+    }
+    const query = /* groq */ `
+    *[_type == "portfolio"]
+    | order(date desc)
+    [0...$limit]
+    {
+      "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
+      "slug": slug[$lang].current,
+      "date": date,
+      "featuredImage": {
+        "assetRef": featuredImage.asset._ref,
+        "aspectRatio": select(
+          (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0)) <= 0 => 1,
+          round(
+            (featuredImage.asset->metadata.dimensions.width *
+             (1 - coalesce(featuredImage.crop.left,0) - coalesce(featuredImage.crop.right,0)))
+            /
+            (featuredImage.asset->metadata.dimensions.height *
+             (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0))),
+            2
+          )
+        )
+      },
+      "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
+      "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
+      "tags": tags
+    }`;
+
+    const entries = await sanityClient.fetch<RawPortfolioEntry[]>(query, {
+      lang,
+      limit,
+    });
 
     return entries.map(mapSanityEntry);
   },

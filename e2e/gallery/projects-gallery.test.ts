@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Projects gallery", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/projects");
+    await page.goto("/portfolio");
   });
 
   test("renders project tiles with images", async ({ page }) => {
@@ -114,7 +114,7 @@ test.describe("Projects gallery", () => {
   });
 
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
-    await page.goto("/projects?tag=Krzesla");
+    await page.goto("/portfolio?tag=Krzesla");
 
     const krzeslaBtn = page.getByTestId("tag-filter-krzesla");
     await expect(krzeslaBtn).toHaveAttribute("aria-pressed", "true");

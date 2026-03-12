@@ -9,7 +9,7 @@ const content = {
   viewAll: "Zobacz wszystkie realizacje",
 };
 
-const projects = await portfolioApi.fetchPortfolio(3);
+const projects = await portfolioApi.fetchPortfolioLatestProjects(3);
 ---
 
 <section id="projects" data-testid="projects" class="bg-secondary py-14">
@@ -35,7 +35,7 @@ const projects = await portfolioApi.fetchPortfolio(3);
     <!-- View All Button -->
     <div data-animate="projects-view-all-btn" class="mt-8 text-center">
       <a
-        href="/projects"
+        href="/portfolio"
         data-testid="projects-view-all"
         class="group inline-flex items-center rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
       >

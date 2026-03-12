@@ -1,9 +1,10 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
+import Projects from "./Projects.astro";
 
 vi.mock("@lib/content/content", () => ({
   portfolioApi: {
-    fetchPortfolio: vi.fn().mockResolvedValue([
+    fetchPortfolioLatestProjects: vi.fn().mockResolvedValue([
       {
         title: "Renowacja fotela klubowego",
         slug: "renowacja-fotela-klubowego",
@@ -46,8 +47,6 @@ vi.mock("@lib/content/content", () => ({
     ]),
   },
 }));
-
-const Projects = (await import("./Projects.astro")).default;
 
 describe("Projects", () => {
   test("renders section with id projects", async () => {
