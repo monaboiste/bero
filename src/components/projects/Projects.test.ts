@@ -2,47 +2,49 @@ import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
 
 vi.mock("@lib/content/content", () => ({
-  fetchPortfolio: vi.fn().mockResolvedValue([
-    {
-      title: "Renowacja fotela klubowego",
-      slug: "renowacja-fotela-klubowego",
-      excerpt: "Kompleksowa odnowa klasycznego fotela klubowego",
-      description: "Długi opis renowacji fotela klubowego",
-      featuredImage: {
-        thumbnail: "/img/mock1.jpg",
-        url: "/img/mock1-full.jpg",
-        aspectRatio: 0.75,
+  portfolioApi: {
+    fetchPortfolio: vi.fn().mockResolvedValue([
+      {
+        title: "Renowacja fotela klubowego",
+        slug: "renowacja-fotela-klubowego",
+        excerpt: "Kompleksowa odnowa klasycznego fotela klubowego",
+        description: "Długi opis renowacji fotela klubowego",
+        featuredImage: {
+          thumbnail: "/img/mock1.jpg",
+          url: "/img/mock1-full.jpg",
+          aspectRatio: 0.75,
+        },
+        date: "2026-02-12",
+        tags: ["armchairs", "restoration"],
       },
-      date: "2026-02-12",
-      tags: ["armchairs", "restoration"],
-    },
-    {
-      title: "Nowoczesny fotel tapicerowany",
-      slug: "nowoczesny-fotel-tapicerowany",
-      excerpt: "Stworzenie eleganckiego fotela",
-      description: "Długi opis nowoczesnego fotela",
-      featuredImage: {
-        thumbnail: "/img/mock2.jpg",
-        url: "/img/mock2-full.jpg",
-        aspectRatio: 1.33,
+      {
+        title: "Nowoczesny fotel tapicerowany",
+        slug: "nowoczesny-fotel-tapicerowany",
+        excerpt: "Stworzenie eleganckiego fotela",
+        description: "Długi opis nowoczesnego fotela",
+        featuredImage: {
+          thumbnail: "/img/mock2.jpg",
+          url: "/img/mock2-full.jpg",
+          aspectRatio: 1.33,
+        },
+        date: "2026-01-06",
+        tags: ["armchairs"],
       },
-      date: "2026-01-06",
-      tags: ["armchairs"],
-    },
-    {
-      title: "Zestaw mebli tapicerowanych",
-      slug: "zestaw-mebli-tapicerowanych",
-      excerpt: "Kompleksowa tapicerka zestawu salonowego",
-      description: "Długi opis zestawu mebli",
-      featuredImage: {
-        thumbnail: "/img/mock3.jpg",
-        url: "/img/mock3-full.jpg",
-        aspectRatio: 0.67,
+      {
+        title: "Zestaw mebli tapicerowanych",
+        slug: "zestaw-mebli-tapicerowanych",
+        excerpt: "Kompleksowa tapicerka zestawu salonowego",
+        description: "Długi opis zestawu mebli",
+        featuredImage: {
+          thumbnail: "/img/mock3.jpg",
+          url: "/img/mock3-full.jpg",
+          aspectRatio: 0.67,
+        },
+        date: "2025-12-01",
+        tags: ["sofas"],
       },
-      date: "2025-12-01",
-      tags: ["sofas"],
-    },
-  ]),
+    ]),
+  },
 }));
 
 const Projects = (await import("./Projects.astro")).default;

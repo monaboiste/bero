@@ -11,25 +11,10 @@ const sanityClient = createClient({
 
 const builder = createImageUrlBuilder(sanityClient);
 
-interface RawPortfolioEntry {
-  title?: string;
-  slug?: string;
-  date?: string;
-  featuredImage: {
-    assetRef: string;
-    aspectRatio: number;
-  };
-  excerpt?: string;
-  description?: string;
-  tags?: string[];
-}
-
-// TODO: PAGINATION!
-export async function fetchPortfolio(
-  lang: string,
-  limit?: number
-): Promise<Portfolio> {
-  const fields = `
+export const sanityApi = {
+  // TODO: PAGINATION!
+  fetchPortfolio: async (lang: string, limit?: number): Promise<Portfolio> => {
+    const fields = `
   {
     "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
     "slug": slug[$lang].current,
@@ -53,14 +38,27 @@ export async function fetchPortfolio(
     "tags": tags,
   }
   `;
-  const slice = limit ? "[0...$limit]" : "";
+    const slice = limit ? "[0...$limit]" : "";
 
-  const entries = await sanityClient.fetch<RawPortfolioEntry[]>(
-    `*[_type == "portfolio"] | order(date desc) ${slice} ${fields}`,
-    { lang, limit }
-  );
+    const entries = await sanityClient.fetch<RawPortfolioEntry[]>(
+      `*[_type == "portfolio"] | order(date desc) ${slice} ${fields}`,
+      { lang, limit }
+    );
 
-  return entries.map(mapSanityEntry);
+    return entries.map(mapSanityEntry);
+  },
+};
+interface RawPortfolioEntry {
+  title?: string;
+  slug?: string;
+  date?: string;
+  featuredImage: {
+    assetRef: string;
+    aspectRatio: number;
+  };
+  excerpt?: string;
+  description?: string;
+  tags?: string[];
 }
 
 function mapSanityEntry(entry: RawPortfolioEntry): PortfolioEntry {

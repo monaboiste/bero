@@ -9,13 +9,7 @@ interface Props extends JSX.HTMLAttributes {
   date?: string;
 }
 
-const {
-  title,
-  description,
-  image,
-  date,
-  ...rest
-} = Astro.props;
+const { title, description, image, date, ...rest } = Astro.props;
 ---
 
 <Card

@@ -1,6 +1,6 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { fetchPortfolio } from "@lib/content/content";
+import { portfolioApi } from "@lib/content/content";
 import ProjectCard from "./ProjectCard.astro";
 
 const content = {
@@ -9,7 +9,7 @@ const content = {
   viewAll: "Zobacz wszystkie realizacje",
 };
 
-const projects = await fetchPortfolio(3);
+const projects = await portfolioApi.fetchPortfolio(3);
 ---
 
 <section id="projects" data-testid="projects" class="bg-secondary py-14">
