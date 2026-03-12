@@ -1,6 +1,7 @@
 import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import type { Portfolio, PortfolioEntry } from "./types";
+import { getImageDimensions } from "@sanity/asset-utils";
 
 const sanityClient = createClient({
   projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
@@ -31,17 +32,6 @@ export const sanityApi = {
       "date": date,
       "featuredImage": {
         "assetRef": featuredImage.asset._ref,
-        "aspectRatio": select(
-          (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0)) <= 0 => 1,
-          round(
-            (featuredImage.asset->metadata.dimensions.width *
-             (1 - coalesce(featuredImage.crop.left,0) - coalesce(featuredImage.crop.right,0)))
-            /
-            (featuredImage.asset->metadata.dimensions.height *
-             (1 - coalesce(featuredImage.crop.top,0) - coalesce(featuredImage.crop.bottom,0))),
-            2
-          )
-        )
       },
       "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
       "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
@@ -73,7 +63,6 @@ export const sanityApi = {
       "date": date,
       "featuredImage": {
         "assetRef": featuredImage.asset._ref,
-        "aspectRatio": featuredImage.asset->metadata.dimensions.aspectRatio
       },
       "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
       "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
@@ -114,6 +103,7 @@ function mapSanityEntry(entry: RawPortfolioEntry): PortfolioEntry {
 }
 
 function buildImage(entry: RawPortfolioEntry) {
+  const { aspectRatio } = getImageDimensions(entry.featuredImage.assetRef);
   return {
     thumbnail: builder
       .image(entry.featuredImage.assetRef)
@@ -127,6 +117,6 @@ function buildImage(entry: RawPortfolioEntry) {
       .format("webp")
       .quality(85)
       .url(),
-    aspectRatio: entry.featuredImage.aspectRatio,
+    aspectRatio,
   };
 }
