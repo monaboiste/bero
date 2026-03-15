@@ -16,7 +16,7 @@ Portfolio website for an upholstery business serving as a marketing platform and
 ## 2. Pages & Features
 
 | Page               | Content                                                |
-| ------------------ | ------------------------------------------------------ |
+|--------------------|--------------------------------------------------------|
 | **Home**           | Company intro, featured projects, CTA to contact       |
 | **Projects**       | Gallery with title, description, images, optional date |
 | **About**          | Company story, experience, services                    |
@@ -79,7 +79,7 @@ Portfolio website for an upholstery business serving as a marketing platform and
 ## 7. Technology Stack
 
 | Layer      | Technology           | Purpose                                             |
-| ---------- | -------------------- | --------------------------------------------------- |
+|------------|----------------------|-----------------------------------------------------|
 | Framework  | **Astro**            | SSG, SEO, performance                               |
 | Language   | **TypeScript**       | Type safety                                         |
 | Styling    | **Tailwind CSS**     | Rapid styling, theming                              |
@@ -93,7 +93,7 @@ Portfolio website for an upholstery business serving as a marketing platform and
 ## 8. Non-Functional Requirements
 
 | Aspect      | Requirement                                         |
-| ----------- | --------------------------------------------------- |
+|-------------|-----------------------------------------------------|
 | Performance | Lighthouse 90+, .webp/.avif images, lazy loading    |
 | SEO         | Semantic HTML, meta tags, Open Graph, sitemap       |
 | Security    | HTTPS enforced, no tracking cookies without consent |
@@ -112,7 +112,7 @@ Portfolio website for an upholstery business serving as a marketing platform and
 ## 10. Image Optimization
 
 | Feature    | Implementation                  |
-| ---------- | ------------------------------- |
+|------------|---------------------------------|
 | CDN        | Sanity.io Image CDN (free tier) |
 | Formats    | Auto-conversion to WebP/AVIF    |
 | Responsive | Dynamic srcset via URL params   |
@@ -122,12 +122,28 @@ Portfolio website for an upholstery business serving as a marketing platform and
 
 ---
 
-## 11. Future Considerations
+## 11. Rendering Strategy
+
+All pages are **statically generated at build time (SSG)**. Content from Sanity CMS is fetched during the build and served as pre-rendered HTML via Cloudflare Pages CDN.
+
+**Current approach:** The portfolio page (`/portfolio`) loads all projects in a single page — no pagination. With the current number of projects (~7) this is sufficient.
+
+**Future considerations:** As the portfolio grows, consider adding pagination with one of these strategies:
+
+| Strategy     | Description                                                                                               | Trade-offs                                                           |
+|--------------|-----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| **Full SSG** | Generate all pages statically at build time via `getStaticPaths()`                                        | Fast delivery, but requires a rebuild for every content update       |
+| **Hybrid**   | First N pages (e.g. 10) generated statically; remaining pages fetched at runtime via Cloudflare Functions | Best of both worlds — fast for common pages, flexible for deep pages |
+| **Full SSR** | All portfolio pages rendered at runtime                                                                   | No rebuild needed, but slower TTFB and requires Cloudflare Workers   |
+
+---
+
+## 12. Future Considerations
 
 ### Technical
 
 | Topic                | Notes                                                                      |
-| -------------------- | -------------------------------------------------------------------------- |
+|----------------------|----------------------------------------------------------------------------|
 | Analytics            | Cloudflare Web Analytics - free, privacy-first, GDPR compliant, no cookies |
 | Backup Strategy      | Sanity CLI export for periodic backups (post-MVP)                          |
 | Content Versioning   | Sanity built-in history - configure rollback UI if needed                  |
@@ -136,7 +152,7 @@ Portfolio website for an upholstery business serving as a marketing platform and
 ### Features
 
 | Feature             | Description                                                                                                                           |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | Before/After Slider | Image comparison slider for project transformations (e.g. `img-comparison-slider`)                                                    |
 | FAQ Section         | Common questions with Schema.org markup for SEO (delivery, timeline, fabric samples)                                                  |
 | Testimonials        | Customer reviews with optional project photos (requires GDPR consent)                                                                 |

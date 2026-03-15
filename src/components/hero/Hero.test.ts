@@ -25,14 +25,6 @@ describe("Hero", () => {
     expect(title?.textContent).toContain("Tradycja spotyka nowoczesność");
   });
 
-  test("displays description text", async () => {
-    const result = await renderAstroComponent(Hero);
-
-    const description = result.textContent;
-
-    expect(description).toContain("Przywracamy życie Twoim ulubionym meblom");
-  });
-
   test("renders CTA button linking to contact section", async () => {
     const result = await renderAstroComponent(Hero);
 

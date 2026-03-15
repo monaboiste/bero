@@ -1,45 +1,18 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
+import { portfolioApi } from "@lib/content/content";
 import ProjectCard from "./ProjectCard.astro";
 
-// Static mock content - will be replaced with CMS data later
 const content = {
   title: "Nasze Realizacje",
   subtitle: "Galeria wybranych projektow",
   viewAll: "Zobacz wszystkie realizacje",
-  viewMore: "Zobacz wiecej",
 };
 
-const projects = [
-  {
-    id: "1",
-    title: "Renowacja fotela klubowego",
-    description:
-      "Kompleksowa odnowa klasycznego fotela klubowego ze skory naturalnej",
-    image:
-      "https://images.unsplash.com/photo-1768573264026-b540abdc3384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYXJtY2hhaXIlMjByZXN0b3JhdGlvbnxlbnwxfHx8fDE3NzA1Nzg3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    date: "2026-02-12",
-  },
-  {
-    id: "2",
-    title: "Nowoczesny fotel tapicerowany",
-    description: "Stworzenie eleganckiego fotela z aksamitnym wykonczeniem",
-    image:
-      "https://images.unsplash.com/photo-1753362752045-2c3fdf2d04f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjaGFpciUyMHVwaG9sc3RlcnklMjBkZXRhaWx8ZW58MXx8fHwxNzcwNTc4NzE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-    date: "2026-01-06",
-  },
-  {
-    id: "3",
-    title: "Zestaw mebli tapicerowanych",
-    description: "Kompleksowa tapicerka zestawu salonowego",
-    image:
-      "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=1080",
-    date: "2025-12-01",
-  },
-];
+const projects = await portfolioApi.fetchPortfolioLatestProjects(3);
 ---
 
-<section id="projects" data-testid="projects" class="bg-secondary py-20">
+<section id="projects" data-testid="projects" class="bg-secondary py-14">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader title={content.title} subtitle={content.subtitle} />
 
@@ -52,18 +25,17 @@ const projects = [
           <ProjectCard
             data-animate="project-card"
             title={project.title}
-            description={project.description}
-            image={project.image}
+            description={project.excerpt}
+            image={project.featuredImage.url}
             date={project.date}
-            viewMoreLabel={content.viewMore}
           />
         ))}
     </div>
 
     <!-- View All Button -->
-    <div data-animate="projects-view-all-btn" class="mt-12 text-center">
+    <div data-animate="projects-view-all-btn" class="mt-8 text-center">
       <a
-        href="/projects"
+        href="/portfolio"
         data-testid="projects-view-all"
         class="group inline-flex items-center rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
       >

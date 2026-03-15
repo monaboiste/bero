@@ -7,18 +7,9 @@ interface Props extends JSX.HTMLAttributes {
   description: string;
   image: string;
   date?: string;
-  viewMoreLabel?: string;
-  projectId?: string;
 }
 
-const {
-  title,
-  description,
-  image,
-  date,
-  viewMoreLabel = "Zobacz wiecej",
-  ...rest
-} = Astro.props;
+const { title, description, image, date, ...rest } = Astro.props;
 ---
 
 <Card
@@ -28,34 +19,15 @@ const {
   date={date}
 >
   <h3
-    class="mb-3 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
+    class="mb-2 line-clamp-2 text-xl transition-colors duration-300 group-hover:text-accent"
     title={title}
   >
     {title}
   </h3>
   <p
-    class="mb-4 flex-grow line-clamp-3 text-sm text-muted-foreground"
+    class="mb-2 line-clamp-2 text-sm text-muted-foreground"
     title={description}
   >
     {description}
   </p>
-
-  <div
-    class="cursor-pointer mt-auto flex items-center text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
-  >
-    <span class="text-sm">{viewMoreLabel}</span>
-    <svg
-      class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 5l7 7-7 7"
-      ></path>
-    </svg>
-  </div>
 </Card>

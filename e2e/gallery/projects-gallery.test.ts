@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Projects gallery", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/projects");
+    await page.goto("/portfolio");
   });
 
   test("renders project tiles with images", async ({ page }) => {
@@ -90,29 +90,6 @@ test.describe("Projects gallery", () => {
     await expect(page).not.toHaveURL(/tag=/);
   });
 
-  test("highlighted tiles exist and are larger than regular tiles @desktop", async ({
-    page,
-  }) => {
-    const highlighted = page.locator(
-      '[data-testid="gallery-tile"][data-highlight]'
-    );
-    const regular = page.locator(
-      '[data-testid="gallery-tile"]:not([data-highlight])'
-    );
-
-    await expect(highlighted.first()).toBeAttached();
-    await expect(regular.first()).toBeAttached();
-
-    const highlightBox = await highlighted.first().boundingBox();
-    const regularBox = await regular.first().boundingBox();
-
-    if (!(highlightBox && regularBox)) {
-      throw new Error("Could not get bounding box for tiles");
-    }
-
-    expect(highlightBox.width).toBeGreaterThan(regularBox.width);
-  });
-
   test("tapping image in mobile lightbox toggles description @mobile", async ({
     page,
   }) => {
@@ -137,7 +114,7 @@ test.describe("Projects gallery", () => {
   });
 
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
-    await page.goto("/projects?tag=Krzesla");
+    await page.goto("/portfolio?tag=Krzesla");
 
     const krzeslaBtn = page.getByTestId("tag-filter-krzesla");
     await expect(krzeslaBtn).toHaveAttribute("aria-pressed", "true");

@@ -1,6 +1,11 @@
 ---
+interface TagItem {
+  key: string;
+  label: string;
+}
+
 interface Props {
-  tags: string[];
+  tags: TagItem[];
 }
 
 const { tags = [] } = Astro.props;
@@ -19,14 +24,14 @@ const { tags = [] } = Astro.props;
     Wszystkie
   </button>
 
-  {tags.map((tag) => (
+  {tags.map(({ key, label }) => (
     <button
-      data-tag={tag}
-      data-testid={`tag-filter-${tag.toLowerCase().replace(/\s+/g, "-")}`}
+      data-tag={key}
+      data-testid={`tag-filter-${key}`}
       class="tag-btn cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300"
       aria-pressed="false"
     >
-      {tag}
+      {label}
     </button>
   ))}
 </div>

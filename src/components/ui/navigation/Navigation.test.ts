@@ -41,7 +41,7 @@ describe("Navigation", () => {
     const projectsLink = result.querySelector('a[href="/#projects"]');
     const aboutLink = result.querySelector('a[href="/#about"]');
     const contactLink = result.querySelector('a[href="/#contact"]');
-    const galleryLink = result.querySelector('a[href="/projects"]');
+    const galleryLink = result.querySelector('a[href="/portfolio"]');
 
     expect(homeLink).not.toBeNull();
     expect(projectsLink).not.toBeNull();

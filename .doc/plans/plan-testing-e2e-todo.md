@@ -80,7 +80,7 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 1. Scroll to the `#projects` section
 2. Identify the “View all projects” button
 3. Click the button
-4. Verify behavior (currently no action; future redirect to `/projects`)
+4. Verify behavior (currently no action; future redirect to `/portfolio`)
 
 **Expected Result**: The button is visible and clickable.
 

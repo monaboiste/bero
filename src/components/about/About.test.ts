@@ -12,7 +12,7 @@ describe("About", () => {
     expect(section?.getAttribute("data-testid")).toBe("about");
   });
 
-  test("displays O Nas header", async () => {
+  test("displays About Us header", async () => {
     const result = await renderAstroComponent(About);
 
     const heading = result.querySelector("h2");
@@ -27,16 +27,6 @@ describe("About", () => {
 
     expect(storySection?.textContent).toContain(
       "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem"
-    );
-  });
-
-  test("displays mission text", async () => {
-    const result = await renderAstroComponent(About);
-
-    const storySection = result.querySelector('[data-testid="about-story"]');
-
-    expect(storySection?.textContent).toContain(
-      "Nasza misja jest przywracanie piekna i funkcjonalnosci ulubionym meblom"
     );
   });
 

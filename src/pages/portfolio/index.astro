@@ -4,13 +4,18 @@ import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import Layout from "@layouts/Layout.astro";
-import { getAllTags, getProjects } from "../../data/projects";
+import { portfolioApi } from "@lib/content/content";
+import { getTagLabel, PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 import TagFilter from "./TagFilter.astro";
 
 export const prerender = true;
 
-const allProjects = getProjects();
-const tags = getAllTags();
+const portfolio = await portfolioApi.fetchPortfolioPage({ start: 0, end: 100 });
+
+const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
+  key,
+  label: getTagLabel(key),
+}));
 ---
 
 <Layout
@@ -28,14 +33,15 @@ const tags = getAllTags();
       <TagFilter tags={tags} />
 
       <GridGallery
-        images={allProjects.map((proj) => ({
-          src: proj.image,
-          alt: proj.title,
-          title: proj.title,
-          description: proj.description,
-          date: proj.date,
-          tags: proj.tags,
-          highlight: proj.highlight,
+        images={portfolio.map((project) => ({
+          thumbnail: project.featuredImage.thumbnail,
+          url: project.featuredImage.url,
+          alt: project.title,
+          title: project.title,
+          description: project.description,
+          date: project.date,
+          tags: project.tags,
+          orientation: project.featuredImage.aspectRatio > 1 ? "landscape" : "portrait",
         }))}
       />
     </div>
