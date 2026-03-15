@@ -4,7 +4,7 @@ import type {
 } from "@sanity/asset-utils";
 import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
-import type { Portfolio, PortfolioEntry } from "./types";
+import type { Portfolio, Project, ProjectImage } from "./types";
 
 const sanityClient = createClient({
   projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
@@ -31,8 +31,9 @@ export const sanityApi = {
       "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
       "slug": slug[$lang].current,
       "date": date,
-      featuredImage {
+      images[] {
         _type,
+        _key,
         asset,
         crop,
         hotspot,
@@ -63,8 +64,9 @@ export const sanityApi = {
       "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
       "slug": slug[$lang].current,
       "date": date,
-      featuredImage {
+      images[] {
         _type,
+        _key,
         asset,
         crop,
         hotspot,
@@ -86,13 +88,13 @@ interface RawPortfolioEntry {
   title?: string;
   slug?: string;
   date?: string;
-  featuredImage: SanityImageSource;
+  images?: SanityImageSource[];
   excerpt?: string;
   description?: string;
   tags?: string[];
 }
 
-function mapSanityEntry(entry: RawPortfolioEntry): PortfolioEntry {
+function mapSanityEntry(entry: RawPortfolioEntry): Project {
   return {
     title: entry.title ?? "",
     slug: entry.slug ?? "",
@@ -100,26 +102,24 @@ function mapSanityEntry(entry: RawPortfolioEntry): PortfolioEntry {
     excerpt: entry.excerpt ?? "",
     description: entry.description ?? "",
     tags: entry.tags ?? [],
-    featuredImage: buildImage(entry),
+    images: buildImages(entry.images ?? []),
   };
 }
 
-function buildImage(entry: RawPortfolioEntry) {
-  const dimensions = getImageDimensionsWithCrop(entry.featuredImage);
+function hasAsset(image: SanityImageSource): boolean {
+  return isImageObject(image) && getAssetRef(image.asset) !== undefined;
+}
+
+function buildImages(images: SanityImageSource[]): ProjectImage[] {
+  return images.filter(hasAsset).map(buildImage);
+}
+
+function buildImage(image: SanityImageSource): ProjectImage {
+  const dimensions = getImageDimensionsWithCrop(image);
 
   return {
-    thumbnail: builder
-      .image(entry.featuredImage)
-      .width(800)
-      .format("webp")
-      .quality(80)
-      .url(),
-    url: builder
-      .image(entry.featuredImage)
-      .width(1600)
-      .format("webp")
-      .quality(85)
-      .url(),
+    thumbnail: builder.image(image).width(800).format("webp").quality(80).url(),
+    url: builder.image(image).width(1600).format("webp").quality(85).url(),
     aspectRatio: dimensions?.aspectRatio ?? 1,
   };
 }

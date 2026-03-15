@@ -1,15 +1,17 @@
-export type Portfolio = PortfolioEntry[];
+export type Portfolio = Project[];
 
-export interface PortfolioEntry {
+export interface ProjectImage {
+  thumbnail: string;
+  url: string;
+  aspectRatio: number;
+}
+
+export interface Project {
   title: string;
   slug: string;
   date: string;
   excerpt: string;
   description: string;
   tags: string[];
-  featuredImage: {
-    thumbnail: string;
-    url: string;
-    aspectRatio: number;
-  };
+  images: ProjectImage[];
 }

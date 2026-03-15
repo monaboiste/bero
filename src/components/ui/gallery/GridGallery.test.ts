@@ -176,6 +176,48 @@ describe("GridGallery", () => {
     }
   });
 
+  test("tiles use custom gallery name when provided", async () => {
+    const images: GalleryImage[] = [
+      {
+        thumbnail: "/img/p1.jpg",
+        url: "/img/p1-full.jpg",
+        alt: "Project A image 1",
+        title: "Project A",
+        description: "Desc A",
+        tags: [],
+        gallery: "project-a",
+      },
+      {
+        thumbnail: "/img/p2.jpg",
+        url: "/img/p2-full.jpg",
+        alt: "Project A image 2",
+        title: "Project A",
+        description: "Desc A",
+        tags: [],
+        gallery: "project-a",
+      },
+      {
+        thumbnail: "/img/p3.jpg",
+        url: "/img/p3-full.jpg",
+        alt: "Project B image 1",
+        title: "Project B",
+        description: "Desc B",
+        tags: [],
+        gallery: "project-b",
+      },
+    ];
+
+    const result = await renderAstroComponent(GridGallery, {
+      props: { images },
+    });
+
+    const tiles = result.querySelectorAll('[data-testid="gallery-tile"]');
+
+    expect(tiles[0].getAttribute("data-gallery")).toBe("project-a");
+    expect(tiles[1].getAttribute("data-gallery")).toBe("project-a");
+    expect(tiles[2].getAttribute("data-gallery")).toBe("project-b");
+  });
+
   test("tiles have data-type image for glightbox to display images", async () => {
     const result = await renderAstroComponent(GridGallery, {
       props: { images: sampleImages },

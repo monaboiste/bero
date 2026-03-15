@@ -26,7 +26,7 @@ const projects = await portfolioApi.fetchPortfolioLatestProjects(3);
             data-animate="project-card"
             title={project.title}
             description={project.excerpt}
-            image={project.featuredImage.url}
+            image={project.images[0]?.url ?? ""}
             date={project.date}
           />
         ))}
