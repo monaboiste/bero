@@ -37,11 +37,11 @@ test.describe("Projects gallery", () => {
     await expect(allBtn).toHaveAttribute("aria-pressed", "true");
 
     for (const tag of [
-      "fotele",
-      "sofy",
-      "krzesla",
-      "renowacja",
-      "projekt-indywidualny",
+      "armchairs",
+      "sofas",
+      "chairs",
+      "restoration",
+      "automotive",
     ]) {
       await expect(page.getByTestId(`tag-filter-${tag}`)).toBeVisible();
     }
@@ -50,7 +50,7 @@ test.describe("Projects gallery", () => {
   test("clicking a tag shows only matching tiles", async ({ page }) => {
     const allTilesBefore = await page.getByTestId("gallery-tile").count();
 
-    await page.getByTestId("tag-filter-fotele").click();
+    await page.getByTestId("tag-filter-armchairs").click();
 
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
@@ -65,12 +65,12 @@ test.describe("Projects gallery", () => {
 
     for (const tile of await visibleTiles.all()) {
       const tags = await tile.getAttribute("data-tags");
-      expect(tags).toContain("Fotele");
+      expect(tags).toContain("armchairs");
     }
   });
 
   test("clicking Wszystkie resets filter", async ({ page }) => {
-    await page.getByTestId("tag-filter-renowacja").click();
+    await page.getByTestId("tag-filter-restoration").click();
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
     ).toBeAttached();
@@ -83,8 +83,8 @@ test.describe("Projects gallery", () => {
   });
 
   test("tag filter updates URL query param", async ({ page }) => {
-    await page.getByTestId("tag-filter-sofy").click();
-    await expect(page).toHaveURL(/\?tag=Sofy/);
+    await page.getByTestId("tag-filter-sofas").click();
+    await expect(page).toHaveURL(/\?tag=sofas/);
 
     await page.getByTestId("tag-filter-all").click();
     await expect(page).not.toHaveURL(/tag=/);
@@ -114,10 +114,10 @@ test.describe("Projects gallery", () => {
   });
 
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
-    await page.goto("/portfolio?tag=Krzesla");
+    await page.goto("/portfolio?tag=chairs");
 
-    const krzeslaBtn = page.getByTestId("tag-filter-krzesla");
-    await expect(krzeslaBtn).toHaveAttribute("aria-pressed", "true");
+    const chairsBtn = page.getByTestId("tag-filter-chairs");
+    await expect(chairsBtn).toHaveAttribute("aria-pressed", "true");
 
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
@@ -130,7 +130,7 @@ test.describe("Projects gallery", () => {
 
     for (const tile of await visibleTiles.all()) {
       const tags = await tile.getAttribute("data-tags");
-      expect(tags).toContain("Krzesla");
+      expect(tags).toContain("chairs");
     }
   });
 });

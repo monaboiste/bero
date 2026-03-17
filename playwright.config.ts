@@ -33,5 +33,8 @@ export default defineConfig({
     command: "npm run dev",
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
+    env: {
+      USE_MOCK_DATA: "true",
+    },
   },
 });
