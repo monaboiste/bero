@@ -182,7 +182,8 @@ export const MOCK_PORTFOLIO: Portfolio = [
     tags: ["sofas"],
     images: [
       {
-        thumbnail: "https://placehold.co/800x534/5c3317/ffffff?text=Chesterfield",
+        thumbnail:
+          "https://placehold.co/800x534/5c3317/ffffff?text=Chesterfield",
         url: "https://placehold.co/1600x1067/5c3317/ffffff?text=Chesterfield",
         aspectRatio: 1.5,
       },
