@@ -26,7 +26,7 @@ test.describe("Projects gallery", () => {
     }
   });
 
-  test("tag filter is visible with Wszystkie active by default", async ({
+  test("tag filter is visible with All active by default", async ({
     page,
   }) => {
     const filter = page.getByTestId("tag-filter");
@@ -37,11 +37,11 @@ test.describe("Projects gallery", () => {
     await expect(allBtn).toHaveAttribute("aria-pressed", "true");
 
     for (const tag of [
-      "fotele",
-      "sofy",
-      "krzesla",
-      "renowacja",
-      "projekt-indywidualny",
+      "armchairs",
+      "sofas",
+      "chairs",
+      "restoration",
+      "automotive",
     ]) {
       await expect(page.getByTestId(`tag-filter-${tag}`)).toBeVisible();
     }
@@ -50,7 +50,7 @@ test.describe("Projects gallery", () => {
   test("clicking a tag shows only matching tiles", async ({ page }) => {
     const allTilesBefore = await page.getByTestId("gallery-tile").count();
 
-    await page.getByTestId("tag-filter-fotele").click();
+    await page.getByTestId("tag-filter-armchairs").click();
 
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
@@ -65,12 +65,12 @@ test.describe("Projects gallery", () => {
 
     for (const tile of await visibleTiles.all()) {
       const tags = await tile.getAttribute("data-tags");
-      expect(tags).toContain("Fotele");
+      expect(tags).toContain("armchairs");
     }
   });
 
-  test("clicking Wszystkie resets filter", async ({ page }) => {
-    await page.getByTestId("tag-filter-renowacja").click();
+  test("clicking All resets filter", async ({ page }) => {
+    await page.getByTestId("tag-filter-restoration").click();
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
     ).toBeAttached();
@@ -83,8 +83,8 @@ test.describe("Projects gallery", () => {
   });
 
   test("tag filter updates URL query param", async ({ page }) => {
-    await page.getByTestId("tag-filter-sofy").click();
-    await expect(page).toHaveURL(/\?tag=Sofy/);
+    await page.getByTestId("tag-filter-sofas").click();
+    await expect(page).toHaveURL(/\?tag=sofas/);
 
     await page.getByTestId("tag-filter-all").click();
     await expect(page).not.toHaveURL(/tag=/);
@@ -114,10 +114,10 @@ test.describe("Projects gallery", () => {
   });
 
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
-    await page.goto("/portfolio?tag=Krzesla");
+    await page.goto("/portfolio?tag=chairs");
 
-    const krzeslaBtn = page.getByTestId("tag-filter-krzesla");
-    await expect(krzeslaBtn).toHaveAttribute("aria-pressed", "true");
+    const chairsBtn = page.getByTestId("tag-filter-chairs");
+    await expect(chairsBtn).toHaveAttribute("aria-pressed", "true");
 
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
@@ -130,7 +130,54 @@ test.describe("Projects gallery", () => {
 
     for (const tile of await visibleTiles.all()) {
       const tags = await tile.getAttribute("data-tags");
-      expect(tags).toContain("Krzesla");
+      expect(tags).toContain("chairs");
     }
+  });
+
+  test("multi-image projects produce more gallery tiles than projects", async ({
+    page,
+  }) => {
+    const tiles = page.getByTestId("gallery-tile");
+    const tileCount = await tiles.count();
+
+    expect(tileCount).toBeGreaterThan(10);
+  });
+
+  test("tiles from same multi-image project share the same tags", async ({
+    page,
+  }) => {
+    const projectTitle = "Renowacja fotela klubowego";
+
+    const matchingTiles = page.locator(
+      `[data-testid="gallery-tile"]:has([data-testid="gallery-tile-caption"] p:text-is("${projectTitle}"))`
+    );
+    const count = await matchingTiles.count();
+    expect(count).toBeGreaterThan(1);
+
+    const firstTags = await matchingTiles.first().getAttribute("data-tags");
+    expect(firstTags).toBeTruthy();
+    for (const tile of await matchingTiles.all()) {
+      await expect(tile).toHaveAttribute("data-tags", String(firstTags));
+    }
+  });
+
+  test("each tile from a multi-image project has a unique image src", async ({
+    page,
+  }) => {
+    const projectTitle = "Renowacja fotela klubowego";
+
+    const matchingImages = page.locator(
+      `[data-testid="gallery-tile"]:has([data-testid="gallery-tile-caption"] p:text-is("${projectTitle}")) img`
+    );
+    const count = await matchingImages.count();
+    expect(count).toBeGreaterThan(1);
+
+    const srcs = new Set<string>();
+    for (const img of await matchingImages.all()) {
+      const src = await img.getAttribute("src");
+      expect(src).toBeTruthy();
+      srcs.add(String(src));
+    }
+    expect(srcs.size).toBe(count);
   });
 });

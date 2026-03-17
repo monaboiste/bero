@@ -133,10 +133,6 @@ function isImageObject(
 function getAssetRef(
   asset: SanityImageObjectStub["asset"]
 ): string | undefined {
-  if (typeof asset === "string") {
-    return asset;
-  }
-
   if (asset && typeof asset === "object" && "_ref" in asset) {
     return asset._ref;
   }
