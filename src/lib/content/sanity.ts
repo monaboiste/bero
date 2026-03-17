@@ -6,11 +6,27 @@ import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import type { Portfolio, Project, ProjectImage } from "./types";
 
+/**
+ * Sanity client for fetching content at <b>build time</b>.
+ *
+ * We set `useCdn: false` because:
+ * 1. The site is built statically (SSG) on Cloudflare Pages.
+ * 2. We want to ensure that the latest published content is pulled
+ *    from Sanity’s origin API, avoiding stale data from the Sanity CDN.
+ * 3. Using the CDN (`useCdn: true`) can sometimes serve cached content
+ *    that hasn’t yet propagated after a new publishing, causing inconsistencies
+ *    in the generated static HTML.
+ *
+ * Note:
+ * - `useCdn: false` only affects data fetching during build.
+ * - Images are still served from Sanity’s CDN (cdn.sanity.io).
+ * - All internal links (`slug.current`) remain local and are unaffected.
+ */
 const sanityClient = createClient({
   projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
   dataset: import.meta.env.SANITY_STUDIO_DATASET,
   apiVersion: "2026-03-10",
-  useCdn: true,
+  useCdn: false,
 });
 
 const builder = createImageUrlBuilder(sanityClient);
