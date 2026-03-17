@@ -54,12 +54,13 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "featuredImage",
-      title: "Featured image",
-      type: "image",
+      name: "images",
+      title: "Images",
+      description: "Project photos. The first image is used as the featured image.",
+      type: "array",
       group: "common",
-      options: { hotspot: true },
-      validation: (rule) => rule.required(),
+      of: [{ type: "image", options: { hotspot: true } }],
+      validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: "tags",
@@ -89,7 +90,7 @@ export default defineType({
     select: {
       title: "title",
       date: "date",
-      media: "featuredImage",
+      media: "images.0",
     },
     prepare({ title, date, media }) {
       const localizedTitle =

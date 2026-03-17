@@ -10,6 +10,7 @@ export interface GalleryImage {
   date?: string;
   tags: string[];
   orientation?: "landscape" | "portrait";
+  gallery?: string;
 }
 
 interface Props extends JSX.HTMLAttributes {
@@ -28,7 +29,7 @@ const { images, class: className } = Astro.props;
         <a
           href={image.url}
           class:list={["glightbox gallery-tile-link block", isLandscape && "gallery-tile--landscape"]}
-          data-gallery="gallery"
+          data-gallery={image.gallery ?? "gallery"}
           data-type="image"
           data-height="calc(100vh - 4rem)"
           data-tags={image.tags?.join(",")}
