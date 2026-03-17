@@ -26,9 +26,7 @@ test.describe("Projects gallery", () => {
     }
   });
 
-  test("tag filter is visible with All active by default", async ({
-    page,
-  }) => {
+  test("tag filter is visible with All active by default", async ({ page }) => {
     const filter = page.getByTestId("tag-filter");
     await expect(filter).toBeVisible();
 
