@@ -26,7 +26,7 @@ test.describe("Projects gallery", () => {
     }
   });
 
-  test("tag filter is visible with Wszystkie active by default", async ({
+  test("tag filter is visible with All active by default", async ({
     page,
   }) => {
     const filter = page.getByTestId("tag-filter");
@@ -69,7 +69,7 @@ test.describe("Projects gallery", () => {
     }
   });
 
-  test("clicking Wszystkie resets filter", async ({ page }) => {
+  test("clicking All resets filter", async ({ page }) => {
     await page.getByTestId("tag-filter-restoration").click();
     await expect(
       page.locator('[data-testid="gallery-tile"].hidden').first()
@@ -132,5 +132,52 @@ test.describe("Projects gallery", () => {
       const tags = await tile.getAttribute("data-tags");
       expect(tags).toContain("chairs");
     }
+  });
+
+  test("multi-image projects produce more gallery tiles than projects", async ({
+    page,
+  }) => {
+    const tiles = page.getByTestId("gallery-tile");
+    const tileCount = await tiles.count();
+
+    expect(tileCount).toBeGreaterThan(10);
+  });
+
+  test("tiles from same multi-image project share the same tags", async ({
+    page,
+  }) => {
+    const projectTitle = "Renowacja fotela klubowego";
+
+    const matchingTiles = page.locator(
+      `[data-testid="gallery-tile"]:has([data-testid="gallery-tile-caption"] p:text-is("${projectTitle}"))`
+    );
+    const count = await matchingTiles.count();
+    expect(count).toBeGreaterThan(1);
+
+    const firstTags = await matchingTiles.first().getAttribute("data-tags");
+    expect(firstTags).toBeTruthy();
+    for (const tile of await matchingTiles.all()) {
+      await expect(tile).toHaveAttribute("data-tags", String(firstTags));
+    }
+  });
+
+  test("each tile from a multi-image project has a unique image src", async ({
+    page,
+  }) => {
+    const projectTitle = "Renowacja fotela klubowego";
+
+    const matchingImages = page.locator(
+      `[data-testid="gallery-tile"]:has([data-testid="gallery-tile-caption"] p:text-is("${projectTitle}")) img`
+    );
+    const count = await matchingImages.count();
+    expect(count).toBeGreaterThan(1);
+
+    const srcs = new Set<string>();
+    for (const img of await matchingImages.all()) {
+      const src = await img.getAttribute("src");
+      expect(src).toBeTruthy();
+      srcs.add(String(src));
+    }
+    expect(srcs.size).toBe(count);
   });
 });

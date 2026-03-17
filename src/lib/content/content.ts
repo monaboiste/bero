@@ -8,10 +8,7 @@ const useMock = !!import.meta.env.USE_MOCK_DATA;
 export interface PortfolioApi {
   count(): Promise<number>;
 
-  fetchPortfolioPage(page: {
-    start: number;
-    end: number;
-  }): Promise<Portfolio>;
+  fetchPortfolioPage(page: { start: number; end: number }): Promise<Portfolio>;
 
   fetchPortfolioLatestProjects(limit: number): Promise<Portfolio>;
 }
@@ -32,7 +29,7 @@ function createFixtureApi(): PortfolioApi {
   };
 }
 
-function createSanityApi() : PortfolioApi {
+function createSanityApi(): PortfolioApi {
   return {
     count: async (): Promise<number> => sanityApi.count(),
 
@@ -48,4 +45,3 @@ function createSanityApi() : PortfolioApi {
     },
   };
 }
-
