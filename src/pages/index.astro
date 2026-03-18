@@ -3,20 +3,14 @@ import About from "@components/about/About.astro";
 import Contact from "@components/contact/Contact.astro";
 import Hero from "@components/hero/Hero.astro";
 import Projects from "@components/projects/Projects.astro";
-import Footer from "@components/ui/footer/Footer.astro";
-import Navigation from "@components/ui/navigation/Navigation.astro";
 import Layout from "@layouts/Layout.astro";
 
 export const prerender = true;
 ---
 
 <Layout>
-  <Navigation />
-  <main>
-    <Hero />
-    <Projects />
-    <About />
-    <Contact />
-  </main>
-  <Footer />
+  <Hero />
+  <Projects />
+  <About />
+  <Contact />
 </Layout>

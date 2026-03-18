@@ -1,5 +1,7 @@
 ---
 import SEOHead from "@components/seo/SEOHead.astro";
+import Footer from "@components/ui/footer/Footer.astro";
+import Navigation from "@components/ui/navigation/Navigation.astro";
 import "@styles/global.css";
 
 interface Props {
@@ -7,10 +9,11 @@ interface Props {
   description?: string;
   image?: string;
   url?: string;
+  mainClass?: string;
 }
 
 // TODO: i18n
-const { title, description, image, url } = Astro.props;
+const { title, description, image, url, mainClass } = Astro.props;
 ---
 
 <!doctype html>
@@ -44,7 +47,11 @@ const { title, description, image, url } = Astro.props;
       })();
     </script>
   </head>
-  <body class="min-h-screen">
-    <slot />
+  <body class="min-h-screen flex flex-col">
+    <Navigation />
+    <main class:list={["flex-1", mainClass]}>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
