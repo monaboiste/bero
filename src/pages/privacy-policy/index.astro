@@ -1,0 +1,32 @@
+---
+import SectionHeader from "@components/ui/SectionHeader.astro";
+import Layout from "@layouts/Layout.astro";
+
+export const prerender = true;
+
+// TODO: i18n - add translated versions for en and de
+const content = {
+  subject: "Studio Tapicerskie BERO",
+  title: "Polityka Prywatnosci",
+  description:
+    "Polityka prywatnosci Studio Tapicerskiego BERO. Informacje o przetwarzaniu danych osobowych i plikach cookies.",
+  body: "Ta strona internetowa nie zbiera zadnych danych osobowych ani nie korzysta z plikow cookies. Jezeli w przyszlosci strona zacznie przetwarzac dane osobowe, niniejsza polityka prywatnosci zostanie zaktualizowana.",
+};
+---
+
+<Layout
+  title={`${content.title} | ${content.subject}`}
+  description={content.description}
+  mainClass="bg-secondary pt-36 pb-20"
+>
+  <article
+    data-testid="privacy-policy"
+    class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"
+  >
+    <SectionHeader title={content.title} />
+
+    <p class="text-center text-lg leading-relaxed text-muted-foreground">
+      {content.body}
+    </p>
+  </article>
+</Layout>

@@ -1,7 +1,7 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test } from "vitest";
-import type { GalleryImage } from "./GridGallery.astro";
 import GridGallery from "./GridGallery.astro";
+import type { GalleryImage } from "./types";
 
 const sampleImages: GalleryImage[] = [
   {

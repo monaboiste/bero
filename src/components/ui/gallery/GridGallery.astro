@@ -1,17 +1,6 @@
 ---
 import type { JSX } from "astro/jsx-runtime";
-
-export interface GalleryImage {
-  thumbnail: string;
-  url: string;
-  alt: string;
-  description: string;
-  title: string;
-  date?: string;
-  tags: string[];
-  orientation?: "landscape" | "portrait";
-  gallery?: string;
-}
+import type { GalleryImage } from "./types";
 
 interface Props extends JSX.HTMLAttributes {
   images: GalleryImage[];
