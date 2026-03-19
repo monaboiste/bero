@@ -3,9 +3,14 @@ import About from "@components/about/About.astro";
 import Contact from "@components/contact/Contact.astro";
 import Hero from "@components/hero/Hero.astro";
 import Projects from "@components/projects/Projects.astro";
+import { locales } from "@i18n/ui";
 import Layout from "@layouts/Layout.astro";
 
 export const prerender = true;
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
 ---
 
 <Layout>
