@@ -1,4 +1,4 @@
-import { defaultLang, type Lang, locales, ui } from "./ui";
+import { defaultLang, type Lang, locales, type TranslationKey, ui } from "./ui";
 
 /** Regex that matches a leading locale prefix (e.g. /pl, /en, /de). */
 const localePrefixRe = new RegExp(`^/(${locales.join("|")})`);
@@ -19,9 +19,8 @@ export function getLang(currentLocale: string | undefined): Lang {
  * Falls back to the default language if a key is missing.
  */
 export function useTranslations(lang: Lang) {
-  return function t(key: keyof (typeof ui)[typeof defaultLang]): string {
-    // biome-ignore lint/suspicious/noExplicitAny: fallback lookup
-    return (ui[lang] as any)[key] || ui[defaultLang][key];
+  return function t(key: TranslationKey): string {
+    return ui[lang][key] || ui[defaultLang][key];
   };
 }
 

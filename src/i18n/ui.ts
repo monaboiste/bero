@@ -15,4 +15,18 @@ export const defaultLang: Lang = "pl";
 /** All supported locale codes, derived from the languages map. */
 export const locales = Object.keys(languages) as Lang[];
 
-export const ui = { pl, en, de } as const;
+/**
+ * The canonical set of translation keys, derived from the default language.
+ * Every other language file must provide exactly the same keys.
+ */
+export type TranslationKey = keyof typeof pl;
+
+// Compile-time parity checks: fail if any language is missing or has extra keys.
+const _enParity: Record<TranslationKey, string> = en;
+const _deParity: Record<TranslationKey, string> = de;
+
+export const ui: Record<Lang, Record<TranslationKey, string>> = {
+  pl,
+  en,
+  de,
+};
