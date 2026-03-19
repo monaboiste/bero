@@ -1,0 +1,24 @@
+---
+import PortfolioPage from "@components/pages/PortfolioPage.astro";
+import PrivacyPolicyPage from "@components/pages/PrivacyPolicyPage.astro";
+import { locales, routes } from "@i18n/ui";
+import { getLang } from "@i18n/utils";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return locales.flatMap((locale) => {
+    const langRoutes = routes[locale];
+    return Object.entries(langRoutes).map(([routeKey, translatedSlug]) => ({
+      params: { locale, slug: translatedSlug },
+      props: { routeKey },
+    }));
+  });
+}
+
+const { routeKey } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+---
+
+{routeKey === "portfolio" && <PortfolioPage lang={lang} />}
+{routeKey === "privacy-policy" && <PrivacyPolicyPage lang={lang} />}

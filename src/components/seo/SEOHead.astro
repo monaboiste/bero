@@ -1,7 +1,13 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { locales } from "@i18n/ui";
-import { getLang, stripLocalePrefix, useTranslations } from "@i18n/utils";
+import {
+  getCanonicalBasePath,
+  getLang,
+  getRouteFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "@i18n/utils";
 
 interface Props {
   title?: string;
@@ -22,8 +28,16 @@ const {
   type = "website",
 } = Astro.props;
 
-// Build hreflang alternate links from the current page path
-const basePath = stripLocalePrefix(Astro.url.pathname);
+const canonicalRoute = getRouteFromUrl(Astro.url);
+const basePath = getCanonicalBasePath(Astro.url);
+
+const alternates = locales.map((locale) => {
+  const tp = useTranslatedPath(locale);
+  const href = canonicalRoute
+    ? tp(basePath, locale)
+    : getRelativeLocaleUrl(locale, basePath);
+  return { locale, href };
+});
 ---
 
 <!-- SEO -->
@@ -31,8 +45,8 @@ const basePath = stripLocalePrefix(Astro.url.pathname);
 <meta name="description" content={description}>
 
 <!-- Hreflang alternate links -->
-{locales.map((locale) => (
-  <link rel="alternate" hreflang={locale} href={getRelativeLocaleUrl(locale, basePath)} />
+{alternates.map(({ locale, href }) => (
+  <link rel="alternate" hreflang={locale} href={href} />
 ))}
 <link rel="alternate" hreflang="x-default" href={basePath}>
 

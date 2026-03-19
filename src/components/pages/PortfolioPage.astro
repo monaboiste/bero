@@ -2,19 +2,17 @@
 import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import TagFilter from "@components/ui/TagFilter.astro";
-import { locales } from "@i18n/ui";
-import { getLang, useTranslations } from "@i18n/utils";
+import type { Lang } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
 import Layout from "@layouts/Layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 
-export const prerender = true;
-
-export function getStaticPaths() {
-  return locales.map((locale) => ({ params: { locale } }));
+interface Props {
+  lang: Lang;
 }
 
-const lang = getLang(Astro.currentLocale);
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const portfolioApi = createPortfolioApi(lang);

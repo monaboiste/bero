@@ -1,6 +1,6 @@
 ---
 import { type Lang, languages } from "@i18n/ui";
-import { getLang, stripLocalePrefix, useTranslatedPath } from "@i18n/utils";
+import { getCanonicalBasePath, getLang, useTranslatedPath } from "@i18n/utils";
 import { Globe } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
@@ -13,7 +13,7 @@ const tp = useTranslatedPath(lang);
 
 const { variant = "dropdown", class: className } = Astro.props;
 
-const basePath = stripLocalePrefix(Astro.url.pathname);
+const basePath = getCanonicalBasePath(Astro.url);
 
 const langEntries = Object.entries(languages) as [Lang, string][];
 ---
