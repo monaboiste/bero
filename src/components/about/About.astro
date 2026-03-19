@@ -1,75 +1,75 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
+import { getLang, useTranslations } from "@i18n/utils";
 import { Award, Clock, Heart, Users } from "@lucide/astro";
 import AboutServices from "./AboutServices.astro";
 import AboutStats from "./AboutStats.astro";
 import StorySection from "./StorySection.astro";
 
-// Static mock content - will be replaced with CMS data later
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
 const content = {
-  title: "O Nas",
-  subtitle: "Pasja i doswiadczenie w kazdym projekcie",
-  story:
-    "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem w branzy tapicerskiej. Specjalizujemy sie w profesjonalnej renowacji i tworzeniu mebli tapicerowanych, laczac tradycyjne rzemioslo z nowoczesnymi technikami.",
-  mission:
-    "Dbamy o to, by meble odzyskały swój charakter i pełną funkcjonalność. Kazdy projekt traktujemy indywidualnie, dbajac o najdrobniejsze szczegoly.",
   craftImage:
     "https://images.unsplash.com/photo-1682718619781-252f23e21132?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmFmdHNtYW4lMjB3b3JraW5nJTIwZnVybml0dXJlfGVufDF8fHx8MTc3MDU3ODcxNnww&ixlib=rb-4.1.0&q=80&w=800",
 };
 
 const stats = [
-  { icon: Clock, valueNumeric: 20, suffix: "+", label: "Lat doswiadczenia" },
+  {
+    icon: Clock,
+    valueNumeric: 20,
+    suffix: "+",
+    label: t("about.stats.experience"),
+  },
   {
     icon: Award,
     valueNumeric: 500,
     suffix: "+",
-    label: "Zrealizowanych projektow",
+    label: t("about.stats.projects"),
   },
   {
     icon: Users,
     valueNumeric: 100,
     suffix: "%",
-    label: "Zadowolonych klientow",
+    label: t("about.stats.clients"),
   },
   {
     icon: Heart,
     suffix: "\u221E",
-    label: "Pasja w kazdym detalu",
+    label: t("about.stats.passion"),
   },
 ];
 
 const services = [
   {
-    title: "Renowacja mebli",
-    description:
-      "Przywracamy zycie starym meblom i wydobywamy ich dawny charakter",
+    title: t("about.services.renovation"),
+    description: t("about.services.renovationDesc"),
   },
   {
-    title: "Wymiana tapicerki",
-    description:
-      "Odswiezamy wyglad mebli, dobierajac tkaniny dopasowane do wnetrza",
+    title: t("about.services.upholstery"),
+    description: t("about.services.upholsteryDesc"),
   },
   {
-    title: "Naprawa konstrukcji",
-    description: "Wzmacniamy stelaze i przywracamy pelna stabilnosc mebli",
+    title: t("about.services.repair"),
+    description: t("about.services.repairDesc"),
   },
   {
-    title: "Tapicerstwo samochodowe",
-    description:
-      "Regeneracja foteli i podsufitek - estetyka wnetrza jak z salonu",
+    title: t("about.services.automotive"),
+    description: t("about.services.automotiveDesc"),
   },
 ];
 ---
 
 <section id="about" data-testid="about" class="overflow-x-hidden py-20">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <SectionHeader title={content.title} subtitle={content.subtitle} />
+    <SectionHeader title={t("about.title")} subtitle={t("about.subtitle")} />
     <StorySection
-      story={content.story}
-      mission={content.mission}
+      story={t("about.story")}
+      mission={t("about.mission")}
       image={content.craftImage}
+      imageAlt={t("about.craftImageAlt")}
     />
     <AboutStats stats={stats} />
-    <AboutServices services={services} />
+    <AboutServices services={services} title={t("about.servicesTitle")} />
   </div>
 </section>

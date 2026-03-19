@@ -11,13 +11,23 @@ interface Props {
     consent: string;
     privacyPolicy: string;
     send: string;
+    sending: string;
+    success: string;
+    error: string;
   };
+  privacyPolicyHref?: string;
 }
 
-const { labels } = Astro.props;
+const { labels, privacyPolicyHref = "/privacy-policy" } = Astro.props;
 ---
 
-<form id="contact-form" data-testid="contact-form" class="space-y-6">
+<form
+  id="contact-form"
+  data-testid="contact-form"
+  class="space-y-6"
+  data-label-sending={labels.sending}
+  data-label-send={labels.send}
+>
   <!-- Honeypot field - hidden from users -->
   <input
     type="text"
@@ -61,7 +71,7 @@ const { labels } = Astro.props;
       >
       <span class="text-sm">
         {labels.consent}
-        <a href="/privacy-policy" class="text-accent hover:underline">
+        <a href={privacyPolicyHref} class="text-accent hover:underline">
           {labels.privacyPolicy}
         </a>. <span class="text-accent">*</span>
       </span>
@@ -78,12 +88,8 @@ const { labels } = Astro.props;
     <Send class="h-5 w-5" />
   </button>
 
-  <FormStatus variant="success" id="form-success">
-    Dziekujemy! Wiadomosc zostala wyslana.
-  </FormStatus>
-  <FormStatus variant="error" id="form-error">
-    Wystapil blad. Sprobuj ponownie.
-  </FormStatus>
+  <FormStatus variant="success" id="form-success">{labels.success}</FormStatus>
+  <FormStatus variant="error" id="form-error">{labels.error}</FormStatus>
 </form>
 
 <script>
@@ -91,6 +97,9 @@ const { labels } = Astro.props;
     const form = document.getElementById("contact-form") as HTMLFormElement;
     const successMsg = document.getElementById("form-success");
     const errorMsg = document.getElementById("form-error");
+
+    const sendingLabel = form?.dataset.labelSending ?? "Sending...";
+    const sendLabel = form?.dataset.labelSend ?? "Send";
 
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -108,7 +117,7 @@ const { labels } = Astro.props;
       );
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = "<span>Wysylanie...</span>";
+        submitBtn.innerHTML = `<span>${sendingLabel}</span>`;
       }
 
       // TODO: Simulate form submission (in production, this would send to Web3Forms)
@@ -119,7 +128,7 @@ const { labels } = Astro.props;
 
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = `<span>Wyslij wiadomosc</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>`;
+          submitBtn.innerHTML = `<span>${sendLabel}</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>`;
         }
 
         setTimeout(() => {

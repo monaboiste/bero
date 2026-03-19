@@ -1,17 +1,14 @@
 ---
+import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
 import { ArrowRight } from "@lucide/astro";
 
-// TODO: static mock content - will be replaced with CMS data later
-const content = {
-  subtitle: "Profesjonalne usługi tapicerskie",
-  title: "Tradycja spotyka nowoczesność",
-  description: "Tworzymy tapicerkę, która zostaje z Tobą na lata.",
-  cta: "Skontaktuj się z nami",
-  featured: "Nasze realizacje",
-  // TODO: replace this unspash image
-  heroImage:
-    "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=1920",
-};
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const tp = useTranslatedPath(lang);
+
+// TODO: replace this unspash image
+const heroImage =
+  "https://images.unsplash.com/photo-1763979628017-ea650631b0be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmdXJuaXR1cmUlMjB1cGhvbHN0ZXJ5fGVufDF8fHx8MTc3MDU3ODcxNXww&ixlib=rb-4.1.0&q=80&w=1920";
 ---
 
 <section
@@ -21,8 +18,8 @@ const content = {
 >
   <div data-animate="hero-image" class="absolute inset-0 z-0">
     <img
-      src={content.heroImage}
-      alt="Luxury upholstery"
+      src={heroImage}
+      alt={t("hero.imageAlt")}
       class="h-full w-full object-cover"
       width="1920"
       height="1080"
@@ -39,14 +36,14 @@ const content = {
         data-animate="hero-title"
         class="mb-6 text-5xl font-bold text-white md:text-7xl"
       >
-        {content.title}
+        {t("hero.title")}
       </h1>
 
       <p
         data-animate="hero-description"
         class="mb-8 text-xl leading-relaxed text-gray-200 md:text-2xl"
       >
-        {content.description}
+        {t("hero.description")}
       </p>
 
       <div
@@ -54,22 +51,22 @@ const content = {
         class="flex flex-col items-center gap-4 sm:items-start sm:flex-row"
       >
         <a
-          href="/#contact"
+          href={tp("/#contact")}
           data-testid="hero-cta-primary"
           class="w-full sm:w-auto group flex items-center justify-center space-x-2 rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
         >
-          <span>{content.cta}</span>
+          <span>{t("hero.cta")}</span>
           <ArrowRight
             class="h-5 w-5 transition-transform group-hover:translate-x-1"
           />
         </a>
 
         <a
-          href="/#projects"
+          href={tp("/#projects")}
           data-testid="hero-cta-secondary"
           class="w-full sm:w-auto flex items-center justify-center rounded-lg border border-white/30 bg-white/10 px-8 py-4 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
         >
-          {content.featured}
+          {t("hero.featured")}
         </a>
       </div>
     </div>

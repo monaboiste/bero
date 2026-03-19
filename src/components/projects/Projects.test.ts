@@ -2,8 +2,8 @@ import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
 import Projects from "./Projects.astro";
 
-vi.mock("@lib/content/content", () => ({
-  portfolioApi: {
+vi.mock("@lib/content/content", () => {
+  const mockApi = {
     fetchPortfolioLatestProjects: vi.fn().mockResolvedValue([
       {
         title: "Renowacja fotela klubowego",
@@ -51,8 +51,13 @@ vi.mock("@lib/content/content", () => ({
         tags: ["sofas"],
       },
     ]),
-  },
-}));
+  };
+
+  return {
+    createPortfolioApi: vi.fn(() => mockApi),
+    portfolioApi: mockApi,
+  };
+});
 
 describe("Projects", () => {
   test("renders section with id projects", async () => {

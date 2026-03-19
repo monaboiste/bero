@@ -1,22 +1,19 @@
 ---
 import BrokenChairSvg from "@assets/chair-full-broken.svg";
+import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
 import Layout from "@layouts/Layout.astro";
 import { Home } from "@lucide/astro";
 
 export const prerender = true;
 
-// TODO: i18n - add translated versions for en and de
-const content = {
-  subject: "Studio Tapicerskie BERO",
-  title: "Nic tu nie ma",
-  description: "Podana strona nie istnieje lub została przeniesiona.",
-  cta: "Wróć na strone główną",
-};
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const tp = useTranslatedPath(lang);
 ---
 
 <Layout
-  title={`404 | ${content.subject}`}
-  description={content.description}
+  title={`404 | ${t("seo.title")}`}
+  description={t("404.description")}
   mainClass="bg-secondary pt-36 pb-20"
 >
   <div
@@ -32,7 +29,7 @@ const content = {
       404
     </h1>
 
-    <h2 class="mb-3 text-2xl font-medium md:text-3xl">{content.title}</h2>
+    <h2 class="mb-3 text-2xl font-medium md:text-3xl">{t("404.title")}</h2>
 
     <div
       data-animate="not-found-decoration"
@@ -40,15 +37,15 @@ const content = {
     ></div>
 
     <p class="mb-10 max-w-md text-lg leading-relaxed text-muted-foreground">
-      {content.description}
+      {t("404.description")}
     </p>
 
     <a
-      href="/"
+      href={tp("/")}
       class="inline-flex items-center gap-2 rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
     >
       <Home class="h-5 w-5" />
-      {content.cta}
+      {t("404.cta")}
     </a>
   </div>
 </Layout>

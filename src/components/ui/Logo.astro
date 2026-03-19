@@ -2,12 +2,16 @@
 import { Image } from "astro:assets";
 import logoDark from "@assets/logo/chair-dark.png";
 import logoLight from "@assets/logo/chair-white.png";
+import { getLang, useTranslatedPath } from "@i18n/utils";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {
   variant?: "light" | "dark";
   size?: "sm" | "md" | "lg";
 }
+
+const lang = getLang(Astro.currentLocale);
+const tp = useTranslatedPath(lang);
 
 const { variant = "light", size = "md", class: className } = Astro.props;
 
@@ -67,7 +71,7 @@ if (variant === "light") {
 ---
 
 <a
-  href="/#home"
+  href={tp("/#home")}
   data-testid="logo"
   class:list={["shrink-0 flex items-center", sizeScheme.containerGap, className]}
 >

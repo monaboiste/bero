@@ -31,7 +31,7 @@ describe("Hero", () => {
     const ctaButton = result.querySelector('[data-testid="hero-cta-primary"]');
 
     expect(ctaButton).not.toBeNull();
-    expect(ctaButton?.getAttribute("href")).toBe("/#contact");
+    expect(ctaButton?.getAttribute("href")).toBe("/pl/#contact");
     expect(ctaButton?.textContent).toContain("Skontaktuj się z nami");
   });
 
@@ -43,7 +43,7 @@ describe("Hero", () => {
     );
 
     expect(projectsLink).not.toBeNull();
-    expect(projectsLink?.getAttribute("href")).toBe("/#projects");
+    expect(projectsLink?.getAttribute("href")).toBe("/pl/#projects");
     expect(projectsLink?.textContent).toContain("Nasze realizacje");
   });
 

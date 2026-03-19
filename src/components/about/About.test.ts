@@ -33,7 +33,7 @@ describe("About", () => {
   test("renders craftsman image", async () => {
     const result = await renderAstroComponent(About);
 
-    const image = result.querySelector('img[alt="Craftsman working"]');
+    const image = result.querySelector('img[alt="Rzemieślnik przy pracy"]');
 
     expect(image).not.toBeNull();
   });

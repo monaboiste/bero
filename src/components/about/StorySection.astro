@@ -3,9 +3,10 @@ interface Props {
   story: string;
   mission: string;
   image: string;
+  imageAlt?: string;
 }
 
-const { story, mission, image: craftImage } = Astro.props;
+const { story, mission, image: craftImage, imageAlt = "" } = Astro.props;
 ---
 
 <div
@@ -15,7 +16,7 @@ const { story, mission, image: craftImage } = Astro.props;
   <img
     data-animate="about-story-img"
     src={craftImage}
-    alt="Craftsman working"
+    alt={imageAlt}
     class="h-auto w-full rounded-lg shadow-xl"
     width="800"
     height="600"
