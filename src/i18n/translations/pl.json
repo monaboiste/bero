@@ -1,0 +1,78 @@
+{
+  "nav.home": "Strona glowna",
+  "nav.projects": "Realizacje",
+  "nav.about": "O nas",
+  "nav.contact": "Kontakt",
+  "nav.gallery": "Galeria",
+
+  "hero.subtitle": "Profesjonalne usługi tapicerskie",
+  "hero.title": "Tradycja spotyka nowoczesność",
+  "hero.description": "Tworzymy tapicerkę, która zostaje z Tobą na lata.",
+  "hero.cta": "Skontaktuj się z nami",
+  "hero.featured": "Nasze realizacje",
+  "hero.imageAlt": "Luksusowa tapicerka",
+
+  "projects.title": "Nasze Realizacje",
+  "projects.subtitle": "Galeria wybranych projektow",
+  "projects.viewAll": "Zobacz wszystkie realizacje",
+
+  "about.title": "O Nas",
+  "about.subtitle": "Pasja i doswiadczenie w kazdym projekcie",
+  "about.story": "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem w branzy tapicerskiej. Specjalizujemy sie w profesjonalnej renowacji i tworzeniu mebli tapicerowanych, laczac tradycyjne rzemioslo z nowoczesnymi technikami.",
+  "about.mission": "Dbamy o to, by meble odzyskały swój charakter i pełną funkcjonalność. Kazdy projekt traktujemy indywidualnie, dbajac o najdrobniejsze szczegoly.",
+  "about.craftImageAlt": "Rzemieślnik przy pracy",
+  "about.servicesTitle": "Nasze Usługi",
+
+  "about.stats.experience": "Lat doswiadczenia",
+  "about.stats.projects": "Zrealizowanych projektow",
+  "about.stats.clients": "Zadowolonych klientow",
+  "about.stats.passion": "Pasja w kazdym detalu",
+
+  "about.services.renovation": "Renowacja mebli",
+  "about.services.renovationDesc": "Przywracamy zycie starym meblom i wydobywamy ich dawny charakter",
+  "about.services.upholstery": "Wymiana tapicerki",
+  "about.services.upholsteryDesc": "Odswiezamy wyglad mebli, dobierajac tkaniny dopasowane do wnetrza",
+  "about.services.repair": "Naprawa konstrukcji",
+  "about.services.repairDesc": "Wzmacniamy stelaze i przywracamy pelna stabilnosc mebli",
+  "about.services.automotive": "Tapicerstwo samochodowe",
+  "about.services.automotiveDesc": "Regeneracja foteli i podsufitek - estetyka wnetrza jak z salonu",
+
+  "contact.title": "Kontakt",
+  "contact.subtitle": "Skontaktuj sie z nami",
+  "contact.mapTitle": "Lokalizacja",
+  "contact.form.name": "Imie i nazwisko",
+  "contact.form.email": "Adres e-mail",
+  "contact.form.message": "Wiadomosc",
+  "contact.form.consent": "Wyrazam zgode na przetwarzanie moich danych osobowych zgodnie z",
+  "contact.form.privacyPolicy": "Polityka Prywatnosci",
+  "contact.form.send": "Wyslij wiadomosc",
+  "contact.form.sending": "Wysylanie...",
+  "contact.form.success": "Dziekujemy! Wiadomosc zostala wyslana.",
+  "contact.form.error": "Wystapil blad. Sprobuj ponownie.",
+
+  "footer.about": "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem w renowacji i tworzeniu mebli tapicerowanych.",
+  "footer.quickLinks": "Szybkie linki",
+  "footer.legal": "Informacje prawne",
+  "footer.privacyPolicy": "Polityka prywatnosci",
+  "footer.rights": "Wszelkie prawa zastrzezone.",
+
+  "seo.title": "Studio Tapicerskie BERO",
+  "seo.description": "Profesjonalne uslugi tapicerskie - renowacja mebli, tapicerowanie na zamowienie. Ponad 20 lat doswiadczenia.",
+
+  "portfolio.title": "Wszystkie Realizacje",
+  "portfolio.subtitle": "Galeria naszych projektów tapicerskich",
+  "portfolio.seoTitle": "Wszystkie Realizacje | Studio Tapicerskie BERO",
+  "portfolio.seoDescription": "Galeria wszystkich realizacji Studio Tapicerskiego BERO. Zobacz nasze projekty tapicerskie - renowacje, meble na wymiar i wiele wiecej.",
+  "portfolio.tagAll": "Wszystkie",
+
+  "404.title": "Nic tu nie ma",
+  "404.description": "Podana strona nie istnieje lub została przeniesiona.",
+  "404.cta": "Wróć na strone główną",
+
+  "privacy.title": "Polityka Prywatnosci",
+  "privacy.description": "Polityka prywatnosci Studio Tapicerskiego BERO. Informacje o przetwarzaniu danych osobowych i plikach cookies.",
+  "privacy.body": "Ta strona internetowa nie zbiera zadnych danych osobowych ani nie korzysta z plikow cookies. Jezeli w przyszlosci strona zacznie przetwarzac dane osobowe, niniejsza polityka prywatnosci zostanie zaktualizowana.",
+
+  "a11y.themeToggle": "Przelacz motyw",
+  "a11y.menu": "Menu"
+}
