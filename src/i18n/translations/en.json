@@ -61,8 +61,8 @@
 
   "portfolio.title": "All Projects",
   "portfolio.subtitle": "Gallery of our upholstery projects",
-  "portfolio.seoTitle": "All Projects | Upholstery Studio BERO",
-  "portfolio.seoDescription": "Gallery of all projects by Upholstery Studio BERO. See our upholstery projects - renovations, custom furniture and more.",
+  "portfolio.seo.title": "All Projects | Upholstery Studio BERO",
+  "portfolio.seo.description": "Gallery of all projects by Upholstery Studio BERO. See our upholstery projects - renovations, custom furniture and more.",
   "portfolio.tagAll": "All",
 
   "404.title": "Nothing here",

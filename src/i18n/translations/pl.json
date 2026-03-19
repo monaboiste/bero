@@ -61,8 +61,8 @@
 
   "portfolio.title": "Wszystkie Realizacje",
   "portfolio.subtitle": "Galeria naszych projektów tapicerskich",
-  "portfolio.seoTitle": "Wszystkie Realizacje | Studio Tapicerskie BERO",
-  "portfolio.seoDescription": "Galeria wszystkich realizacji Studio Tapicerskiego BERO. Zobacz nasze projekty tapicerskie - renowacje, meble na wymiar i wiele wiecej.",
+  "portfolio.seo.title": "Wszystkie Realizacje | Studio Tapicerskie BERO",
+  "portfolio.seo.description": "Galeria wszystkich realizacji Studio Tapicerskiego BERO. Zobacz nasze projekty tapicerskie - renowacje, meble na wymiar i wiele wiecej.",
   "portfolio.tagAll": "Wszystkie",
 
   "404.title": "Nic tu nie ma",

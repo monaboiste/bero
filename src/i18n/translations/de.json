@@ -61,8 +61,8 @@
 
   "portfolio.title": "Alle Projekte",
   "portfolio.subtitle": "Galerie unserer Polsterprojekte",
-  "portfolio.seoTitle": "Alle Projekte | Polsterwerkstatt BERO",
-  "portfolio.seoDescription": "Galerie aller Projekte der Polsterwerkstatt BERO. Sehen Sie unsere Polsterprojekte - Renovierungen, Maßmöbel und mehr.",
+  "portfolio.seo.title": "Alle Projekte | Polsterwerkstatt BERO",
+  "portfolio.seo.description": "Galerie aller Projekte der Polsterwerkstatt BERO. Sehen Sie unsere Polsterprojekte - Renovierungen, Maßmöbel und mehr.",
   "portfolio.tagAll": "Alle",
 
   "404.title": "Hier gibt es nichts",
