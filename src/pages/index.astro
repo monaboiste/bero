@@ -1,13 +1,6 @@
 ---
-
-
-
 /**
- * SSR language dispatcher — the only non-prerendered page.
- *
- * Reads the browser's Accept-Language header via Astro.preferredLocale
- * and redirects (302) to the matching locale prefix (/pl/, /en/, /de/).
- * Falls back to the default locale (pl) when no match is found.
+ * SSR language dispatcher — the only non-prepended page.
  */
 export const prerender = false;
 
@@ -15,9 +8,10 @@ import { defaultLang, locales } from "@i18n/ui";
 
 const preferred = Astro.preferredLocale;
 const target =
-  preferred && locales.includes(preferred as typeof locales[number])
+  preferred && locales.includes(preferred as (typeof locales)[number])
     ? preferred
     : defaultLang;
 
 return Astro.redirect(`/${target}/`, 302);
 ---
+
