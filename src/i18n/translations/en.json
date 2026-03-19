@@ -74,5 +74,11 @@
   "privacy.body": "This website does not collect any personal data or use cookies. If in the future the website begins to process personal data, this privacy policy will be updated.",
 
   "a11y.themeToggle": "Toggle theme",
-  "a11y.menu": "Menu"
+  "a11y.menu": "Menu",
+
+  "tags.armchairs": "Armchairs",
+  "tags.sofas": "Sofas",
+  "tags.chairs": "Chairs",
+  "tags.restoration": "Restoration",
+  "tags.automotive": "Automotive"
 }

@@ -74,5 +74,11 @@
   "privacy.body": "Ta strona internetowa nie zbiera zadnych danych osobowych ani nie korzysta z plikow cookies. Jezeli w przyszlosci strona zacznie przetwarzac dane osobowe, niniejsza polityka prywatnosci zostanie zaktualizowana.",
 
   "a11y.themeToggle": "Przelacz motyw",
-  "a11y.menu": "Menu"
+  "a11y.menu": "Menu",
+
+  "tags.armchairs": "Fotele",
+  "tags.sofas": "Sofy",
+  "tags.chairs": "Krzesła",
+  "tags.restoration": "Renowacja",
+  "tags.automotive": "Motoryzacja"
 }

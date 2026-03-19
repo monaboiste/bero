@@ -74,5 +74,11 @@
   "privacy.body": "Diese Website erhebt keine personenbezogenen Daten und verwendet keine Cookies. Sollte die Website in Zukunft personenbezogene Daten verarbeiten, wird diese Datenschutzerklärung aktualisiert.",
 
   "a11y.themeToggle": "Design wechseln",
-  "a11y.menu": "Menü"
+  "a11y.menu": "Menü",
+
+  "tags.armchairs": "Sessel",
+  "tags.sofas": "Sofas",
+  "tags.chairs": "Stühle",
+  "tags.restoration": "Restaurierung",
+  "tags.automotive": "Automobil"
 }
