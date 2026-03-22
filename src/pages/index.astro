@@ -1,16 +1,17 @@
 ---
-import About from "@components/about/About.astro";
-import Contact from "@components/contact/Contact.astro";
-import Hero from "@components/hero/Hero.astro";
-import Projects from "@components/projects/Projects.astro";
-import Layout from "@layouts/Layout.astro";
+/**
+ * SSR language dispatcher — the only non-prepended page.
+ */
+export const prerender = false;
 
-export const prerender = true;
+import { defaultLang, locales } from "@i18n/ui";
+
+const preferred = Astro.preferredLocale;
+const target =
+  preferred && locales.includes(preferred as (typeof locales)[number])
+    ? preferred
+    : defaultLang;
+
+return Astro.redirect(`/${target}/`, 302);
 ---
 
-<Layout>
-  <Hero />
-  <Projects />
-  <About />
-  <Contact />
-</Layout>

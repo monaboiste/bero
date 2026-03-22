@@ -1,3 +1,4 @@
+import type { Lang } from "@i18n/ui.ts";
 import type {
   SanityImageObjectStub,
   SanityImageSource,
@@ -68,7 +69,7 @@ export const sanityApi = {
   },
 
   fetchPortfolioLatestProjects: async (
-    lang: string,
+    lang: Lang,
     limit: number
   ): Promise<Portfolio> => {
     if (limit < 0) {

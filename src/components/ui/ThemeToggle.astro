@@ -1,8 +1,12 @@
 ---
+import { getLang, useTranslations } from "@i18n/utils";
 import { Moon, Sun } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {}
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
 
 const { id = "theme-toggle", class: className } = Astro.props;
 ---
@@ -12,7 +16,7 @@ const { id = "theme-toggle", class: className } = Astro.props;
   id={id}
   data-testid={id}
   class:list={["rounded-lg p-2 transition-colors hover:bg-muted", className]}
-  aria-label="Przelacz motyw"
+  aria-label={t("a11y.themeToggle")}
 >
   <Sun class="hidden h-5 w-5 dark:block" data-testid="icon-sun" />
   <Moon class="block h-5 w-5 dark:hidden" data-testid="icon-moon" />

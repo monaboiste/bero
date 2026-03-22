@@ -18,11 +18,18 @@ interface Props extends JSX.HTMLAttributes {
 
 const { items, direction = "row", class: className, ...rest } = Astro.props;
 
+const LOCALE_PREFIX_RE = /^\/[a-z]{2}\//;
 const HASH_RE = /^\/?#/;
 const SLASH_RE = /^\//;
 
 function getTestId(item: NavItem) {
-  return item.testId ?? item.href.replace(HASH_RE, "").replace(SLASH_RE, "");
+  return (
+    item.testId ??
+    item.href
+      .replace(LOCALE_PREFIX_RE, "/")
+      .replace(HASH_RE, "")
+      .replace(SLASH_RE, "")
+  );
 }
 ---
 

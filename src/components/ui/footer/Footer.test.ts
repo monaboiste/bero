@@ -61,7 +61,9 @@ describe("Footer", () => {
   test("renders legal link for privacy policy", async () => {
     const result = await renderAstroComponent(Footer);
 
-    const privacyLink = result.querySelector('a[href="/privacy-policy"]');
+    const privacyLink = result.querySelector(
+      'a[href="/pl/polityka-prywatnosci"]'
+    );
 
     expect(privacyLink).not.toBeNull();
     expect(privacyLink?.textContent).toContain("Polityka prywatnosci");

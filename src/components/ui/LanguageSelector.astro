@@ -1,20 +1,21 @@
 ---
+import { type Lang, languages } from "@i18n/ui";
+import { getCanonicalBasePath, getLang, useTranslatedPath } from "@i18n/utils";
 import { Globe } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {
   variant?: "dropdown" | "inline";
-  currentLang?: string;
 }
 
-// TODO: i18n - languages will come from i18n config
-const languages = [{ code: "pl", label: "Polski" }];
+const lang = getLang(Astro.currentLocale);
+const tp = useTranslatedPath(lang);
 
-const {
-  variant = "dropdown",
-  currentLang = "pl",
-  class: className,
-} = Astro.props;
+const { variant = "dropdown", class: className } = Astro.props;
+
+const basePath = getCanonicalBasePath(Astro.url);
+
+const langEntries = Object.entries(languages) as [Lang, string][];
 ---
 
 {variant === "dropdown" ? (
@@ -26,39 +27,42 @@ const {
       >
         <Globe class="h-5 w-5" />
         <span class="uppercase" id="current-lang">
-          {currentLang}
+          {lang}
         </span>
       </button>
       <div
         id="lang-menu"
         class="absolute right-0 mt-2 hidden w-32 overflow-hidden rounded-lg border border-border bg-card shadow-lg"
       >
-        {languages.map((lang) => (
-          <button
-            type="button"
-            data-lang={lang.code}
-            class="w-full px-4 py-2 text-left transition-colors hover:bg-muted"
+        {langEntries.map(([code, label]) => (
+          <a
+            href={tp(basePath, code)}
+            data-lang={code}
+            class:list={[
+              "block w-full px-4 py-2 text-left transition-colors hover:bg-muted",
+              code === lang && "bg-muted font-medium",
+            ]}
           >
-            {lang.label}
-          </button>
+            {label}
+          </a>
         ))}
       </div>
     </div>
   ) : (
     <div class:list={["flex space-x-4", className]}>
-      {languages.map((lang) => (
-        <button
-          type="button"
-          data-lang={lang.code}
+      {langEntries.map(([code, label]) => (
+        <a
+          href={tp(basePath, code)}
+          data-lang={code}
           class:list={[
             "mobile-lang-btn rounded px-3 py-1",
-            lang.code === currentLang
+            code === lang
               ? "bg-accent text-accent-foreground"
               : "hover:bg-muted",
           ]}
         >
-          {lang.code.toUpperCase()}
-        </button>
+          {code.toUpperCase()}
+        </a>
       ))}
     </div>
   )}

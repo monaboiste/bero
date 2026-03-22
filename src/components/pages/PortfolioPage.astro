@@ -1,33 +1,41 @@
 ---
 import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
+import TagFilter from "@components/ui/TagFilter.astro";
+import type { Lang } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
 import Layout from "@layouts/Layout.astro";
-import { portfolioApi } from "@lib/content/content";
-import { getTagLabel, PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
-import TagFilter from "./TagFilter.astro";
+import { createPortfolioApi } from "@lib/content/content";
+import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 
-export const prerender = true;
+interface Props {
+  lang: Lang;
+}
 
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const portfolioApi = createPortfolioApi(lang);
 const portfolio = await portfolioApi.fetchPortfolioPage({ start: 0, end: 100 });
 
 const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
   key,
-  label: getTagLabel(key),
+  label: t(`tags.${key}`),
 }));
 ---
 
 <Layout
-  title="Wszystkie Realizacje | Studio Tapicerskie BERO"
-  description="Galeria wszystkich realizacji Studio Tapicerskiego BERO. Zobacz nasze projekty tapicerskie - renowacje, meble na wymiar i wiele wiecej."
+  title={t("portfolio.seo.title")}
+  description={t("portfolio.seo.description")}
   mainClass="bg-secondary pt-36 pb-20"
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader
-      title="Wszystkie Realizacje"
-      subtitle="Galeria naszych projektów tapicerskich"
+      title={t("portfolio.title")}
+      subtitle={t("portfolio.subtitle")}
     />
 
-    <TagFilter tags={tags} />
+    <TagFilter tags={tags} allLabel={t("portfolio.tagAll")} />
 
     <GridGallery
       images={portfolio.flatMap((project) =>

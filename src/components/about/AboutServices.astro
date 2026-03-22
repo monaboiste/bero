@@ -2,18 +2,19 @@
 import ServiceCard from "./ServiceCard.astro";
 
 interface Props {
+  title: string;
   services: {
     title: string;
     description: string;
   }[];
 }
 
-const { services } = Astro.props;
+const { title, services } = Astro.props;
 ---
 
 <div data-testid="about-services">
   <h3 data-animate="about-services-title" class="mb-12 text-center text-3xl">
-    Nasze Usługi
+    {title}
   </h3>
   <div
     data-animate="about-services-grid"

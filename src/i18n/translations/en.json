@@ -1,0 +1,84 @@
+{
+  "nav.home": "Home",
+  "nav.projects": "Projects",
+  "nav.about": "About",
+  "nav.contact": "Contact",
+  "nav.gallery": "Gallery",
+
+  "hero.subtitle": "Professional upholstery services",
+  "hero.title": "Tradition meets modernity",
+  "hero.description": "We create upholstery that stays with you for years.",
+  "hero.cta": "Contact us",
+  "hero.featured": "Our projects",
+  "hero.imageAlt": "Luxury upholstery",
+
+  "projects.title": "Our Projects",
+  "projects.subtitle": "Gallery of selected projects",
+  "projects.viewAll": "View all projects",
+
+  "about.title": "About Us",
+  "about.subtitle": "Passion and experience in every project",
+  "about.story": "Studio Tapicerskie BERO is a family business with over 20 years of experience in the upholstery industry. We specialize in professional renovation and creation of upholstered furniture, combining traditional craftsmanship with modern techniques.",
+  "about.mission": "We ensure that furniture regains its character and full functionality. Each project is treated individually, with attention to the finest details.",
+  "about.craftImageAlt": "Craftsman working",
+  "about.servicesTitle": "Our Services",
+
+  "about.stats.experience": "Years of experience",
+  "about.stats.projects": "Completed projects",
+  "about.stats.clients": "Satisfied clients",
+  "about.stats.passion": "Passion in every detail",
+
+  "about.services.renovation": "Furniture renovation",
+  "about.services.renovationDesc": "We bring old furniture back to life and restore their former character",
+  "about.services.upholstery": "Upholstery replacement",
+  "about.services.upholsteryDesc": "We refresh the look of furniture, selecting fabrics that match the interior",
+  "about.services.repair": "Frame repair",
+  "about.services.repairDesc": "We reinforce frames and restore full stability to furniture",
+  "about.services.automotive": "Automotive upholstery",
+  "about.services.automotiveDesc": "Seat and headliner restoration - interior aesthetics like from the showroom",
+
+  "contact.title": "Contact",
+  "contact.subtitle": "Get in touch with us",
+  "contact.mapTitle": "Location",
+  "contact.form.name": "Full name",
+  "contact.form.email": "Email address",
+  "contact.form.message": "Message",
+  "contact.form.consent": "I consent to the processing of my personal data in accordance with the",
+  "contact.form.privacyPolicy": "Privacy Policy",
+  "contact.form.send": "Send message",
+  "contact.form.sending": "Sending...",
+  "contact.form.success": "Thank you! Your message has been sent.",
+  "contact.form.error": "An error occurred. Please try again.",
+
+  "footer.about": "Studio Tapicerskie BERO is a family business with over 20 years of experience in renovation and creation of upholstered furniture.",
+  "footer.quickLinks": "Quick links",
+  "footer.legal": "Legal information",
+  "footer.privacyPolicy": "Privacy policy",
+  "footer.rights": "All rights reserved.",
+
+  "seo.title": "Upholstery Studio BERO",
+  "seo.description": "Professional upholstery services - furniture renovation, custom upholstery. Over 20 years of experience.",
+
+  "portfolio.title": "All Projects",
+  "portfolio.subtitle": "Gallery of our upholstery projects",
+  "portfolio.seo.title": "All Projects | Upholstery Studio BERO",
+  "portfolio.seo.description": "Gallery of all projects by Upholstery Studio BERO. See our upholstery projects - renovations, custom furniture and more.",
+  "portfolio.tagAll": "All",
+
+  "404.title": "Nothing here",
+  "404.description": "The page you are looking for does not exist or has been moved.",
+  "404.cta": "Back to home page",
+
+  "privacy.title": "Privacy Policy",
+  "privacy.description": "Privacy policy of Upholstery Studio BERO. Information about personal data processing and cookies.",
+  "privacy.body": "This website does not collect any personal data or use cookies. If in the future the website begins to process personal data, this privacy policy will be updated.",
+
+  "a11y.themeToggle": "Toggle theme",
+  "a11y.menu": "Menu",
+
+  "tags.armchairs": "Armchairs",
+  "tags.sofas": "Sofas",
+  "tags.chairs": "Chairs",
+  "tags.restoration": "Restoration",
+  "tags.automotive": "Automotive"
+}

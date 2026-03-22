@@ -1,0 +1,30 @@
+---
+import SectionHeader from "@components/ui/SectionHeader.astro";
+import type { Lang } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
+import Layout from "@layouts/Layout.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Layout
+  title={`${t("privacy.title")} | ${t("seo.title")}`}
+  description={t("privacy.description")}
+  mainClass="bg-secondary pt-36 pb-20"
+>
+  <article
+    data-testid="privacy-policy"
+    class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"
+  >
+    <SectionHeader title={t("privacy.title")} />
+
+    <p class="text-center text-lg leading-relaxed text-muted-foreground">
+      {t("privacy.body")}
+    </p>
+  </article>
+</Layout>

@@ -1,4 +1,14 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { locales } from "@i18n/ui";
+import {
+  getCanonicalBasePath,
+  getLang,
+  getRouteFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "@i18n/utils";
+
 interface Props {
   title?: string;
   description?: string;
@@ -7,19 +17,38 @@ interface Props {
   type?: string;
 }
 
-// TODO: i18n - defaults will come from i18n config
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
 const {
-  title = "Studio Tapicerskie BERO",
-  description = "Profesjonalne uslugi tapicerskie - renowacja mebli, tapicerowanie na zamowienie. Ponad 20 lat doswiadczenia.",
+  title = t("seo.title"),
+  description = t("seo.description"),
   image,
   url,
   type = "website",
 } = Astro.props;
+
+const canonicalRoute = getRouteFromUrl(Astro.url);
+const basePath = getCanonicalBasePath(Astro.url);
+
+const alternates = locales.map((locale) => {
+  const tp = useTranslatedPath(locale);
+  const href = canonicalRoute
+    ? tp(basePath, locale)
+    : getRelativeLocaleUrl(locale, basePath);
+  return { locale, href };
+});
 ---
 
 <!-- SEO -->
 <title>{title}</title>
 <meta name="description" content={description}>
+
+<!-- Hreflang alternate links -->
+{alternates.map(({ locale, href }) => (
+  <link rel="alternate" hreflang={locale} href={href} />
+))}
+<link rel="alternate" hreflang="x-default" href={basePath}>
 
 <!-- Open Graph -->
 <meta property="og:title" content={title}>

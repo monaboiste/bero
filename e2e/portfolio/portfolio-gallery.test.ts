@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("Projects gallery", () => {
+test.describe("Projects portfolio", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/portfolio");
+    await page.goto("/pl/portfolio");
   });
 
   test("renders project tiles with images", async ({ page }) => {
@@ -112,7 +112,7 @@ test.describe("Projects gallery", () => {
   });
 
   test("URL with ?tag= pre-filters tiles on load", async ({ page }) => {
-    await page.goto("/portfolio?tag=chairs");
+    await page.goto("/pl/portfolio?tag=chairs");
 
     const chairsBtn = page.getByTestId("tag-filter-chairs");
     await expect(chairsBtn).toHaveAttribute("aria-pressed", "true");

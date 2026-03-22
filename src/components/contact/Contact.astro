@@ -1,35 +1,39 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
+import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
 import { Mail, MapPin, Phone } from "@lucide/astro";
 import ContactForm from "./ContactForm.astro";
 import ContactInfo from "./ContactInfo.astro";
 import MapEmbed from "./MapEmbed.astro";
 
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const tp = useTranslatedPath(lang);
+
 const SHOW_CONTACT_FORM = false;
 
-// Static mock content - will be replaced with CMS data later
-const content = {
-  title: "Kontakt",
-  subtitle: "Skontaktuj sie z nami",
-  address: "Św. Wojciech 70, Międzyrzecz, Poland, 66-300",
-  phone: "+48 720 770 960",
-  email: "szumnyfilip@gmail.com",
-  formLabels: {
-    name: "Imie i nazwisko",
-    email: "Adres e-mail",
-    message: "Wiadomosc",
-    consent: "Wyrazam zgode na przetwarzanie moich danych osobowych zgodnie z",
-    privacyPolicy: "Polityka Prywatnosci",
-    send: "Wyslij wiadomosc",
-  },
-  mapSource:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1001.234567!2d15.5478038!3d52.4480081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4706f363ce2dc1cb%3A0xe47e1b90d924b267!2sBERO%20Us%C5%82ugi%20tapicerskie!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl",
+const address = "Św. Wojciech 70, Międzyrzecz, Poland, 66-300";
+const phone = "+48 720 770 960";
+const email = "szumnyfilip@gmail.com";
+const mapSource =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1001.234567!2d15.5478038!3d52.4480081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4706f363ce2dc1cb%3A0xe47e1b90d924b267!2sBERO%20Us%C5%82ugi%20tapicerskie!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl";
+
+const formLabels = {
+  name: t("contact.form.name"),
+  email: t("contact.form.email"),
+  message: t("contact.form.message"),
+  consent: t("contact.form.consent"),
+  privacyPolicy: t("contact.form.privacyPolicy"),
+  send: t("contact.form.send"),
+  sending: t("contact.form.sending"),
+  success: t("contact.form.success"),
+  error: t("contact.form.error"),
 };
 
 const contactItems = [
-  { icon: MapPin, label: content.address },
-  { icon: Phone, label: content.phone },
-  { icon: Mail, label: content.email },
+  { icon: MapPin, label: address },
+  { icon: Phone, label: phone },
+  { icon: Mail, label: email },
 ];
 ---
 
@@ -39,14 +43,17 @@ const contactItems = [
   class="overflow-x-hidden bg-secondary py-20"
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <SectionHeader title={content.title} subtitle={content.subtitle} />
+    <SectionHeader
+      title={t("contact.title")}
+      subtitle={t("contact.subtitle")}
+    />
 
     {SHOW_CONTACT_FORM ? (
         <div class="grid gap-12 md:grid-cols-2">
           <ContactInfo items={contactItems} class="mb-12" />
-          <MapEmbed src={content.mapSource} title="Lokalizacja" />
+          <MapEmbed src={mapSource} title={t("contact.mapTitle")} />
 
-          <ContactForm labels={content.formLabels} />
+          <ContactForm labels={formLabels} privacyPolicyHref={tp("/privacy-policy")} />
         </div>
       ) : (
         <div class="grid gap-12 md:grid-cols-2">
@@ -54,8 +61,8 @@ const contactItems = [
 
             <MapEmbed
               data-animate="contact-map"
-              src={content.mapSource}
-              title="Lokalizacja"
+              src={mapSource}
+              title={t("contact.mapTitle")}
             />
         </div>
       )}

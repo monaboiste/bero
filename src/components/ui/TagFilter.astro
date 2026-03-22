@@ -6,9 +6,10 @@ interface TagItem {
 
 interface Props {
   tags: TagItem[];
+  allLabel?: string;
 }
 
-const { tags = [] } = Astro.props;
+const { tags = [], allLabel = "Wszystkie" } = Astro.props;
 ---
 
 <div
@@ -21,7 +22,7 @@ const { tags = [] } = Astro.props;
     class="tag-btn tag-btn--active cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300"
     aria-pressed="true"
   >
-    Wszystkie
+    {allLabel}
   </button>
 
   {tags.map(({ key, label }) => (

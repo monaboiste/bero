@@ -1,31 +1,36 @@
 ---
 import SocialLinks from "@components/ui/SocialLinks.astro";
+import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
 import Mail from "@lucide/astro/icons/mail";
 import Phone from "@lucide/astro/icons/phone";
 import Facebook from "simple-icons-astro/Facebook";
 import Instagram from "simple-icons-astro/Instagram";
 import FooterLinks from "./FooterLinks.astro";
 
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const tp = useTranslatedPath(lang);
+
 const currentYear = new Date().getFullYear();
 
-// Static mock content - will be replaced with CMS data later
 const content = {
-  aboutText:
-    "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem w renowacji i tworzeniu mebli tapicerowanych.",
-  rights: `\u00A9 ${currentYear} Studio Tapicerskie BERO. Wszelkie prawa zastrzezone.`,
+  aboutText: t("footer.about"),
+  rights: `\u00A9 ${currentYear} ${t("seo.title")}. ${t("footer.rights")}`,
   phone: "+48 720 770 960",
   email: "szumnyfilip@gmail.com",
 };
 
 const quickLinks = [
-  { label: "Strona glowna", href: "/#home" },
-  { label: "Realizacje", href: "/#projects" },
-  { label: "O nas", href: "/#about" },
-  { label: "Kontakt", href: "/#contact" },
-  { label: "Galeria", href: "/portfolio", testId: "gallery" },
+  { label: t("nav.home"), href: tp("/#home") },
+  { label: t("nav.projects"), href: tp("/#projects") },
+  { label: t("nav.about"), href: tp("/#about") },
+  { label: t("nav.contact"), href: tp("/#contact") },
+  { label: t("nav.gallery"), href: tp("/portfolio"), testId: "gallery" },
 ];
 
-const legalLinks = [{ label: "Polityka prywatnosci", href: "/privacy-policy" }];
+const legalLinks = [
+  { label: t("footer.privacyPolicy"), href: tp("/privacy-policy") },
+];
 
 const socialLinks = [
   {
@@ -54,12 +59,12 @@ const socialLinks = [
 
       <!-- Quick Links -->
       <div data-testid="footer-quick-links">
-        <FooterLinks title="Szybkie linki" links={quickLinks} />
+        <FooterLinks title={t("footer.quickLinks")} links={quickLinks} />
       </div>
 
       <div>
         <!-- Legal -->
-        <FooterLinks title="Informacje prawne" links={legalLinks} />
+        <FooterLinks title={t("footer.legal")} links={legalLinks} />
         <div class="mt-6 space-y-2">
           <div
             class="flex items-center space-x-2 text-sm text-primary-foreground/80"

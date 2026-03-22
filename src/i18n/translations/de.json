@@ -1,0 +1,84 @@
+{
+  "nav.home": "Startseite",
+  "nav.projects": "Projekte",
+  "nav.about": "Über uns",
+  "nav.contact": "Kontakt",
+  "nav.gallery": "Galerie",
+
+  "hero.subtitle": "Professionelle Polsterdienstleistungen",
+  "hero.title": "Tradition trifft Moderne",
+  "hero.description": "Wir schaffen Polster, die Sie jahrelang begleiten.",
+  "hero.cta": "Kontaktieren Sie uns",
+  "hero.featured": "Unsere Projekte",
+  "hero.imageAlt": "Luxuriöse Polsterung",
+
+  "projects.title": "Unsere Projekte",
+  "projects.subtitle": "Galerie ausgewählter Projekte",
+  "projects.viewAll": "Alle Projekte ansehen",
+
+  "about.title": "Über Uns",
+  "about.subtitle": "Leidenschaft und Erfahrung in jedem Projekt",
+  "about.story": "Studio Tapicerskie BERO ist ein Familienunternehmen mit über 20 Jahren Erfahrung in der Polsterbranche. Wir sind spezialisiert auf die professionelle Renovierung und Herstellung von Polstermöbeln und verbinden traditionelles Handwerk mit modernen Techniken.",
+  "about.mission": "Wir sorgen dafür, dass Möbel ihren Charakter und ihre volle Funktionalität wiedererlangen. Jedes Projekt wird individuell behandelt, wobei auf die kleinsten Details geachtet wird.",
+  "about.craftImageAlt": "Handwerker bei der Arbeit",
+  "about.servicesTitle": "Unsere Dienstleistungen",
+
+  "about.stats.experience": "Jahre Erfahrung",
+  "about.stats.projects": "Abgeschlossene Projekte",
+  "about.stats.clients": "Zufriedene Kunden",
+  "about.stats.passion": "Leidenschaft in jedem Detail",
+
+  "about.services.renovation": "Möbelrenovierung",
+  "about.services.renovationDesc": "Wir erwecken alte Möbel zu neuem Leben und stellen ihren früheren Charakter wieder her",
+  "about.services.upholstery": "Polsterwechsel",
+  "about.services.upholsteryDesc": "Wir frischen das Aussehen von Möbeln auf und wählen passende Stoffe für das Interieur",
+  "about.services.repair": "Rahmensanierung",
+  "about.services.repairDesc": "Wir verstärken Rahmen und stellen die volle Stabilität der Möbel wieder her",
+  "about.services.automotive": "Autopolsterung",
+  "about.services.automotiveDesc": "Sitz- und Dachhimmelrestaurierung - Innenraumästhetik wie aus dem Salon",
+
+  "contact.title": "Kontakt",
+  "contact.subtitle": "Nehmen Sie Kontakt mit uns auf",
+  "contact.mapTitle": "Standort",
+  "contact.form.name": "Vor- und Nachname",
+  "contact.form.email": "E-Mail-Adresse",
+  "contact.form.message": "Nachricht",
+  "contact.form.consent": "Ich stimme der Verarbeitung meiner personenbezogenen Daten gemäß der",
+  "contact.form.privacyPolicy": "Datenschutzerklärung",
+  "contact.form.send": "Nachricht senden",
+  "contact.form.sending": "Wird gesendet...",
+  "contact.form.success": "Vielen Dank! Ihre Nachricht wurde gesendet.",
+  "contact.form.error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+
+  "footer.about": "Studio Tapicerskie BERO ist ein Familienunternehmen mit über 20 Jahren Erfahrung in der Renovierung und Herstellung von Polstermöbeln.",
+  "footer.quickLinks": "Schnelllinks",
+  "footer.legal": "Rechtliche Informationen",
+  "footer.privacyPolicy": "Datenschutzerklärung",
+  "footer.rights": "Alle Rechte vorbehalten.",
+
+  "seo.title": "Polsterwerkstatt BERO",
+  "seo.description": "Professionelle Polsterdienstleistungen - Möbelrenovierung, Polsterung nach Maß. Über 20 Jahre Erfahrung.",
+
+  "portfolio.title": "Alle Projekte",
+  "portfolio.subtitle": "Galerie unserer Polsterprojekte",
+  "portfolio.seo.title": "Alle Projekte | Polsterwerkstatt BERO",
+  "portfolio.seo.description": "Galerie aller Projekte der Polsterwerkstatt BERO. Sehen Sie unsere Polsterprojekte - Renovierungen, Maßmöbel und mehr.",
+  "portfolio.tagAll": "Alle",
+
+  "404.title": "Hier gibt es nichts",
+  "404.description": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+  "404.cta": "Zurück zur Startseite",
+
+  "privacy.title": "Datenschutzerklärung",
+  "privacy.description": "Datenschutzerklärung der Polsterwerkstatt BERO. Informationen zur Verarbeitung personenbezogener Daten und Cookies.",
+  "privacy.body": "Diese Website erhebt keine personenbezogenen Daten und verwendet keine Cookies. Sollte die Website in Zukunft personenbezogene Daten verarbeiten, wird diese Datenschutzerklärung aktualisiert.",
+
+  "a11y.themeToggle": "Design wechseln",
+  "a11y.menu": "Menü",
+
+  "tags.armchairs": "Sessel",
+  "tags.sofas": "Sofas",
+  "tags.chairs": "Stühle",
+  "tags.restoration": "Restaurierung",
+  "tags.automotive": "Automobil"
+}

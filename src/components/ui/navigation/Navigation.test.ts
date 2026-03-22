@@ -15,7 +15,7 @@ describe("Navigation", () => {
   test("contains logo linking to home section", async () => {
     const result = await renderAstroComponent(Navigation);
 
-    const logoLink = result.querySelector('a[href="/#home"]');
+    const logoLink = result.querySelector('a[href="/pl/#home"]');
 
     expect(logoLink).not.toBeNull();
 
@@ -37,11 +37,11 @@ describe("Navigation", () => {
   test("links point to correct anchors", async () => {
     const result = await renderAstroComponent(Navigation);
 
-    const homeLink = result.querySelector('a[href="/#home"]');
-    const projectsLink = result.querySelector('a[href="/#projects"]');
-    const aboutLink = result.querySelector('a[href="/#about"]');
-    const contactLink = result.querySelector('a[href="/#contact"]');
-    const galleryLink = result.querySelector('a[href="/portfolio"]');
+    const homeLink = result.querySelector('a[href="/pl/#home"]');
+    const projectsLink = result.querySelector('a[href="/pl/#projects"]');
+    const aboutLink = result.querySelector('a[href="/pl/#about"]');
+    const contactLink = result.querySelector('a[href="/pl/#contact"]');
+    const galleryLink = result.querySelector('a[href="/pl/portfolio"]');
 
     expect(homeLink).not.toBeNull();
     expect(projectsLink).not.toBeNull();
