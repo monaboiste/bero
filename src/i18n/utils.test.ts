@@ -43,7 +43,7 @@ describe("useTranslations", () => {
 
   test("returns Polish translation for lang 'pl'", () => {
     const t = useTranslations("pl");
-    expect(t("nav.home")).toBe("Strona glowna");
+    expect(t("nav.home")).toBe("Strona główna");
   });
 
   test("returns English translation for lang 'en'", () => {

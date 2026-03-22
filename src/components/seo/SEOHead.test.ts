@@ -27,7 +27,7 @@ describe("SEOHead", () => {
     const description = result.querySelector('meta[name="description"]');
 
     expect(description?.getAttribute("content")).toBe(
-      "Profesjonalne uslugi tapicerskie - renowacja mebli, tapicerowanie na zamowienie. Ponad 20 lat doswiadczenia."
+      "Profesjonalne tapicerstwo – renowacja mebli i realizacje na zamówienie. Ponad 20 lat doświadczenia i najwyższa jakość wykonania."
     );
   });
 

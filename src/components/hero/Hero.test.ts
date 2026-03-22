@@ -22,7 +22,9 @@ describe("Hero", () => {
 
     const title = result.querySelector('[data-testid="hero-title"]');
 
-    expect(title?.textContent).toContain("Tradycja spotyka nowoczesność");
+    expect(title?.textContent).toContain(
+      "Tapicerstwo w\u00A0nowoczesnym wydaniu."
+    );
   });
 
   test("renders CTA button linking to contact section", async () => {
@@ -44,7 +46,7 @@ describe("Hero", () => {
 
     expect(projectsLink).not.toBeNull();
     expect(projectsLink?.getAttribute("href")).toBe("/pl/#projects");
-    expect(projectsLink?.textContent).toContain("Nasze realizacje");
+    expect(projectsLink?.textContent).toContain("Wybrane realizacje");
   });
 
   test("renders hero background image", async () => {

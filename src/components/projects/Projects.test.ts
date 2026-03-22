@@ -74,7 +74,7 @@ describe("Projects", () => {
 
     const heading = result.querySelector("h2");
 
-    expect(heading?.textContent?.trim()).toContain("Nasze Realizacje");
+    expect(heading?.textContent?.trim()).toContain("Nasze realizacje");
   });
 
   test("renders 3 project cards", async () => {
