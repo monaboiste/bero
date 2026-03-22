@@ -18,6 +18,16 @@ describe("useTranslatedPath", () => {
     expect(translatePath("privacy-policy")).toBe("/pl/polityka-prywatnosci");
   });
 
+  test("translates a known route for English", () => {
+    const translatePath = useTranslatedPath("en");
+    expect(translatePath("privacy-policy")).toBe("/en/privacy-policy");
+  });
+
+  test("translates a known route for German", () => {
+    const translatePath = useTranslatedPath("de");
+    expect(translatePath("privacy-policy")).toBe("/de/datenschutzerklarung");
+  });
+
   test("translates portfolio route (same slug across languages)", () => {
     const translatePath = useTranslatedPath("en");
     expect(translatePath("portfolio")).toBe("/en/portfolio");
@@ -89,7 +99,12 @@ describe("getRouteFromUrl", () => {
 });
 
 describe("getCanonicalBasePath", () => {
-  test("returns canonical route for a known translated URL", () => {
+  test("returns canonical route for a known German translated URL", () => {
+    const url = new URL("https://example.com/de/datenschutzerklarung");
+    expect(getCanonicalBasePath(url)).toBe("/privacy-policy");
+  });
+
+  test("returns canonical route for a known Polish translated URL", () => {
     const url = new URL("https://example.com/pl/polityka-prywatnosci");
     expect(getCanonicalBasePath(url)).toBe("/privacy-policy");
   });
