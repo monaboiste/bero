@@ -1,6 +1,7 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
+import { getLang, useTranslations } from "@i18n/locale";
+import { useTranslatedPath } from "@i18n/path";
 import { createPortfolioApi } from "@lib/content/content";
 import ProjectCard from "./ProjectCard.astro";
 

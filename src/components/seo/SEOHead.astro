@@ -1,13 +1,11 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { locales } from "@i18n/ui";
+import { getLang, locales, useTranslations } from "@i18n/locale";
 import {
   getCanonicalBasePath,
-  getLang,
   getRouteFromUrl,
   useTranslatedPath,
-  useTranslations,
-} from "@i18n/utils";
+} from "@i18n/path";
 
 interface Props {
   title?: string;

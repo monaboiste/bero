@@ -3,7 +3,7 @@
 import cloudflare from "@astrojs/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import { defaultLang, locales } from "./src/i18n/ui";
+import { defaultLang, locales } from "./src/i18n/locale";
 
 // https://astro.build/config
 export default defineConfig({

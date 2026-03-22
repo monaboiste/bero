@@ -1,6 +1,7 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
+import { getLang, useTranslations } from "@i18n/locale";
+import { useTranslatedPath } from "@i18n/path";
 import { Mail, MapPin, Phone } from "@lucide/astro";
 import ContactForm from "./ContactForm.astro";
 import ContactInfo from "./ContactInfo.astro";

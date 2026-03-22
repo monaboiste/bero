@@ -32,19 +32,22 @@ export const ui: Record<Lang, Record<TranslationKey, string>> = {
 };
 
 /**
- * Route translations: maps canonical route names to locale-specific URL slugs.
+ * Resolves `Astro.currentLocale` to a valid `Lang`.
+ * Falls back to `defaultLang` if the value is not a supported locale.
  */
-export const routes: Record<Lang, Record<string, string>> = {
-  pl: {
-    portfolio: "portfolio",
-    "privacy-policy": "polityka-prywatnosci",
-  },
-  en: {
-    portfolio: "portfolio",
-    "privacy-policy": "privacy-policy",
-  },
-  de: {
-    portfolio: "portfolio",
-    "privacy-policy": "datenschutzerklarung",
-  },
-};
+export function getLang(currentLocale: string | undefined): Lang {
+  if (currentLocale && currentLocale in ui) {
+    return currentLocale as Lang;
+  }
+  return defaultLang;
+}
+
+/**
+ * Returns a translation function `t(key)` for the given language.
+ * Falls back to the default language if a key is missing.
+ */
+export function useTranslations(lang: Lang) {
+  return function t(key: TranslationKey): string {
+    return ui[lang][key] || ui[defaultLang][key];
+  };
+}
