@@ -2,8 +2,7 @@
 import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import TagFilter from "@components/ui/TagFilter.astro";
-import type { Lang } from "@i18n/ui";
-import { useTranslations } from "@i18n/utils";
+import { type Lang, useTranslations } from "@i18n/locale";
 import Layout from "@layouts/Layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";

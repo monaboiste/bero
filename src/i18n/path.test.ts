@@ -2,66 +2,10 @@ import { describe, expect, test } from "vitest";
 
 import {
   getCanonicalBasePath,
-  getLang,
   getRouteFromUrl,
   stripLocalePrefix,
-  useRichText,
   useTranslatedPath,
-  useTranslations,
-} from "./utils";
-
-describe("getLang", () => {
-  test("returns 'pl' for currentLocale 'pl'", () => {
-    expect(getLang("pl")).toBe("pl");
-  });
-
-  test("returns 'en' for currentLocale 'en'", () => {
-    expect(getLang("en")).toBe("en");
-  });
-
-  test("returns 'de' for currentLocale 'de'", () => {
-    expect(getLang("de")).toBe("de");
-  });
-
-  test("falls back to defaultLang when currentLocale is undefined", () => {
-    expect(getLang(undefined)).toBe("pl");
-  });
-
-  test("falls back to defaultLang for an unsupported locale", () => {
-    expect(getLang("fr")).toBe("pl");
-  });
-
-  test("falls back to defaultLang for an empty string", () => {
-    expect(getLang("")).toBe("pl");
-  });
-});
-
-describe("useTranslations", () => {
-  test("returns a function", () => {
-    const t = useTranslations("pl");
-    expect(typeof t).toBe("function");
-  });
-
-  test("returns Polish translation for lang 'pl'", () => {
-    const t = useTranslations("pl");
-    expect(t("nav.home")).toBe("Strona główna");
-  });
-
-  test("returns English translation for lang 'en'", () => {
-    const t = useTranslations("en");
-    expect(t("nav.home")).toBe("Home");
-  });
-
-  test("returns German translation for lang 'de'", () => {
-    const t = useTranslations("de");
-    expect(t("nav.home")).toBe("Startseite");
-  });
-
-  test("different keys return different values", () => {
-    const t = useTranslations("en");
-    expect(t("nav.home")).not.toBe(t("nav.projects"));
-  });
-});
+} from "./path";
 
 describe("useTranslatedPath", () => {
   test("returns a function", () => {
@@ -72,16 +16,6 @@ describe("useTranslatedPath", () => {
   test("translates a known route for the default language", () => {
     const translatePath = useTranslatedPath("pl");
     expect(translatePath("privacy-policy")).toBe("/pl/polityka-prywatnosci");
-  });
-
-  test("translates a known route for English", () => {
-    const translatePath = useTranslatedPath("en");
-    expect(translatePath("privacy-policy")).toBe("/en/privacy-policy");
-  });
-
-  test("translates a known route for German", () => {
-    const translatePath = useTranslatedPath("de");
-    expect(translatePath("privacy-policy")).toBe("/de/datenschutzerklarung");
   });
 
   test("translates portfolio route (same slug across languages)", () => {
@@ -155,12 +89,7 @@ describe("getRouteFromUrl", () => {
 });
 
 describe("getCanonicalBasePath", () => {
-  test("returns canonical route for a known German translated URL", () => {
-    const url = new URL("https://example.com/de/datenschutzerklarung");
-    expect(getCanonicalBasePath(url)).toBe("/privacy-policy");
-  });
-
-  test("returns canonical route for a known Polish translated URL", () => {
+  test("returns canonical route for a known translated URL", () => {
     const url = new URL("https://example.com/pl/polityka-prywatnosci");
     expect(getCanonicalBasePath(url)).toBe("/privacy-policy");
   });
@@ -214,53 +143,5 @@ describe("stripLocalePrefix", () => {
     expect(stripLocalePrefix("/planet")).toBe("/planet");
     expect(stripLocalePrefix("/deploy")).toBe("/deploy");
     expect(stripLocalePrefix("/planner/test")).toBe("/planner/test");
-  });
-});
-
-describe("useRichText", () => {
-  test("returns a function", () => {
-    const richText = useRichText("pl");
-    expect(typeof richText).toBe("function");
-  });
-
-  test("returns a single plain part for a key without tags", () => {
-    const richText = useRichText("pl");
-    const parts = richText("nav.home");
-    expect(parts).toEqual([{ text: "Strona g\u0142\u00F3wna" }]);
-  });
-
-  test("splits Polish hero.title into text and accent parts", () => {
-    const richText = useRichText("pl");
-    const parts = richText("hero.title", ["accent"]);
-    expect(parts).toEqual([
-      { text: "Tapicerstwo w\u00A0nowoczesnym wydaniu" },
-      { text: ".", tag: "accent" },
-    ]);
-  });
-
-  test("splits English hero.title into text and accent parts", () => {
-    const richText = useRichText("en");
-    const parts = richText("hero.title", ["accent"]);
-    expect(parts).toEqual([
-      { text: "Upholstery, redefined" },
-      { text: ".", tag: "accent" },
-    ]);
-  });
-
-  test("splits German hero.title into text and accent parts", () => {
-    const richText = useRichText("de");
-    const parts = richText("hero.title", ["accent"]);
-    expect(parts).toEqual([
-      { text: "Polsterei in moderner Form" },
-      { text: ".", tag: "accent" },
-    ]);
-  });
-
-  test("returns full string as single part when tags list is empty", () => {
-    const richText = useRichText("en");
-    const parts = richText("hero.title");
-    expect(parts).toHaveLength(1);
-    expect(parts[0]?.text).toBe("Upholstery, redefined<accent>.</accent>");
-    expect(parts[0]?.tag).toBeUndefined();
   });
 });

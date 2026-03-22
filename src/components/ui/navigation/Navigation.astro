@@ -2,7 +2,8 @@
 import LanguageSelector from "@components/ui/LanguageSelector.astro";
 import Logo from "@components/ui/Logo.astro";
 import ThemeToggle from "@components/ui/ThemeToggle.astro";
-import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
+import { getLang, useTranslations } from "@i18n/locale";
+import { useTranslatedPath } from "@i18n/path";
 import { Camera } from "@lucide/astro";
 import MobileMenu from "./MobileMenu.astro";
 import MobileMenuButton from "./MobileMenuButton.astro";

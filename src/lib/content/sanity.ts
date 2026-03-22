@@ -1,4 +1,4 @@
-import type { Lang } from "@i18n/ui.ts";
+import type { Lang } from "@i18n/locale";
 import type {
   SanityImageObjectStub,
   SanityImageSource,

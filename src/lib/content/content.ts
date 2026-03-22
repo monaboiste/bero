@@ -1,4 +1,4 @@
-import type { Lang } from "@i18n/ui.ts";
+import type { Lang } from "@i18n/locale";
 import { getMockPortfolio } from "./fixture.ts";
 import { sanityApi } from "./sanity";
 import type { Portfolio } from "./types";

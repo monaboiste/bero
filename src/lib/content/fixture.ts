@@ -1,4 +1,4 @@
-import { defaultLang, type Lang } from "@i18n/ui";
+import { defaultLang, type Lang } from "@i18n/locale";
 import type { Portfolio, Project } from "./types";
 
 interface LocalizedText {

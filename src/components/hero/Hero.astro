@@ -1,7 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import heroImage from "@assets/hero.png";
-import { getLang, useTranslatedPath, useTranslations, useRichText } from "@i18n/utils";
+import { getLang, useTranslations } from "@i18n/locale";
+import { useTranslatedPath } from "@i18n/path";
+import { useRichText } from "@i18n/richtext";
 import { ArrowRight } from "@lucide/astro";
 
 const lang = getLang(Astro.currentLocale);

@@ -2,7 +2,8 @@
 import { Image } from "astro:assets";
 import logoDark from "@assets/logo/chair-dark.png";
 import logoLight from "@assets/logo/chair-white.png";
-import { getLang, useTranslatedPath } from "@i18n/utils";
+import { getLang } from "@i18n/locale";
+import { useTranslatedPath } from "@i18n/path";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {
