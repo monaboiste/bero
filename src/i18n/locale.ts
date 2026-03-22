@@ -48,6 +48,6 @@ export function getLang(currentLocale: string | undefined): Lang {
  */
 export function useTranslations(lang: Lang) {
   return function t(key: TranslationKey): string {
-    return ui[lang][key] || ui[defaultLang][key];
+    return ui[lang][key] ?? ui[defaultLang][key];
   };
 }

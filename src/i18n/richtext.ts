@@ -29,7 +29,7 @@ export function useRichText(lang: Lang) {
     key: TranslationKey,
     tags: string[] = []
   ): RichTextPart[] {
-    const raw = ui[lang][key] || ui[defaultLang][key];
+    const raw = ui[lang][key] ?? ui[defaultLang][key];
     const ignoreTags = tags.length === 0;
     const msg = new IntlMessageFormat(raw, lang, undefined, {
       ignoreTag: ignoreTags,
