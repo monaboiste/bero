@@ -1,4 +1,7 @@
 {
+  "logo.primary": "upholstery",
+  "logo.secondary": "studio",
+
   "nav.home": "Home",
   "nav.projects": "Projects",
   "nav.about": "About us",

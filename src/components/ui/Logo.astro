@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import logoDark from "@assets/logo/chair-dark.png";
 import logoLight from "@assets/logo/chair-white.png";
-import { getLang } from "@i18n/locale";
+import { getLang, useTranslations } from "@i18n/locale";
 import { useTranslatedPath } from "@i18n/path";
 import type { JSX } from "astro/jsx-runtime";
 
@@ -12,6 +12,7 @@ interface Props extends JSX.HTMLAttributes {
 }
 
 const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
 const tp = useTranslatedPath(lang);
 
 const { variant = "light", size = "md", class: className } = Astro.props;
@@ -76,8 +77,7 @@ if (variant === "light") {
   data-testid="logo"
   class:list={["shrink-0 flex items-center", sizeScheme.containerGap, className]}
 >
-  <!-- Logo Image -->
-  <div class="flex-shrink-0">
+  <div class="shrink-0">
     <Image
       src={logoLight}
       alt="BERO"
@@ -96,12 +96,10 @@ if (variant === "light") {
     />
   </div>
 
-  <!-- Logo Text -->
   <div
     class="inline-flex items-center"
     style={{ fontFamily: "var(--font-sans)" }}
   >
-    <!-- Vertical separator line -->
     <div
       class={`${sizeScheme.separatorMargin} ${separatorClass}`}
       style={{
@@ -112,9 +110,7 @@ if (variant === "light") {
       }}
     ></div>
 
-    <!-- Text content -->
     <div class="flex flex-col" style={{ gap: `${sizeScheme.gap}` }}>
-      <!-- "studio tapicerskie" - inline -->
       <div
         style={{
           fontSize: `${sizeScheme.main}`,
@@ -125,15 +121,14 @@ if (variant === "light") {
         <span
           class={studioClass}
           style={{ fontWeight: "var(--font-weight-normal)" }}
-          >studio
+          >{t("logo.primary")}
         </span><span
           class={tapicerskieClass}
           style={{ fontWeight: "var(--font-weight-bold)" }}
-          >tapicerskie</span
+          >{t("logo.secondary")}</span
         >
       </div>
 
-      <!-- "BERO" - Bold, Uppercase -->
       <div
         class={beroClass}
         style={{

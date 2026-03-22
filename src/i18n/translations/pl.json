@@ -1,4 +1,7 @@
 {
+  "logo.primary": "studio",
+  "logo.secondary": "tapicerskie",
+
   "nav.home": "Strona główna",
   "nav.projects": "Realizacje",
   "nav.about": "O nas",
