@@ -5,6 +5,7 @@ import {
   getLang,
   getRouteFromUrl,
   stripLocalePrefix,
+  useRichText,
   useTranslatedPath,
   useTranslations,
 } from "./utils";
@@ -213,5 +214,53 @@ describe("stripLocalePrefix", () => {
     expect(stripLocalePrefix("/planet")).toBe("/planet");
     expect(stripLocalePrefix("/deploy")).toBe("/deploy");
     expect(stripLocalePrefix("/planner/test")).toBe("/planner/test");
+  });
+});
+
+describe("useRichText", () => {
+  test("returns a function", () => {
+    const richText = useRichText("pl");
+    expect(typeof richText).toBe("function");
+  });
+
+  test("returns a single plain part for a key without tags", () => {
+    const richText = useRichText("pl");
+    const parts = richText("nav.home");
+    expect(parts).toEqual([{ text: "Strona g\u0142\u00F3wna" }]);
+  });
+
+  test("splits Polish hero.title into text and accent parts", () => {
+    const richText = useRichText("pl");
+    const parts = richText("hero.title", ["accent"]);
+    expect(parts).toEqual([
+      { text: "Tapicerstwo w\u00A0nowoczesnym wydaniu" },
+      { text: ".", tag: "accent" },
+    ]);
+  });
+
+  test("splits English hero.title into text and accent parts", () => {
+    const richText = useRichText("en");
+    const parts = richText("hero.title", ["accent"]);
+    expect(parts).toEqual([
+      { text: "Upholstery, redefined" },
+      { text: ".", tag: "accent" },
+    ]);
+  });
+
+  test("splits German hero.title into text and accent parts", () => {
+    const richText = useRichText("de");
+    const parts = richText("hero.title", ["accent"]);
+    expect(parts).toEqual([
+      { text: "Polsterei in moderner Form" },
+      { text: ".", tag: "accent" },
+    ]);
+  });
+
+  test("returns full string as single part when tags list is empty", () => {
+    const richText = useRichText("en");
+    const parts = richText("hero.title");
+    expect(parts).toHaveLength(1);
+    expect(parts[0]?.text).toBe("Upholstery, redefined<accent>.</accent>");
+    expect(parts[0]?.tag).toBeUndefined();
   });
 });
