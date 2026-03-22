@@ -14,11 +14,6 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "npm run lint:fix"
