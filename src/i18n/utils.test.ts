@@ -209,12 +209,9 @@ describe("stripLocalePrefix", () => {
     expect(stripLocalePrefix("/other/path")).toBe("/other/path");
   });
 
-  // FIXME
-  test("strips partial locale matches (no word boundary in regex)", () => {
-    // Current regex ^/(pl|en|de) matches the /pl prefix in /planet.
-    // This documents existing behavior — consider adding a word boundary
-    // (e.g. `(?=/|$)`) to the regex if this is undesirable.
-    expect(stripLocalePrefix("/planet")).toBe("anet");
-    expect(true).toBe(false);
+  test("does not strip partial locale matches (word boundary enforced)", () => {
+    expect(stripLocalePrefix("/planet")).toBe("/planet");
+    expect(stripLocalePrefix("/deploy")).toBe("/deploy");
+    expect(stripLocalePrefix("/planner/test")).toBe("/planner/test");
   });
 });

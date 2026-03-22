@@ -7,7 +7,7 @@ import {
   ui,
 } from "./ui";
 
-const localePrefixRe = new RegExp(`^/(${locales.join("|")})`);
+const localePrefixRe = new RegExp(`^/(${locales.join("|")})(?=/|$)`);
 const leadingSlashRe = /^\//;
 const trailingSlashRe = /\/$/;
 
