@@ -1,5 +1,5 @@
 ---
-import aboutImage from "@assets/about.png"
+import aboutImage from "@assets/about.png";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import { getLang, useTranslations } from "@i18n/locale";
 import { Award, Clock, Heart, Users } from "@lucide/astro";
@@ -39,19 +39,19 @@ const stats = [
 const services = [
   {
     title: t("about.services.renovation"),
-    description: t("about.services.renovationDesc"),
+    description: t("about.services.renovationDescription"),
   },
   {
     title: t("about.services.upholstery"),
-    description: t("about.services.upholsteryDesc"),
+    description: t("about.services.upholsteryDescription"),
   },
   {
     title: t("about.services.repair"),
-    description: t("about.services.repairDesc"),
+    description: t("about.services.repairDescription"),
   },
   {
     title: t("about.services.automotive"),
-    description: t("about.services.automotiveDesc"),
+    description: t("about.services.automotiveDescription"),
   },
 ];
 ---
