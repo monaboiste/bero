@@ -1,7 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import logoDark from "@assets/logo/chair-dark.png";
-import logoLight from "@assets/logo/chair-white.png";
+import CompanyLogoSvg from "@assets/half-chair.svg";
 import { getLang, useTranslations } from "@i18n/locale";
 import { useTranslatedPath } from "@i18n/path";
 import type { JSX } from "astro/jsx-runtime";
@@ -25,7 +23,6 @@ const sizes = {
     separator: "2.25rem",
     gap: "0rem",
     imageHeight: "h-9", // 36px — fits h-20 nav with padding
-    imageWidth: 120,
     containerGap: "gap-0.5",
     separatorMargin: "mr-0.5",
   },
@@ -35,7 +32,6 @@ const sizes = {
     separator: "3.25rem",
     gap: "0rem",
     imageHeight: "h-12", // 48px
-    imageWidth: 180,
     containerGap: "gap-1",
     separatorMargin: "mr-1",
   },
@@ -45,7 +41,6 @@ const sizes = {
     separator: "5rem",
     gap: "0rem",
     imageHeight: "h-20", // 80px
-    imageWidth: 280,
     containerGap: "gap-2",
     separatorMargin: "mr-2",
   },
@@ -54,20 +49,19 @@ const sizes = {
 const sizeScheme = sizes[size];
 
 // Tailwind classes for text colors based on variant
-let studioClass = "";
-let tapicerskieClass = "";
-let beroClass = "";
+let primaryClass = "";
+let secondaryClass = "text-accent";
+let companyNameClass = "";
 let separatorClass = "";
+let svgFill = "var(--color-foreground)";
 
 if (variant === "light") {
-  studioClass = "text-foreground";
-  tapicerskieClass = "text-accent";
-  beroClass = "text-foreground";
+  primaryClass = "text-foreground";
+  companyNameClass = "text-foreground";
   separatorClass = "bg-foreground";
 } else if (variant === "dark") {
-  studioClass = "text-background";
-  tapicerskieClass = "text-accent";
-  beroClass = "text-background";
+  primaryClass = "text-background";
+  companyNameClass = "text-background";
   separatorClass = "bg-background";
 }
 ---
@@ -78,21 +72,10 @@ if (variant === "light") {
   class:list={["shrink-0 flex items-center", sizeScheme.containerGap, className]}
 >
   <div class="shrink-0">
-    <Image
-      src={logoLight}
-      alt="BERO"
-      class={`${sizeScheme.imageHeight} w-auto dark:hidden`}
-      width={sizeScheme.imageWidth}
-      format="webp"
-      quality={48}
-    />
-    <Image
-      src={logoDark}
-      alt="BERO"
-      class={`hidden ${sizeScheme.imageHeight} w-auto dark:block`}
-      width={sizeScheme.imageWidth}
-      format="webp"
-      quality={48}
+    <CompanyLogoSvg
+      fill={svgFill}
+      class={`${sizeScheme.imageHeight} w-auto`}
+      aria-hidden="true"
     />
   </div>
 
@@ -119,18 +102,18 @@ if (variant === "light") {
         }}
       >
         <span
-          class={studioClass}
+          class={primaryClass}
           style={{ fontWeight: "var(--font-weight-normal)" }}
           >{t("logo.primary")}
         </span><span
-          class={tapicerskieClass}
+          class={secondaryClass}
           style={{ fontWeight: "var(--font-weight-bold)" }}
           >{t("logo.secondary")}</span
         >
       </div>
 
       <div
-        class={beroClass}
+        class={companyNameClass}
         style={{
           fontSize: `${sizeScheme.bero}`,
           fontWeight: "var(--font-weight-bold)",
