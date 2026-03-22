@@ -17,7 +17,7 @@ describe("About", () => {
 
     const heading = result.querySelector("h2");
 
-    expect(heading?.textContent?.trim()).toContain("O Nas");
+    expect(heading?.textContent?.trim()).toBe("O nas");
   });
 
   test("displays company story text", async () => {
@@ -26,14 +26,14 @@ describe("About", () => {
     const storySection = result.querySelector('[data-testid="about-story"]');
 
     expect(storySection?.textContent).toContain(
-      "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem"
+      "Studio Tapicerskie BERO to rodzinna pracownia z ponad 20-letnim doświadczeniem"
     );
   });
 
   test("renders craftsman image", async () => {
     const result = await renderAstroComponent(About);
 
-    const image = result.querySelector('img[alt="Rzemieślnik przy pracy"]');
+    const image = result.querySelector('img[alt="Rzemieślnik podczas pracy"]');
 
     expect(image).not.toBeNull();
   });
@@ -84,6 +84,6 @@ describe("About", () => {
     );
     const servicesHeader = servicesSection?.querySelector("h3");
 
-    expect(servicesHeader?.textContent).toContain("Nasze Usługi");
+    expect(servicesHeader?.textContent).toContain("Nasze usługi");
   });
 });

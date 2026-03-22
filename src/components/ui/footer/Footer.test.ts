@@ -18,7 +18,7 @@ describe("Footer", () => {
     const aboutSection = result.querySelector('[data-testid="footer-about"]');
 
     expect(aboutSection?.textContent).toContain(
-      "Studio Tapicerskie BERO to rodzinna firma z ponad 20-letnim doswiadczeniem"
+      "Studio Tapicerskie BERO to rodzinna pracownia z wieloletnim doświadczeniem"
     );
   });
 
@@ -51,7 +51,7 @@ describe("Footer", () => {
       '[data-testid="footer-quick-links"]'
     );
 
-    expect(quickLinks?.textContent).toContain("Strona glowna");
+    expect(quickLinks?.textContent).toContain("Strona główna");
     expect(quickLinks?.textContent).toContain("Realizacje");
     expect(quickLinks?.textContent).toContain("O nas");
     expect(quickLinks?.textContent).toContain("Kontakt");
@@ -66,7 +66,7 @@ describe("Footer", () => {
     );
 
     expect(privacyLink).not.toBeNull();
-    expect(privacyLink?.textContent).toContain("Polityka prywatnosci");
+    expect(privacyLink?.textContent).toContain("Polityka prywatności");
   });
 
   test("displays phone number", async () => {
