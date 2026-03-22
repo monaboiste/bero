@@ -19,7 +19,7 @@ describe("Navigation", () => {
 
     expect(logoLink).not.toBeNull();
 
-    const logo = logoLink?.querySelector("img");
+    const logo = logoLink?.querySelector("svg");
     expect(logo).not.toBeNull();
   });
 
