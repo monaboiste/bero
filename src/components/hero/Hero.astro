@@ -1,12 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import heroImage from "@assets/hero.png";
-import { getLang, useTranslatedPath, useTranslations } from "@i18n/utils";
+import { getLang, useTranslatedPath, useTranslations, useRichText } from "@i18n/utils";
 import { ArrowRight } from "@lucide/astro";
 
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 const tp = useTranslatedPath(lang);
+const richText = useRichText(lang);
 ---
 
 <section
@@ -41,7 +42,11 @@ const tp = useTranslatedPath(lang);
         data-animate="hero-title"
         class="mb-6 text-3xl font-bold text-white sm:text-5xl md:text-7xl"
       >
-        {t("hero.title")}
+        {richText("hero.title", ["accent"]).map((part) =>
+          part.tag === "accent"
+            ? <span class="text-accent">{part.text}</span>
+            : part.text
+        )}
       </h1>
 
       <p
