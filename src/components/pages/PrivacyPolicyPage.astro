@@ -1,7 +1,7 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import { type Lang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getSiteUrl, useTranslatedPath } from "@i18n/path";
 import Layout from "@layouts/Layout.astro";
 
 interface Props {
@@ -12,10 +12,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const tp = useTranslatedPath(lang);
 
-const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(
-  /\/$/,
-  ""
-);
+const siteUrl = getSiteUrl(Astro.site);
 
 const breadcrumbs = [
   { name: t("nav.home"), url: `${siteUrl}/${lang}/` },

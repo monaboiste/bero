@@ -1,4 +1,6 @@
 ---
+import { getSiteUrl } from "@i18n/path";
+import { BUSINESS, BUSINESS_SOCIAL_URLS } from "@lib/content/business";
 import type {
   BreadcrumbList,
   Graph,
@@ -19,54 +21,33 @@ interface Props {
 
 const { breadcrumbs } = Astro.props;
 
-const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(
-  /\/$/,
-  ""
-);
-
-const BUSINESS = {
-  name: "Studio Tapicerskie BERO",
-  streetAddress: "Św. Wojciech 70",
-  locality: "Międzyrzecz",
-  postalCode: "66-300",
-  country: "PL",
-  telephone: "+48 720 770 960",
-  email: "szumnyfilip@gmail.com",
-  latitude: 52.448_008_1,
-  longitude: 15.547_803_8,
-  logo: `${siteUrl}/favicon.svg`,
-  image: `${siteUrl}/seo-image.png`,
-  sameAs: [
-    "https://www.facebook.com/StudioTapicerskieBERO",
-    "https://www.instagram.com/studio.tapicerskie.bero",
-  ] as const,
-};
+const siteUrl = getSiteUrl(Astro.site);
 
 const organization: Organization = {
   "@type": "Organization",
   name: BUSINESS.name,
   url: siteUrl,
-  logo: BUSINESS.logo,
-  sameAs: [...BUSINESS.sameAs],
+  logo: `${siteUrl}/favicon.svg`,
+  sameAs: [...BUSINESS_SOCIAL_URLS],
 };
 
 const localBusiness: HomeAndConstructionBusiness = {
   "@type": "HomeAndConstructionBusiness",
   name: BUSINESS.name,
   url: siteUrl,
-  telephone: BUSINESS.telephone,
+  telephone: BUSINESS.phone,
   email: BUSINESS.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: BUSINESS.streetAddress,
-    addressLocality: BUSINESS.locality,
-    postalCode: BUSINESS.postalCode,
-    addressCountry: BUSINESS.country,
+    streetAddress: BUSINESS.address.street,
+    addressLocality: BUSINESS.address.locality,
+    postalCode: BUSINESS.address.postalCode,
+    addressCountry: BUSINESS.address.country,
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: BUSINESS.latitude,
-    longitude: BUSINESS.longitude,
+    latitude: BUSINESS.geo.latitude,
+    longitude: BUSINESS.geo.longitude,
   },
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
@@ -80,9 +61,9 @@ const localBusiness: HomeAndConstructionBusiness = {
     opens: "09:00",
     closes: "17:00",
   },
-  logo: BUSINESS.logo,
-  image: BUSINESS.image,
-  sameAs: [...BUSINESS.sameAs],
+  logo: `${siteUrl}/favicon.svg`,
+  image: `${siteUrl}/seo-image.png`,
+  sameAs: [...BUSINESS_SOCIAL_URLS],
 };
 
 const website: WebSite = {

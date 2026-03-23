@@ -1,11 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getLang, locales, useTranslations } from "@i18n/locale";
-import {
-  getCanonicalBasePath,
-  getRouteFromUrl,
-  useTranslatedPath,
-} from "@i18n/path";
+import { getCanonicalBasePath, getRoute, useTranslatedPath } from "@i18n/path";
 
 interface Props {
   title?: string;
@@ -26,7 +22,7 @@ const {
   robots = "index, follow",
 } = Astro.props;
 
-const canonicalRoute = getRouteFromUrl(Astro.url);
+const canonicalRoute = getRoute(Astro.url);
 const basePath = getCanonicalBasePath(Astro.url);
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;

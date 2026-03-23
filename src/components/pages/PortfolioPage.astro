@@ -3,7 +3,7 @@ import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import TagFilter from "@components/ui/TagFilter.astro";
 import { type Lang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getSiteUrl, useTranslatedPath } from "@i18n/path";
 import Layout from "@layouts/Layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
@@ -16,10 +16,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const tp = useTranslatedPath(lang);
 
-const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(
-  /\/$/,
-  ""
-);
+const siteUrl = getSiteUrl(Astro.site);
 
 const breadcrumbs = [
   { name: t("nav.home"), url: `${siteUrl}/${lang}/` },
