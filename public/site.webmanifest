@@ -1,0 +1,18 @@
+{
+  "name": "Studio Tapicerskie Bero",
+  "short_name": "Bero",
+  "description": "Profesjonalne usługi tapicerskie: renowacja mebli, wymiana tapicerki, naprawa konstrukcji, tapicerstwo samochodowe.",
+  "lang": "pl",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#cc0000"
+}
