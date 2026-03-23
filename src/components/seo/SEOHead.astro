@@ -27,7 +27,7 @@ const {
 const canonicalRoute = getRouteFromUrl(Astro.url);
 const basePath = getCanonicalBasePath(Astro.url);
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 
 const alternates = locales.map((locale) => {
   const tp = useTranslatedPath(locale);

@@ -71,17 +71,17 @@ describe("SEOHead", () => {
     );
   });
 
-  test("conditionally renders og:url only when provided", async () => {
-    const withoutUrl = await renderAstroComponent(SEOHead);
-    const withUrl = await renderAstroComponent(SEOHead, {
-      props: { url: "https://example.com" },
-    });
+  test("always renders canonical link and og:url", async () => {
+    const result = await renderAstroComponent(SEOHead);
 
-    const ogUrlWithout = withoutUrl.querySelector('meta[property="og:url"]');
-    const ogUrlWith = withUrl.querySelector('meta[property="og:url"]');
+    const canonical = result.querySelector('link[rel="canonical"]');
+    const ogUrl = result.querySelector('meta[property="og:url"]');
 
-    expect(ogUrlWithout).toBeNull();
-    expect(ogUrlWith?.getAttribute("content")).toBe("https://example.com");
+    expect(canonical?.getAttribute("href")).toBeTruthy();
+    expect(ogUrl?.getAttribute("content")).toBeTruthy();
+    expect(canonical?.getAttribute("href")).toBe(
+      ogUrl?.getAttribute("content")
+    );
   });
 
   test("conditionally renders og:image and twitter:image", async () => {
