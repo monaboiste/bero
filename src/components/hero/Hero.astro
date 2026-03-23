@@ -24,10 +24,11 @@ const richText = useRichText(lang);
     <Image
       src={heroImage}
       alt={t("hero.imageAlt")}
-      class="h-full w-full object-cover object-[30%] md:object-left"
-      width={1920}
-      height={1080}
+      class="h-full w-full object-cover object-[15%] md:object-left"
       loading="eager"
+      format="webp"
+      widths={[640, 1024, 1600, 1920]}
+      sizes="100vw"
     />
     <div class="absolute inset-0 bg-black/60 md:bg-transparent"></div>
     <div
