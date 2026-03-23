@@ -9,12 +9,11 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
-  url?: string;
   mainClass?: string;
 }
 
 const lang = getLang(Astro.currentLocale);
-const { title, description, image, url, mainClass } = Astro.props;
+const { title, description, image, mainClass } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +24,7 @@ const { title, description, image, url, mainClass } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <meta name="generator" content={Astro.generator}>
 
-    <SEOHead title={title} description={description} image={image} url={url} />
+    <SEOHead title={title} description={description} image={image} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
