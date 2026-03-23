@@ -12,6 +12,7 @@ interface Props {
   description?: string;
   image?: string;
   type?: string;
+  robots?: string;
 }
 
 const lang = getLang(Astro.currentLocale);
@@ -22,6 +23,7 @@ const {
   description = t("seo.description"),
   image = new URL("/seo-image.png", Astro.site ?? Astro.url).href,
   type = "website",
+  robots = "index, follow",
 } = Astro.props;
 
 const canonicalRoute = getRouteFromUrl(Astro.url);
@@ -41,6 +43,7 @@ const alternates = locales.map((locale) => {
 <!-- SEO -->
 <title>{title}</title>
 <meta name="description" content={description}>
+<meta name="robots" content={robots}>
 <link rel="canonical" href={canonicalUrl}>
 <link rel="sitemap" href="/sitemap-index.xml">
 
