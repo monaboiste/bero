@@ -51,7 +51,7 @@ describe("About", () => {
     );
 
     expect(targets).toContain("20");
-    expect(targets).toContain("500");
+    expect(targets).toContain("1000");
     expect(targets).toContain("100");
 
     expect(statsSection?.textContent).toContain("∞");
