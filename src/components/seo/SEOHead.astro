@@ -20,7 +20,7 @@ const t = useTranslations(lang);
 const {
   title = t("seo.title"),
   description = t("seo.description"),
-  image,
+  image = new URL("/seo-image.png", Astro.site ?? Astro.url).href,
   type = "website",
 } = Astro.props;
 
@@ -55,10 +55,10 @@ const alternates = locales.map((locale) => {
 <meta property="og:description" content={description}>
 <meta property="og:type" content={type}>
 <meta property="og:url" content={canonicalUrl}>
-{image && <meta property="og:image" content={image} />}
+<meta property="og:image" content={image}>
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content={title}>
 <meta name="twitter:description" content={description}>
-{image && <meta name="twitter:image" content={image} />}
+<meta name="twitter:image" content={image}>
