@@ -1,4 +1,13 @@
 ---
+import type {
+  BreadcrumbList,
+  Graph,
+  HomeAndConstructionBusiness,
+  Organization,
+  Thing,
+  WebSite,
+} from "schema-dts";
+
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -31,19 +40,19 @@ const BUSINESS = {
   sameAs: [
     "https://www.facebook.com/StudioTapicerskieBERO",
     "https://www.instagram.com/studio.tapicerskie.bero",
-  ],
+  ] as const,
 };
 
-const organization = {
+const organization: Organization = {
   "@type": "Organization",
   name: BUSINESS.name,
   url: siteUrl,
   logo: BUSINESS.logo,
-  sameAs: BUSINESS.sameAs,
+  sameAs: [...BUSINESS.sameAs],
 };
 
-const localBusiness = {
-  "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+const localBusiness: HomeAndConstructionBusiness = {
+  "@type": "HomeAndConstructionBusiness",
   name: BUSINESS.name,
   url: siteUrl,
   telephone: BUSINESS.telephone,
@@ -62,26 +71,32 @@ const localBusiness = {
   },
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    dayOfWeek: [
+      "https://schema.org/Monday",
+      "https://schema.org/Tuesday",
+      "https://schema.org/Wednesday",
+      "https://schema.org/Thursday",
+      "https://schema.org/Friday",
+    ],
     opens: "09:00",
     closes: "17:00",
   },
   logo: BUSINESS.logo,
   image: BUSINESS.image,
-  sameAs: BUSINESS.sameAs,
+  sameAs: [...BUSINESS.sameAs],
 };
 
-const website = {
+const website: WebSite = {
   "@type": "WebSite",
   name: BUSINESS.name,
   url: siteUrl,
 };
 
-const breadcrumbList = breadcrumbs
+const breadcrumbList: BreadcrumbList | null = breadcrumbs
   ? {
       "@type": "BreadcrumbList",
       itemListElement: breadcrumbs.map((item, index) => ({
-        "@type": "ListItem",
+        "@type": "ListItem" as const,
         position: index + 1,
         name: item.name,
         item: item.url,
@@ -89,7 +104,7 @@ const breadcrumbList = breadcrumbs
     }
   : null;
 
-const graph: Record<string, unknown>[] = [organization];
+const graph: Thing[] = [organization];
 
 if (isHomepage) {
   graph.push(localBusiness, website);
@@ -99,7 +114,7 @@ if (breadcrumbList) {
   graph.push(breadcrumbList);
 }
 
-const jsonLd = {
+const jsonLd: Graph = {
   "@context": "https://schema.org",
   "@graph": graph,
 };

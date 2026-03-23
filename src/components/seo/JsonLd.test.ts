@@ -49,23 +49,26 @@ describe("JsonLd", () => {
     );
   });
 
-  test("does not include LocalBusiness or WebSite when isHomepage is false", async () => {
+  test("does not include HomeAndConstructionBusiness or WebSite when isHomepage is false", async () => {
     const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
 
-    const localBusiness = findByType(data["@graph"], "LocalBusiness");
+    const localBusiness = findByType(
+      data["@graph"],
+      "HomeAndConstructionBusiness"
+    );
     const website = findByType(data["@graph"], "WebSite");
 
     expect(localBusiness).toBeUndefined();
     expect(website).toBeUndefined();
   });
 
-  test("includes LocalBusiness schema on homepage", async () => {
+  test("includes HomeAndConstructionBusiness schema on homepage", async () => {
     const result = await renderAstroComponent(JsonLd, {
       props: { isHomepage: true },
     });
     const data = parseJsonLd(result);
-    const business = findByType(data["@graph"], "LocalBusiness");
+    const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
 
     expect(business).toBeDefined();
     expect(business?.name).toBe("Studio Tapicerskie BERO");
@@ -73,12 +76,12 @@ describe("JsonLd", () => {
     expect(business?.email).toBe("szumnyfilip@gmail.com");
   });
 
-  test("LocalBusiness includes structured address", async () => {
+  test("HomeAndConstructionBusiness includes structured address", async () => {
     const result = await renderAstroComponent(JsonLd, {
       props: { isHomepage: true },
     });
     const data = parseJsonLd(result);
-    const business = findByType(data["@graph"], "LocalBusiness");
+    const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
     const address = business?.address as Record<string, string>;
 
     expect(address["@type"]).toBe("PostalAddress");
@@ -88,12 +91,12 @@ describe("JsonLd", () => {
     expect(address.addressCountry).toBe("PL");
   });
 
-  test("LocalBusiness includes geo coordinates", async () => {
+  test("HomeAndConstructionBusiness includes geo coordinates", async () => {
     const result = await renderAstroComponent(JsonLd, {
       props: { isHomepage: true },
     });
     const data = parseJsonLd(result);
-    const business = findByType(data["@graph"], "LocalBusiness");
+    const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
     const geo = business?.geo as Record<string, unknown>;
 
     expect(geo["@type"]).toBe("GeoCoordinates");
@@ -101,12 +104,12 @@ describe("JsonLd", () => {
     expect(geo.longitude).toBe(15.547_803_8);
   });
 
-  test("LocalBusiness includes opening hours (Mon-Fri 09:00-17:00)", async () => {
+  test("HomeAndConstructionBusiness includes opening hours (Mon-Fri 09:00-17:00)", async () => {
     const result = await renderAstroComponent(JsonLd, {
       props: { isHomepage: true },
     });
     const data = parseJsonLd(result);
-    const business = findByType(data["@graph"], "LocalBusiness");
+    const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
     const hours = business?.openingHoursSpecification as Record<
       string,
       unknown
@@ -114,11 +117,11 @@ describe("JsonLd", () => {
 
     expect(hours["@type"]).toBe("OpeningHoursSpecification");
     expect(hours.dayOfWeek).toEqual([
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
+      "https://schema.org/Monday",
+      "https://schema.org/Tuesday",
+      "https://schema.org/Wednesday",
+      "https://schema.org/Thursday",
+      "https://schema.org/Friday",
     ]);
     expect(hours.opens).toBe("09:00");
     expect(hours.closes).toBe("17:00");
@@ -171,7 +174,7 @@ describe("JsonLd", () => {
     expect(items[1].item).toBe("https://studio-bero.com/en/portfolio");
   });
 
-  test("homepage graph contains exactly 3 schemas (Organization, LocalBusiness, WebSite)", async () => {
+  test("homepage graph contains exactly 3 schemas (Organization, HomeAndConstructionBusiness, WebSite)", async () => {
     const result = await renderAstroComponent(JsonLd, {
       props: { isHomepage: true },
     });
