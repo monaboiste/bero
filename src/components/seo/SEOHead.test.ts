@@ -84,30 +84,30 @@ describe("SEOHead", () => {
     );
   });
 
-  test("conditionally renders og:image and twitter:image", async () => {
-    const withoutImage = await renderAstroComponent(SEOHead);
-    const withImage = await renderAstroComponent(SEOHead, {
+  test("renders default og:image and twitter:image when no image prop provided", async () => {
+    const result = await renderAstroComponent(SEOHead);
+
+    const ogImage = result.querySelector('meta[property="og:image"]');
+    const twitterImage = result.querySelector('meta[name="twitter:image"]');
+
+    expect(ogImage).not.toBeNull();
+    expect(twitterImage).not.toBeNull();
+    expect(ogImage?.getAttribute("content")).toContain("/seo-image.png");
+    expect(twitterImage?.getAttribute("content")).toContain("/seo-image.png");
+  });
+
+  test("renders custom og:image and twitter:image when image prop provided", async () => {
+    const result = await renderAstroComponent(SEOHead, {
       props: { image: "https://example.com/image.jpg" },
     });
 
-    const ogImageWithout = withoutImage.querySelector(
-      'meta[property="og:image"]'
-    );
-    const twitterImageWithout = withoutImage.querySelector(
-      'meta[name="twitter:image"]'
-    );
+    const ogImage = result.querySelector('meta[property="og:image"]');
+    const twitterImage = result.querySelector('meta[name="twitter:image"]');
 
-    const ogImageWith = withImage.querySelector('meta[property="og:image"]');
-    const twitterImageWith = withImage.querySelector(
-      'meta[name="twitter:image"]'
-    );
-
-    expect(ogImageWithout).toBeNull();
-    expect(twitterImageWithout).toBeNull();
-    expect(ogImageWith?.getAttribute("content")).toBe(
+    expect(ogImage?.getAttribute("content")).toBe(
       "https://example.com/image.jpg"
     );
-    expect(twitterImageWith?.getAttribute("content")).toBe(
+    expect(twitterImage?.getAttribute("content")).toBe(
       "https://example.com/image.jpg"
     );
   });
