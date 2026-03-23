@@ -20,9 +20,10 @@ const { story, mission, image: craftImage, imageAlt = "" } = Astro.props;
     data-animate="about-story-img"
     src={craftImage}
     alt={imageAlt}
+    format="webp"
+    widths={[400, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 50vw"
     class="h-auto w-full rounded-lg shadow-xl"
-    width={800}
-    height={600}
     loading="lazy"
   />
   <div data-animate="about-story-mission">
