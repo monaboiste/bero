@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import {
   getCanonicalBasePath,
-  getRouteFromUrl,
+  getRoute,
   stripLocalePrefix,
   useTranslatedPath,
 } from "./path";
@@ -64,37 +64,37 @@ describe("useTranslatedPath", () => {
 describe("getRouteFromUrl", () => {
   test("returns canonical key for a German translated slug", () => {
     const url = new URL("https://example.com/de/datenschutzerklarung");
-    expect(getRouteFromUrl(url)).toBe("privacy-policy");
+    expect(getRoute(url)).toBe("privacy-policy");
   });
 
   test("returns canonical key for a Polish translated slug", () => {
     const url = new URL("https://example.com/pl/polityka-prywatnosci");
-    expect(getRouteFromUrl(url)).toBe("privacy-policy");
+    expect(getRoute(url)).toBe("privacy-policy");
   });
 
   test("returns canonical key for an English slug", () => {
     const url = new URL("https://example.com/en/privacy-policy");
-    expect(getRouteFromUrl(url)).toBe("privacy-policy");
+    expect(getRoute(url)).toBe("privacy-policy");
   });
 
   test("returns canonical key for portfolio", () => {
     const url = new URL("https://example.com/en/portfolio");
-    expect(getRouteFromUrl(url)).toBe("portfolio");
+    expect(getRoute(url)).toBe("portfolio");
   });
 
   test("returns undefined for an unknown slug", () => {
     const url = new URL("https://example.com/en/unknown-page");
-    expect(getRouteFromUrl(url)).toBeUndefined();
+    expect(getRoute(url)).toBeUndefined();
   });
 
   test("returns undefined for a root-only path", () => {
     const url = new URL("https://example.com/");
-    expect(getRouteFromUrl(url)).toBeUndefined();
+    expect(getRoute(url)).toBeUndefined();
   });
 
   test("handles trailing slash on translated URL", () => {
     const url = new URL("https://example.com/de/datenschutzerklarung/");
-    expect(getRouteFromUrl(url)).toBe("privacy-policy");
+    expect(getRoute(url)).toBe("privacy-policy");
   });
 });
 

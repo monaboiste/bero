@@ -1,6 +1,60 @@
 import { getLang, type Lang, locales } from "./locale";
 import { routes } from "./routes";
 
+/**
+ * Returns a function that prefixes paths with the locale and translates
+ * known route segments to their locale-specific slugs.
+ */
+export function useTranslatedPath(lang: Lang) {
+  return function translatePath(path: string, l: Lang = lang): string {
+    const pathName = stripSlashes(path);
+    const translated = getTranslatedSlug(pathName, l);
+    const translatedPath = translated !== undefined ? `/${translated}` : path;
+    return `/${l}${translatedPath}`;
+  };
+}
+
+/**
+ * Reverse-maps a translated URL slug back to its canonical route name.
+ * Returns `undefined` if the path does not match any known route.
+ */
+export function getRoute(url: URL): string | undefined {
+  const slug = extractLastSegment(url.pathname);
+  if (!slug) {
+    return undefined;
+  }
+
+  const currentLang = getLang(extractLocaleFromPathname(url.pathname));
+  return findCanonicalKey(slug, currentLang);
+}
+
+/**
+ * Resolves the canonical base path from a URL, accounting for translated routes.
+ * Falls back to stripping the locale prefix for pages not in the routes map.
+ */
+export function getCanonicalBasePath(url: URL): string {
+  const canonicalRoute = getRoute(url);
+  if (canonicalRoute) {
+    return `/${canonicalRoute}`;
+  }
+  return stripLocalePrefix(url.pathname);
+}
+
+/**
+ * Returns the site URL without a trailing slash.
+ *
+ * Requires `site` to be configured in `astro.config`.
+ * Throws if `Astro.site` is undefined.
+ */
+export function getSiteUrl(site: URL | undefined): string {
+  if (!site) {
+    throw new Error(
+      "Astro.site is not configured. Set `site` in astro.config."
+    );
+  }
+  return site.href.endsWith("/") ? site.href.slice(0, -1) : site.href;
+}
+
 const localePrefixRe = new RegExp(`^/(${locales.join("|")})(?=/|$)`);
 const leadingSlashRe = /^\//;
 const trailingSlashRe = /\/$/;
@@ -31,48 +85,6 @@ function extractLastSegment(pathname: string): string | undefined {
   return parts.pop() || parts.pop();
 }
 
-/**
- * Returns a function that prefixes paths with the locale and translates
- * known route segments to their locale-specific slugs.
- */
-export function useTranslatedPath(lang: Lang) {
-  return function translatePath(path: string, l: Lang = lang): string {
-    const pathName = stripSlashes(path);
-    const translated = getTranslatedSlug(pathName, l);
-    const translatedPath = translated !== undefined ? `/${translated}` : path;
-    return `/${l}${translatedPath}`;
-  };
-}
-
-/**
- * Reverse-maps a translated URL slug back to its canonical route name.
- * Returns `undefined` if the path does not match any known route.
- */
-export function getRouteFromUrl(url: URL): string | undefined {
-  const slug = extractLastSegment(url.pathname);
-  if (!slug) {
-    return undefined;
-  }
-
-  const currentLang = getLang(extractLocaleFromPathname(url.pathname));
-  return findCanonicalKey(slug, currentLang);
-}
-
-/**
- * Resolves the canonical base path from a URL, accounting for translated routes.
- * Falls back to stripping the locale prefix for pages not in the routes map.
- */
-export function getCanonicalBasePath(url: URL): string {
-  const canonicalRoute = getRouteFromUrl(url);
-  if (canonicalRoute) {
-    return `/${canonicalRoute}`;
-  }
-  return stripLocalePrefix(url.pathname);
-}
-
-/**
- * Strips the leading locale prefix from a pathname.
- */
-export function stripLocalePrefix(pathname: string): string {
+function stripLocalePrefix(pathname: string): string {
   return pathname.replace(localePrefixRe, "") || "/";
 }
