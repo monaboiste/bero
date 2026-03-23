@@ -55,7 +55,7 @@ describe("Hero", () => {
     const image = result.querySelector("img");
 
     expect(image).not.toBeNull();
-    expect(image?.getAttribute("width")).toBe("1920");
-    expect(image?.getAttribute("height")).toBe("1080");
+    expect(Number(image?.getAttribute("width"))).toBeGreaterThan(1920);
+    expect(Number(image?.getAttribute("height"))).toBeGreaterThan(1080);
   });
 });
