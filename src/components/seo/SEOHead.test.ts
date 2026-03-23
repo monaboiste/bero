@@ -111,4 +111,22 @@ describe("SEOHead", () => {
       "https://example.com/image.jpg"
     );
   });
+
+  test('renders default robots meta tag with "index, follow"', async () => {
+    const result = await renderAstroComponent(SEOHead);
+
+    const robots = result.querySelector('meta[name="robots"]');
+
+    expect(robots?.getAttribute("content")).toBe("index, follow");
+  });
+
+  test("renders custom robots value when provided", async () => {
+    const result = await renderAstroComponent(SEOHead, {
+      props: { robots: "noindex, follow" },
+    });
+
+    const robots = result.querySelector('meta[name="robots"]');
+
+    expect(robots?.getAttribute("content")).toBe("noindex, follow");
+  });
 });
