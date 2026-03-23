@@ -17,20 +17,12 @@ interface Props {
   image?: string;
   robots?: string;
   mainClass?: string;
-  isHomepage?: boolean;
   breadcrumbs?: BreadcrumbItem[];
 }
 
 const lang = getLang(Astro.currentLocale);
-const {
-  title,
-  description,
-  image,
-  robots,
-  mainClass,
-  isHomepage,
-  breadcrumbs,
-} = Astro.props;
+const { title, description, image, robots, mainClass, breadcrumbs } =
+  Astro.props;
 ---
 
 <!doctype html>
@@ -50,7 +42,7 @@ const {
       robots={robots}
     />
 
-    <JsonLd isHomepage={isHomepage} breadcrumbs={breadcrumbs} />
+    <JsonLd breadcrumbs={breadcrumbs} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

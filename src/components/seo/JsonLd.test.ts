@@ -14,6 +14,11 @@ function findByType(graph: Record<string, unknown>[], type: string) {
   });
 }
 
+const SUB_PAGE_BREADCRUMBS = [
+  { name: "Home", url: "https://studio-bero.com/en/" },
+  { name: "Portfolio", url: "https://studio-bero.com/en/portfolio" },
+];
+
 describe("JsonLd", () => {
   test("renders a valid JSON-LD script tag", async () => {
     const result = await renderAstroComponent(JsonLd);
@@ -33,7 +38,9 @@ describe("JsonLd", () => {
   });
 
   test("always includes Organization schema", async () => {
-    const result = await renderAstroComponent(JsonLd);
+    const result = await renderAstroComponent(JsonLd, {
+      props: { breadcrumbs: SUB_PAGE_BREADCRUMBS },
+    });
     const data = parseJsonLd(result);
     const org = findByType(data["@graph"], "Organization");
 
@@ -49,8 +56,10 @@ describe("JsonLd", () => {
     );
   });
 
-  test("does not include HomeAndConstructionBusiness or WebSite when isHomepage is false", async () => {
-    const result = await renderAstroComponent(JsonLd);
+  test("does not include HomeAndConstructionBusiness or WebSite on sub-pages", async () => {
+    const result = await renderAstroComponent(JsonLd, {
+      props: { breadcrumbs: SUB_PAGE_BREADCRUMBS },
+    });
     const data = parseJsonLd(result);
 
     const localBusiness = findByType(
@@ -63,10 +72,8 @@ describe("JsonLd", () => {
     expect(website).toBeUndefined();
   });
 
-  test("includes HomeAndConstructionBusiness schema on homepage", async () => {
-    const result = await renderAstroComponent(JsonLd, {
-      props: { isHomepage: true },
-    });
+  test("includes HomeAndConstructionBusiness schema when no breadcrumbs (homepage)", async () => {
+    const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
     const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
 
@@ -77,9 +84,7 @@ describe("JsonLd", () => {
   });
 
   test("HomeAndConstructionBusiness includes structured address", async () => {
-    const result = await renderAstroComponent(JsonLd, {
-      props: { isHomepage: true },
-    });
+    const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
     const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
     const address = business?.address as Record<string, string>;
@@ -92,9 +97,7 @@ describe("JsonLd", () => {
   });
 
   test("HomeAndConstructionBusiness includes geo coordinates", async () => {
-    const result = await renderAstroComponent(JsonLd, {
-      props: { isHomepage: true },
-    });
+    const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
     const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
     const geo = business?.geo as Record<string, unknown>;
@@ -105,9 +108,7 @@ describe("JsonLd", () => {
   });
 
   test("HomeAndConstructionBusiness includes opening hours (Mon-Fri 09:00-17:00)", async () => {
-    const result = await renderAstroComponent(JsonLd, {
-      props: { isHomepage: true },
-    });
+    const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
     const business = findByType(data["@graph"], "HomeAndConstructionBusiness");
     const hours = business?.openingHoursSpecification as Record<
@@ -127,10 +128,8 @@ describe("JsonLd", () => {
     expect(hours.closes).toBe("17:00");
   });
 
-  test("includes WebSite schema on homepage", async () => {
-    const result = await renderAstroComponent(JsonLd, {
-      props: { isHomepage: true },
-    });
+  test("includes WebSite schema when no breadcrumbs (homepage)", async () => {
+    const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
     const website = findByType(data["@graph"], "WebSite");
 
@@ -148,13 +147,8 @@ describe("JsonLd", () => {
   });
 
   test("includes BreadcrumbList when breadcrumbs are provided", async () => {
-    const breadcrumbs = [
-      { name: "Home", url: "https://studio-bero.com/en/" },
-      { name: "Portfolio", url: "https://studio-bero.com/en/portfolio" },
-    ];
-
     const result = await renderAstroComponent(JsonLd, {
-      props: { breadcrumbs },
+      props: { breadcrumbs: SUB_PAGE_BREADCRUMBS },
     });
     const data = parseJsonLd(result);
     const breadcrumbList = findByType(data["@graph"], "BreadcrumbList");
@@ -174,33 +168,19 @@ describe("JsonLd", () => {
     expect(items[1].item).toBe("https://studio-bero.com/en/portfolio");
   });
 
-  test("homepage graph contains exactly 3 schemas (Organization, HomeAndConstructionBusiness, WebSite)", async () => {
-    const result = await renderAstroComponent(JsonLd, {
-      props: { isHomepage: true },
-    });
+  test("homepage (no breadcrumbs) graph contains exactly 3 schemas", async () => {
+    const result = await renderAstroComponent(JsonLd);
     const data = parseJsonLd(result);
 
     expect(data["@graph"]).toHaveLength(3);
   });
 
-  test("sub-page with breadcrumbs graph contains exactly 2 schemas (Organization, BreadcrumbList)", async () => {
-    const breadcrumbs = [
-      { name: "Home", url: "https://studio-bero.com/pl/" },
-      { name: "Portfolio", url: "https://studio-bero.com/pl/portfolio" },
-    ];
-
+  test("sub-page (with breadcrumbs) graph contains exactly 2 schemas", async () => {
     const result = await renderAstroComponent(JsonLd, {
-      props: { breadcrumbs },
+      props: { breadcrumbs: SUB_PAGE_BREADCRUMBS },
     });
     const data = parseJsonLd(result);
 
     expect(data["@graph"]).toHaveLength(2);
-  });
-
-  test("default page (no props) graph contains exactly 1 schema (Organization)", async () => {
-    const result = await renderAstroComponent(JsonLd);
-    const data = parseJsonLd(result);
-
-    expect(data["@graph"]).toHaveLength(1);
   });
 });

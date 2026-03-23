@@ -14,11 +14,10 @@ interface BreadcrumbItem {
 }
 
 interface Props {
-  isHomepage?: boolean;
   breadcrumbs?: BreadcrumbItem[];
 }
 
-const { isHomepage = false, breadcrumbs } = Astro.props;
+const { breadcrumbs } = Astro.props;
 
 const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(
   /\/$/,
@@ -106,7 +105,7 @@ const breadcrumbList: BreadcrumbList | null = breadcrumbs
 
 const graph: Thing[] = [organization];
 
-if (isHomepage) {
+if (!breadcrumbs) {
   graph.push(localBusiness, website);
 }
 
