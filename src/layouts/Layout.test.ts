@@ -36,7 +36,7 @@ describe("Layout", () => {
   test("contains dark mode script with localStorage check", async () => {
     const result = await renderAstroComponent(Layout);
 
-    const script = result.querySelector("script");
+    const script = result.querySelector("script:not([type])");
     const scriptContent = script?.textContent;
 
     expect(scriptContent).toContain('localStorage.getItem("theme")');

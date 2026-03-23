@@ -1,9 +1,15 @@
 ---
+import JsonLd from "@components/seo/JsonLd.astro";
 import SEOHead from "@components/seo/SEOHead.astro";
 import Footer from "@components/ui/footer/Footer.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import { getLang } from "@i18n/locale";
 import "@styles/global.css";
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
 
 interface Props {
   title?: string;
@@ -11,10 +17,20 @@ interface Props {
   image?: string;
   robots?: string;
   mainClass?: string;
+  isHomepage?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const lang = getLang(Astro.currentLocale);
-const { title, description, image, robots, mainClass } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  robots,
+  mainClass,
+  isHomepage,
+  breadcrumbs,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -33,6 +49,8 @@ const { title, description, image, robots, mainClass } = Astro.props;
       image={image}
       robots={robots}
     />
+
+    <JsonLd isHomepage={isHomepage} breadcrumbs={breadcrumbs} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

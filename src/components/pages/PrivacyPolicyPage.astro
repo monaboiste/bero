@@ -1,6 +1,7 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import { type Lang, useTranslations } from "@i18n/locale";
+import { useTranslatedPath } from "@i18n/path";
 import Layout from "@layouts/Layout.astro";
 
 interface Props {
@@ -9,12 +10,24 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const tp = useTranslatedPath(lang);
+
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(
+  /\/$/,
+  ""
+);
+
+const breadcrumbs = [
+  { name: t("nav.home"), url: `${siteUrl}/${lang}/` },
+  { name: t("privacy.title"), url: `${siteUrl}${tp("/privacy-policy")}` },
+];
 ---
 
 <Layout
   title={`${t("privacy.title")} | ${t("seo.title")}`}
   description={t("privacy.description")}
   mainClass="bg-secondary pt-36 pb-20"
+  breadcrumbs={breadcrumbs}
 >
   <article
     data-testid="privacy-policy"

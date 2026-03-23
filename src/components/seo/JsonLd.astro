@@ -1,0 +1,112 @@
+---
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  isHomepage?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const { isHomepage = false, breadcrumbs } = Astro.props;
+
+const siteUrl = (Astro.site ?? new URL(Astro.url.origin)).href.replace(
+  /\/$/,
+  ""
+);
+
+const BUSINESS = {
+  name: "Studio Tapicerskie BERO",
+  streetAddress: "Św. Wojciech 70",
+  locality: "Międzyrzecz",
+  postalCode: "66-300",
+  country: "PL",
+  telephone: "+48 720 770 960",
+  email: "szumnyfilip@gmail.com",
+  latitude: 52.448_008_1,
+  longitude: 15.547_803_8,
+  logo: `${siteUrl}/favicon.svg`,
+  image: `${siteUrl}/seo-image.png`,
+  sameAs: [
+    "https://www.facebook.com/StudioTapicerskieBERO",
+    "https://www.instagram.com/studio.tapicerskie.bero",
+  ],
+};
+
+const organization = {
+  "@type": "Organization",
+  name: BUSINESS.name,
+  url: siteUrl,
+  logo: BUSINESS.logo,
+  sameAs: BUSINESS.sameAs,
+};
+
+const localBusiness = {
+  "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+  name: BUSINESS.name,
+  url: siteUrl,
+  telephone: BUSINESS.telephone,
+  email: BUSINESS.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: BUSINESS.streetAddress,
+    addressLocality: BUSINESS.locality,
+    postalCode: BUSINESS.postalCode,
+    addressCountry: BUSINESS.country,
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: BUSINESS.latitude,
+    longitude: BUSINESS.longitude,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "17:00",
+  },
+  logo: BUSINESS.logo,
+  image: BUSINESS.image,
+  sameAs: BUSINESS.sameAs,
+};
+
+const website = {
+  "@type": "WebSite",
+  name: BUSINESS.name,
+  url: siteUrl,
+};
+
+const breadcrumbList = breadcrumbs
+  ? {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    }
+  : null;
+
+const graph: Record<string, unknown>[] = [organization];
+
+if (isHomepage) {
+  graph.push(localBusiness, website);
+}
+
+if (breadcrumbList) {
+  graph.push(breadcrumbList);
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": graph,
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(jsonLd)}
+/>
