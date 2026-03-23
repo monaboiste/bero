@@ -1,19 +1,21 @@
 ---
 import type { JSX } from "astro/jsx-runtime";
+import type { HeadingTag } from "./types";
 
 interface Props extends JSX.HTMLAttributes {
   title: string;
   subtitle?: string;
+  as?: HeadingTag;
 }
 
-const { title, subtitle, class: className } = Astro.props;
+const { title, subtitle, as: Tag = "h2", class: className } = Astro.props;
 ---
 
 <div
   data-animate="section-header"
   class:list={["mb-10 text-center", className]}
 >
-  <h2 class="mb-4 text-4xl md:text-5xl">{title}</h2>
+  <Tag class="mb-4 text-4xl md:text-5xl">{title}</Tag>
 
   <div
     data-animate="section-decoration"
