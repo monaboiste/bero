@@ -354,6 +354,7 @@ const { images, class: className } = Astro.props;
     let startY: number | null = null;
     let tracking = false;
     let isAnimating = false;
+    let descVisible = false;
 
     function onPointerDown(e: PointerEvent): void {
       if (!e.isPrimary) {
@@ -400,15 +401,14 @@ const { images, class: className } = Astro.props;
         return;
       }
 
-      // Tap (no significant movement) on mobile: toggle description
+      // Tap (no significant movement) on mobile: toggle description mode
       if (
         Math.abs(dx) < TAP_THRESHOLD &&
         Math.abs(dy) < TAP_THRESHOLD &&
         document.body.classList.contains("glightbox-mobile")
       ) {
-        const slide = document.querySelector(".gslide.current");
-        const desc = slide?.querySelector(".gslide-description");
-        desc?.classList.toggle("gslide-desc-visible");
+        descVisible = !descVisible;
+        syncDescVisibility();
       }
     }
 
@@ -421,6 +421,18 @@ const { images, class: className } = Astro.props;
     function hideAllMobileDescs(): void {
       for (const d of document.querySelectorAll(".gslide-desc-visible")) {
         d.classList.remove("gslide-desc-visible");
+      }
+    }
+
+    function syncDescVisibility(): void {
+      if (!document.body.classList.contains("glightbox-mobile")) {
+        return;
+      }
+      hideAllMobileDescs();
+      if (descVisible) {
+        const slide = document.querySelector(".gslide.current");
+        const desc = slide?.querySelector(".gslide-description");
+        desc?.classList.add("gslide-desc-visible");
       }
     }
 
@@ -464,7 +476,7 @@ const { images, class: className } = Astro.props;
     });
 
     lightbox.on("slide_changed", () => {
-      hideAllMobileDescs();
+      syncDescVisibility();
       clearMobileInlineHeight();
     });
 
@@ -477,6 +489,7 @@ const { images, class: className } = Astro.props;
       slider.removeEventListener("pointerup", onPointerUp);
       slider.removeEventListener("pointercancel", onPointerCancel);
       isAnimating = false;
+      descVisible = false;
       hideAllMobileDescs();
     });
   }
