@@ -8,17 +8,15 @@
 
 ## Important (Medium Priority)
 
-### 1.1 Add `og:locale`, `og:locale:alternate`, `og:site_name`
-
 - **Files:** `src/components/seo/SEOHead.astro`
 - **What:** Map locales to OG format (`pl` -> `pl_PL`, `en` -> `en_US`, `de` -> `de_DE`). Add `og:site_name` from `t("seo.title")`.
 
-### 1.2 Localized 404 page
+### 1.1 Localized 404 page
 
 - **Files:** `src/pages/404.astro`
 - **What:** The 404 page is currently always in Polish regardless of user language. Detect locale from `document.location.pathname` client-side and swap content. Cloudflare serves a single `/404.html`, so client-side detection is the practical approach.
 
-### 1.3 Cloudflare Web Analytics
+### 1.2 Cloudflare Web Analytics
 
 - **Files:** `src/layouts/Layout.astro`
 - **What:** Add the Cloudflare analytics beacon `<script>` before `</body>`.
