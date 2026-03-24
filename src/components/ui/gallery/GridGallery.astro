@@ -485,40 +485,51 @@ const { images, class: className } = Astro.props;
       slider.addEventListener("pointerup", onPointerUp);
       slider.addEventListener("pointercancel", onPointerCancel);
       clearMobileInlineHeight();
+      descVisible = true;
     });
 
-    lightbox.on(
-      "slide_before_change",
-      (data: { current: { slideIndex: number } }) => {
-        if (
-          !(descVisible && document.body.classList.contains("glightbox-mobile"))
-        ) {
-          return;
-        }
-        // data.current.slideNode is unreliable (GLightbox bug: still points to
-        // the old slide), so look up the incoming slide by index instead.
-        const slides = document.querySelectorAll("#glightbox-slider .gslide");
-        const nextSlide = slides[data.current.slideIndex];
-        const desc = nextSlide?.querySelector(
-          ".gslide-description"
-        ) as HTMLElement | null;
-        if (desc) {
-          desc.style.transition = "none";
-          desc.classList.add("gslide-desc-visible");
-          // Force reflow so the browser commits the class without transition
-          desc.offsetHeight;
-          desc.style.transition = "";
-        }
+    lightbox.on("slide_before_change", ((data: {
+      current: { slideIndex: number };
+    }) => {
+      if (
+        !(descVisible && document.body.classList.contains("glightbox-mobile"))
+      ) {
+        return;
       }
-    );
+      // data.current.slideNode is unreliable (GLightbox bug: still points to
+      // the old slide), so look up the incoming slide by index instead.
+      const slides = document.querySelectorAll("#glightbox-slider .gslide");
+      const nextSlide = slides[data.current.slideIndex];
+      const desc = nextSlide?.querySelector(
+        ".gslide-description"
+      ) as HTMLElement | null;
+      if (desc) {
+        desc.style.transition = "none";
+        desc.classList.add("gslide-desc-visible");
+        // Force reflow so the browser commits the class without transition
+        desc.offsetHeight;
+        desc.style.transition = "";
+      }
+    }) as () => void);
 
     lightbox.on("slide_changed", () => {
       // Clean up: remove desc-visible from non-current slides (the previous one).
-      // The incoming slide's description was already applied in slide_before_change.
       for (const d of document.querySelectorAll(
         ".gslide:not(.current) .gslide-desc-visible"
       )) {
         d.classList.remove("gslide-desc-visible");
+      }
+      // Ensure current slide's description is visible if in desc mode.
+      // This handles the initial open (where slide_before_change doesn't fire)
+      // as well as a safety net for navigation.
+      if (descVisible && document.body.classList.contains("glightbox-mobile")) {
+        const slide = document.querySelector(".gslide.current");
+        const desc = slide?.querySelector(
+          ".gslide-description"
+        ) as HTMLElement | null;
+        if (desc && !desc.classList.contains("gslide-desc-visible")) {
+          desc.classList.add("gslide-desc-visible");
+        }
       }
       clearMobileInlineHeight();
     });
