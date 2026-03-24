@@ -50,7 +50,7 @@ const langEntries = Object.entries(languages) as [Lang, string][];
     </div>
   ) : (
     <div class:list={["flex space-x-4", className]}>
-      {langEntries.map(([code, label]) => (
+      {langEntries.map(([code]) => (
         <a
           href={tp(basePath, code)}
           data-lang={code}
