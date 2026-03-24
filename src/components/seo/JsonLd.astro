@@ -36,10 +36,11 @@ const localBusiness: HomeAndConstructionBusiness = {
   address: {
     "@type": "PostalAddress",
     streetAddress: BUSINESS.address.street,
-    addressLocality: BUSINESS.address.locality,
+    addressLocality: BUSINESS.address.city,
     postalCode: BUSINESS.address.postalCode,
     addressCountry: BUSINESS.address.country,
   },
+  areaServed: BUSINESS.address.locality,
   geo: {
     "@type": "GeoCoordinates",
     latitude: BUSINESS.geo.latitude,
@@ -57,6 +58,7 @@ const localBusiness: HomeAndConstructionBusiness = {
     opens: "09:00",
     closes: "17:00",
   },
+  priceRange: BUSINESS.priceRange,
   logo: `${siteUrl}/favicon.svg`,
   image: `${siteUrl}/seo-image.png`,
   sameAs: [...BUSINESS_SOCIAL_URLS],

@@ -2,8 +2,9 @@ export const BUSINESS = {
   name: "Studio Tapicerskie BERO",
   address: {
     street: "Św. Wojciech 70",
-    locality: "Międzyrzecz",
+    city: "Międzyrzecz",
     postalCode: "66-300",
+    locality: "lubuskie",
     country: "PL",
   },
   phone: "+48 720 770 960",
@@ -12,6 +13,7 @@ export const BUSINESS = {
     latitude: 52.448_008_1,
     longitude: 15.547_803_8,
   },
+  priceRange: "$$-$$$",
   social: {
     facebook: "https://www.facebook.com/StudioTapicerskieBERO",
     instagram: "https://www.instagram.com/studio.tapicerskie.bero",
@@ -22,7 +24,7 @@ export const BUSINESS = {
 
 /** Formatted full address string */
 export const BUSINESS_UNSTRUCTURED_ADDRESS =
-  `${BUSINESS.address.street}, ${BUSINESS.address.locality}, ${BUSINESS.address.country}, ${BUSINESS.address.postalCode}` as const;
+  `${BUSINESS.address.street}, ${BUSINESS.address.city}, ${BUSINESS.address.country}, ${BUSINESS.address.postalCode}` as const;
 
 /** Social profile URLs as array (for schema.org sameAs, etc.) */
 export const BUSINESS_SOCIAL_URLS = [
