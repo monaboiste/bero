@@ -10,9 +10,9 @@ interface Props {
   robots?: string;
 }
 
+const siteUrl = getSiteUrl(Astro.site);
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
-const siteUrl = getSiteUrl(Astro.site);
 
 const {
   title = t("seo.title"),

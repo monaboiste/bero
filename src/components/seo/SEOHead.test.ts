@@ -1,6 +1,8 @@
 import { renderAstroComponent } from "@test/helpers.ts";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import SEOHead from "./SEOHead.astro";
+
+vi.stubEnv("SITE", "https://unit.vitest");
 
 describe("SEOHead", () => {
   test("renders default title", async () => {

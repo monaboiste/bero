@@ -43,16 +43,17 @@ export function getCanonicalBasePath(url: URL): string {
 /**
  * Returns the site URL without a trailing slash.
  *
- * Requires `site` to be configured in `astro.config`.
+ * Requires `site` to be configured in `astro.config` or `SITE` environment variable to be set.
  * Throws if `Astro.site` is undefined.
  */
 export function getSiteUrl(site: URL | undefined): string {
-  if (!site) {
+  const siteUrl = site?.href ?? import.meta.env.SITE;
+  if (!siteUrl) {
     throw new Error(
       "Astro.site is not configured. Set `site` in astro.config."
     );
   }
-  return site.href.endsWith("/") ? site.href.slice(0, -1) : site.href;
+  return siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl;
 }
 
 /**
