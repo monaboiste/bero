@@ -4,6 +4,8 @@ import {
 } from "astro/container";
 import type { ComponentProps } from "astro/types";
 
+const SITE = "https://studio-bero.com";
+
 // biome-ignore lint: lint/suspicion/noExplicitAny
 type AstroComponentFactory = (...args: any[]) => any;
 
@@ -18,7 +20,9 @@ export async function renderAstroComponent<T extends AstroComponentFactory>(
   Component: T,
   options: ComponentContainerRenderOptions<T> = {}
 ): Promise<DocumentFragment> {
-  const container = await AstroContainer.create();
+  const container = await AstroContainer.create({
+    astroConfig: { site: SITE },
+  });
   const result = await container.renderToString(Component, options);
 
   const template = document.createElement("template");
@@ -37,7 +41,9 @@ export async function renderAstroDocument<T extends AstroComponentFactory>(
   Component: T,
   options: ComponentContainerRenderOptions<T> = {}
 ): Promise<Document> {
-  const container = await AstroContainer.create();
+  const container = await AstroContainer.create({
+    astroConfig: { site: SITE },
+  });
   const html = await container.renderToString(Component, options);
 
   return new DOMParser().parseFromString(html, "text/html");
