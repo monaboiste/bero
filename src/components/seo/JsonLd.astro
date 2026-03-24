@@ -1,4 +1,5 @@
 ---
+import type { BreadcrumbItem } from "@i18n/breadcrumbs";
 import { getSiteUrl } from "@i18n/path";
 import { BUSINESS, BUSINESS_SOCIAL_URLS } from "@lib/content/business";
 import type {
@@ -9,11 +10,6 @@ import type {
   Thing,
   WebSite,
 } from "schema-dts";
-
-interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
 
 interface Props {
   breadcrumbs?: BreadcrumbItem[];

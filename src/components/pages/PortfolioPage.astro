@@ -3,7 +3,6 @@ import GridGallery from "@components/ui/gallery/GridGallery.astro";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import TagFilter from "@components/ui/TagFilter.astro";
 import { type Lang, useTranslations } from "@i18n/locale";
-import { getSiteUrl, useTranslatedPath } from "@i18n/path";
 import Layout from "@layouts/Layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
@@ -14,14 +13,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
-
-const siteUrl = getSiteUrl(Astro.site);
-
-const breadcrumbs = [
-  { name: t("nav.home"), url: `${siteUrl}/${lang}/` },
-  { name: t("nav.gallery"), url: `${siteUrl}${tp("/portfolio")}` },
-];
 
 const portfolioApi = createPortfolioApi(lang);
 const portfolio = await portfolioApi.fetchPortfolioPage({ start: 0, end: 100 });
@@ -36,7 +27,6 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
   title={t("portfolio.seo.title")}
   description={t("portfolio.seo.description")}
   mainClass="bg-secondary pt-36 pb-20"
-  breadcrumbs={breadcrumbs}
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader

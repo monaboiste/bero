@@ -3,13 +3,9 @@ import JsonLd from "@components/seo/JsonLd.astro";
 import SEOHead from "@components/seo/SEOHead.astro";
 import Footer from "@components/ui/footer/Footer.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
+import { buildBreadcrumbs } from "@i18n/breadcrumbs";
 import { getLang } from "@i18n/locale";
 import "@styles/global.css";
-
-interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
 
 interface Props {
   title?: string;
@@ -17,12 +13,16 @@ interface Props {
   image?: string;
   robots?: string;
   mainClass?: string;
-  breadcrumbs?: BreadcrumbItem[];
 }
 
 const lang = getLang(Astro.currentLocale);
-const { title, description, image, robots, mainClass, breadcrumbs } =
-  Astro.props;
+const { title, description, image, robots, mainClass } = Astro.props;
+
+const breadcrumbs = buildBreadcrumbs(
+  Astro.site,
+  Astro.url,
+  Astro.currentLocale
+);
 ---
 
 <!doctype html>

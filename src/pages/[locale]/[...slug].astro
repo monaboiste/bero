@@ -9,8 +9,8 @@ export const prerender = true;
 export function getStaticPaths() {
   return locales.flatMap((locale) => {
     const langRoutes = routes[locale];
-    return Object.entries(langRoutes).map(([routeKey, translatedSlug]) => ({
-      params: { locale, slug: translatedSlug },
+    return Object.entries(langRoutes).map(([routeKey, { slug }]) => ({
+      params: { locale, slug },
       props: { routeKey },
     }));
   });
