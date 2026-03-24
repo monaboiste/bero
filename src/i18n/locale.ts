@@ -51,3 +51,15 @@ export function useTranslations(lang: Lang) {
     return ui[lang][key] ?? ui[defaultLang][key];
   };
 }
+
+/** Maps short locale codes to OpenGraph `language_TERRITORY` format. */
+export const ogLocales: Record<Lang, string> = {
+  pl: "pl_PL",
+  en: "en_US",
+  de: "de_DE",
+};
+
+/** Returns the OG locale string for a given Lang. */
+export function getOgLocale(lang: Lang): string {
+  return ogLocales[lang];
+}

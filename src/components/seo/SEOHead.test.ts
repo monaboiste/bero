@@ -131,4 +131,35 @@ describe("SEOHead", () => {
 
     expect(robots?.getAttribute("content")).toBe("noindex, follow");
   });
+
+  test("renders og:locale with default locale pl_PL", async () => {
+    const result = await renderAstroComponent(SEOHead);
+
+    const ogLocale = result.querySelector('meta[property="og:locale"]');
+
+    expect(ogLocale?.getAttribute("content")).toBe("pl_PL");
+  });
+
+  test("renders og:locale:alternate tags for non-current locales", async () => {
+    const result = await renderAstroComponent(SEOHead);
+
+    const alternates = result.querySelectorAll(
+      'meta[property="og:locale:alternate"]'
+    );
+    const values = Array.from(alternates).map((el) =>
+      el.getAttribute("content")
+    );
+
+    expect(values).toContain("en_US");
+    expect(values).toContain("de_DE");
+    expect(values).not.toContain("pl_PL");
+  });
+
+  test("renders og:site_name from translations", async () => {
+    const result = await renderAstroComponent(SEOHead);
+
+    const ogSiteName = result.querySelector('meta[property="og:site_name"]');
+
+    expect(ogSiteName?.getAttribute("content")).toBe("Studio Tapicerskie BERO");
+  });
 });
