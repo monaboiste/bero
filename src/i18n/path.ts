@@ -55,6 +55,36 @@ export function getSiteUrl(site: URL | undefined): string {
   return site.href.endsWith("/") ? site.href.slice(0, -1) : site.href;
 }
 
+/**
+ * Returns the full canonical URL for the current page by resolving
+ * the request pathname against the configured site origin.
+ */
+export function getCanonicalUrl(
+  site: URL | undefined,
+  requestUrl: URL
+): string {
+  return new URL(requestUrl.pathname, getSiteUrl(site)).href;
+}
+
+/**
+ * Returns hreflang alternate URLs for all configured locales.
+ * Uses translated paths for known routes, locale-prefixed paths otherwise.
+ */
+export function getAlternateUrls(
+  url: URL
+): Array<{ locale: Lang; href: string }> {
+  const basePath = getCanonicalBasePath(url);
+
+  return locales.map((locale) => {
+    const tp = useTranslatedPath(locale);
+    return { locale, href: tp(basePath, locale) };
+  });
+}
+
+export function stripLocalePrefix(pathname: string): string {
+  return pathname.replace(localePrefixRe, "") || "/";
+}
+
 const localePrefixRe = new RegExp(`^/(${locales.join("|")})(?=/|$)`);
 const leadingSlashRe = /^\//;
 const trailingSlashRe = /\/$/;
@@ -83,8 +113,4 @@ function extractLastSegment(pathname: string): string | undefined {
   const trimmed = pathname.replace(trailingSlashRe, "");
   const parts = trimmed.split("/");
   return parts.pop() || parts.pop();
-}
-
-function stripLocalePrefix(pathname: string): string {
-  return pathname.replace(localePrefixRe, "") || "/";
 }

@@ -1,7 +1,6 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { getLang, locales, useTranslations } from "@i18n/locale";
-import { getCanonicalBasePath, getRoute, useTranslatedPath } from "@i18n/path";
+import { getLang, useTranslations } from "@i18n/locale";
+import { getAlternateUrls, getCanonicalUrl, getSiteUrl } from "@i18n/path";
 
 interface Props {
   title?: string;
@@ -13,50 +12,37 @@ interface Props {
 
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
+const siteUrl = getSiteUrl(Astro.site);
 
 const {
   title = t("seo.title"),
   description = t("seo.description"),
-  image = new URL("/seo-image.png", Astro.site ?? Astro.url).href,
+  image = `${siteUrl}/seo-image.png`,
   type = "website",
   robots = "index, follow",
 } = Astro.props;
 
-const canonicalRoute = getRoute(Astro.url);
-const basePath = getCanonicalBasePath(Astro.url);
-
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
-
-const alternates = locales.map((locale) => {
-  const tp = useTranslatedPath(locale);
-  const href = canonicalRoute
-    ? tp(basePath, locale)
-    : getRelativeLocaleUrl(locale, basePath);
-  return { locale, href };
-});
+const canonicalUrl = getCanonicalUrl(Astro.site, Astro.url);
+const alternates = getAlternateUrls(Astro.url);
 ---
 
-<!-- SEO -->
 <title>{title}</title>
 <meta name="description" content={description}>
 <meta name="robots" content={robots}>
 <link rel="canonical" href={canonicalUrl}>
 <link rel="sitemap" href="/sitemap-index.xml">
 
-<!-- Hreflang alternate links -->
 {alternates.map(({ locale, href }) => (
   <link rel="alternate" hreflang={locale} href={href} />
 ))}
 <link rel="alternate" hreflang="x-default" href="/">
 
-<!-- Open Graph -->
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>
 <meta property="og:type" content={type}>
 <meta property="og:url" content={canonicalUrl}>
 <meta property="og:image" content={image}>
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content={title}>
 <meta name="twitter:description" content={description}>
