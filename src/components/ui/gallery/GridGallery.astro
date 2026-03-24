@@ -408,7 +408,7 @@ const { images, class: className } = Astro.props;
         document.body.classList.contains("glightbox-mobile")
       ) {
         descVisible = !descVisible;
-        syncDescVisibility();
+        syncDescVisibility(true);
       }
     }
 
@@ -424,15 +424,27 @@ const { images, class: className } = Astro.props;
       }
     }
 
-    function syncDescVisibility(): void {
+    function syncDescVisibility(animate: boolean): void {
       if (!document.body.classList.contains("glightbox-mobile")) {
         return;
       }
       hideAllMobileDescs();
       if (descVisible) {
         const slide = document.querySelector(".gslide.current");
-        const desc = slide?.querySelector(".gslide-description");
-        desc?.classList.add("gslide-desc-visible");
+        const desc = slide?.querySelector(
+          ".gslide-description"
+        ) as HTMLElement | null;
+        if (desc) {
+          if (!animate) {
+            desc.style.transition = "none";
+          }
+          desc.classList.add("gslide-desc-visible");
+          if (!animate) {
+            // Force reflow so the browser commits the change without transition
+            desc.offsetHeight;
+            desc.style.transition = "";
+          }
+        }
       }
     }
 
@@ -475,8 +487,39 @@ const { images, class: className } = Astro.props;
       clearMobileInlineHeight();
     });
 
+    lightbox.on(
+      "slide_before_change",
+      (data: { current: { slideIndex: number } }) => {
+        if (
+          !(descVisible && document.body.classList.contains("glightbox-mobile"))
+        ) {
+          return;
+        }
+        // data.current.slideNode is unreliable (GLightbox bug: still points to
+        // the old slide), so look up the incoming slide by index instead.
+        const slides = document.querySelectorAll("#glightbox-slider .gslide");
+        const nextSlide = slides[data.current.slideIndex];
+        const desc = nextSlide?.querySelector(
+          ".gslide-description"
+        ) as HTMLElement | null;
+        if (desc) {
+          desc.style.transition = "none";
+          desc.classList.add("gslide-desc-visible");
+          // Force reflow so the browser commits the class without transition
+          desc.offsetHeight;
+          desc.style.transition = "";
+        }
+      }
+    );
+
     lightbox.on("slide_changed", () => {
-      syncDescVisibility();
+      // Clean up: remove desc-visible from non-current slides (the previous one).
+      // The incoming slide's description was already applied in slide_before_change.
+      for (const d of document.querySelectorAll(
+        ".gslide:not(.current) .gslide-desc-visible"
+      )) {
+        d.classList.remove("gslide-desc-visible");
+      }
       clearMobileInlineHeight();
     });
 
