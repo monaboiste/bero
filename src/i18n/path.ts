@@ -8,8 +8,9 @@ import { routes } from "./routes";
 export function useTranslatedPath(lang: Lang) {
   return function translatePath(path: string, l: Lang = lang): string {
     const pathName = stripSlashes(path);
-    const translated = getTranslatedSlug(pathName, l);
-    const translatedPath = translated !== undefined ? `/${translated}` : path;
+    const translatedSlug = getTranslatedSlug(pathName, l);
+    const translatedPath =
+      translatedSlug !== undefined ? `/${translatedSlug}` : path;
     return `/${l}${translatedPath}`;
   };
 }
@@ -95,7 +96,7 @@ function stripSlashes(path: string): string {
 }
 
 function getTranslatedSlug(routeKey: string, lang: Lang): string | undefined {
-  return routes[lang]?.[routeKey];
+  return routes[lang]?.[routeKey]?.slug;
 }
 
 function findCanonicalKey(slug: string, lang: Lang): string | undefined {
@@ -103,7 +104,7 @@ function findCanonicalKey(slug: string, lang: Lang): string | undefined {
   if (!langRoutes) {
     return undefined;
   }
-  return Object.keys(langRoutes).find((key) => langRoutes[key] === slug);
+  return Object.keys(langRoutes).find((key) => langRoutes[key].slug === slug);
 }
 
 function extractLocaleFromPathname(pathname: string): string | undefined {
