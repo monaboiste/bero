@@ -46,7 +46,7 @@ export function getLang(currentLocale: string | undefined): Lang {
  * Returns a translation function `t(key)` for the given language.
  * Falls back to the default language if a key is missing.
  */
-export function useTranslations(lang: Lang) {
+export function getTranslations(lang: Lang) {
   return function t(key: TranslationKey): string {
     return ui[lang][key] ?? ui[defaultLang][key];
   };

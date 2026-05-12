@@ -3,60 +3,60 @@ import { describe, expect, test } from "vitest";
 import {
   getCanonicalBasePath,
   getRoute,
+  getTranslatedPath,
   stripLocalePrefix,
-  useTranslatedPath,
 } from "./path";
 
 describe("useTranslatedPath", () => {
   test("returns a function", () => {
-    const translatePath = useTranslatedPath("pl");
+    const translatePath = getTranslatedPath("pl");
     expect(typeof translatePath).toBe("function");
   });
 
   test("translates a known route for the default language", () => {
-    const translatePath = useTranslatedPath("pl");
+    const translatePath = getTranslatedPath("pl");
     expect(translatePath("privacy-policy")).toBe("/pl/polityka-prywatnosci");
   });
 
   test("translates a known route for English", () => {
-    const translatePath = useTranslatedPath("en");
+    const translatePath = getTranslatedPath("en");
     expect(translatePath("privacy-policy")).toBe("/en/privacy-policy");
   });
 
   test("translates a known route for German", () => {
-    const translatePath = useTranslatedPath("de");
+    const translatePath = getTranslatedPath("de");
     expect(translatePath("privacy-policy")).toBe("/de/datenschutzerklarung");
   });
 
   test("translates portfolio route (same slug across languages)", () => {
-    const translatePath = useTranslatedPath("en");
+    const translatePath = getTranslatedPath("en");
     expect(translatePath("portfolio")).toBe("/en/portfolio");
   });
 
   test("preserves unknown routes and adds locale prefix", () => {
-    const translatePath = useTranslatedPath("pl");
+    const translatePath = getTranslatedPath("pl");
     expect(translatePath("/unknown-page")).toBe("/pl/unknown-page");
   });
 
   test("overrides language via second parameter", () => {
-    const translatePath = useTranslatedPath("pl");
+    const translatePath = getTranslatedPath("pl");
     expect(translatePath("privacy-policy", "de")).toBe(
       "/de/datenschutzerklarung"
     );
   });
 
   test("handles path with leading slash for a known route", () => {
-    const translatePath = useTranslatedPath("de");
+    const translatePath = getTranslatedPath("de");
     expect(translatePath("/privacy-policy")).toBe("/de/datenschutzerklarung");
   });
 
   test("handles path with trailing slash for a known route", () => {
-    const translatePath = useTranslatedPath("de");
+    const translatePath = getTranslatedPath("de");
     expect(translatePath("privacy-policy/")).toBe("/de/datenschutzerklarung");
   });
 
   test("handles path with both leading and trailing slashes", () => {
-    const translatePath = useTranslatedPath("en");
+    const translatePath = getTranslatedPath("en");
     expect(translatePath("/portfolio/")).toBe("/en/portfolio");
   });
 });

@@ -5,7 +5,7 @@ import { routes } from "./routes";
  * Returns a function that prefixes paths with the locale and translates
  * known route segments to their locale-specific slugs.
  */
-export function useTranslatedPath(lang: Lang) {
+export function getTranslatedPath(lang: Lang) {
   return function translatePath(path: string, l: Lang = lang): string {
     const pathName = stripSlashes(path);
     const translatedSlug = getTranslatedSlug(pathName, l);
@@ -78,7 +78,7 @@ export function getAlternateUrls(
   const basePath = getCanonicalBasePath(url);
 
   return locales.map((locale) => {
-    const tp = useTranslatedPath(locale);
+    const tp = getTranslatedPath(locale);
     return { locale, href: tp(basePath, locale) };
   });
 }

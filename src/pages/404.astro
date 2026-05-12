@@ -1,15 +1,15 @@
 ---
 import NotFoundSvg from "@assets/404.svg";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import Layout from "@layouts/Layout.astro";
 import { Home } from "@lucide/astro";
 
 export const prerender = true;
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
 ---
 
 <Layout

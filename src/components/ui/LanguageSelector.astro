@@ -1,6 +1,6 @@
 ---
 import { getLang, type Lang, languages } from "@i18n/locale";
-import { getCanonicalBasePath, useTranslatedPath } from "@i18n/path";
+import { getCanonicalBasePath, getTranslatedPath } from "@i18n/path";
 import { Globe } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
@@ -9,7 +9,7 @@ interface Props extends JSX.HTMLAttributes {
 }
 
 const lang = getLang(Astro.currentLocale);
-const tp = useTranslatedPath(lang);
+const tp = getTranslatedPath(lang);
 
 const { variant = "dropdown", class: className } = Astro.props;
 

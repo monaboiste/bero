@@ -1,7 +1,7 @@
 ---
 import CompanyLogoSvg from "@assets/logo.svg";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {
@@ -10,8 +10,8 @@ interface Props extends JSX.HTMLAttributes {
 }
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
 
 const { variant = "light", size = "md", class: className } = Astro.props;
 

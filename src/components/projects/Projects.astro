@@ -1,13 +1,13 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import { createPortfolioApi } from "@lib/content/content";
 import ProjectCard from "./ProjectCard.astro";
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
 
 const portfolioApi = createPortfolioApi(lang);
 const projects = await portfolioApi.fetchPortfolioLatestProjects(3);

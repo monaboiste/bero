@@ -1,5 +1,5 @@
 ---
-import { getLang, getOgLocale, type Lang, useTranslations } from "@i18n/locale";
+import { getLang, getOgLocale, getTranslations, type Lang } from "@i18n/locale";
 import { getAlternateUrls, getCanonicalUrl, getSiteUrl } from "@i18n/path";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const siteUrl = getSiteUrl(Astro.site);
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
+const t = getTranslations(lang);
 
 const {
   title = t("seo.title"),

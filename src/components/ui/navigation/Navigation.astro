@@ -2,16 +2,16 @@
 import LanguageSelector from "@components/ui/LanguageSelector.astro";
 import Logo from "@components/ui/Logo.astro";
 import ThemeToggle from "@components/ui/ThemeToggle.astro";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import { Camera } from "@lucide/astro";
 import MobileMenu from "./MobileMenu.astro";
 import MobileMenuButton from "./MobileMenuButton.astro";
 import NavLinks from "./NavLinks.astro";
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
 
 const navItems = [
   { label: t("nav.home"), href: tp("/#home") },
