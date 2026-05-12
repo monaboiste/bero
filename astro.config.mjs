@@ -1,6 +1,7 @@
 // @ts-check
 
 import cloudflare from "@astrojs/cloudflare";
+import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
@@ -11,6 +12,7 @@ export default defineConfig({
   site: "https://studio-bero.com",
 
   integrations: [
+    react(),
     sitemap({
       filter: (page) => !page.includes("/404"),
       i18n: {
