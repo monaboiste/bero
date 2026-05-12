@@ -6,7 +6,7 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.astro", "**/*.test.ts"],
+      "includes": ["**/*.astro"],
       "linter": {
         "rules": {
           "style": {
@@ -16,10 +16,16 @@
       }
     },
     {
-      "includes": ["**/*.test.ts"],
+      "includes": ["**/*.test.ts", "**/*.test.tsx"],
       "linter": {
         "rules": {
-          "performance": "off"
+          "correctness": {
+            "useHookAtTopLevel": "off"
+          },
+          "performance": "off",
+          "style": {
+            "useFilenamingConvention": "off"
+          }
         }
       }
     },
@@ -28,7 +34,6 @@
       "linter": {
         "rules": {
           "style": {
-            "useFilenamingConvention": "off",
             "noRestrictedImports": {
               "level": "error",
               "options": {

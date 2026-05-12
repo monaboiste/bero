@@ -10,7 +10,7 @@ export function useTranslatedPath(lang: Lang) {
     const pathName = stripSlashes(path);
     const translatedSlug = getTranslatedSlug(pathName, l);
     const translatedPath =
-      translatedSlug !== undefined ? `/${translatedSlug}` : path;
+      translatedSlug === undefined ? path : `/${translatedSlug}`;
     return `/${l}${translatedPath}`;
   };
 }
