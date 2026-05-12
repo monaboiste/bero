@@ -1,12 +1,12 @@
 ---
-import { getLang, useTranslations } from "@i18n/locale";
+import { getLang, getTranslations } from "@i18n/locale";
 import { Moon, Sun } from "@lucide/astro";
 import type { JSX } from "astro/jsx-runtime";
 
 interface Props extends JSX.HTMLAttributes {}
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
+const t = getTranslations(lang);
 
 const { id = "theme-toggle", class: className } = Astro.props;
 ---

@@ -1,7 +1,7 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import { BUSINESS, BUSINESS_UNSTRUCTURED_ADDRESS } from "@lib/content/business";
 import { Mail, MapPin, Phone } from "@lucide/astro";
 import ContactForm from "./ContactForm.astro";
@@ -9,8 +9,8 @@ import ContactInfo from "./ContactInfo.astro";
 import MapEmbed from "./MapEmbed.astro";
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
 
 const SHOW_CONTACT_FORM = false;
 

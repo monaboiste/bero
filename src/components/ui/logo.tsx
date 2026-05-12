@@ -1,6 +1,6 @@
 import type { Lang } from "@i18n/locale";
-import { useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import type { ComponentType, SVGProps } from "react";
 
 export interface LogoProps {
@@ -52,8 +52,8 @@ export function Logo({
   className = "",
   "data-testid": dataTestId = "logo",
 }: Readonly<LogoProps>) {
-  const t = useTranslations(lang);
-  const tp = useTranslatedPath(lang);
+  const t = getTranslations(lang);
+  const tp = getTranslatedPath(lang);
   const sizeScheme = sizes[size];
 
   let primaryClass = "";

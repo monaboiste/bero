@@ -1,6 +1,6 @@
 ---
 import SectionHeader from "@components/ui/SectionHeader.astro";
-import { type Lang, useTranslations } from "@i18n/locale";
+import { getTranslations, type Lang } from "@i18n/locale";
 import Layout from "@layouts/Layout.astro";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const t = useTranslations(lang);
+const t = getTranslations(lang);
 ---
 
 <Layout

@@ -1,5 +1,5 @@
-import { getLang, useTranslations } from "./locale";
-import { getRoute, getSiteUrl, useTranslatedPath } from "./path";
+import { getLang, getTranslations } from "./locale";
+import { getRoute, getSiteUrl, getTranslatedPath } from "./path";
 import { routes } from "./routes";
 
 export interface BreadcrumbItem {
@@ -29,8 +29,8 @@ export function buildBreadcrumbs(
   }
 
   const lang = getLang(currentLocale);
-  const t = useTranslations(lang);
-  const tp = useTranslatedPath(lang);
+  const t = getTranslations(lang);
+  const tp = getTranslatedPath(lang);
   const siteUrl = getSiteUrl(site);
 
   const entry = routes[lang][routeKey];

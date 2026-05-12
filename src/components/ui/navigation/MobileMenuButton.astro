@@ -1,10 +1,10 @@
 ---
 import ThemeToggle from "@components/ui/ThemeToggle.astro";
-import { getLang, useTranslations } from "@i18n/locale";
+import { getLang, getTranslations } from "@i18n/locale";
 import { Menu, X } from "@lucide/astro";
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
+const t = getTranslations(lang);
 ---
 
 <div class="flex items-center space-x-2 lg:hidden">

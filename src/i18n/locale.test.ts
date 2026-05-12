@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { getLang, useTranslations } from "./locale";
+import { getLang, getTranslations } from "./locale";
 
 describe("getLang", () => {
   test("returns 'pl' for currentLocale 'pl'", () => {
@@ -30,27 +30,27 @@ describe("getLang", () => {
 
 describe("useTranslations", () => {
   test("returns a function", () => {
-    const t = useTranslations("pl");
+    const t = getTranslations("pl");
     expect(typeof t).toBe("function");
   });
 
   test("returns Polish translation for lang 'pl'", () => {
-    const t = useTranslations("pl");
+    const t = getTranslations("pl");
     expect(t("nav.home")).toBe("Strona główna");
   });
 
   test("returns English translation for lang 'en'", () => {
-    const t = useTranslations("en");
+    const t = getTranslations("en");
     expect(t("nav.home")).toBe("Home");
   });
 
   test("returns German translation for lang 'de'", () => {
-    const t = useTranslations("de");
+    const t = getTranslations("de");
     expect(t("nav.home")).toBe("Startseite");
   });
 
   test("different keys return different values", () => {
-    const t = useTranslations("en");
+    const t = getTranslations("en");
     expect(t("nav.home")).not.toBe(t("nav.projects"));
   });
 });

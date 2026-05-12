@@ -1,7 +1,7 @@
 ---
 import SocialLinks from "@components/ui/SocialLinks.astro";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
 import { BUSINESS } from "@lib/content/business";
 import Mail from "@lucide/astro/icons/mail";
 import Phone from "@lucide/astro/icons/phone";
@@ -10,8 +10,8 @@ import Instagram from "simple-icons-astro/Instagram";
 import FooterLinks from "./FooterLinks.astro";
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
 
 const currentYear = new Date().getFullYear();
 

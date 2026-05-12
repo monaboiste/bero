@@ -1,15 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import heroImage from "@assets/hero.webp";
-import { getLang, useTranslations } from "@i18n/locale";
-import { useTranslatedPath } from "@i18n/path";
-import { useRichText } from "@i18n/richtext";
+import { getLang, getTranslations } from "@i18n/locale";
+import { getTranslatedPath } from "@i18n/path";
+import { getRichText } from "@i18n/richtext";
 import { ArrowRight } from "@lucide/astro";
 
 const lang = getLang(Astro.currentLocale);
-const t = useTranslations(lang);
-const tp = useTranslatedPath(lang);
-const richText = useRichText(lang);
+const t = getTranslations(lang);
+const tp = getTranslatedPath(lang);
+const richText = getRichText(lang);
 ---
 
 <section

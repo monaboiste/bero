@@ -3,7 +3,7 @@ import { IntlMessageFormat } from "intl-messageformat";
 import { defaultLang, type Lang, type TranslationKey, ui } from "./locale";
 
 /**
- * A single segment of rich text produced by {@link useRichText}.
+ * A single segment of rich text produced by {@link getRichText}.
  * Plain text has only `text`; tagged text also carries the `tag` name
  * so the caller can apply styling per tag.
  */
@@ -24,7 +24,7 @@ export interface RichTextPart {
  * // [{ text: "Tapicerstwo w nowoczesnym wydaniu" }, { text: ".", tag: "accent" }]
  * ```
  */
-export function useRichText(lang: Lang) {
+export function getRichText(lang: Lang) {
   return function richText(
     key: TranslationKey,
     tags: string[] = []
