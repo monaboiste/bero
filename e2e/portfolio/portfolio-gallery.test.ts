@@ -50,34 +50,29 @@ test.describe("Projects portfolio", () => {
 
     await page.getByTestId("tag-filter-armchairs").click();
 
-    await expect(
-      page.locator('[data-testid="gallery-tile"].hidden').first()
-    ).toBeAttached();
+    // Wait for filtered state — fewer tiles than before
+    await expect(page.getByTestId("gallery-tile").first()).toBeAttached();
+    const filteredCount = await page.getByTestId("gallery-tile").count();
+    expect(filteredCount).toBeGreaterThan(0);
+    expect(filteredCount).toBeLessThan(allTilesBefore);
 
-    const visibleTiles = page.locator(
-      '[data-testid="gallery-tile"]:not(.hidden)'
-    );
-    const visibleCount = await visibleTiles.count();
-    expect(visibleCount).toBeGreaterThan(0);
-    expect(visibleCount).toBeLessThan(allTilesBefore);
-
-    for (const tile of await visibleTiles.all()) {
+    for (const tile of await page.getByTestId("gallery-tile").all()) {
       const tags = await tile.getAttribute("data-tags");
       expect(tags).toContain("armchairs");
     }
   });
 
   test("clicking All resets filter", async ({ page }) => {
+    const allTilesBefore = await page.getByTestId("gallery-tile").count();
+
     await page.getByTestId("tag-filter-restoration").click();
-    await expect(
-      page.locator('[data-testid="gallery-tile"].hidden').first()
-    ).toBeAttached();
+    const filteredCount = await page.getByTestId("gallery-tile").count();
+    expect(filteredCount).toBeLessThan(allTilesBefore);
 
     await page.getByTestId("tag-filter-all").click();
 
-    await expect(
-      page.locator('[data-testid="gallery-tile"].hidden')
-    ).toHaveCount(0);
+    const restoredCount = await page.getByTestId("gallery-tile").count();
+    expect(restoredCount).toBe(allTilesBefore);
   });
 
   test("tag filter updates URL query param", async ({ page }) => {
@@ -117,16 +112,12 @@ test.describe("Projects portfolio", () => {
     const chairsBtn = page.getByTestId("tag-filter-chairs");
     await expect(chairsBtn).toHaveAttribute("aria-pressed", "true");
 
-    await expect(
-      page.locator('[data-testid="gallery-tile"].hidden').first()
-    ).toBeAttached();
+    const tiles = page.getByTestId("gallery-tile");
+    await expect(tiles.first()).toBeAttached();
+    const tileCount = await tiles.count();
+    expect(tileCount).toBeGreaterThan(0);
 
-    const visibleTiles = page.locator(
-      '[data-testid="gallery-tile"]:not(.hidden)'
-    );
-    expect(await visibleTiles.count()).toBeGreaterThan(0);
-
-    for (const tile of await visibleTiles.all()) {
+    for (const tile of await tiles.all()) {
       const tags = await tile.getAttribute("data-tags");
       expect(tags).toContain("chairs");
     }
