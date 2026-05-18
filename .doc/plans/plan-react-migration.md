@@ -282,36 +282,56 @@ src/components/
 
 ---
 
-### Phase 3: Section Components
+### Phase 3: Section Components ✅ COMPLETED
 
-Each section receives `lang: Lang` as prop and internally calls `useTranslations(lang)`.
+Each section receives `lang: Lang` as prop and internally calls `getTranslations(lang)`.
 
-#### 3.1 — `hero/Hero.tsx`
+#### 3.1 — `hero/Hero.tsx` ✅
 
 - Full-screen hero with background image, animated title, dual CTAs
-- Uses motion/react for entrance animations
-- Image URL passed as prop from Astro page
+- Uses `motion/react` for mount entrance animations (no `useInView` — always above fold)
+- Image passed as `{ src, srcSet, sizes }` from Astro page via `getImage()`
+- Uses `getRichText(lang)` for `<accent>` tag in title
+- Uses `Button` component (primary + secondary variants)
+- `LuArrowRight` icon from `react-icons/lu`
+- Hydrated with `client:load` (above fold, critical for LCP)
+- 9 tests passing
 
-#### 3.2 — About section
+#### 3.2 — About section ✅
 
-- `about/ServiceCard.tsx` — service card with spring animation
-- `about/StatCard.tsx` — stat card with counter animation
-- `about/AboutServices.tsx` — services grid
-- `about/AboutStats.tsx` — stats grid
-- `about/StorySection.tsx` — two-column story
-- `about/About.tsx` — orchestrator
+- `about/ServiceCard.tsx` — decoration bar with `motion.div` scaleX animation (`useInView`) — 6 tests
+- `about/StatCard.tsx` — counter animation using `useMotionValue` + `useSpring` (React-idiomatic), fade-up entrance — 6 tests
+- `about/AboutServices.tsx` — spring stagger animation using `variants` pattern — 5 tests
+- `about/AboutStats.tsx` — 4-column grid of StatCard components — 5 tests
+- `about/StorySection.tsx` — dual slide animations + signature scale (`useInView`) — 7 tests
+- `about/About.tsx` — orchestrator with `LuClock`/`LuAward`/`LuUsers`/`LuHeart` icons — 9 tests
 
-#### 3.3 — Projects section
+#### 3.3 — Projects section ✅
 
-- `projects/ProjectCard.tsx` — uses Card component
-- `projects/Projects.tsx` — projects grid + CTA
+- `projects/ProjectCard.tsx` — wraps existing `Card` React component — 6 tests
+- `projects/Projects.tsx` — stagger animation via `variants`, `Button` for CTA — 8 tests
+- Data passed as props (fetched at build time in Astro page)
 
-#### 3.4 — Contact section
+#### 3.4 — Contact section ✅
 
-- `contact/MapEmbed.tsx` — iframe embed
-- `contact/ContactInfo.tsx` — info list with stagger animation
-- `contact/ContactForm.tsx` — form with state, validation, honeypot
-- `contact/Contact.tsx` — orchestrator
+- `contact/MapEmbed.tsx` — iframe embed with scale-in animation (`useInView`) — 7 tests
+- `contact/ContactInfo.tsx` — stagger slide-in via `variants` pattern, uses `IconBadge` — 6 tests
+- `contact/Contact.tsx` — orchestrator with `LuMapPin`/`LuPhone`/`LuMail` icons — 8 tests
+- **ContactForm removed** — not planned for use; removed from migration scope entirely
+
+#### Page Integration ✅
+
+- Updated `src/pages/[locale]/index.astro` to use React components with hydration directives
+- Hero: `client:load` | Projects, About, Contact: `client:visible`
+- Image optimization via Astro's `getImage()` in frontmatter, passed as props
+- Fixed `vitest.config.ts` to properly separate Astro (`.test.ts`) from React (`.test.tsx`) tests
+
+#### Animation Patterns (React-idiomatic) ✅
+
+- **Counter animation**: `useMotionValue` + `useSpring` + `spring.on("change")` for StatCard
+- **Stagger animations**: `variants` pattern with `containerVariants`/`itemVariants`
+- **Scroll-triggered**: `useInView` hook + declarative `animate` prop
+- **Mount entrance (Hero)**: Direct `initial`/`animate` without `useInView` (always in viewport)
 
 ---
 
