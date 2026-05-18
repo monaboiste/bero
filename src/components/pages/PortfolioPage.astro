@@ -1,7 +1,5 @@
 ---
-import { GridGallery } from "@components/ui/gallery/grid-gallery";
-import SectionHeader from "@components/ui/SectionHeader.astro";
-import TagFilter from "@components/ui/TagFilter.astro";
+import { PortfolioGallery } from "@components/pages/portfolio-gallery";
 import { getTranslations, type Lang } from "@i18n/locale";
 import Layout from "@layouts/Layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
@@ -21,6 +19,27 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
   key,
   label: t(`tags.${key}`),
 }));
+
+const images = portfolio.flatMap((project) =>
+  project.images.map((image) => ({
+    thumbnail: {
+      src: image.thumbnail,
+      alt: project.title,
+      width: 800,
+      height: Math.round(800 / image.aspectRatio),
+    },
+    url: image.url,
+    title: project.title,
+    description: project.description,
+    date: project.date,
+    tags: project.tags,
+    orientation: (image.aspectRatio > 1 ? "landscape" : "portrait") as
+      | "landscape"
+      | "portrait",
+  }))
+);
+
+const initialTag = Astro.url.searchParams.get("tag") ?? "";
 ---
 
 <Layout
@@ -29,127 +48,12 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
   mainClass="bg-secondary pt-36 pb-20"
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <SectionHeader
-      title={t("portfolio.title")}
-      subtitle={t("portfolio.subtitle")}
-      as="h1"
-    />
-
-    <TagFilter tags={tags} allLabel={t("portfolio.tagAll")} />
-
-    <GridGallery
+    <PortfolioGallery
       client:visible
-      images={portfolio.flatMap((project) =>
-        project.images.map((image) => ({
-          thumbnail: {
-            src: image.thumbnail,
-            alt: project.title,
-            width: 800,
-            height: Math.round(800 / image.aspectRatio),
-          },
-          url: image.url,
-          title: project.title,
-          description: project.description,
-          date: project.date,
-          tags: project.tags,
-          orientation: image.aspectRatio > 1 ? "landscape" as const : "portrait" as const,
-        }))
-      )}
+      lang={lang}
+      images={images}
+      tags={tags}
+      initialTag={initialTag}
     />
   </div>
 </Layout>
-
-<script>
-  function setupTagFilter(): void {
-    const TAG_PARAM = "tag";
-
-    const filterEl = document.querySelector('[data-testid="tag-filter"]');
-    const gallery = document.querySelector('[data-testid="gallery"]');
-    const hasElements = filterEl && gallery;
-
-    if (!hasElements) {
-      return;
-    }
-
-    const tagButtons =
-      filterEl.querySelectorAll<HTMLButtonElement>("[data-tag]");
-    const tiles = gallery.querySelectorAll<HTMLElement>(
-      "[data-testid='gallery-tile']"
-    );
-
-    function getActiveTag(): string {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(TAG_PARAM) ?? "";
-    }
-
-    function setActiveTag(tag: string): void {
-      const url = new URL(window.location.href);
-      if (tag) {
-        url.searchParams.set(TAG_PARAM, tag);
-      } else {
-        url.searchParams.delete(TAG_PARAM);
-      }
-      window.history.pushState({}, "", url.toString());
-    }
-
-    function updateButtonStates(activeTag: string): void {
-      for (const btn of tagButtons) {
-        const btnTag = btn.getAttribute("data-tag") ?? "";
-        const isActive = btnTag === activeTag;
-        btn.classList.toggle("tag-btn--active", isActive);
-        btn.setAttribute("aria-pressed", String(isActive));
-      }
-    }
-
-    function filterTiles(tag: string): void {
-      for (const tile of tiles) {
-        if (!tag) {
-          tile.classList.remove("hidden");
-          tile.style.opacity = "1";
-          tile.style.transform = "none";
-          continue;
-        }
-
-        const tileTags = tile.getAttribute("data-tags") ?? "";
-        const matches = tileTags.split(",").includes(tag);
-
-        if (matches) {
-          tile.classList.remove("hidden");
-          tile.style.opacity = "1";
-          tile.style.transform = "none";
-        } else {
-          tile.classList.add("hidden");
-        }
-      }
-    }
-
-    function applyFilter(tag: string): void {
-      setActiveTag(tag);
-      updateButtonStates(tag);
-      filterTiles(tag);
-    }
-
-    for (const btn of tagButtons) {
-      btn.addEventListener("click", () => {
-        const tag = btn.getAttribute("data-tag") ?? "";
-        applyFilter(tag);
-      });
-    }
-
-    window.addEventListener("popstate", () => {
-      const tag = getActiveTag();
-      updateButtonStates(tag);
-      filterTiles(tag);
-    });
-
-    // Apply initial filter from URL
-    const initialTag = getActiveTag();
-    if (initialTag) {
-      updateButtonStates(initialTag);
-      filterTiles(initialTag);
-    }
-  }
-
-  setupTagFilter();
-  document.addEventListener("astro:page-load", setupTagFilter);
-</script>
