@@ -337,21 +337,20 @@ Each section receives `lang: Lang` as prop and internally calls `getTranslations
 
 ### Phase 4: Page Components & Gallery
 
-#### 4.1 — `ui/gallery/GridGallery.tsx`
+#### 4.1 — `ui/gallery/grid-gallery.tsx`
 
 - GLightbox integration via `useEffect`
 - Custom pointer-event swipe navigation
 - Mobile description toggle
 - Scroll-triggered tile animations
 
-#### 4.2 — `pages/PortfolioPage.tsx`
+#### 4.2 — `pages/PortfolioPage.astro`
 
-- Gallery page with tag filtering
-- Orchestrates TagFilter + GridGallery
+- Stays as an Astro page, rename to `pages/portfolio.astro`
 
 #### 4.3 — `pages/PrivacyPolicyPage.tsx`
 
-- Static translated content page
+- Stays as an Astro page, rename to `pages/legal.astro`
 
 ---
 
