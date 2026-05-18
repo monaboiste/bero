@@ -5,27 +5,39 @@ import type { GalleryImage } from "./types";
 
 const sampleImages: GalleryImage[] = [
   {
-    thumbnail: "/img/photo1.jpg",
+    thumbnail: {
+      src: "/img/photo1.jpg",
+      alt: "Photo 1",
+      width: 800,
+      height: 600,
+    },
     url: "/img/photo1-full.jpg",
-    alt: "Photo 1",
     title: "First title",
     description: "First photo",
     date: "2025-01-15",
     tags: [],
   },
   {
-    thumbnail: "/img/photo2.jpg",
+    thumbnail: {
+      src: "/img/photo2.jpg",
+      alt: "Photo 2",
+      width: 800,
+      height: 600,
+    },
     url: "/img/photo2-full.jpg",
-    alt: "Photo 2",
     title: "Second title",
     description: "Second photo",
     date: "2025-02-20",
     tags: [],
   },
   {
-    thumbnail: "/img/photo3.jpg",
+    thumbnail: {
+      src: "/img/photo3.jpg",
+      alt: "Photo 3",
+      width: 800,
+      height: 600,
+    },
     url: "/img/photo3-full.jpg",
-    alt: "Photo 3",
     title: "Third title",
     description: "Third photo",
     date: "2025-03-10",
@@ -80,9 +92,13 @@ describe("GridGallery", () => {
   test("landscape tile has landscape class", () => {
     const images: GalleryImage[] = [
       {
-        thumbnail: "/img/photo1.jpg",
+        thumbnail: {
+          src: "/img/photo1.jpg",
+          alt: "Landscape",
+          width: 800,
+          height: 600,
+        },
         url: "/img/photo1-full.jpg",
-        alt: "Landscape",
         title: "Wide shot",
         description: "A wide photo",
         tags: [],
@@ -99,9 +115,13 @@ describe("GridGallery", () => {
   test("portrait tile does not have landscape class", () => {
     const images: GalleryImage[] = [
       {
-        thumbnail: "/img/photo1.jpg",
+        thumbnail: {
+          src: "/img/photo1.jpg",
+          alt: "Portrait",
+          width: 800,
+          height: 1067,
+        },
         url: "/img/photo1-full.jpg",
-        alt: "Portrait",
         title: "Tall shot",
         description: "A tall photo",
         tags: [],
@@ -145,27 +165,39 @@ describe("GridGallery", () => {
   test("tiles use custom gallery name when provided", () => {
     const images: GalleryImage[] = [
       {
-        thumbnail: "/img/p1.jpg",
+        thumbnail: {
+          src: "/img/p1.jpg",
+          alt: "Project A image 1",
+          width: 800,
+          height: 600,
+        },
         url: "/img/p1-full.jpg",
-        alt: "Project A image 1",
         title: "Project A",
         description: "Desc A",
         tags: [],
         gallery: "project-a",
       },
       {
-        thumbnail: "/img/p2.jpg",
+        thumbnail: {
+          src: "/img/p2.jpg",
+          alt: "Project A image 2",
+          width: 800,
+          height: 600,
+        },
         url: "/img/p2-full.jpg",
-        alt: "Project A image 2",
         title: "Project A",
         description: "Desc A",
         tags: [],
         gallery: "project-a",
       },
       {
-        thumbnail: "/img/p3.jpg",
+        thumbnail: {
+          src: "/img/p3.jpg",
+          alt: "Project B image 1",
+          width: 800,
+          height: 600,
+        },
         url: "/img/p3-full.jpg",
-        alt: "Project B image 1",
         title: "Project B",
         description: "Desc B",
         tags: [],
@@ -215,9 +247,13 @@ describe("GridGallery", () => {
   test("lightbox desc shows title and date badge when provided", () => {
     const images: GalleryImage[] = [
       {
-        thumbnail: "/img/p.jpg",
+        thumbnail: {
+          src: "/img/p.jpg",
+          alt: "Project",
+          width: 800,
+          height: 600,
+        },
         url: "",
-        alt: "Project",
         title: "Fotel klubowy",
         description: "Opis projektu",
         date: "2025-01-15",
@@ -236,5 +272,13 @@ describe("GridGallery", () => {
     expect(title?.textContent?.trim()).toBe("Fotel klubowy");
     expect(date?.textContent?.trim()).toBe("2025-01");
     expect(text?.textContent?.trim()).toBe("Opis projektu");
+  });
+
+  test("image has width and height attributes", () => {
+    render(<GridGallery images={sampleImages} />);
+
+    const img = screen.getByAltText("Photo 1");
+    expect(img).toHaveAttribute("width", "800");
+    expect(img).toHaveAttribute("height", "600");
   });
 });
