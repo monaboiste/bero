@@ -6,8 +6,11 @@ const defaultProps = {
   lang: "pl" as const,
   image: {
     src: "/_astro/hero.webp",
+    alt: "Ekskluzywna tapicerka",
     srcSet: "/_astro/hero-640.webp 640w, /_astro/hero-1024.webp 1024w",
     sizes: "100vw",
+    width: 1920,
+    height: 1280,
   },
 };
 

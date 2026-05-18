@@ -5,7 +5,12 @@ import { About } from "./about";
 describe("About", () => {
   const defaultProps = {
     lang: "pl" as const,
-    imageUrl: "https://example.com/about.webp",
+    image: {
+      src: "https://example.com/about.webp",
+      alt: "Rzemieślnik podczas pracy",
+      width: 1200,
+      height: 800,
+    },
   };
 
   test("renders section with correct id", () => {

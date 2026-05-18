@@ -1,25 +1,20 @@
 "use client";
 
+import type { OptimisedImage } from "@components/ui/types";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
 export interface StorySectionProps {
   story: string;
   mission: string;
-  imageUrl: string;
-  imageAlt?: string;
-  imageWidth?: number;
-  imageHeight?: number;
+  image: OptimisedImage;
   "data-testid"?: string;
 }
 
 export function StorySection({
   story,
   mission,
-  imageUrl,
-  imageAlt = "",
-  imageWidth,
-  imageHeight,
+  image,
   "data-testid": dataTestId = "about-story",
 }: Readonly<StorySectionProps>) {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,15 +27,17 @@ export function StorySection({
       ref={ref}
     >
       <motion.img
-        alt={imageAlt}
+        alt={image.alt}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         className="h-auto w-full rounded-lg shadow-xl"
-        height={imageHeight}
+        height={image.height}
         initial={{ opacity: 0, x: -50 }}
         loading="lazy"
-        src={imageUrl}
+        sizes={image.sizes}
+        src={image.src}
+        srcSet={image.srcSet}
         transition={{ duration: 0.8 }}
-        width={imageWidth}
+        width={image.width}
       />
 
       <div>
