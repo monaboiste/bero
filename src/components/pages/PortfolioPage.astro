@@ -41,14 +41,18 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
       client:visible
       images={portfolio.flatMap((project) =>
         project.images.map((image) => ({
-          thumbnail: image.thumbnail,
+          thumbnail: {
+            src: image.thumbnail,
+            alt: project.title,
+            width: 800,
+            height: Math.round(800 / image.aspectRatio),
+          },
           url: image.url,
-          alt: project.title,
           title: project.title,
           description: project.description,
           date: project.date,
           tags: project.tags,
-          orientation: image.aspectRatio > 1 ? "landscape" : "portrait",
+          orientation: image.aspectRatio > 1 ? "landscape" as const : "portrait" as const,
         }))
       )}
     />
