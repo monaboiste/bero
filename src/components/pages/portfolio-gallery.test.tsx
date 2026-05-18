@@ -122,15 +122,16 @@ describe("PortfolioGallery", () => {
     expect(screen.getAllByTestId("gallery-tile")).toHaveLength(4);
   });
 
-  test("applies initial tag from props", () => {
-    render(
-      <PortfolioGallery
-        images={testImages}
-        initialTag="chairs"
-        lang="pl"
-        tags={testTags}
-      />
-    );
+  test("applies initial tag from URL on mount", () => {
+    Object.defineProperty(window, "location", {
+      value: {
+        href: "http://localhost/pl/portfolio?tag=chairs",
+        search: "?tag=chairs",
+      },
+      writable: true,
+    });
+
+    render(<PortfolioGallery images={testImages} lang="pl" tags={testTags} />);
 
     const tiles = screen.getAllByTestId("gallery-tile");
     expect(tiles).toHaveLength(1);
