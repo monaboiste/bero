@@ -9,6 +9,8 @@ export default getViteConfig({
   test: {
     environment: "happy-dom",
     globals: true,
+    include: ["src/**/*.test.ts"],
+    exclude: ["src/**/*.test.tsx", "e2e/**"],
     environmentOptions: {
       happyDOM: {
         settings: {

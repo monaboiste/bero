@@ -1,21 +1,66 @@
 ---
-import About from "@components/about/About.astro";
-import Contact from "@components/contact/Contact.astro";
-import Hero from "@components/hero/Hero.astro";
-import Projects from "@components/projects/Projects.astro";
-import { locales } from "@i18n/locale";
+import { getImage } from "astro:assets";
+import aboutImage from "@assets/about.webp";
+import heroImage from "@assets/hero.webp";
+import { About } from "@components/about/about";
+import { Contact } from "@components/contact/contact";
+import { Hero } from "@components/hero/hero";
+import { Projects } from "@components/projects/projects";
+import { getLang, locales } from "@i18n/locale";
 import Layout from "@layouts/Layout.astro";
+import { createPortfolioApi } from "@lib/content/content";
 
 export const prerender = true;
 
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
 }
+
+const lang = getLang(Astro.currentLocale);
+
+const heroImg = await getImage({
+  src: heroImage,
+  format: "webp",
+  widths: [640, 1024, 1600, 1920],
+  sizes: "100vw",
+});
+
+const aboutImg = await getImage({
+  src: aboutImage,
+  format: "webp",
+  widths: [400, 800, 1200],
+  sizes: "(max-width: 768px) 100vw, 50vw",
+});
+
+const portfolioApi = createPortfolioApi(lang);
+const latestProjects = await portfolioApi.fetchPortfolioLatestProjects(3);
+const projectsData = latestProjects.map((project) => ({
+  title: project.title,
+  excerpt: project.excerpt,
+  date: project.date,
+  image: project.images[0]?.url ?? "",
+}));
 ---
 
 <Layout>
-  <Hero />
-  <Projects />
-  <About />
-  <Contact />
+  <Hero
+    client:load
+    lang={lang}
+    image={{
+      src: heroImg.src,
+      srcSet: heroImg.srcSet.attribute,
+      sizes: heroImg.attributes.sizes,
+      width: heroImg.attributes.width,
+      height: heroImg.attributes.height,
+    }}
+  />
+  <Projects client:visible lang={lang} projects={projectsData} />
+  <About
+    client:visible
+    lang={lang}
+    imageUrl={aboutImg.src}
+    imageWidth={aboutImg.attributes.width}
+    imageHeight={aboutImg.attributes.height}
+  />
+  <Contact client:visible lang={lang} />
 </Layout>
