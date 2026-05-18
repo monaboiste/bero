@@ -1,5 +1,5 @@
 ---
-import GridGallery from "@components/ui/gallery/GridGallery.astro";
+import { GridGallery } from "@components/ui/gallery/grid-gallery";
 import SectionHeader from "@components/ui/SectionHeader.astro";
 import TagFilter from "@components/ui/TagFilter.astro";
 import { getTranslations, type Lang } from "@i18n/locale";
@@ -38,6 +38,7 @@ const tags = PORTFOLIO_TAG_KEYS.map((key) => ({
     <TagFilter tags={tags} allLabel={t("portfolio.tagAll")} />
 
     <GridGallery
+      client:visible
       images={portfolio.flatMap((project) =>
         project.images.map((image) => ({
           thumbnail: image.thumbnail,
