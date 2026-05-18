@@ -1,7 +1,8 @@
+import type { OptimisedImage } from "@components/ui/types";
+
 export interface GalleryImage {
-  thumbnail: string;
+  thumbnail: OptimisedImage;
   url: string;
-  alt: string;
   description: string;
   title: string;
   date?: string;
