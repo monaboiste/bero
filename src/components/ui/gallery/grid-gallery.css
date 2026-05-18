@@ -1,0 +1,228 @@
+@import "glightbox/dist/css/glightbox.min.css";
+
+/* Grid layout */
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: dense;
+  gap: 0.75rem;
+}
+
+.gallery-tile-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.gallery-tile {
+  height: 100%;
+}
+
+.gallery-tile img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* 2-column layout */
+@media (min-width: 640px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 260px;
+    gap: 0.75rem;
+  }
+
+  .gallery-tile--landscape {
+    grid-column: span 2;
+  }
+}
+
+/* 3-column layout */
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 300px;
+    gap: 0.75rem;
+  }
+}
+
+/* 4-column layout */
+@media (min-width: 1440px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 320px;
+  }
+}
+
+/* GLightbox skin: .glightbox-bero */
+
+.glightbox-bero .gslide-media img,
+.glightbox-bero .gslide-image img {
+  border-radius: var(--radius);
+}
+
+.glightbox-bero .gslide-description.description-bottom {
+  background: var(--popover);
+  border-radius: var(--radius);
+  margin-top: 0.75rem;
+  max-width: 700px;
+  max-height: 25vh;
+  overflow-y: auto;
+}
+
+/* Hide the built-in title — we render our own inside the description */
+.glightbox-bero .gslide-title {
+  display: none;
+}
+
+/* Mobile lightbox: description slides up from bottom on tap. */
+.glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin-top: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: rgba(0, 0, 0, 0.85);
+  transform: translateY(100%);
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.glightbox-mobile
+  .glightbox-container.glightbox-bero
+  .gslide-description.gslide-desc-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Mobile lightbox: fit images to their longest edge without cropping. */
+.glightbox-mobile .glightbox-container.glightbox-bero .gslide-image img {
+  object-fit: contain;
+}
+
+.glightbox-bero .gdesc-inner {
+  padding: 22px 24px;
+}
+
+.glightbox-bero .gslide-desc {
+  font-family: var(--font-sans);
+  color: var(--muted-foreground);
+  font-size: 0.86em;
+  margin-bottom: 0;
+  line-height: 1.4em;
+}
+
+/* Custom description layout */
+
+.lightbox-desc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lightbox-desc-title {
+  font-family: var(--font-sans);
+  font-size: 1.35em;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.lightbox-desc-date {
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8em;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  padding: 0.2em 0.65em;
+  border-radius: 9999px;
+  line-height: 1.5;
+  margin-top: 0.2em;
+}
+
+.lightbox-desc-text {
+  font-family: var(--font-sans);
+  color: var(--muted-foreground);
+  font-size: 1.05em;
+  line-height: 1.55em;
+  margin: 0.5em 0 0;
+}
+
+/* Mobile lightbox: light-on-dark text overrides */
+.glightbox-mobile .glightbox-container.glightbox-bero .lightbox-desc-title {
+  color: #fff;
+}
+
+.glightbox-mobile .glightbox-container.glightbox-bero .lightbox-desc-text {
+  color: #a1a1a1;
+}
+
+.glightbox-bero .gbtn {
+  background-color: rgba(0, 0, 0, 0.2);
+  fill: var(--muted-foreground);
+  border-radius: var(--radius);
+  transition: background-color 0.3s ease;
+}
+
+.glightbox-bero .gbtn:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.glightbox-bero .gprev {
+  position: absolute;
+  top: -100%;
+  left: 30px;
+  width: 40px;
+  height: 50px;
+}
+
+.glightbox-bero .gnext {
+  position: absolute;
+  top: -100%;
+  right: 30px;
+  width: 40px;
+  height: 50px;
+}
+
+.glightbox-bero .gclose {
+  width: 35px;
+  height: 35px;
+  top: 15px;
+  right: 10px;
+  position: absolute;
+}
+
+.glightbox-bero .gclose svg {
+  width: 18px;
+  height: auto;
+}
+
+@media (min-width: 769px) {
+  .glightbox-bero .ginner-container {
+    padding: 2rem;
+  }
+
+  .glightbox-bero .gprev {
+    top: 45%;
+  }
+
+  .glightbox-bero .gnext {
+    top: 45%;
+  }
+}
+
+@media (min-width: 992px) {
+  .glightbox-bero .gclose {
+    opacity: 0.7;
+    right: 20px;
+  }
+}
