@@ -6,7 +6,7 @@ import { About } from "@components/about/about";
 import { Contact } from "@components/contact/contact";
 import { Hero } from "@components/hero/hero";
 import { Projects } from "@components/projects/projects";
-import { getLang, locales } from "@i18n/locale";
+import { getLang, getTranslations, locales } from "@i18n/locale";
 import Layout from "@layouts/Layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 
@@ -17,6 +17,7 @@ export function getStaticPaths() {
 }
 
 const lang = getLang(Astro.currentLocale);
+const t = getTranslations(lang);
 
 const heroImg = await getImage({
   src: heroImage,
@@ -48,6 +49,7 @@ const projectsData = latestProjects.map((project) => ({
     lang={lang}
     image={{
       src: heroImg.src,
+      alt: t("hero.imageAlt"),
       srcSet: heroImg.srcSet.attribute,
       sizes: heroImg.attributes.sizes,
       width: heroImg.attributes.width,
@@ -58,9 +60,14 @@ const projectsData = latestProjects.map((project) => ({
   <About
     client:visible
     lang={lang}
-    imageUrl={aboutImg.src}
-    imageWidth={aboutImg.attributes.width}
-    imageHeight={aboutImg.attributes.height}
+    image={{
+      src: aboutImg.src,
+      alt: t("about.craftImageAlt"),
+      srcSet: aboutImg.srcSet.attribute,
+      sizes: aboutImg.attributes.sizes,
+      width: aboutImg.attributes.width,
+      height: aboutImg.attributes.height,
+    }}
   />
   <Contact client:visible lang={lang} />
 </Layout>

@@ -1,6 +1,7 @@
 "use client";
 
 import { SectionHeader } from "@components/ui/section-header";
+import type { OptimisedImage } from "@components/ui/types";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { LuAward, LuClock, LuHeart, LuUsers } from "react-icons/lu";
@@ -10,17 +11,10 @@ import { StorySection } from "./story-section";
 
 export interface AboutProps {
   lang: Lang;
-  imageUrl: string;
-  imageWidth?: number;
-  imageHeight?: number;
+  image: OptimisedImage;
 }
 
-export function About({
-  lang,
-  imageUrl,
-  imageWidth,
-  imageHeight,
-}: Readonly<AboutProps>) {
+export function About({ lang, image }: Readonly<AboutProps>) {
   const t = getTranslations(lang);
 
   const stats = [
@@ -77,10 +71,7 @@ export function About({
           title={t("about.title")}
         />
         <StorySection
-          imageAlt={t("about.craftImageAlt")}
-          imageHeight={imageHeight}
-          imageUrl={imageUrl}
-          imageWidth={imageWidth}
+          image={image}
           mission={t("about.mission")}
           story={t("about.story")}
         />

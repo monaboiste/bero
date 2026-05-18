@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@components/ui/button";
+import type { OptimisedImage } from "@components/ui/types";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
@@ -8,17 +9,9 @@ import { getRichText } from "@i18n/richtext";
 import { motion } from "motion/react";
 import { LuArrowRight } from "react-icons/lu";
 
-export interface HeroImage {
-  src: string;
-  srcSet?: string;
-  sizes?: string;
-  width?: number;
-  height?: number;
-}
-
 export interface HeroProps {
   lang: Lang;
-  image: HeroImage;
+  image: OptimisedImage;
 }
 
 export function Hero({ lang, image }: Readonly<HeroProps>) {
@@ -39,7 +32,7 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
         transition={{ duration: 1.5 }}
       >
         <img
-          alt={t("hero.imageAlt")}
+          alt={image.alt}
           className="h-full w-full object-cover object-[15%] md:object-left"
           height={image.height}
           loading="eager"

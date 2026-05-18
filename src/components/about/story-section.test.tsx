@@ -5,8 +5,12 @@ import { StorySection } from "./story-section";
 const defaultProps = {
   story: "Studio Tapicerskie BERO to rodzinna pracownia.",
   mission: "Przywracamy meblom ich wyjątkowy charakter.",
-  imageUrl: "https://example.com/about.webp",
-  imageAlt: "Rzemieślnik podczas pracy",
+  image: {
+    src: "https://example.com/about.webp",
+    alt: "Rzemieślnik podczas pracy",
+    width: 1200,
+    height: 800,
+  },
 };
 
 describe("StorySection", () => {
