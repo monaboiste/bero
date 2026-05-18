@@ -3,8 +3,9 @@
 ## Overview
 
 Migrate all 39 Astro components to React, incrementally (one by one). Use Tailwind for styling, `motion/react` for
-animations, `lucide-react` for icons, and `@testing-library/react` for unit tests. All interactive components are fully
-custom (no headless UI library). Layout/SEO/Page wrappers stay in Astro; sections and UI components become React.
+animations, `react-icons` for icons (unified library: `react-icons/lu` for Lucide, `react-icons/si` for Simple Icons),
+and `@testing-library/react` for unit tests. All interactive components are fully custom (no headless UI library).
+Layout/SEO/Page wrappers stay in Astro; sections and UI components become React.
 
 ---
 
@@ -16,7 +17,7 @@ custom (no headless UI library). Layout/SEO/Page wrappers stay in Astro; section
 | UI components + sections       | **Migrate to React**                                                                                         |
 | Hydration                      | **`client:visible`** (lazy hydration for sections below fold), `client:load` for Navigation                  |
 | Animations                     | **`motion/react`** (`<motion.div>`, `useInView`)                                                             |
-| Icons                          | **`lucide-react`** (replaces `@lucide/astro`)                                                                |
+| Icons                          | **`react-icons`** (`react-icons/lu` for Lucide, `react-icons/si` for Simple Icons) — unified icon library  |
 | Component library              | **Custom components** (fully custom with manual a11y; may adopt Base UI in the future)                       |
 | Testing                        | **`@testing-library/react`** + Vitest (React components), keep AstroContainer for remaining Astro components |
 | Build mode                     | **SSG** (static site generation)                                                                             |
@@ -43,7 +44,7 @@ custom (no headless UI library). Layout/SEO/Page wrappers stay in Astro; section
 ### Production
 
 ```
-lucide-react
+react-icons
 ```
 
 ### Development
@@ -81,31 +82,32 @@ Scripts:
 ```txt
 src/components/
 ├── ui/                          # Generic, reusable React components
-│   ├── Button.tsx              # CTA button (link-style and submit)
-│   ├── Card.tsx                # Image card with hover effects
-│   ├── IconBadge.tsx           # Rounded icon container
-│   ├── Logo.tsx                # Company logo component
-│   ├── SectionHeader.tsx       # Section title + decoration
-│   ├── SocialLinks.tsx         # Social media links
-│   ├── TagFilter.tsx           # Tag filter buttons (interactive)
-│   ├── ThemeToggle.tsx         # Dark/light toggle (interactive)
-│   ├── LanguageSelector.tsx    # Language switcher (interactive, custom dropdown)
+│   ├── button.tsx              # CTA button (link-style and submit)
+│   ├── card.tsx                # Image card with hover effects
+│   ├── icon-badge.tsx          # Rounded icon container
+│   ├── logo.tsx                # Company logo component
+│   ├── section-header.tsx      # Section title + decoration
+│   ├── social-links.tsx        # Social media links
+│   ├── tag-filter.tsx          # Tag filter buttons (interactive)
+│   ├── theme-toggle.tsx        # Dark/light toggle (interactive)
+│   ├── language-selector.tsx   # Language switcher (interactive, custom dropdown)
 │   ├── navigation/
-│   │   ├── Navigation.tsx      # Main nav bar (interactive)
-│   │   ├── NavLinks.tsx        # Reusable link list
-│   │   ├── MobileMenu.tsx      # Mobile menu panel (interactive, custom + focus trap)
-│   │   └── MobileMenuButton.tsx
+│   │   ├── types.ts            # Shared NavItem interface
+│   │   ├── navigation.tsx      # Main nav bar (interactive)
+│   │   ├── nav-links.tsx       # Reusable link list
+│   │   ├── mobile-menu.tsx     # Mobile menu panel (interactive, custom + focus trap)
+│   │   └── mobile-menu-button.tsx
 │   ├── footer/
-│   │   ├── Footer.tsx          # Site footer
-│   │   └── FooterLinks.tsx     # Footer link section
+│   │   ├── footer.tsx          # Site footer
+│   │   └── footer-links.tsx    # Footer link section
 │   ├── form/
-│   │   ├── FormField.tsx
-│   │   └── FormStatus.tsx
+│   │   ├── form-field.tsx
+│   │   └── form-status.tsx
 │   └── gallery/
 │       └── GridGallery.tsx     # Gallery with GLightbox (interactive)
 ├── hooks/
-│   ├── useFocusTrap.ts         # Focus trap hook for MobileMenu
-│   └── useTheme.ts            # Theme toggle hook (classList + localStorage)
+│   ├── use-focus-trap.ts       # Focus trap hook for MobileMenu
+│   └── use-theme.ts            # Theme toggle hook (classList + localStorage)
 ├── hero/
 │   └── Hero.tsx                # Hero section
 ├── about/
@@ -145,7 +147,7 @@ src/components/
 
 #### 1.1 — `ui/IconBadge.tsx` ✅
 
-- Accepts `icon` (Lucide icon component), `size` (sm/md/lg)
+- Accepts `icon` (`IconType` from `react-icons`), `size` (sm/md/lg)
 - Pure presentational, no interactivity
 - 6 tests passing
 
@@ -164,7 +166,7 @@ src/components/
 #### 1.4 — `ui/SocialLinks.tsx` ✅
 
 - Accepts `links` array with `{ href, icon, label }`
-- Uses generic `ComponentType<SVGProps>` for icons (works with lucide-react and custom SVGs)
+- Uses `IconType` from `react-icons` for icons (works with any react-icons set)
 - 9 tests passing
 
 #### 1.5 — `ui/Card.tsx` ✅
@@ -193,66 +195,90 @@ src/components/
 
 ---
 
-### Phase 2: Interactive UI Components
+### Phase 2: Interactive UI Components ✅ COMPLETED
 
-#### 2.0 — `hooks/useFocusTrap.ts`
+#### 2.0 — `hooks/use-focus-trap.ts` ✅
 
 - Custom hook that traps focus within a container element when active
 - Handles Tab / Shift+Tab cycling, restores focus on deactivation
-- ~25 lines, no external deps
-- Test: focus cycles within trap, Escape callback
+- Supports `onEscape` callback
+- 6 tests passing
 
-#### 2.1 — `ui/ThemeToggle.tsx`
+#### 2.1 — `hooks/use-theme.ts` ✅
 
-- Uses custom `useTheme` hook (reads/writes classList + localStorage)
-- Uses lucide-react `Sun`/`Moon` icons
-- Test: toggles theme on click
+- Custom hook: reads/writes `dark` class on `document.documentElement` + `localStorage`
+- Returns `{ isDark, toggle }`
+- 4 tests passing
 
-#### 2.2 — `ui/LanguageSelector.tsx`
+#### 2.2 — `ui/theme-toggle.tsx` ✅
+
+- Uses custom `useTheme` hook
+- Uses `LuSun`/`LuMoon` from `react-icons/lu`
+- Accepts `lang`, `id?`, `className?`
+- 6 tests passing
+
+#### 2.3 — `ui/language-selector.tsx` ✅
 
 - Custom dropdown: `useState` for open/close, positioned div overlay
 - Keyboard navigation (ArrowUp/Down, Escape, Enter), `aria-expanded`/`aria-haspopup`
 - Inline buttons mode for mobile
+- Uses `window.location.pathname` to compute `basePath` at runtime
 - Accepts `lang`, `variant` (dropdown/inline)
-- Test: shows current language, opens menu, keyboard nav works
+- 12 tests passing
 
-#### 2.3 — `ui/TagFilter.tsx`
+#### 2.4 — `ui/tag-filter.tsx` ✅
 
-- Accepts `tags`, `activeTag`, `onTagChange`
-- Test: highlights active tag, calls callback
+- Accepts `tags`, `activeTag`, `onTagChange`, `allLabel?`
+- Fully controlled component, uses `aria-pressed`
+- Tailwind styling (replaces CSS variables from Astro version)
+- 6 tests passing
 
-#### 2.4 — `ui/navigation/NavLinks.tsx`
+#### 2.5 — `ui/navigation/nav-links.tsx` ✅
 
-- Static link list, row or column direction
-- Test: renders all nav items
+- Shared `NavItem` type in `navigation/types.ts`
+- Row or column direction, highlight variant with icon
+- `onLinkClick` callback for MobileMenu close-on-navigate
+- 7 tests passing
 
-#### 2.5 — `ui/navigation/MobileMenuButton.tsx`
+#### 2.6 — `ui/navigation/mobile-menu-button.tsx` ✅
 
-- Triggers mobile menu open state
-- Test: renders button, calls toggle
+- Shows `LuMenu`/`LuX` based on `isOpen` prop
+- `aria-expanded`, `aria-label` from i18n
+- 5 tests passing
 
-#### 2.6 — `ui/navigation/MobileMenu.tsx`
+#### 2.7 — `ui/navigation/mobile-menu.tsx` ✅
 
-- Custom slide-in panel with CSS transitions (transform + opacity)
 - Uses `useFocusTrap` hook when open
-- Sets `aria-hidden` on main content when open
-- Test: opens/closes, renders nav links, focus trapped
+- Composes NavLinks (column) + LanguageSelector (inline)
+- Calls `onClose` on link click and Escape
+- 6 tests passing
 
-#### 2.7 — `ui/navigation/Navigation.tsx`
+#### 2.8 — `ui/navigation/navigation.tsx` ✅
 
 - Orchestrates all nav sub-components
 - Manages mobile open state via `useState`
-- Test: renders logo, nav links, controls
+- ThemeToggle rendered separately (clean composition, not bundled in MobileMenuButton)
+- 8 tests passing
 
-#### 2.8 — `ui/footer/FooterLinks.tsx`
+#### 2.9 — `ui/footer/footer-links.tsx` ✅
 
 - Link list section with title
-- Test: renders title and links
+- `getTestId()` helper strips locale prefix from href
+- 4 tests passing
 
-#### 2.9 — `ui/footer/Footer.tsx`
+#### 2.10 — `ui/footer/footer.tsx` ✅
 
-- Full footer composition
-- Test: renders about text, social links, link sections, copyright
+- Full footer composition with i18n + BUSINESS constants
+- Uses `SiFacebook`, `SiInstagram` from `react-icons/si`
+- Uses `LuPhone`, `LuMail` from `react-icons/lu`
+- 9 tests passing
+
+#### Icon Library Migration (included in Phase 2) ✅
+
+- Replaced `lucide-react` with `react-icons` (unified library)
+- Updated `icon-badge.tsx`: `LucideIcon` → `IconType` from `react-icons`
+- Updated `social-links.tsx`: `ComponentType<SVGProps>` → `IconType` from `react-icons`
+- All Phase 1 tests updated and passing with new imports
 
 ---
 
@@ -315,7 +341,7 @@ Each section receives `lang: Lang` as prop and internally calls `useTranslations
 - Remove old `.astro` component files (once React equivalents are verified)
 - Update test configuration
 - Run E2E tests to verify no regressions
-- Remove `@lucide/astro` and `simple-icons-astro` from dependencies
+- Remove `@lucide/astro` and `simple-icons-astro` from dependencies (React uses `react-icons` instead)
 
 ---
 
