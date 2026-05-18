@@ -27,8 +27,10 @@ const { images, class: className } = Astro.props;
         >
           <div class="gallery-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
             <img
-              src={image.thumbnail}
-              alt={image.alt}
+              src={image.thumbnail.src}
+              alt={image.thumbnail.alt}
+              width={image.thumbnail.width}
+              height={image.thumbnail.height}
               loading="lazy"
               class="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />

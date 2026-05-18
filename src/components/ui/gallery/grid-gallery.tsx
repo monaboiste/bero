@@ -301,12 +301,15 @@ export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
             whileInView={{ opacity: 1, y: 0 }}
           >
             <div className="gallery-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
-              {/* biome-ignore lint/correctness/useImageSize: dimensions controlled by grid-auto-rows container */}
               <img
-                alt={image.alt}
+                alt={image.thumbnail.alt}
                 className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                height={image.thumbnail.height}
                 loading="lazy"
-                src={image.thumbnail}
+                sizes={image.thumbnail.sizes}
+                src={image.thumbnail.src}
+                srcSet={image.thumbnail.srcSet}
+                width={image.thumbnail.width}
               />
               <div
                 className="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-black/80 to-transparent px-3 pt-8 pb-3 transition-transform duration-300 group-hover:translate-y-0"
