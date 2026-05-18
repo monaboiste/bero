@@ -1,7 +1,7 @@
-import type { LucideIcon } from "lucide-react";
+import type { IconType } from "react-icons";
 
 export interface IconBadgeProps {
-  icon: LucideIcon;
+  icon: IconType;
   size?: "sm" | "md" | "lg";
   className?: string;
   "data-testid"?: string;

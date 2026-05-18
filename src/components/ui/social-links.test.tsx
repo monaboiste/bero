@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import { Heart, Mail, Star } from "lucide-react";
+import { LuHeart, LuMail, LuStar } from "react-icons/lu";
 import { describe, expect, test } from "vitest";
 import { SocialLinks } from "./social-links";
 
 const mockLinks = [
-  { icon: Heart, href: "https://facebook.com/bero", label: "Facebook" },
-  { icon: Mail, href: "https://instagram.com/bero", label: "Instagram" },
+  { icon: LuHeart, href: "https://facebook.com/bero", label: "Facebook" },
+  { icon: LuMail, href: "https://instagram.com/bero", label: "Instagram" },
 ];
 
 describe("SocialLinks", () => {
@@ -78,7 +78,7 @@ describe("SocialLinks", () => {
   test("renders three links", () => {
     const threeLinks = [
       ...mockLinks,
-      { icon: Star, href: "https://twitter.com/bero", label: "Twitter" },
+      { icon: LuStar, href: "https://twitter.com/bero", label: "Twitter" },
     ];
     render(<SocialLinks links={threeLinks} />);
 

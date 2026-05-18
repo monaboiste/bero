@@ -1,7 +1,7 @@
-import type { ComponentType, SVGProps } from "react";
+import type { IconType } from "react-icons";
 
 export interface SocialLink {
-  icon: ComponentType<SVGProps<SVGSVGElement> & { className?: string }>;
+  icon: IconType;
   href: string;
   label: string;
 }
