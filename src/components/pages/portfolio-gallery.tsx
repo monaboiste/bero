@@ -26,6 +26,16 @@ export function PortfolioGallery({
   const t = getTranslations(lang);
   const [activeTag, setActiveTag] = useState(initialTag);
 
+  // On mount, sync state from the actual URL (initialTag may be empty
+  // for statically prerendered pages where Astro.url has no query params).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlTag = params.get(TAG_PARAM) ?? "";
+    if (urlTag !== initialTag) {
+      setActiveTag(urlTag);
+    }
+  }, [initialTag]);
+
   const handleTagChange = useCallback((tag: string) => {
     setActiveTag(tag);
     const url = new URL(window.location.href);
