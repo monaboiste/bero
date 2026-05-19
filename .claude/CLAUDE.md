@@ -14,7 +14,8 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 - Focus comments on 'why' not 'what' - assume code readability through well-named functions and variables.
 - Proactively address edge cases, race conditions, and security considerations without being prompted.
 - When debugging, provide targeted diagnostic approaches rather than shotgun solutions.
-- Suggest comprehensive testing strategies rather than just example tests, including considerations for mocking, test organization, and coverage.
+- Suggest comprehensive testing strategies rather than just example tests, including considerations for mocking, test
+  organization, and coverage.
 
 ### Guidelines for STATIC_ANALYSIS
 
@@ -117,16 +118,30 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 #### VITEST
 
 - Test only top-level components - child components are tested indirectly.
-- Leverage the `vi` object for test doubles - Use `vi.fn()` for function mocks, `vi.spyOn()` to monitor existing functions, and `vi.stubGlobal()` for global mocks. Prefer spies over mocks when you only need to verify interactions without changing behavior.
-- Master `vi.mock()` factory patterns - Place mock factory functions at the top level of your test file, return typed mock implementations, and use `mockImplementation()` or `mockReturnValue()` for dynamic control during tests. Remember the factory runs before imports are processed.
-- Create setup files for reusable configuration - Define global mocks, custom matchers, and environment setup in dedicated files referenced in your `vitest.config.ts`. This keeps your test files clean while ensuring consistent test environments.
-- Use inline snapshots for readable assertions - Replace complex equality checks with `expect(value).toMatchInlineSnapshot()` to capture expected output directly in your test file, making changes more visible in code reviews.
-- Monitor coverage with purpose and only when asked - Configure coverage thresholds in `vitest.config.ts` to ensure critical code paths are tested, but focus on meaningful tests rather than arbitrary coverage percentages.
-- Handle optional dependencies with smart mocking - Use conditional mocking to test code with optional dependencies by implementing `vi.mock()` with the factory pattern for modules that might not be available in all environments.
-- Configure happy-dom for DOM testing - Set `environment: 'happy-dom'` in your configuration for frontend component tests and (optionally) combine with testing-library utilities for realistic user interaction simulation.
-- wrap component reder calls with an utility method `renderAstroComponent`, e.g.: `const result = await renderAstroComponent(Hero); const section = result.querySelector('[id="home"]')`
-- Structure tests for maintainability - Group related tests with descriptive `describe` blocks, use explicit assertion messages, and follow the Arrange-Act-Assert pattern to make tests self-documenting.
-- Leverage TypeScript type checking in tests - Enable strict typing in your tests to catch type errors early, use `expectTypeOf()` for type-level assertions, and ensure mocks preserve the original type signatures.
+- Leverage the `vi` object for test doubles - Use `vi.fn()` for function mocks, `vi.spyOn()` to monitor existing
+  functions, and `vi.stubGlobal()` for global mocks. Prefer spies over mocks when you only need to verify interactions
+  without changing behavior.
+- Master `vi.mock()` factory patterns - Place mock factory functions at the top level of your test file, return typed
+  mock implementations, and use `mockImplementation()` or `mockReturnValue()` for dynamic control during tests. Remember
+  the factory runs before imports are processed.
+- Create setup files for reusable configuration - Define global mocks, custom matchers, and environment setup in
+  dedicated files referenced in your `vitest.config.ts`. This keeps your test files clean while ensuring consistent test
+  environments.
+- Use inline snapshots for readable assertions - Replace complex equality checks with
+  `expect(value).toMatchInlineSnapshot()` to capture expected output directly in your test file, making changes more
+  visible in code reviews.
+- Monitor coverage with purpose and only when asked - Configure coverage thresholds in `vitest.config.ts` to ensure
+  critical code paths are tested, but focus on meaningful tests rather than arbitrary coverage percentages.
+- Handle optional dependencies with smart mocking - Use conditional mocking to test code with optional dependencies by
+  implementing `vi.mock()` with the factory pattern for modules that might not be available in all environments.
+- Configure happy-dom for DOM testing - Set `environment: 'happy-dom'` in your configuration for frontend component
+  tests and (optionally) combine with testing-library utilities for realistic user interaction simulation.
+- wrap component reder calls with an utility method `renderAstroComponent`, e.g.:
+  `const result = await renderAstroComponent(Hero); const section = result.querySelector('[id="home"]')`
+- Structure tests for maintainability - Group related tests with descriptive `describe` blocks, use explicit assertion
+  messages, and follow the Arrange-Act-Assert pattern to make tests self-documenting.
+- Leverage TypeScript type checking in tests - Enable strict typing in your tests to catch type errors early, use
+  `expectTypeOf()` for type-level assertions, and ensure mocks preserve the original type signatures.
 
 ### Guidelines for E2E
 
