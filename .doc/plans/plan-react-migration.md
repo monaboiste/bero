@@ -344,14 +344,6 @@ Each section receives `lang: Lang` as prop and internally calls `getTranslations
 - Mobile description toggle
 - Scroll-triggered tile animations
 
-#### 4.2 — `pages/PortfolioPage.astro`
-
-- Stays as an Astro page, rename to `pages/portfolio.astro`
-
-#### 4.3 — `pages/PrivacyPolicyPage.tsx`
-
-- Stays as an Astro page, rename to `pages/legal.astro`
-
 ---
 
 ### Phase 5: Integration & Cleanup
