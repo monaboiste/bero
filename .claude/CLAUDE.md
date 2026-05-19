@@ -94,6 +94,37 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 - Use the & character for nesting selectors
 - Leverage the keyframes helper for animations
 
+#### Animations
+
+- Use [Motion Library](https://motion.dev/) to animate components
+- Prefer animating React components (`<motion.html-tag>`)
+- If the animation absolutely must be applied to a non-React component (e.g., Astro components), use `data-animate`
+  attribute to trigger the animation. Use the following code snippet as a reference:
+
+```txt
+---
+<div data-animate="some-animated-div"></div>
+<style>
+  @media (scripting: enabled) {
+    [data-animate="some-animated-div"] {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  }
+</style>
+<script>
+  import { animate, inView } from "motion";
+
+  inView(
+    "[data-animate='some-animated-div']",
+    (element) => {
+      animate(element, { opacity: 1, y: 0 }, { duration: 0.8 });
+    },
+    { margin: "-50px" }
+  );
+</script>
+```
+
 #### TAILWIND v4
 
 - Use the @layer directive to organize styles into components, utilities, and base layers
