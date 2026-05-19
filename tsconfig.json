@@ -9,6 +9,7 @@
       "@test/*": ["src/test/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@views/*": ["src/views/*"],
       "@lib/*": ["src/lib/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],

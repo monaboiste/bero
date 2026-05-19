@@ -1,8 +1,8 @@
 ---
-import PortfolioPage from "@components/pages/PortfolioPage.astro";
-import PrivacyPolicyPage from "@components/pages/PrivacyPolicyPage.astro";
 import { getLang, locales } from "@i18n/locale";
 import { routes } from "@i18n/routes";
+import PortfolioView from "@views/PortfolioView.astro";
+import PrivacyPolicyView from "@views/PrivacyPolicyView.astro";
 
 export const prerender = true;
 
@@ -20,5 +20,5 @@ const { routeKey } = Astro.props;
 const lang = getLang(Astro.currentLocale);
 ---
 
-{routeKey === "portfolio" && <PortfolioPage lang={lang} />}
-{routeKey === "privacy-policy" && <PrivacyPolicyPage lang={lang} />}
+{routeKey === "portfolio" && <PortfolioView lang={lang} />}
+{routeKey === "privacy-policy" && <PrivacyPolicyView lang={lang} />}
