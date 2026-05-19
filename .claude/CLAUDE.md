@@ -8,7 +8,7 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 
 #### SUPPORT_EXPERT
 
-- Favor elegant, maintainable solutions over verbose code. Assume understanding of language idioms and design patterns.
+- Favour elegant, maintainable solutions over verbose code. Assume understanding of language idioms and design patterns.
 - Highlight potential performance implications and optimization opportunities in suggested code.
 - Frame solutions within broader architectural contexts and suggest design alternatives when appropriate.
 - Focus comments on 'why' not 'what' - assume code readability through well-named functions and variables.
@@ -107,10 +107,6 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 - Use responsive variants (sm:, md:, lg:, etc.) for adaptive designs
 - Leverage state variants (hover:, focus:, active:, etc.) for interactive elements
 
-#### DaisyUI
-
-- Use daysyUI MCP server.
-
 ## TESTING
 
 ### Guidelines for UNIT
@@ -136,12 +132,30 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
   implementing `vi.mock()` with the factory pattern for modules that might not be available in all environments.
 - Configure happy-dom for DOM testing - Set `environment: 'happy-dom'` in your configuration for frontend component
   tests and (optionally) combine with testing-library utilities for realistic user interaction simulation.
-- wrap component reder calls with an utility method `renderAstroComponent`, e.g.:
-  `const result = await renderAstroComponent(Hero); const section = result.querySelector('[id="home"]')`
 - Structure tests for maintainability - Group related tests with descriptive `describe` blocks, use explicit assertion
   messages, and follow the Arrange-Act-Assert pattern to make tests self-documenting.
 - Leverage TypeScript type checking in tests - Enable strict typing in your tests to catch type errors early, use
   `expectTypeOf()` for type-level assertions, and ensure mocks preserve the original type signatures.
+
+#### Unit testing Astro components
+
+- Wrap component reder calls with an utility method `renderAstroComponent`, e.g.:
+  `const result = await renderAstroComponent(Layout); const viewport = result.querySelector('meta[name="viewport"]');`
+
+#### Unit testing React components
+
+#### What Not to Test in Unit Tests
+
+| Feature                        | Reason                             |
+|--------------------------------|------------------------------------|
+| Dark mode toggle               | Requires JS → e2e                  |
+| Mobile menu open/close         | Requires JS → e2e                  |
+| Contact form submission        | Requires JS & events → e2e         |
+| Scroll animations              | Requires JS → e2e                  |
+| Language dropdown              | Requires JS → e2e                  |
+| Responsiveness (media queries) | Better via e2e / visual regression |
+| Inner components in isolation  | Covered by parent components       |
+| Full page (`index.astro`)      | Section integration → e2e          |
 
 ### Guidelines for E2E
 
@@ -157,3 +171,19 @@ Portfolio website for an upholstery business called "BERO" serving as a marketin
 - Implement test hooks for setup and teardown
 - Use expect assertions with specific matchers
 - Leverage parallel execution for faster test runs
+- Place tests in `e2e/` folder
+- Group tests by feature e.g. `navigation/`
+- Use tags for platform-specific tests, e.g. `@mobile`
+- Platform-specific tests should have `.platform.test.ts` extension, eg. `navigation.mobile.test.ts`
+- Use selectors via `data-testid` when possible (signal if there isn't any `data-testd` attribute and add it if
+  necessary).
+- Prefer realistic user flows (clicks, typing, navigation). Test **user interactions**, not internal state
+- Prefer **idempotent tests** (can run repeatedly without side effects)
+
+#### What Not to Test in E2E
+
+| Feature                 | Reason                                      |
+|-------------------------|---------------------------------------------|
+| Unit-level logic        | Already covered by unit tests               |
+| HTML structure details  | Already covered by unit tests               |
+| Pure CSS responsiveness | Use visual regression / Storybook snapshots |
