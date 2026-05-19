@@ -260,6 +260,9 @@ export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
       cleanup = () => {
         lightbox.destroy();
       };
+
+      // Signal that GLightbox is ready (useful for e2e tests)
+      containerRef.current?.setAttribute("data-glightbox-ready", "");
     }
 
     init();

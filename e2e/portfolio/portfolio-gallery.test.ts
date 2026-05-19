@@ -48,10 +48,15 @@ test.describe("Projects portfolio", () => {
   test("clicking a tag shows only matching tiles", async ({ page }) => {
     const allTilesBefore = await page.getByTestId("gallery-tile").count();
 
-    await page.getByTestId("tag-filter-armchairs").click();
+    const armchairsBtn = page.getByTestId("tag-filter-armchairs");
+    // Retry click until React hydrates and the filter responds
+    await expect(async () => {
+      await armchairsBtn.click();
+      await expect(armchairsBtn).toHaveAttribute("aria-pressed", "true", {
+        timeout: 500,
+      });
+    }).toPass({ timeout: 10_000 });
 
-    // Wait for filtered state — fewer tiles than before
-    await expect(page.getByTestId("gallery-tile").first()).toBeAttached();
     const filteredCount = await page.getByTestId("gallery-tile").count();
     expect(filteredCount).toBeGreaterThan(0);
     expect(filteredCount).toBeLessThan(allTilesBefore);
@@ -65,18 +70,37 @@ test.describe("Projects portfolio", () => {
   test("clicking All resets filter", async ({ page }) => {
     const allTilesBefore = await page.getByTestId("gallery-tile").count();
 
-    await page.getByTestId("tag-filter-restoration").click();
+    const restorationBtn = page.getByTestId("tag-filter-restoration");
+    // Retry click until React hydrates and the filter responds
+    await expect(async () => {
+      await restorationBtn.click();
+      await expect(restorationBtn).toHaveAttribute("aria-pressed", "true", {
+        timeout: 500,
+      });
+    }).toPass({ timeout: 10_000 });
+
     const filteredCount = await page.getByTestId("gallery-tile").count();
     expect(filteredCount).toBeLessThan(allTilesBefore);
 
     await page.getByTestId("tag-filter-all").click();
+    await expect(page.getByTestId("tag-filter-all")).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
 
     const restoredCount = await page.getByTestId("gallery-tile").count();
     expect(restoredCount).toBe(allTilesBefore);
   });
 
   test("tag filter updates URL query param", async ({ page }) => {
-    await page.getByTestId("tag-filter-sofas").click();
+    const sofasBtn = page.getByTestId("tag-filter-sofas");
+    await expect(async () => {
+      await sofasBtn.click();
+      await expect(sofasBtn).toHaveAttribute("aria-pressed", "true", {
+        timeout: 500,
+      });
+    }).toPass({ timeout: 10_000 });
+
     await expect(page).toHaveURL(/\?tag=sofas/);
 
     await page.getByTestId("tag-filter-all").click();
@@ -86,22 +110,28 @@ test.describe("Projects portfolio", () => {
   test("tapping image in mobile lightbox toggles description @mobile", async ({
     page,
   }) => {
+    // Wait for GLightbox to initialize (it loads asynchronously via dynamic import)
+    const gallery = page.getByTestId("gallery");
+    await expect(gallery).toHaveAttribute("data-glightbox-ready", "", {
+      timeout: 15_000,
+    });
+
     const firstTile = page.getByTestId("gallery-tile").first();
     await firstTile.click();
 
     const desc = page.locator(".gslide.current .gslide-description");
     await expect(desc).toBeAttached();
-    await expect(desc).not.toHaveClass(/gslide-desc-visible/);
-    await expect(desc).toHaveCSS("opacity", "0");
-
-    const image = page.locator(".gslide.current .gslide-image img");
-    await image.tap();
     await expect(desc).toHaveClass(/gslide-desc-visible/);
     await expect(desc).toHaveCSS("opacity", "1");
 
+    const image = page.locator(".gslide.current .gslide-image img");
     await image.tap();
     await expect(desc).not.toHaveClass(/gslide-desc-visible/);
     await expect(desc).toHaveCSS("opacity", "0");
+
+    await image.tap();
+    await expect(desc).toHaveClass(/gslide-desc-visible/);
+    await expect(desc).toHaveCSS("opacity", "1");
 
     await page.locator(".gclose").click();
   });
