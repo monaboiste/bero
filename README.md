@@ -53,40 +53,25 @@ npm run dev        # http://localhost:4321
 
 ```txt
 src/
-  assets/            Static images (hero, logo, 404)
+  assets/          Static images (hero, logo, 404)
   components/
-    about/           About section components
-    contact/         Contact form + info
-    hero/            Hero section
-    pages/           Full page components (portfolio, privacy policy)
-    projects/        Project cards and listing
-    seo/             SEOHead, JsonLd
-    ui/              Shared UI (navigation, footer, gallery, form, theme toggle)
-  i18n/
-    translations/    pl.json, en.json, de.json
-    locale.ts        Language definitions, useTranslations()
-    path.ts          URL building, canonical/alternate URLs
-    routes.ts        Route-to-slug mapping per locale
-    breadcrumbs.ts   Breadcrumb generation from routes
-    richtext.ts      ICU-style rich text formatting
-  layouts/           Root layout (SEOHead, nav, footer, dark mode)
-  lib/content/
-    content.ts       PortfolioApi factory (Sanity vs. mock)
-    sanity.ts        Sanity client, GROQ queries, image URL builder
-    fixture.ts       Mock data (10 projects, 3 languages)
-    types.ts         Portfolio/Project types
-    business.ts      Business info (address, phone, socials)
-  pages/
-    index.astro      Root -- SSR language redirect to /{locale}/
-    404.astro        404 page (prerendered)
-    [locale]/
-      index.astro    Homepage (prerendered per locale)
-      [...slug].astro  Sub-pages: portfolio, privacy policy (prerendered)
-  styles/
-    global.css       Tailwind v4 theme (CSS custom properties, light/dark tokens)
-e2e/                 Playwright E2E tests (navigation, portfolio, theme)
-studio-bero/         Sanity Studio (separate sub-project)
-public/              Static assets (favicon, robots.txt, manifest, OG image)
+    about/         About section (stats, services, story)
+    contact/       Contact section (info, map)
+    hero/          Hero section
+    hooks/         Custom React hooks (useTheme, useFocusTrap)
+    portfolio/     Portfolio gallery page content
+    projects/      Projects section (cards, listing)
+    ui/            Shared UI: navigation, footer, gallery, form, buttons, theme toggle
+  i18n/            Translations (pl, en, de), locale utils, routing, breadcrumbs
+  layouts/         Root layout + SEO components (SEOHead, JsonLd)
+  lib/content/     Data layer: Sanity client, mock fixtures, business constants
+  pages/           Astro file-based routing (SSR redirect, prerendered pages)
+  styles/          Tailwind v4 theme (CSS custom properties, light/dark tokens)
+  test/            Test setup and helpers
+  views/           Astro view wrappers for sub-pages (portfolio, privacy policy)
+e2e/               Playwright E2E tests
+studio-bero/       Sanity Studio (separate sub-project)
+public/            Static assets (favicon, robots.txt, manifest, OG image)
 ```
 
 ## Architecture
@@ -160,11 +145,15 @@ cp .env.example .env
 
 ### Unit Tests (Vitest)
 
-Tests are co-located with components (`*.test.ts`).
-Uses Astro Container API + Happy DOM for static HTML assertions.
+Tests are co-located with components. Dual configuration:
+
+- **React components** (`*.test.tsx`) -- `@testing-library/react` + Happy DOM
+- **Astro components** (`*.test.ts`) -- Astro Container API + Happy DOM
 
 ```sh
-npm run test:unit
+npm run test:unit          # run both
+npm run test:unit:react    # React tests only
+npm run test:unit:astro    # Astro tests only
 ```
 
 ### E2E Tests (Playwright)
