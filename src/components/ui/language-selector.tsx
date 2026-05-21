@@ -6,6 +6,7 @@ import { LuGlobe } from "react-icons/lu";
 export interface LanguageSelectorProps {
   lang: Lang;
   variant?: "dropdown" | "inline";
+  currentPath?: string;
   className?: string;
   "data-testid"?: string;
 }
@@ -34,6 +35,7 @@ function focusMenuItemByOffset(
 export function LanguageSelector({
   lang,
   variant = "dropdown",
+  currentPath,
   className = "",
   "data-testid": dataTestId = "language-selector",
 }: Readonly<LanguageSelectorProps>) {
@@ -43,11 +45,14 @@ export function LanguageSelector({
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const getBasePath = useCallback(() => {
+    if (currentPath) {
+      return currentPath;
+    }
     if (typeof window === "undefined") {
       return "/";
     }
     return getCanonicalBasePath(new URL(window.location.href));
-  }, []);
+  }, [currentPath]);
 
   const getHref = useCallback(
     (targetLang: Lang) => {

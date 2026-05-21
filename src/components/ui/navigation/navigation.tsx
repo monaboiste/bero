@@ -13,12 +13,14 @@ import type { NavItem } from "./types";
 
 export interface NavigationProps {
   lang: Lang;
+  currentPath?: string;
   className?: string;
   "data-testid"?: string;
 }
 
 export function Navigation({
   lang,
+  currentPath,
   className = "",
   "data-testid": dataTestId = "navigation",
 }: Readonly<NavigationProps>) {
@@ -62,7 +64,11 @@ export function Navigation({
 
           {/* Right side controls (desktop) */}
           <div className="hidden items-center space-x-4 lg:flex">
-            <LanguageSelector lang={lang} variant="dropdown" />
+            <LanguageSelector
+              currentPath={currentPath}
+              lang={lang}
+              variant="dropdown"
+            />
             <ThemeToggle data-testid="theme-toggle" lang={lang} />
           </div>
 
@@ -83,6 +89,7 @@ export function Navigation({
 
         {/* Mobile menu panel */}
         <MobileMenu
+          currentPath={currentPath}
           isOpen={isMobileMenuOpen}
           items={navItems}
           lang={lang}

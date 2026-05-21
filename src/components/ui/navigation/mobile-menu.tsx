@@ -9,6 +9,7 @@ export interface MobileMenuProps {
   isOpen: boolean;
   items: NavItem[];
   lang: Lang;
+  currentPath?: string;
   onClose: () => void;
   className?: string;
   "data-testid"?: string;
@@ -18,6 +19,7 @@ export function MobileMenu({
   isOpen,
   items,
   lang,
+  currentPath,
   onClose,
   className = "",
   "data-testid": dataTestId = "mobile-menu",
@@ -39,6 +41,7 @@ export function MobileMenu({
         <NavLinks direction="column" items={items} onLinkClick={onClose} />
         <div className="border-border border-t pt-4">
           <LanguageSelector
+            currentPath={currentPath}
             data-testid="mobile-language-selector"
             lang={lang}
             variant="inline"
