@@ -3,6 +3,7 @@ import { Footer } from "@components/ui/footer/footer";
 import { Navigation } from "@components/ui/navigation/navigation";
 import { buildBreadcrumbs } from "@i18n/breadcrumbs";
 import { getLang } from "@i18n/locale";
+import { getCanonicalBasePath } from "@i18n/path";
 import "@styles/global.css";
 import JsonLd from "./seo/JsonLd.astro";
 import SEOHead from "./seo/SEOHead.astro";
@@ -23,6 +24,8 @@ const breadcrumbs = buildBreadcrumbs(
   Astro.url,
   Astro.currentLocale
 );
+
+const currentPath = getCanonicalBasePath(Astro.url);
 ---
 
 <!doctype html>
@@ -66,7 +69,7 @@ const breadcrumbs = buildBreadcrumbs(
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
-    <Navigation client:load lang={lang} />
+    <Navigation client:load currentPath={currentPath} lang={lang} />
     <main class:list={["flex-1", mainClass]}>
       <slot />
     </main>
