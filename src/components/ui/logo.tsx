@@ -81,7 +81,8 @@ export function Logo({
         <div className="shrink-0">
           <SvgIcon
             aria-hidden="true"
-            className={`${sizeScheme.imageHeight} w-auto`}
+            className={`${sizeScheme.imageHeight} w-auto ${primaryClass}`}
+            fill="currentColor"
           />
         </div>
       )}
