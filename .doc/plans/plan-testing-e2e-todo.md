@@ -2,13 +2,14 @@
 
 ## Overview
 
-This document describes the end-to-end test plan for the BERO Upholstery Studio website. The tests focus on key user journeys and interactions between components.
+This document describes the end-to-end test plan for the BERO Upholstery Studio website. The tests focus on key user
+journeys and interactions between components.
 
 ---
 
-# 1. Language Selector Tests
+## 1. Language Selector Tests
 
-## 1.1 Open and Close Language Dropdown (Desktop)
+### 1.1 Open and Close Language Dropdown (Desktop)
 
 **User Story**: As a user, I want to select the interface language from a dropdown menu.
 
@@ -27,7 +28,7 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-## 1.2 Select Language from List (Mobile Inline)
+### 1.2 Select Language from List (Mobile Inline)
 
 **User Story**: As a mobile user, I want to select the language using inline buttons in the mobile menu.
 
@@ -49,9 +50,9 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-# 2. Project Gallery Tests
+## 2. Project Gallery Tests
 
-## 2.1 Scroll Reveal Animation
+### 2.1 Scroll Reveal Animation
 
 **User Story**: As a user, I want projects to appear with animation while scrolling.
 
@@ -69,7 +70,7 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-## 2.2 “View All Projects” Button
+### 2.2 “View All Projects” Button
 
 **User Story**: As a user, I want to view the full portfolio gallery.
 
@@ -86,9 +87,9 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-# 3. Responsiveness Tests
+## 3. Responsiveness Tests
 
-## 3.1 Desktop → Mobile Transition
+### 3.1 Desktop → Mobile Transition
 
 **User Story**: As a user, I want the website to adapt to my device size.
 
@@ -120,9 +121,9 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-# 4. Footer and Social Links Tests
+## 4. Footer and Social Links Tests
 
-## 4.1 Clicking Social Media Links
+### 4.1 Clicking Social Media Links
 
 **User Story**: As a user, I want to navigate to the company’s social media profiles.
 
@@ -140,9 +141,9 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-# 5. Accessibility (A11y) Tests
+## 5. Accessibility (A11y) Tests
 
-## 5.1 Keyboard Navigation
+### 5.1 Keyboard Navigation
 
 **User Story**: As a keyboard-only user, I want to navigate the entire website.
 
@@ -152,7 +153,7 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-## 5.2 ARIA Labels and Semantic HTML
+### 5.2 ARIA Labels and Semantic HTML
 
 **User Story**: As a screen reader user, I want the page to be properly described.
 
@@ -160,9 +161,9 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-# 6. Performance Tests
+## 6. Performance Tests
 
-## 6.1 Image Lazy Loading
+### 6.1 Image Lazy Loading
 
 **User Story**: As a user, I want the website to load quickly and efficiently.
 
@@ -170,9 +171,9 @@ This document describes the end-to-end test plan for the BERO Upholstery Studio 
 
 ---
 
-# 7. Complete User Journey
+## 7. Complete User Journey
 
-## 7.1 Happy Path: From Entry to Form Submission
+### 7.1 Happy Path: From Entry to Form Submission
 
 **User Story**: As a potential customer, I want to explore the offer and send an inquiry.
 
