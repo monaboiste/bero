@@ -1,3 +1,4 @@
+import CompanyLogo from "@assets/logo.svg?react";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
@@ -52,7 +53,7 @@ export function Navigation({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Logo lang={lang} size="md" />
+          <Logo lang={lang} size="md" svgComponent={CompanyLogo} />
 
           {/* Desktop Navigation */}
           <NavLinks
