@@ -3,7 +3,7 @@ import NotFoundSvg from "@assets/404.svg";
 import { getLang, getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
 import Layout from "@layouts/Layout.astro";
-import { Home } from "@lucide/astro";
+import { LuHouse } from "react-icons/lu";
 
 export const prerender = true;
 
@@ -46,7 +46,7 @@ const tp = getTranslatedPath(lang);
       href={tp("/")}
       class="inline-flex items-center gap-2 rounded-lg bg-accent px-8 py-4 text-white shadow-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-xl"
     >
-      <Home class="h-5 w-5" />
+      <LuHouse className="h-5 w-5" aria-hidden="true" />
       {t("404.cta")}
     </a>
   </div>
