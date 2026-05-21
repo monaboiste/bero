@@ -1,5 +1,5 @@
 ---
-import Footer from "@components/ui/footer/Footer.astro";
+import { Footer } from "@components/ui/footer/footer";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import { buildBreadcrumbs } from "@i18n/breadcrumbs";
 import { getLang } from "@i18n/locale";
@@ -70,6 +70,6 @@ const breadcrumbs = buildBreadcrumbs(
     <main class:list={["flex-1", mainClass]}>
       <slot />
     </main>
-    <Footer />
+    <Footer client:visible lang={lang} />
   </body>
 </html>
