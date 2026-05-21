@@ -6,6 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import svgr from "vite-plugin-svgr";
+// noinspection ES6PreferShortImport
 import { defaultLang, locales } from "./src/i18n/locale";
 
 // https://astro.build/config
