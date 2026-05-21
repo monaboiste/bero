@@ -1,11 +1,11 @@
 ---
-import JsonLd from "@components/seo/JsonLd.astro";
-import SEOHead from "@components/seo/SEOHead.astro";
 import Footer from "@components/ui/footer/Footer.astro";
 import Navigation from "@components/ui/navigation/Navigation.astro";
 import { buildBreadcrumbs } from "@i18n/breadcrumbs";
 import { getLang } from "@i18n/locale";
 import "@styles/global.css";
+import JsonLd from "./seo/JsonLd.astro";
+import SEOHead from "./seo/SEOHead.astro";
 
 interface Props {
   title?: string;
