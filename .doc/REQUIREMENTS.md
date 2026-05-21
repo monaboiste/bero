@@ -124,9 +124,11 @@ Portfolio website for an upholstery business serving as a marketing platform and
 
 ## 11. Rendering Strategy
 
-All pages are **statically generated at build time (SSG)**. Content from Sanity CMS is fetched during the build and served as pre-rendered HTML via Cloudflare Pages CDN.
+All pages are **statically generated at build time (SSG)**. Content from Sanity CMS is fetched during the build and
+served as pre-rendered HTML via Cloudflare Pages CDN.
 
-**Current approach:** The portfolio page (`/portfolio`) loads all projects in a single page — no pagination. With the current number of projects (~7) this is sufficient.
+**Current approach:** The portfolio page (`/portfolio`) loads all projects in a single page — no pagination. With the
+current number of projects (~7) this is sufficient.
 
 **Future considerations:** As the portfolio grows, consider adding pagination with one of these strategies:
 
