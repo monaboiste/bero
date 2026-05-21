@@ -19,9 +19,6 @@
       "includes": ["**/*.test.ts", "**/*.test.tsx"],
       "linter": {
         "rules": {
-          "correctness": {
-            "useHookAtTopLevel": "off"
-          },
           "performance": "off",
           "style": {
             "useFilenamingConvention": "off"
