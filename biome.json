@@ -6,16 +6,6 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.astro"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useFilenamingConvention": "off"
-          }
-        }
-      }
-    },
-    {
       "includes": ["**/*.test.ts", "**/*.test.tsx"],
       "linter": {
         "rules": {
@@ -27,7 +17,13 @@
       }
     },
     {
-      "includes": ["**/*.astro", "**/*.ts", "!**/*.test.ts"],
+      "includes": [
+        "**/*.astro",
+        "**/*.ts",
+        "**/*.tsx",
+        "!**/*.test.ts",
+        "!**/*.test.tsx"
+      ],
       "linter": {
         "rules": {
           "style": {

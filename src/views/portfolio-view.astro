@@ -1,7 +1,7 @@
 ---
 import { PortfolioGallery } from "@components/portfolio/portfolio-gallery";
 import { getTranslations, type Lang } from "@i18n/locale";
-import Layout from "@layouts/Layout.astro";
+import MainLayout from "@layouts/main-layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 import { PORTFOLIO_TAG_KEYS } from "@lib/content/tags";
 
@@ -42,7 +42,7 @@ const images = portfolio.flatMap((project) =>
 const initialTag = Astro.url.searchParams.get("tag") ?? "";
 ---
 
-<Layout
+<MainLayout
   title={t("portfolio.seo.title")}
   description={t("portfolio.seo.description")}
   mainClass="bg-secondary pt-36 pb-20"
@@ -56,4 +56,4 @@ const initialTag = Astro.url.searchParams.get("tag") ?? "";
       initialTag={initialTag}
     />
   </div>
-</Layout>
+</MainLayout>

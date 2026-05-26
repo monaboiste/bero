@@ -2,7 +2,7 @@
 import NotFoundSvg from "@assets/404.svg";
 import { getLang, getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
-import Layout from "@layouts/Layout.astro";
+import MainLayout from "@layouts/main-layout.astro";
 import { LuHouse } from "react-icons/lu";
 
 export const prerender = true;
@@ -12,7 +12,7 @@ const t = getTranslations(lang);
 const tp = getTranslatedPath(lang);
 ---
 
-<Layout
+<MainLayout
   title={`404 | ${t("seo.title")}`}
   description={t("404.description")}
   robots="noindex, follow"
@@ -50,7 +50,7 @@ const tp = getTranslatedPath(lang);
       {t("404.cta")}
     </a>
   </div>
-</Layout>
+</MainLayout>
 
 <style>
   @media (scripting: enabled) {

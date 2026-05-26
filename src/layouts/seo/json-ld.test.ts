@@ -1,6 +1,6 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test } from "vitest";
-import JsonLd from "./JsonLd.astro";
+import JsonLd from "./json-ld.astro";
 
 function parseJsonLd(fragment: DocumentFragment) {
   const script = fragment.querySelector('script[type="application/ld+json"]');
