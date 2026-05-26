@@ -7,7 +7,7 @@ import { Contact } from "@components/contact/contact";
 import { Hero } from "@components/hero/hero";
 import { Projects } from "@components/projects/projects";
 import { getLang, getTranslations, locales } from "@i18n/locale";
-import Layout from "@layouts/Layout.astro";
+import MainLayout from "@layouts/main-layout.astro";
 import { createPortfolioApi } from "@lib/content/content";
 
 export const prerender = true;
@@ -43,7 +43,7 @@ const projectsData = latestProjects.map((project) => ({
 }));
 ---
 
-<Layout>
+<MainLayout>
   <Hero
     client:load
     lang={lang}
@@ -70,4 +70,4 @@ const projectsData = latestProjects.map((project) => ({
     }}
   />
   <Contact client:visible lang={lang} />
-</Layout>
+</MainLayout>

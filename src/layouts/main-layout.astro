@@ -5,8 +5,8 @@ import { buildBreadcrumbs } from "@i18n/breadcrumbs";
 import { getLang } from "@i18n/locale";
 import { getCanonicalBasePath } from "@i18n/path";
 import "@styles/global.css";
-import JsonLd from "./seo/JsonLd.astro";
-import SEOHead from "./seo/SEOHead.astro";
+import JsonLd from "./seo/json-ld.astro";
+import SeoHead from "./seo/seo-head.astro";
 
 interface Props {
   title?: string;
@@ -38,7 +38,7 @@ const currentPath = getCanonicalBasePath(Astro.url);
     <meta name="theme-color" content="#cc0000"><!-- --accent -->
     <meta name="generator" content={Astro.generator}>
 
-    <SEOHead
+    <SeoHead
       title={title}
       description={description}
       image={image}

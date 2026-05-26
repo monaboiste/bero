@@ -1,12 +1,12 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
-import SEOHead from "./SEOHead.astro";
+import SeoHead from "./seo/seo-head.astro";
 
 vi.stubEnv("SITE", "https://unit.vitest");
 
-describe("SEOHead", () => {
+describe("SeoHead", () => {
   test("renders default title", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const title = result.querySelector("title");
 
@@ -14,7 +14,7 @@ describe("SEOHead", () => {
   });
 
   test("renders custom title when provided", async () => {
-    const result = await renderAstroComponent(SEOHead, {
+    const result = await renderAstroComponent(SeoHead, {
       props: { title: "Custom Title" },
     });
 
@@ -24,7 +24,7 @@ describe("SEOHead", () => {
   });
 
   test("renders meta description with default value", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const description = result.querySelector('meta[name="description"]');
 
@@ -34,7 +34,7 @@ describe("SEOHead", () => {
   });
 
   test("renders Open Graph tags", async () => {
-    const result = await renderAstroComponent(SEOHead, {
+    const result = await renderAstroComponent(SeoHead, {
       props: {
         title: "Test Title",
         description: "Test Description",
@@ -53,7 +53,7 @@ describe("SEOHead", () => {
   });
 
   test("renders Twitter Card tags", async () => {
-    const result = await renderAstroComponent(SEOHead, {
+    const result = await renderAstroComponent(SeoHead, {
       props: {
         title: "Test Title",
         description: "Test Description",
@@ -74,7 +74,7 @@ describe("SEOHead", () => {
   });
 
   test("always renders canonical link and og:url", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const canonical = result.querySelector('link[rel="canonical"]');
     const ogUrl = result.querySelector('meta[property="og:url"]');
@@ -87,7 +87,7 @@ describe("SEOHead", () => {
   });
 
   test("renders default og:image and twitter:image when no image prop provided", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const ogImage = result.querySelector('meta[property="og:image"]');
     const twitterImage = result.querySelector('meta[name="twitter:image"]');
@@ -99,7 +99,7 @@ describe("SEOHead", () => {
   });
 
   test("renders custom og:image and twitter:image when image prop provided", async () => {
-    const result = await renderAstroComponent(SEOHead, {
+    const result = await renderAstroComponent(SeoHead, {
       props: { image: "https://example.com/image.jpg" },
     });
 
@@ -115,7 +115,7 @@ describe("SEOHead", () => {
   });
 
   test('renders default robots meta tag with "index, follow"', async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const robots = result.querySelector('meta[name="robots"]');
 
@@ -123,7 +123,7 @@ describe("SEOHead", () => {
   });
 
   test("renders custom robots value when provided", async () => {
-    const result = await renderAstroComponent(SEOHead, {
+    const result = await renderAstroComponent(SeoHead, {
       props: { robots: "noindex, follow" },
     });
 
@@ -133,7 +133,7 @@ describe("SEOHead", () => {
   });
 
   test("renders og:locale with default locale pl_PL", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const ogLocale = result.querySelector('meta[property="og:locale"]');
 
@@ -141,7 +141,7 @@ describe("SEOHead", () => {
   });
 
   test("renders og:locale:alternate tags for non-current locales", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const alternates = result.querySelectorAll(
       'meta[property="og:locale:alternate"]'
@@ -156,7 +156,7 @@ describe("SEOHead", () => {
   });
 
   test("renders og:site_name from translations", async () => {
-    const result = await renderAstroComponent(SEOHead);
+    const result = await renderAstroComponent(SeoHead);
 
     const ogSiteName = result.querySelector('meta[property="og:site_name"]');
 

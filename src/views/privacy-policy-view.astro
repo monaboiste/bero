@@ -1,7 +1,7 @@
 ---
 import { SectionHeader } from "@components/ui/section-header";
 import { getTranslations, type Lang } from "@i18n/locale";
-import Layout from "@layouts/Layout.astro";
+import MainLayout from "@layouts/main-layout.astro";
 
 interface Props {
   lang: Lang;
@@ -11,7 +11,7 @@ const { lang } = Astro.props;
 const t = getTranslations(lang);
 ---
 
-<Layout
+<MainLayout
   title={`${t("privacy.title")} | ${t("seo.title")}`}
   description={t("privacy.description")}
   mainClass="bg-secondary pt-36 pb-20"
@@ -26,4 +26,4 @@ const t = getTranslations(lang);
       {t("privacy.body")}
     </p>
   </article>
-</Layout>
+</MainLayout>
