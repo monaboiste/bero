@@ -10,6 +10,11 @@ export interface GridGalleryProps {
   className?: string;
 }
 
+const tileInitial = { opacity: 0, y: 40 };
+const tileWhileInView = { opacity: 1, y: 0 };
+const tileTransition = { duration: 0.5, ease: "easeOut" } as const;
+const tileViewport = { once: true, margin: "-50px" } as const;
+
 export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -297,11 +302,11 @@ export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
             data-testid="gallery-tile"
             data-type="image"
             href={image.url}
-            initial={{ opacity: 0, y: 40 }}
+            initial={tileInitial}
             key={`${image.url}-${index}`}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-50px" }}
-            whileInView={{ opacity: 1, y: 0 }}
+            transition={tileTransition}
+            viewport={tileViewport}
+            whileInView={tileWhileInView}
           >
             <div className="gallery-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
               <img

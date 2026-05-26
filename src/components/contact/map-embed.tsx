@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 
 export interface MapEmbedProps {
   src: string;
@@ -10,23 +9,25 @@ export interface MapEmbedProps {
   "data-testid"?: string;
 }
 
+const viewport = { once: true, margin: "-50px" } as const;
+const initial = { opacity: 0, scale: 0.95 };
+const whileInView = { opacity: 1, scale: 1 };
+const transition = { duration: 0.6, ease: "easeOut", delay: 0.3 } as const;
+
 export function MapEmbed({
   src,
   title = "Location map",
   className = "",
   "data-testid": dataTestId = "contact-map",
 }: Readonly<MapEmbedProps>) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <motion.div
-      animate={isInView ? { opacity: 1, scale: 1 } : {}}
       className={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`.trim()}
       data-testid={dataTestId}
-      initial={{ opacity: 0, scale: 0.95 }}
-      ref={ref}
-      transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+      initial={initial}
+      transition={transition}
+      viewport={viewport}
+      whileInView={whileInView}
     >
       <iframe
         allowFullScreen

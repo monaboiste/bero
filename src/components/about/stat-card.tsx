@@ -13,6 +13,11 @@ export interface StatCardProps {
   "data-testid"?: string;
 }
 
+const viewport = { once: true, margin: "-50px" } as const;
+const cardInitial = { opacity: 0, y: 50 };
+const cardWhileInView = { opacity: 1, y: 0 };
+const cardTransition = { duration: 0.6, ease: "easeOut" } as const;
+
 function AnimatedCounter({
   target,
   suffix,
@@ -52,12 +57,13 @@ export function StatCard({
 
   return (
     <motion.div
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
       className="text-center"
       data-testid={dataTestId}
-      initial={{ opacity: 0, y: 50 }}
+      initial={cardInitial}
       ref={ref}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={cardTransition}
+      viewport={viewport}
+      whileInView={cardWhileInView}
     >
       <IconBadge className="mb-4" icon={icon} size="lg" />
       <div className="mb-2 text-4xl">
