@@ -1,3 +1,4 @@
+import { cn } from "@lib/cn";
 import type { IconType } from "react-icons";
 
 export interface SocialLink {
@@ -18,10 +19,7 @@ export function SocialLinks({
   "data-testid": dataTestId = "footer-social",
 }: Readonly<SocialLinksProps>) {
   return (
-    <div
-      className={`flex space-x-4 ${className}`.trim()}
-      data-testid={dataTestId}
-    >
+    <div className={cn("flex space-x-4", className)} data-testid={dataTestId}>
       {links.map((social) => {
         const Icon = social.icon;
         return (

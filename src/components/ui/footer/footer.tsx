@@ -1,6 +1,7 @@
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
+import { cn } from "@lib/cn";
 import { BUSINESS } from "@lib/content/business";
 import { LuMail, LuPhone } from "react-icons/lu";
 import { SiFacebook, SiInstagram } from "react-icons/si";
@@ -55,7 +56,7 @@ export function Footer({
 
   return (
     <footer
-      className={`bg-primary text-primary-foreground ${className}`.trim()}
+      className={cn("bg-primary text-primary-foreground", className)}
       data-testid={dataTestId}
     >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">

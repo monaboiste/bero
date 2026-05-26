@@ -1,6 +1,7 @@
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
+import { cn } from "@lib/cn";
 import type { ComponentType, SVGProps } from "react";
 
 export interface LogoProps {
@@ -73,7 +74,11 @@ export function Logo({
 
   return (
     <a
-      className={`flex shrink-0 items-center ${sizeScheme.containerGap} ${className}`.trim()}
+      className={cn(
+        "flex shrink-0 items-center",
+        sizeScheme.containerGap,
+        className
+      )}
       data-testid={dataTestId}
       href={tp("/#home")}
     >
@@ -81,7 +86,7 @@ export function Logo({
         <div className="shrink-0">
           <SvgIcon
             aria-hidden="true"
-            className={`${sizeScheme.imageHeight} w-auto ${primaryClass}`}
+            className={cn(sizeScheme.imageHeight, "w-auto", primaryClass)}
             fill="currentColor"
           />
         </div>
@@ -92,7 +97,7 @@ export function Logo({
         style={{ fontFamily: "var(--font-sans)" }}
       >
         <div
-          className={`${sizeScheme.separatorMargin} ${separatorClass}`}
+          className={cn(sizeScheme.separatorMargin, separatorClass)}
           style={{
             width: "1px",
             height: sizeScheme.separator,

@@ -1,5 +1,6 @@
 import { useFocusTrap } from "@components/hooks/use-focus-trap";
 import type { Lang } from "@i18n/locale";
+import { cn } from "@lib/cn";
 import { useRef } from "react";
 import { LanguageSelector } from "../language-selector";
 import { NavLinks } from "./nav-links";
@@ -31,9 +32,11 @@ export function MobileMenu({
   return (
     <div
       aria-hidden={!isOpen}
-      className={`border-border border-t py-4 lg:hidden ${
-        isOpen ? "block" : "hidden"
-      } ${className}`.trim()}
+      className={cn(
+        "border-border border-t py-4 lg:hidden",
+        isOpen ? "block" : "hidden",
+        className
+      )}
       data-testid={dataTestId}
       ref={containerRef}
     >

@@ -1,5 +1,6 @@
 import { type Lang, languages } from "@i18n/locale";
 import { getCanonicalBasePath, getTranslatedPath } from "@i18n/path";
+import { cn } from "@lib/cn";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LuGlobe } from "react-icons/lu";
 
@@ -118,17 +119,15 @@ export function LanguageSelector({
 
   if (variant === "inline") {
     return (
-      <div
-        className={`flex space-x-4 ${className}`.trim()}
-        data-testid={dataTestId}
-      >
+      <div className={cn("flex space-x-4", className)} data-testid={dataTestId}>
         {langEntries.map(([code]) => (
           <a
-            className={`rounded px-3 py-1 ${
+            className={cn(
+              "rounded px-3 py-1",
               code === lang
                 ? "bg-accent text-accent-foreground"
                 : "hover:bg-muted"
-            }`}
+            )}
             data-lang={code}
             href={getHref(code)}
             key={code}
@@ -142,7 +141,7 @@ export function LanguageSelector({
 
   return (
     <div
-      className={`relative ${className}`.trim()}
+      className={cn("relative", className)}
       data-testid={dataTestId}
       ref={containerRef}
     >
@@ -169,9 +168,10 @@ export function LanguageSelector({
           {langEntries.map(([code, label]) => (
             <a
               aria-selected={code === lang}
-              className={`block w-full px-4 py-2 text-left transition-colors hover:bg-muted ${
-                code === lang ? "bg-muted font-medium" : ""
-              }`}
+              className={cn(
+                "block w-full px-4 py-2 text-left transition-colors hover:bg-muted",
+                code === lang && "bg-muted font-medium"
+              )}
               data-lang={code}
               href={getHref(code)}
               key={code}

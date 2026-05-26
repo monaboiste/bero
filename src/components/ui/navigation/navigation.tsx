@@ -2,6 +2,7 @@ import CompanyLogo from "@assets/logo.svg?react";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
+import { cn } from "@lib/cn";
 import { useState } from "react";
 import { LuCamera } from "react-icons/lu";
 import { LanguageSelector } from "../language-selector";
@@ -47,7 +48,10 @@ export function Navigation({
 
   return (
     <nav
-      className={`fixed top-0 right-0 left-0 z-50 border-border border-b bg-background/95 backdrop-blur-sm ${className}`.trim()}
+      className={cn(
+        "fixed top-0 right-0 left-0 z-50 border-border border-b bg-background/95 backdrop-blur-sm",
+        className
+      )}
       data-testid={dataTestId}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

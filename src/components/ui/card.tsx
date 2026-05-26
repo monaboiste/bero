@@ -1,3 +1,4 @@
+import { cn } from "@lib/cn";
 import type { ReactNode } from "react";
 
 export interface CardProps {
@@ -19,10 +20,7 @@ export function Card({
   "data-testid": dataTestId,
 }: Readonly<CardProps>) {
   return (
-    <div
-      className={`group h-full ${className}`.trim()}
-      data-testid={dataTestId}
-    >
+    <div className={cn("group h-full", className)} data-testid={dataTestId}>
       <div className="relative flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 hover:shadow-2xl">
         <div className="relative aspect-7/8 shrink-0 overflow-hidden">
           {/* biome-ignore lint/correctness/useImageSize: dimensions controlled by aspect-ratio container */}

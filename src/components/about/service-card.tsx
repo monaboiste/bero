@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@lib/cn";
 import { motion } from "motion/react";
 
 export interface ServiceCardProps {
@@ -22,7 +23,10 @@ export function ServiceCard({
 }: Readonly<ServiceCardProps>) {
   return (
     <div
-      className={`h-full rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:border-accent hover:shadow-lg ${className}`.trim()}
+      className={cn(
+        "h-full rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:border-accent hover:shadow-lg",
+        className
+      )}
       data-testid={dataTestId}
     >
       <motion.div

@@ -1,3 +1,4 @@
+import { cn } from "@lib/cn";
 import type { IconType } from "react-icons";
 
 export interface IconBadgeProps {
@@ -23,11 +24,15 @@ export function IconBadge({
 
   return (
     <div
-      className={`inline-flex items-center justify-center rounded-full bg-accent/10 ${scheme.container} ${className}`.trim()}
+      className={cn(
+        "inline-flex items-center justify-center rounded-full bg-accent/10",
+        scheme.container,
+        className
+      )}
       data-icon-size={scheme.icon}
       data-testid={dataTestId}
     >
-      <Icon className={`text-accent ${scheme.icon}`} />
+      <Icon className={cn("text-accent", scheme.icon)} />
     </div>
   );
 }

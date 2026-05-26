@@ -1,3 +1,4 @@
+import { cn } from "@lib/cn";
 import type { ChangeEvent } from "react";
 
 export interface FormFieldProps {
@@ -36,7 +37,7 @@ export function FormField({
       </label>
       {type === "textarea" ? (
         <textarea
-          className={`${inputClasses} resize-none`}
+          className={cn(inputClasses, "resize-none")}
           data-testid={dataTestId}
           id={fieldId}
           name={name}
