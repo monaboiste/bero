@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@lib/cn";
 import { motion } from "motion/react";
 import type { HeadingTag } from "./types";
 
@@ -29,7 +30,7 @@ export function SectionHeader({
 }: Readonly<SectionHeaderProps>) {
   return (
     <motion.div
-      className={`mb-10 text-center ${className}`.trim()}
+      className={cn("mb-10 text-center", className)}
       data-testid={dataTestId}
       initial={containerInitial}
       transition={containerTransition}

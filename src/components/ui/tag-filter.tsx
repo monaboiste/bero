@@ -1,3 +1,5 @@
+import { cn } from "@lib/cn";
+
 export interface TagItem {
   key: string;
   label: string;
@@ -29,12 +31,18 @@ export function TagFilter({
 }: Readonly<TagFilterProps>) {
   return (
     <div
-      className={`mb-12 flex flex-wrap items-center justify-center gap-3 ${className}`.trim()}
+      className={cn(
+        "mb-12 flex flex-wrap items-center justify-center gap-3",
+        className
+      )}
       data-testid={dataTestId}
     >
       <button
         aria-pressed={activeTag === ""}
-        className={`${baseClasses} ${activeTag === "" ? activeClasses : inactiveClasses}`}
+        className={cn(
+          baseClasses,
+          activeTag === "" ? activeClasses : inactiveClasses
+        )}
         data-testid="tag-filter-all"
         onClick={() => onTagChange("")}
         type="button"
@@ -45,7 +53,10 @@ export function TagFilter({
       {tags.map(({ key, label }) => (
         <button
           aria-pressed={activeTag === key}
-          className={`${baseClasses} ${activeTag === key ? activeClasses : inactiveClasses}`}
+          className={cn(
+            baseClasses,
+            activeTag === key ? activeClasses : inactiveClasses
+          )}
           data-testid={`tag-filter-${key}`}
           key={key}
           onClick={() => onTagChange(key)}

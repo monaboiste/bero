@@ -1,5 +1,6 @@
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
+import { cn } from "@lib/cn";
 import { LuMenu, LuX } from "react-icons/lu";
 
 export interface MobileMenuButtonProps {
@@ -23,7 +24,10 @@ export function MobileMenuButton({
     <button
       aria-expanded={isOpen}
       aria-label={t("a11y.menu")}
-      className={`rounded-lg p-2 transition-colors hover:bg-muted ${className}`.trim()}
+      className={cn(
+        "rounded-lg p-2 transition-colors hover:bg-muted",
+        className
+      )}
       data-testid={dataTestId}
       onClick={onToggle}
       type="button"

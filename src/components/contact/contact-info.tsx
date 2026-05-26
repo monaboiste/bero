@@ -1,6 +1,7 @@
 "use client";
 
 import { IconBadge } from "@components/ui/icon-badge";
+import { cn } from "@lib/cn";
 import { motion } from "motion/react";
 import type { IconType } from "react-icons";
 
@@ -40,7 +41,7 @@ export function ContactInfo({
 }: Readonly<ContactInfoProps>) {
   return (
     <motion.div
-      className={`space-y-8 ${className}`.trim()}
+      className={cn("space-y-8", className)}
       data-testid={dataTestId}
       initial="hidden"
       variants={containerVariants}

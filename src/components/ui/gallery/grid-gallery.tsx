@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@lib/cn";
 import { motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import type { GalleryImage } from "./types";
@@ -280,7 +281,7 @@ export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
 
   return (
     <div
-      className={["gallery", className].filter(Boolean).join(" ")}
+      className={cn("gallery", className)}
       data-testid="gallery"
       ref={containerRef}
     >
@@ -290,12 +291,10 @@ export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
 
         return (
           <motion.a
-            className={[
+            className={cn(
               "glightbox gallery-tile-link block",
-              isLandscape && "gallery-tile--landscape",
-            ]
-              .filter(Boolean)
-              .join(" ")}
+              isLandscape && "gallery-tile--landscape"
+            )}
             data-gallery={image.gallery ?? "gallery"}
             data-height="calc(100vh - 4rem)"
             data-tags={image.tags?.join(",")}

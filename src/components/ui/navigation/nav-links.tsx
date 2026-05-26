@@ -1,3 +1,4 @@
+import { cn } from "@lib/cn";
 import type { NavItem } from "./types";
 
 export interface NavLinksProps {
@@ -35,21 +36,19 @@ export function NavLinks({
       : "flex flex-col space-y-4";
 
   return (
-    <div
-      className={`${directionClasses} ${className}`.trim()}
-      data-testid={dataTestId}
-    >
+    <div className={cn(directionClasses, className)} data-testid={dataTestId}>
       {items.map((item) => {
         const Icon = item.icon;
 
         if (item.highlight) {
           return (
             <a
-              className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 ${
+              className={cn(
+                "inline-flex items-center gap-2 rounded-lg px-4 py-2",
                 direction === "column"
                   ? "bg-accent/10 text-accent"
                   : "group relative transition-all duration-300 hover:bg-accent/10 hover:text-accent"
-              }`}
+              )}
               data-testid={`nav-link-${getTestId(item)}`}
               href={item.href}
               key={item.href}
@@ -66,9 +65,10 @@ export function NavLinks({
 
         return (
           <a
-            className={`transition-colors hover:text-accent ${
-              direction === "column" ? "px-4" : ""
-            }`}
+            className={cn(
+              "transition-colors hover:text-accent",
+              direction === "column" && "px-4"
+            )}
             data-testid={`nav-link-${getTestId(item)}`}
             href={item.href}
             key={item.href}

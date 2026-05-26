@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@lib/cn";
 import { motion } from "motion/react";
 
 export interface MapEmbedProps {
@@ -22,7 +23,10 @@ export function MapEmbed({
 }: Readonly<MapEmbedProps>) {
   return (
     <motion.div
-      className={`aspect-video overflow-hidden rounded-lg bg-muted ${className}`.trim()}
+      className={cn(
+        "aspect-video overflow-hidden rounded-lg bg-muted",
+        className
+      )}
       data-testid={dataTestId}
       initial={initial}
       transition={transition}
