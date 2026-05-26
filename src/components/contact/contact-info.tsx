@@ -1,8 +1,7 @@
 "use client";
 
 import { IconBadge } from "@components/ui/icon-badge";
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import type { IconType } from "react-icons";
 
 export interface ContactItem {
@@ -30,24 +29,23 @@ const rowVariants = {
     x: 0,
     transition: { duration: 0.5, ease: "easeOut" },
   },
-};
+} as const;
+
+const viewport = { once: true, margin: "-50px" } as const;
 
 export function ContactInfo({
   items,
   className = "",
   "data-testid": dataTestId = "contact-info",
 }: Readonly<ContactInfoProps>) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <motion.div
-      animate={isInView ? "visible" : "hidden"}
       className={`space-y-8 ${className}`.trim()}
       data-testid={dataTestId}
       initial="hidden"
-      ref={ref}
       variants={containerVariants}
+      viewport={viewport}
+      whileInView="visible"
     >
       {items.map((item) => (
         <motion.div

@@ -1,8 +1,7 @@
 "use client";
 
 import type { OptimisedImage } from "@components/ui/types";
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 
 export interface StorySectionProps {
   story: string;
@@ -11,59 +10,79 @@ export interface StorySectionProps {
   "data-testid"?: string;
 }
 
+const viewport = { once: true, margin: "-100px" } as const;
+
+const fadeLeft = {
+  initial: { opacity: 0, x: -50 },
+  whileInView: { opacity: 1, x: 0 },
+  transition: { duration: 0.8 },
+};
+
+const fadeRight = {
+  initial: { opacity: 0, x: 50 },
+  whileInView: { opacity: 1, x: 0 },
+  transition: { duration: 0.8, delay: 0.2 },
+};
+
+const scaleIn = {
+  initial: { opacity: 0, scale: 0.8 },
+  whileInView: { opacity: 1, scale: 1 },
+  transition: { duration: 0.6, delay: 0.4 },
+};
+
 export function StorySection({
   story,
   mission,
   image,
   "data-testid": dataTestId = "about-story",
 }: Readonly<StorySectionProps>) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <div
       className="mb-20 grid items-center gap-12 md:grid-cols-2"
       data-testid={dataTestId}
-      ref={ref}
     >
       <motion.img
         alt={image.alt}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
         className="h-auto w-full rounded-lg shadow-xl"
         height={image.height}
-        initial={{ opacity: 0, x: -50 }}
+        initial={fadeLeft.initial}
         loading="lazy"
         sizes={image.sizes}
         src={image.src}
         srcSet={image.srcSet}
-        transition={{ duration: 0.8 }}
+        transition={fadeLeft.transition}
+        viewport={viewport}
+        whileInView={fadeLeft.whileInView}
         width={image.width}
       />
 
       <div>
         <motion.p
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
           className="mb-6 text-lg leading-relaxed"
-          initial={{ opacity: 0, x: 50 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={fadeRight.initial}
+          transition={fadeRight.transition}
+          viewport={viewport}
+          whileInView={fadeRight.whileInView}
         >
           {story}
         </motion.p>
 
         <motion.p
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
           className="text-muted-foreground leading-relaxed"
-          initial={{ opacity: 0, x: 50 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={fadeRight.initial}
+          transition={fadeRight.transition}
+          viewport={viewport}
+          whileInView={fadeRight.whileInView}
         >
           {mission}
         </motion.p>
 
         <motion.div
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
           className="mt-8"
-          initial={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          initial={scaleIn.initial}
+          transition={scaleIn.transition}
+          viewport={viewport}
+          whileInView={scaleIn.whileInView}
         >
           <span
             className="font-accent text-3xl text-accent md:text-4xl"

@@ -5,8 +5,7 @@ import { SectionHeader } from "@components/ui/section-header";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { LuArrowRight } from "react-icons/lu";
 import { ProjectCard } from "./project-card";
 
@@ -36,15 +35,18 @@ const cardVariants = {
     y: 0,
     transition: { duration: 0.6, ease: "easeOut" },
   },
-};
+} as const;
+
+const gridViewport = { once: true, margin: "-50px" } as const;
+
+const ctaInitial = { opacity: 0, y: 20 };
+const ctaWhileInView = { opacity: 1, y: 0 };
+const ctaTransition = { duration: 0.6, ease: "easeOut", delay: 0.3 } as const;
+const ctaViewport = { once: true } as const;
 
 export function Projects({ lang, projects }: Readonly<ProjectsProps>) {
   const t = getTranslations(lang);
   const tp = getTranslatedPath(lang);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const isGridInView = useInView(gridRef, { once: true, margin: "-50px" });
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const isCtaInView = useInView(ctaRef, { once: true });
 
   return (
     <section
@@ -59,12 +61,12 @@ export function Projects({ lang, projects }: Readonly<ProjectsProps>) {
         />
 
         <motion.div
-          animate={isGridInView ? "visible" : "hidden"}
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
           data-testid="projects-grid"
           initial="hidden"
-          ref={gridRef}
           variants={containerVariants}
+          viewport={gridViewport}
+          whileInView="visible"
         >
           {projects.map((project) => (
             <motion.div key={project.title} variants={cardVariants}>
@@ -79,11 +81,11 @@ export function Projects({ lang, projects }: Readonly<ProjectsProps>) {
         </motion.div>
 
         <motion.div
-          animate={isCtaInView ? { opacity: 1, y: 0 } : {}}
           className="mt-8 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          ref={ctaRef}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          initial={ctaInitial}
+          transition={ctaTransition}
+          viewport={ctaViewport}
+          whileInView={ctaWhileInView}
         >
           <Button data-testid="projects-view-all" href={tp("/portfolio")}>
             <span>{t("projects.viewAll")}</span>

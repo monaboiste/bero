@@ -14,6 +14,22 @@ export interface HeroProps {
   image: OptimisedImage;
 }
 
+const bgInitial = { scale: 1.1 };
+const bgAnimate = { scale: 1 };
+const bgTransition = { duration: 1.5 };
+
+const titleInitial = { opacity: 0, x: -50 };
+const titleAnimate = { opacity: 1, x: 0 };
+const titleTransition = { duration: 0.8, delay: 0.4 };
+
+const descInitial = { opacity: 0, x: -50 };
+const descAnimate = { opacity: 1, x: 0 };
+const descTransition = { duration: 0.5, delay: 0.6 };
+
+const ctaInitial = { opacity: 0, y: 20 };
+const ctaAnimate = { opacity: 1, y: 0 };
+const ctaTransition = { duration: 0.6, delay: 0.8 };
+
 export function Hero({ lang, image }: Readonly<HeroProps>) {
   const t = getTranslations(lang);
   const tp = getTranslatedPath(lang);
@@ -26,10 +42,10 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
       id="home"
     >
       <motion.div
-        animate={{ scale: 1 }}
+        animate={bgAnimate}
         className="absolute top-0 bottom-0 left-0 z-0 h-full w-full"
-        initial={{ scale: 1.1 }}
-        transition={{ duration: 1.5 }}
+        initial={bgInitial}
+        transition={bgTransition}
       >
         <img
           alt={image.alt}
@@ -48,11 +64,11 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
       <div className="relative z-10 w-full max-w-7xl px-4 py-20 sm:px-6 md:ml-auto lg:px-8">
         <div className="max-w-3xl md:ml-auto md:pr-12 lg:pr-24">
           <motion.h1
-            animate={{ opacity: 1, x: 0 }}
+            animate={titleAnimate}
             className="mb-6 font-bold text-3xl text-white sm:text-5xl md:text-7xl"
             data-testid="hero-title"
-            initial={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={titleInitial}
+            transition={titleTransition}
           >
             {richText("hero.title", ["accent"]).map((part) =>
               part.tag === "accent" ? (
@@ -66,19 +82,19 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
           </motion.h1>
 
           <motion.p
-            animate={{ opacity: 1, x: 0 }}
+            animate={descAnimate}
             className="mb-8 text-base text-gray-200 leading-relaxed sm:text-xl md:text-2xl"
-            initial={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            initial={descInitial}
+            transition={descTransition}
           >
             {t("hero.description")}
           </motion.p>
 
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
+            animate={ctaAnimate}
             className="flex flex-col items-center gap-4 sm:flex-row sm:items-end"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            initial={ctaInitial}
+            transition={ctaTransition}
           >
             <Button
               className="group w-full sm:w-auto"

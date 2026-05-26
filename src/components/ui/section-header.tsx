@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import type { HeadingTag } from "./types";
 
 export interface SectionHeaderProps {
@@ -12,6 +11,15 @@ export interface SectionHeaderProps {
   "data-testid"?: string;
 }
 
+const viewport = { once: true, margin: "-100px" } as const;
+const containerInitial = { opacity: 0, y: -30 };
+const containerWhileInView = { opacity: 1, y: 0 };
+const containerTransition = { duration: 0.8 };
+
+const lineInitial = { scaleX: 0 };
+const lineWhileInView = { scaleX: 1 };
+const lineTransition = { duration: 0.8, delay: 0.2 };
+
 export function SectionHeader({
   title,
   subtitle,
@@ -19,26 +27,24 @@ export function SectionHeader({
   className = "",
   "data-testid": dataTestId,
 }: Readonly<SectionHeaderProps>) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <motion.div
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
       className={`mb-10 text-center ${className}`.trim()}
       data-testid={dataTestId}
-      initial={{ opacity: 0, y: -30 }}
-      ref={ref}
-      transition={{ duration: 0.8 }}
+      initial={containerInitial}
+      transition={containerTransition}
+      viewport={viewport}
+      whileInView={containerWhileInView}
     >
       <Tag className="mb-4 text-4xl md:text-5xl">{title}</Tag>
 
       <motion.div
-        animate={isInView ? { scaleX: 1 } : {}}
         className="mx-auto mb-4 h-1 w-20 bg-accent"
-        initial={{ scaleX: 0 }}
+        initial={lineInitial}
         style={{ transformOrigin: "center" }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={lineTransition}
+        viewport={viewport}
+        whileInView={lineWhileInView}
       />
 
       {subtitle && <p className="text-muted-foreground text-xl">{subtitle}</p>}
