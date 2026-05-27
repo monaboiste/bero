@@ -1,3 +1,4 @@
+import { Grid } from "@components/ui/grid";
 import type { IconType } from "react-icons";
 import { StatCard } from "./stat-card";
 
@@ -18,9 +19,11 @@ export function AboutStats({
   "data-testid": dataTestId = "about-stats",
 }: Readonly<AboutStatsProps>) {
   return (
-    <div
-      className="mb-20 grid grid-cols-2 gap-8 md:grid-cols-4"
+    <Grid
+      className="mb-20"
+      cols={{ sm: 2, md: 4 }}
       data-testid={dataTestId}
+      gap="lg"
     >
       {stats.map((stat) => (
         <StatCard
@@ -31,6 +34,6 @@ export function AboutStats({
           valueNumeric={stat.valueNumeric}
         />
       ))}
-    </div>
+    </Grid>
   );
 }

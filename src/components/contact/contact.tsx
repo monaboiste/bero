@@ -1,5 +1,7 @@
 "use client";
 
+import { Grid } from "@components/ui/grid";
+import { Section } from "@components/ui/section";
 import { SectionHeader } from "@components/ui/section-header";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
@@ -22,22 +24,16 @@ export function Contact({ lang }: Readonly<ContactProps>) {
   ];
 
   return (
-    <section
-      className="overflow-x-hidden bg-secondary py-20"
-      data-testid="contact"
-      id="contact"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          subtitle={t("contact.subtitle")}
-          title={t("contact.title")}
-        />
+    <Section background="secondary" data-testid="contact" id="contact">
+      <SectionHeader
+        subtitle={t("contact.subtitle")}
+        title={t("contact.title")}
+      />
 
-        <div className="grid gap-12 md:grid-cols-2">
-          <ContactInfo items={contactItems} />
-          <MapEmbed src={BUSINESS.mapEmbedUrl} title={t("contact.mapTitle")} />
-        </div>
-      </div>
-    </section>
+      <Grid cols={{ md: 2 }} gap="xl">
+        <ContactInfo items={contactItems} />
+        <MapEmbed src={BUSINESS.mapEmbedUrl} title={t("contact.mapTitle")} />
+      </Grid>
+    </Section>
   );
 }

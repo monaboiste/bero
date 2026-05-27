@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@components/ui/button";
+import { Container } from "@components/ui/container";
 import { SectionHeader } from "@components/ui/section-header";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
@@ -54,7 +55,7 @@ export function Projects({ lang, projects }: Readonly<ProjectsProps>) {
       data-testid="projects"
       id="projects"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Container>
         <SectionHeader
           subtitle={t("projects.subtitle")}
           title={t("projects.title")}
@@ -92,7 +93,7 @@ export function Projects({ lang, projects }: Readonly<ProjectsProps>) {
             <LuArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </motion.div>
-      </div>
+      </Container>
     </section>
   );
 }

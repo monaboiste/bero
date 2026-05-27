@@ -1,5 +1,8 @@
 "use client";
 
+import { Heading } from "@components/ui/heading";
+import { Surface } from "@components/ui/surface";
+import { Text } from "@components/ui/text";
 import { cn } from "@lib/cn";
 import { motion } from "motion/react";
 
@@ -22,13 +25,7 @@ export function ServiceCard({
   "data-testid": dataTestId = "service-card",
 }: Readonly<ServiceCardProps>) {
   return (
-    <div
-      className={cn(
-        "h-full rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:border-accent hover:shadow-lg",
-        className
-      )}
-      data-testid={dataTestId}
-    >
+    <Surface className={cn("h-full", className)} data-testid={dataTestId} hover>
       <motion.div
         className="mb-4 h-1 w-12 bg-accent"
         initial={lineInitial}
@@ -37,8 +34,10 @@ export function ServiceCard({
         viewport={viewport}
         whileInView={lineWhileInView}
       />
-      <h4 className="mb-3 text-xl">{title}</h4>
-      <p className="text-muted-foreground">{description}</p>
-    </div>
+      <Heading as="h4" className="mb-3" size="xl">
+        {title}
+      </Heading>
+      <Text variant="muted">{description}</Text>
+    </Surface>
   );
 }

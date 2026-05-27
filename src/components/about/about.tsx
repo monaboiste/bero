@@ -1,5 +1,6 @@
 "use client";
 
+import { Section } from "@components/ui/section";
 import { SectionHeader } from "@components/ui/section-header";
 import type { OptimisedImage } from "@components/ui/types";
 import type { Lang } from "@i18n/locale";
@@ -64,20 +65,15 @@ export function About({ lang, image }: Readonly<AboutProps>) {
   ];
 
   return (
-    <section className="overflow-x-hidden py-20" data-testid="about" id="about">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          subtitle={t("about.subtitle")}
-          title={t("about.title")}
-        />
-        <StorySection
-          image={image}
-          mission={t("about.mission")}
-          story={t("about.story")}
-        />
-        <AboutStats stats={stats} />
-        <AboutServices services={services} title={t("about.servicesTitle")} />
-      </div>
-    </section>
+    <Section data-testid="about" id="about">
+      <SectionHeader subtitle={t("about.subtitle")} title={t("about.title")} />
+      <StorySection
+        image={image}
+        mission={t("about.mission")}
+        story={t("about.story")}
+      />
+      <AboutStats stats={stats} />
+      <AboutServices services={services} title={t("about.servicesTitle")} />
+    </Section>
   );
 }
