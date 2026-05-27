@@ -2,6 +2,7 @@
 
 import { IconBadge } from "@components/ui/icon-badge";
 import { cn } from "@lib/cn";
+import { viewport } from "@lib/motion";
 import { motion } from "motion/react";
 import type { IconType } from "react-icons";
 
@@ -31,8 +32,6 @@ const rowVariants = {
     transition: { duration: 0.5, ease: "easeOut" },
   },
 } as const;
-
-const viewport = { once: true, margin: "-50px" } as const;
 
 export function ContactInfo({
   items,

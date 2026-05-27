@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@lib/cn";
+import { scaleIn } from "@lib/motion";
 import { motion } from "motion/react";
 
 export interface MapEmbedProps {
@@ -10,10 +11,7 @@ export interface MapEmbedProps {
   "data-testid"?: string;
 }
 
-const viewport = { once: true, margin: "-50px" } as const;
-const initial = { opacity: 0, scale: 0.95 };
-const whileInView = { opacity: 1, scale: 1 };
-const transition = { duration: 0.6, ease: "easeOut", delay: 0.3 } as const;
+const mapMotion = scaleIn({ scale: 0.95, delay: 0.3 });
 
 export function MapEmbed({
   src,
@@ -28,10 +26,7 @@ export function MapEmbed({
         className
       )}
       data-testid={dataTestId}
-      initial={initial}
-      transition={transition}
-      viewport={viewport}
-      whileInView={whileInView}
+      {...mapMotion}
     >
       <iframe
         allowFullScreen

@@ -6,6 +6,7 @@ import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
 import { getRichText } from "@i18n/richtext";
+import { entrance, entranceScale } from "@lib/motion";
 import { motion } from "motion/react";
 import { LuArrowRight } from "react-icons/lu";
 
@@ -14,21 +15,10 @@ export interface HeroProps {
   image: OptimisedImage;
 }
 
-const bgInitial = { scale: 1.1 };
-const bgAnimate = { scale: 1 };
-const bgTransition = { duration: 1.5 };
-
-const titleInitial = { opacity: 0, x: -50 };
-const titleAnimate = { opacity: 1, x: 0 };
-const titleTransition = { duration: 0.8, delay: 0.4 };
-
-const descInitial = { opacity: 0, x: -50 };
-const descAnimate = { opacity: 1, x: 0 };
-const descTransition = { duration: 0.5, delay: 0.6 };
-
-const ctaInitial = { opacity: 0, y: 20 };
-const ctaAnimate = { opacity: 1, y: 0 };
-const ctaTransition = { duration: 0.6, delay: 0.8 };
+const backgroundMotion = entranceScale({ duration: 1.5 });
+const titleMotion = entrance({ x: -50, duration: 0.8, delay: 0.4 });
+const descriptionMotion = entrance({ x: -50, duration: 0.5, delay: 0.6 });
+const ctaMotion = entrance({ y: 20, duration: 0.6, delay: 0.8 });
 
 export function Hero({ lang, image }: Readonly<HeroProps>) {
   const t = getTranslations(lang);
@@ -42,10 +32,8 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
       id="home"
     >
       <motion.div
-        animate={bgAnimate}
         className="absolute top-0 bottom-0 left-0 z-0 h-full w-full"
-        initial={bgInitial}
-        transition={bgTransition}
+        {...backgroundMotion}
       >
         <img
           alt={image.alt}
@@ -64,11 +52,9 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
       <div className="relative z-10 w-full max-w-7xl px-4 py-20 sm:px-6 md:ml-auto lg:px-8">
         <div className="max-w-3xl md:ml-auto md:pr-12 lg:pr-24">
           <motion.h1
-            animate={titleAnimate}
             className="mb-6 font-bold text-3xl text-white sm:text-5xl md:text-7xl"
             data-testid="hero-title"
-            initial={titleInitial}
-            transition={titleTransition}
+            {...titleMotion}
           >
             {richText("hero.title", ["accent"]).map((part) =>
               part.tag === "accent" ? (
@@ -82,19 +68,15 @@ export function Hero({ lang, image }: Readonly<HeroProps>) {
           </motion.h1>
 
           <motion.p
-            animate={descAnimate}
             className="mb-8 text-base text-gray-200 leading-relaxed sm:text-xl md:text-2xl"
-            initial={descInitial}
-            transition={descTransition}
+            {...descriptionMotion}
           >
             {t("hero.description")}
           </motion.p>
 
           <motion.div
-            animate={ctaAnimate}
             className="flex flex-col items-center gap-4 sm:flex-row sm:items-end"
-            initial={ctaInitial}
-            transition={ctaTransition}
+            {...ctaMotion}
           >
             <Button
               className="group w-full sm:w-auto"

@@ -1,6 +1,7 @@
 "use client";
 
 import { IconBadge } from "@components/ui/icon-badge";
+import { fadeUp } from "@lib/motion";
 import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { IconType } from "react-icons";
@@ -13,10 +14,7 @@ export interface StatCardProps {
   "data-testid"?: string;
 }
 
-const viewport = { once: true, margin: "-50px" } as const;
-const cardInitial = { opacity: 0, y: 50 };
-const cardWhileInView = { opacity: 1, y: 0 };
-const cardTransition = { duration: 0.6, ease: "easeOut" } as const;
+const cardMotion = fadeUp(50);
 
 function AnimatedCounter({
   target,
@@ -59,11 +57,8 @@ export function StatCard({
     <motion.div
       className="text-center"
       data-testid={dataTestId}
-      initial={cardInitial}
       ref={ref}
-      transition={cardTransition}
-      viewport={viewport}
-      whileInView={cardWhileInView}
+      {...cardMotion}
     >
       <IconBadge className="mb-4" icon={icon} size="lg" />
       <div className="mb-2 text-4xl">

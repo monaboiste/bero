@@ -1,6 +1,7 @@
 "use client";
 
 import type { OptimisedImage } from "@components/ui/types";
+import { fadeX, scaleIn } from "@lib/motion";
 import { motion } from "motion/react";
 
 export interface StorySectionProps {
@@ -10,25 +11,9 @@ export interface StorySectionProps {
   "data-testid"?: string;
 }
 
-const viewport = { once: true, margin: "-100px" } as const;
-
-const fadeLeft = {
-  initial: { opacity: 0, x: -50 },
-  whileInView: { opacity: 1, x: 0 },
-  transition: { duration: 0.8 },
-};
-
-const fadeRight = {
-  initial: { opacity: 0, x: 50 },
-  whileInView: { opacity: 1, x: 0 },
-  transition: { duration: 0.8, delay: 0.2 },
-};
-
-const scaleIn = {
-  initial: { opacity: 0, scale: 0.8 },
-  whileInView: { opacity: 1, scale: 1 },
-  transition: { duration: 0.6, delay: 0.4 },
-};
+const imageMotion = fadeX(-50);
+const textMotion = fadeX(50, { delay: 0.2 });
+const logoMotion = scaleIn({ delay: 0.4 });
 
 export function StorySection({
   story,
@@ -45,45 +30,27 @@ export function StorySection({
         alt={image.alt}
         className="h-auto w-full rounded-lg shadow-xl"
         height={image.height}
-        initial={fadeLeft.initial}
         loading="lazy"
         sizes={image.sizes}
         src={image.src}
         srcSet={image.srcSet}
-        transition={fadeLeft.transition}
-        viewport={viewport}
-        whileInView={fadeLeft.whileInView}
         width={image.width}
+        {...imageMotion}
       />
 
       <div>
-        <motion.p
-          className="mb-6 text-lg leading-relaxed"
-          initial={fadeRight.initial}
-          transition={fadeRight.transition}
-          viewport={viewport}
-          whileInView={fadeRight.whileInView}
-        >
+        <motion.p className="mb-6 text-lg leading-relaxed" {...textMotion}>
           {story}
         </motion.p>
 
         <motion.p
           className="text-muted-foreground leading-relaxed"
-          initial={fadeRight.initial}
-          transition={fadeRight.transition}
-          viewport={viewport}
-          whileInView={fadeRight.whileInView}
+          {...textMotion}
         >
           {mission}
         </motion.p>
 
-        <motion.div
-          className="mt-8"
-          initial={scaleIn.initial}
-          transition={scaleIn.transition}
-          viewport={viewport}
-          whileInView={scaleIn.whileInView}
-        >
+        <motion.div className="mt-8" {...logoMotion}>
           <span
             className="font-accent text-3xl text-accent md:text-4xl"
             style={{ fontFamily: "var(--font-accent)" }}
