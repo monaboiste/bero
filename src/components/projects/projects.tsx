@@ -6,7 +6,7 @@ import { SectionHeader } from "@components/ui/section-header";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
-import { fadeUp, stagger, viewport } from "@lib/motion";
+import { fadeY, stagger, viewport } from "@lib/motion";
 import { motion } from "motion/react";
 import { LuArrowRight } from "react-icons/lu";
 import { ProjectCard } from "./project-card";
@@ -24,7 +24,7 @@ export interface ProjectsProps {
 }
 
 const { container, item } = stagger(0.15, { y: 50 });
-const ctaMotion = fadeUp(20, { delay: 0.3 });
+const ctaMotion = fadeY(20, { delay: 0.3 });
 
 export function Projects({ lang, projects }: Readonly<ProjectsProps>) {
   const t = getTranslations(lang);

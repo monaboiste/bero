@@ -1,7 +1,7 @@
 "use client";
 
 import { Heading } from "@components/ui/heading";
-import { fadeUp, spring, stagger, viewport } from "@lib/motion";
+import { fadeY, spring, stagger, viewport } from "@lib/motion";
 import { motion } from "motion/react";
 import { ServiceCard } from "./service-card";
 
@@ -16,7 +16,7 @@ export interface AboutServicesProps {
   "data-testid"?: string;
 }
 
-const titleMotion = fadeUp(20);
+const titleMotion = fadeY(20);
 const { container, item } = stagger(0.08, { y: 30, transition: spring });
 
 export function AboutServices({
