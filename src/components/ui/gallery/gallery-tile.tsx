@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@lib/cn";
+import { fadeUp } from "@lib/motion";
 import { motion } from "motion/react";
 import type { GalleryImage } from "./types";
 
@@ -9,10 +10,7 @@ export interface GalleryTileProps {
   index: number;
 }
 
-const tileInitial = { opacity: 0, y: 40 };
-const tileWhileInView = { opacity: 1, y: 0 };
-const tileTransition = { duration: 0.5, ease: "easeOut" } as const;
-const tileViewport = { once: true, margin: "-50px" } as const;
+const tileMotion = fadeUp(40);
 
 export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
   const dateLabel = image.date?.slice(0, 7);
@@ -30,11 +28,8 @@ export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
       data-testid="gallery-tile"
       data-type="image"
       href={image.url}
-      initial={tileInitial}
       key={`${image.url}-${index}`}
-      transition={tileTransition}
-      viewport={tileViewport}
-      whileInView={tileWhileInView}
+      {...tileMotion}
     >
       <div className="gallery-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
         <img

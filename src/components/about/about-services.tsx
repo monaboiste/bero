@@ -1,6 +1,7 @@
 "use client";
 
 import { Heading } from "@components/ui/heading";
+import { fadeUp, spring, stagger, viewport } from "@lib/motion";
 import { motion } from "motion/react";
 import { ServiceCard } from "./service-card";
 
@@ -15,33 +16,8 @@ export interface AboutServicesProps {
   "data-testid"?: string;
 }
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 480,
-      damping: 20,
-      mass: 1,
-    },
-  },
-} as const;
-
-const titleViewport = { once: true } as const;
-const titleInitial = { opacity: 0, y: 20 };
-const titleWhileInView = { opacity: 1, y: 0 };
-const titleTransition = { duration: 0.6, ease: "easeOut" } as const;
-
-const gridViewport = { once: true, margin: "-50px" } as const;
+const titleMotion = fadeUp(20);
+const { container, item } = stagger(0.08, { y: 30, transition: spring });
 
 export function AboutServices({
   title,
@@ -50,12 +26,7 @@ export function AboutServices({
 }: Readonly<AboutServicesProps>) {
   return (
     <div data-testid={dataTestId}>
-      <motion.div
-        initial={titleInitial}
-        transition={titleTransition}
-        viewport={titleViewport}
-        whileInView={titleWhileInView}
-      >
+      <motion.div {...titleMotion}>
         <Heading as="h3" className="mb-12 text-center" size="3xl">
           {title}
         </Heading>
@@ -64,12 +35,12 @@ export function AboutServices({
       <motion.div
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
         initial="hidden"
-        variants={containerVariants}
-        viewport={gridViewport}
+        variants={container}
+        viewport={viewport}
         whileInView="visible"
       >
         {services.map((service) => (
-          <motion.div key={service.title} variants={cardVariants}>
+          <motion.div key={service.title} variants={item}>
             <ServiceCard
               description={service.description}
               title={service.title}

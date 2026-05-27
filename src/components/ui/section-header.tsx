@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@lib/cn";
+import { fadeUp, scaleLine, viewportDeep } from "@lib/motion";
 import { motion } from "motion/react";
 import type { HeadingTag } from "./types";
 
@@ -12,14 +13,12 @@ export interface SectionHeaderProps {
   "data-testid"?: string;
 }
 
-const viewport = { once: true, margin: "-100px" } as const;
-const containerInitial = { opacity: 0, y: -30 };
-const containerWhileInView = { opacity: 1, y: 0 };
-const containerTransition = { duration: 0.8 };
-
-const lineInitial = { scaleX: 0 };
-const lineWhileInView = { scaleX: 1 };
-const lineTransition = { duration: 0.8, delay: 0.2 };
+const containerMotion = {
+  ...fadeUp(-30),
+  viewport: viewportDeep,
+  transition: { duration: 0.8 },
+};
+const lineMotion = scaleLine({ delay: 0.2, origin: "center" });
 
 export function SectionHeader({
   title,
@@ -32,21 +31,11 @@ export function SectionHeader({
     <motion.div
       className={cn("mb-10 text-center", className)}
       data-testid={dataTestId}
-      initial={containerInitial}
-      transition={containerTransition}
-      viewport={viewport}
-      whileInView={containerWhileInView}
+      {...containerMotion}
     >
       <Tag className="mb-4 text-4xl md:text-5xl">{title}</Tag>
 
-      <motion.div
-        className="mx-auto mb-4 h-1 w-20 bg-accent"
-        initial={lineInitial}
-        style={{ transformOrigin: "center" }}
-        transition={lineTransition}
-        viewport={viewport}
-        whileInView={lineWhileInView}
-      />
+      <motion.div className="mx-auto mb-4 h-1 w-20 bg-accent" {...lineMotion} />
 
       {subtitle && <p className="text-muted-foreground text-xl">{subtitle}</p>}
     </motion.div>
