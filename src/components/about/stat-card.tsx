@@ -1,7 +1,7 @@
 "use client";
 
 import { IconBadge } from "@components/ui/icon-badge";
-import { fadeUp } from "@lib/motion";
+import { fadeY } from "@lib/motion";
 import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { IconType } from "react-icons";
@@ -14,7 +14,7 @@ export interface StatCardProps {
   "data-testid"?: string;
 }
 
-const cardMotion = fadeUp(50);
+const cardMotion = fadeY(50);
 
 function AnimatedCounter({
   target,

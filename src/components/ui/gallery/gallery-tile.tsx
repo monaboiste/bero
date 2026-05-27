@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@lib/cn";
-import { fadeUp } from "@lib/motion";
+import { fadeY } from "@lib/motion";
 import { motion } from "motion/react";
 import type { GalleryImage } from "./types";
 
@@ -10,7 +10,7 @@ export interface GalleryTileProps {
   index: number;
 }
 
-const tileMotion = fadeUp(40);
+const tileMotion = fadeY(40);
 
 export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
   const dateLabel = image.date?.slice(0, 7);

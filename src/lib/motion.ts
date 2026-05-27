@@ -14,7 +14,7 @@ export const spring = {
 
 /** Scroll-reveal animation presets */
 
-export function fadeUp(y = 20, opts?: { delay?: number }) {
+export function fadeY(y: number, opts?: { delay?: number }) {
   return {
     initial: { opacity: 0, y },
     whileInView: { opacity: 1, y: 0 },

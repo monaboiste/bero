@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@lib/cn";
-import { fadeUp, scaleLine, viewportDeep } from "@lib/motion";
+import { fadeY, scaleLine, viewportDeep } from "@lib/motion";
 import { motion } from "motion/react";
 import type { HeadingTag } from "./types";
 
@@ -14,7 +14,7 @@ export interface SectionHeaderProps {
 }
 
 const containerMotion = {
-  ...fadeUp(-30),
+  ...fadeY(-30),
   viewport: viewportDeep,
   transition: { duration: 0.8 },
 };
