@@ -1,3 +1,6 @@
+import { Container } from "@components/ui/container";
+import { Grid } from "@components/ui/grid";
+import { Stack } from "@components/ui/stack";
 import type { Lang } from "@i18n/locale";
 import { getTranslations } from "@i18n/locale";
 import { getTranslatedPath } from "@i18n/path";
@@ -59,8 +62,8 @@ export function Footer({
       className={cn("bg-primary text-primary-foreground", className)}
       data-testid={dataTestId}
     >
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-8 grid gap-8 md:grid-cols-4">
+      <Container className="py-12">
+        <Grid className="mb-8" cols={{ md: 4 }} gap="lg">
           {/* About */}
           <div className="md:col-span-2" data-testid="footer-about">
             <p className="mb-4 text-primary-foreground/80 text-sm">
@@ -77,18 +80,22 @@ export function Footer({
           <div>
             {/* Legal */}
             <FooterLinks links={legalLinks} title={t("footer.legal")} />
-            <div className="mt-6 space-y-2">
-              <div className="flex items-center space-x-2 text-primary-foreground/80 text-sm">
-                <LuPhone className="h-4 w-4" />
-                <span>{BUSINESS.phone}</span>
-              </div>
-              <div className="flex items-center space-x-2 text-primary-foreground/80 text-sm">
-                <LuMail className="h-4 w-4" />
-                <span>{BUSINESS.email}</span>
-              </div>
-            </div>
+            <Stack className="mt-6" gap="sm">
+              <Stack align="center" direction="row" gap="sm">
+                <LuPhone className="h-4 w-4 text-primary-foreground/80" />
+                <span className="text-primary-foreground/80 text-sm">
+                  {BUSINESS.phone}
+                </span>
+              </Stack>
+              <Stack align="center" direction="row" gap="sm">
+                <LuMail className="h-4 w-4 text-primary-foreground/80" />
+                <span className="text-primary-foreground/80 text-sm">
+                  {BUSINESS.email}
+                </span>
+              </Stack>
+            </Stack>
           </div>
-        </div>
+        </Grid>
 
         <div
           className="border-white/10 border-t pt-8 text-center text-primary-foreground/60 text-sm"
@@ -96,7 +103,7 @@ export function Footer({
         >
           {content.rights}
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

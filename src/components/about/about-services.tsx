@@ -1,5 +1,6 @@
 "use client";
 
+import { Heading } from "@components/ui/heading";
 import { motion } from "motion/react";
 import { ServiceCard } from "./service-card";
 
@@ -49,15 +50,16 @@ export function AboutServices({
 }: Readonly<AboutServicesProps>) {
   return (
     <div data-testid={dataTestId}>
-      <motion.h3
-        className="mb-12 text-center text-3xl"
+      <motion.div
         initial={titleInitial}
         transition={titleTransition}
         viewport={titleViewport}
         whileInView={titleWhileInView}
       >
-        {title}
-      </motion.h3>
+        <Heading as="h3" className="mb-12 text-center" size="3xl">
+          {title}
+        </Heading>
+      </motion.div>
 
       <motion.div
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
