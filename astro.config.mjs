@@ -1,7 +1,7 @@
 // @ts-check
 
-import node from '@astrojs/node';
 import cloudflare from "@astrojs/cloudflare";
+import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
