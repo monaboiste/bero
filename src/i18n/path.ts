@@ -71,15 +71,18 @@ export function getCanonicalUrl(
 /**
  * Returns hreflang alternate URLs for all configured locales.
  * Uses translated paths for known routes, locale-prefixed paths otherwise.
+ * Returns fully-qualified absolute URLs as recommended by search engines.
  */
 export function getAlternateUrls(
-  url: URL
+  url: URL,
+  site: URL | undefined
 ): Array<{ locale: Lang; href: string }> {
+  const siteUrl = getSiteUrl(site);
   const basePath = getCanonicalBasePath(url);
 
   return locales.map((locale) => {
     const tp = getTranslatedPath(locale);
-    return { locale, href: tp(basePath, locale) };
+    return { locale, href: `${siteUrl}${tp(basePath, locale)}` };
   });
 }
 

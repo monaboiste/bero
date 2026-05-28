@@ -23,7 +23,7 @@ const {
 } = Astro.props;
 
 const canonicalUrl = getCanonicalUrl(Astro.site, Astro.url);
-const alternateUrls = getAlternateUrls(Astro.url);
+const alternateUrls = getAlternateUrls(Astro.url, Astro.site);
 
 const ogLocale = getOgLocale(lang);
 const ogLocaleAlternates = alternateUrls
@@ -40,7 +40,7 @@ const ogLocaleAlternates = alternateUrls
 {alternateUrls.map(({ locale, href }) => (
   <link rel="alternate" hreflang={locale} href={href} />
 ))}
-<link rel="alternate" hreflang="x-default" href="/">
+<link rel="alternate" hreflang="x-default" href={`${siteUrl}/`}>
 
 <meta property="og:site_name" content={t("seo.title")}>
 <meta property="og:title" content={title}>
