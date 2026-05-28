@@ -21,15 +21,16 @@ export const locales = Object.keys(languages) as Lang[];
  */
 export type TranslationKey = keyof typeof pl;
 
-// Compile-time parity checks: fail if any language is missing or has extra keys.
-const _enParity: Record<TranslationKey, string> = en;
-const _deParity: Record<TranslationKey, string> = de;
-
-export const ui: Record<Lang, Record<TranslationKey, string>> = {
-  pl,
-  en,
-  de,
-};
+/**
+ * All UI translations indexed by locale.
+ * The `satisfies` clause enforces compile-time parity: every language must
+ * provide exactly the same set of keys as the default language (no missing,
+ * no extra keys allowed).
+ */
+export const ui = { pl, en, de } satisfies Record<
+  Lang,
+  Record<TranslationKey, string>
+>;
 
 /**
  * Resolves `Astro.currentLocale` to a valid `Lang`.

@@ -28,7 +28,7 @@ describe("getLang", () => {
   });
 });
 
-describe("useTranslations", () => {
+describe("getTranslations", () => {
   test("returns a function", () => {
     const t = getTranslations("pl");
     expect(typeof t).toBe("function");

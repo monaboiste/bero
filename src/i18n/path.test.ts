@@ -7,7 +7,7 @@ import {
   stripLocalePrefix,
 } from "./path";
 
-describe("useTranslatedPath", () => {
+describe("getTranslatedPath", () => {
   test("returns a function", () => {
     const translatePath = getTranslatedPath("pl");
     expect(typeof translatePath).toBe("function");
@@ -61,7 +61,7 @@ describe("useTranslatedPath", () => {
   });
 });
 
-describe("getRouteFromUrl", () => {
+describe("getRoute", () => {
   test("returns canonical key for a German translated slug", () => {
     const url = new URL("https://example.com/de/datenschutzerklarung");
     expect(getRoute(url)).toBe("privacy-policy");

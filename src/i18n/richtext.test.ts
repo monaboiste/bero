@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import { getRichText } from "./richtext";
 
-describe("useRichText", () => {
+describe("getRichText", () => {
   test("returns a function", () => {
     const richText = getRichText("pl");
     expect(typeof richText).toBe("function");
