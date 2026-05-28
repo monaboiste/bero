@@ -182,15 +182,3 @@ To preview locally with the Cloudflare runtime:
 ```sh
 npm run preview
 ```
-
-## Linting and Git Hooks
-
-**Linter:** Biome via Ultracite (`biome.json` extends `ultracite/core` + `ultracite/astro`).
-
-**Pre-commit hook:** Husky runs `lint-staged` on staged
-`*.{js,ts,jsx,tsx,astro}` files, auto-fixing lint issues before commit.
-
-```sh
-npm run lint       # check
-npm run lint:fix   # auto-fix
-```
