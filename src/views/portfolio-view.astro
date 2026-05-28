@@ -39,6 +39,9 @@ const images = portfolio.flatMap((project) =>
   }))
 );
 
+// Light props for React (no heavy description/date text)
+const tileImages = images.map(({ description, date, ...tile }) => tile);
+
 const initialTag = Astro.url.searchParams.get("tag") ?? "";
 ---
 
@@ -51,9 +54,22 @@ const initialTag = Astro.url.searchParams.get("tag") ?? "";
     <PortfolioGallery
       client:visible
       lang={lang}
-      images={images}
+      images={tileImages}
       tags={tags}
       initialTag={initialTag}
     />
   </div>
+
+  <!-- Static descriptions template - not duplicated in React props -->
+  <template id="gallery-descriptions">
+    {images.map((image) => (
+      <div data-url={image.url}>
+        <div class="lightbox-desc-header">
+          <h4 class="lightbox-desc-title">{image.title}</h4>
+          {image.date && <span class="lightbox-desc-date">{image.date.slice(0, 7)}</span>}
+        </div>
+        <p class="lightbox-desc-text">{image.description}</p>
+      </div>
+    ))}
+  </template>
 </MainLayout>
