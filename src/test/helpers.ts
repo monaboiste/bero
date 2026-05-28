@@ -49,7 +49,7 @@ export async function renderAstroComponent<T extends AstroComponentFactory>(
 export async function renderAstroDocument<T extends AstroComponentFactory>(
   Component: T,
   options: ComponentContainerRenderOptions<T> = {}
-): Promise<Document> {
+) {
   const container = await AstroContainer.create();
   const html = await container.renderToString(Component, options);
 
