@@ -4,11 +4,11 @@ import { useLightbox } from "@components/hooks/use-lightbox";
 import { cn } from "@lib/cn";
 import { useRef } from "react";
 import { GalleryTile } from "./gallery-tile";
-import type { GalleryImage } from "./types";
+import type { GalleryTileData } from "./types";
 import "./grid-gallery.css";
 
 export interface GridGalleryProps {
-  images: GalleryImage[];
+  images: GalleryTileData[];
   className?: string;
 }
 
