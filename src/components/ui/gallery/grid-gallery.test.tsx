@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { GridGallery } from "./grid-gallery";
-import type { GalleryImage } from "./types";
+import type { GalleryTileData } from "./types";
 
-const sampleImages: GalleryImage[] = [
+const sampleImages: GalleryTileData[] = [
   {
     thumbnail: {
       src: "/img/photo1.jpg",
@@ -13,8 +13,6 @@ const sampleImages: GalleryImage[] = [
     },
     url: "/img/photo1-full.jpg",
     title: "First title",
-    description: "First photo",
-    date: "2025-01-15",
     tags: [],
   },
   {
@@ -26,8 +24,6 @@ const sampleImages: GalleryImage[] = [
     },
     url: "/img/photo2-full.jpg",
     title: "Second title",
-    description: "Second photo",
-    date: "2025-02-20",
     tags: [],
   },
   {
@@ -39,8 +35,6 @@ const sampleImages: GalleryImage[] = [
     },
     url: "/img/photo3-full.jpg",
     title: "Third title",
-    description: "Third photo",
-    date: "2025-03-10",
     tags: [],
   },
 ];
@@ -78,19 +72,8 @@ describe("GridGallery", () => {
     expect(captions[2]).toHaveTextContent("Third title");
   });
 
-  test("every tile has a hidden glightbox-desc element", () => {
-    render(<GridGallery images={sampleImages} />);
-
-    const tiles = screen.getAllByTestId("gallery-tile");
-    for (const tile of tiles) {
-      const desc = tile.querySelector(".glightbox-desc");
-      expect(desc).not.toBeNull();
-      expect(desc).toHaveClass("hidden");
-    }
-  });
-
   test("landscape tile has landscape class", () => {
-    const images: GalleryImage[] = [
+    const images: GalleryTileData[] = [
       {
         thumbnail: {
           src: "/img/photo1.jpg",
@@ -100,7 +83,6 @@ describe("GridGallery", () => {
         },
         url: "/img/photo1-full.jpg",
         title: "Wide shot",
-        description: "A wide photo",
         tags: [],
         orientation: "landscape",
       },
@@ -113,7 +95,7 @@ describe("GridGallery", () => {
   });
 
   test("portrait tile does not have landscape class", () => {
-    const images: GalleryImage[] = [
+    const images: GalleryTileData[] = [
       {
         thumbnail: {
           src: "/img/photo1.jpg",
@@ -123,7 +105,6 @@ describe("GridGallery", () => {
         },
         url: "/img/photo1-full.jpg",
         title: "Tall shot",
-        description: "A tall photo",
         tags: [],
         orientation: "portrait",
       },
@@ -163,7 +144,7 @@ describe("GridGallery", () => {
   });
 
   test("tiles use custom gallery name when provided", () => {
-    const images: GalleryImage[] = [
+    const images: GalleryTileData[] = [
       {
         thumbnail: {
           src: "/img/p1.jpg",
@@ -173,7 +154,6 @@ describe("GridGallery", () => {
         },
         url: "/img/p1-full.jpg",
         title: "Project A",
-        description: "Desc A",
         tags: [],
         gallery: "project-a",
       },
@@ -186,7 +166,6 @@ describe("GridGallery", () => {
         },
         url: "/img/p2-full.jpg",
         title: "Project A",
-        description: "Desc A",
         tags: [],
         gallery: "project-a",
       },
@@ -199,7 +178,6 @@ describe("GridGallery", () => {
         },
         url: "/img/p3-full.jpg",
         title: "Project B",
-        description: "Desc B",
         tags: [],
         gallery: "project-b",
       },
@@ -222,19 +200,6 @@ describe("GridGallery", () => {
     }
   });
 
-  test("glightbox-desc contains description text", () => {
-    render(<GridGallery images={sampleImages} />);
-
-    const tiles = screen.getAllByTestId("gallery-tile");
-    const desc = tiles[0].querySelector(".glightbox-desc");
-
-    expect(desc).not.toBeNull();
-    expect(desc).toHaveClass("hidden");
-    expect(
-      desc?.querySelector(".lightbox-desc-text")?.textContent?.trim()
-    ).toBe("First photo");
-  });
-
   test("caption is rendered as a hover overlay", () => {
     render(<GridGallery images={sampleImages} />);
 
@@ -242,36 +207,6 @@ describe("GridGallery", () => {
     expect(caption).toHaveClass("absolute");
     expect(caption).toHaveClass("translate-y-full");
     expect(caption).toHaveClass("group-hover:translate-y-0");
-  });
-
-  test("lightbox desc shows title and date badge when provided", () => {
-    const images: GalleryImage[] = [
-      {
-        thumbnail: {
-          src: "/img/p.jpg",
-          alt: "Project",
-          width: 800,
-          height: 600,
-        },
-        url: "",
-        title: "Fotel klubowy",
-        description: "Opis projektu",
-        date: "2025-01-15",
-        tags: [],
-      },
-    ];
-
-    render(<GridGallery images={images} />);
-
-    const tile = screen.getByTestId("gallery-tile");
-    const desc = tile.querySelector(".glightbox-desc");
-    const title = desc?.querySelector(".lightbox-desc-title");
-    const date = desc?.querySelector(".lightbox-desc-date");
-    const text = desc?.querySelector(".lightbox-desc-text");
-
-    expect(title?.textContent?.trim()).toBe("Fotel klubowy");
-    expect(date?.textContent?.trim()).toBe("2025-01");
-    expect(text?.textContent?.trim()).toBe("Opis projektu");
   });
 
   test("image has width and height attributes", () => {
