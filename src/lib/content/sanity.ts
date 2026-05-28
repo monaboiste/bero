@@ -1,4 +1,4 @@
-import type { Lang } from "@i18n/locale";
+import { defaultLang, type Lang } from "@i18n/locale";
 import type {
   SanityImageObjectStub,
   SanityImageSource,
@@ -45,7 +45,7 @@ export const sanityApi = {
     const query = /* groq */ `
     *[_type == "portfolio"] | order(date desc) [$start...$end]
     {
-      "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
+      "title": coalesce(title[_key == $lang][0].value, title[_key == $defaultLang][0].value),
       "slug": slug[$lang].current,
       "date": date,
       images[] {
@@ -55,13 +55,14 @@ export const sanityApi = {
         crop,
         hotspot,
       },
-      "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
-      "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
+      "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == $defaultLang][0].value),
+      "description": coalesce(description[_key == $lang][0].value, description[_key == $defaultLang][0].value),
       "tags": tags
     }`;
 
     const entries = await sanityClient.fetch<RawPortfolioEntry[]>(query, {
       lang,
+      defaultLang,
       ...page,
     });
 
@@ -78,7 +79,7 @@ export const sanityApi = {
     const query = /* groq */ `
     *[_type == "portfolio"] | order(date desc) [0...$limit]
     {
-      "title": coalesce(title[_key == $lang][0].value, title[_key == "pl"][0].value),
+      "title": coalesce(title[_key == $lang][0].value, title[_key == $defaultLang][0].value),
       "slug": slug[$lang].current,
       "date": date,
       images[] {
@@ -88,13 +89,14 @@ export const sanityApi = {
         crop,
         hotspot,
       },
-      "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == "pl"][0].value),
-      "description": coalesce(description[_key == $lang][0].value, description[_key == "pl"][0].value),
+      "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == $defaultLang][0].value),
+      "description": coalesce(description[_key == $lang][0].value, description[_key == $defaultLang][0].value),
       "tags": tags
     }`;
 
     const entries = await sanityClient.fetch<RawPortfolioEntry[]>(query, {
       lang,
+      defaultLang,
       limit,
     });
 
