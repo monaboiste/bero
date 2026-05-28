@@ -12,10 +12,10 @@ import { LuArrowRight } from "react-icons/lu";
 import { ProjectCard } from "./project-card";
 
 export interface ProjectData {
-  title: string;
-  excerpt: string;
   date: string;
+  excerpt: string;
   image: string;
+  title: string;
 }
 
 export interface ProjectsProps {

@@ -2,19 +2,19 @@ import { defaultLang, type Lang } from "@i18n/locale";
 import type { Portfolio, Project } from "./types";
 
 interface LocalizedText {
-  pl: string;
-  en: string;
   de: string;
+  en: string;
+  pl: string;
 }
 
 interface LocalizedProject {
-  title: LocalizedText;
-  slug: LocalizedText;
   date: string;
-  excerpt: LocalizedText;
   description: LocalizedText;
-  tags: string[];
+  excerpt: LocalizedText;
   images: Project["images"];
+  slug: LocalizedText;
+  tags: string[];
+  title: LocalizedText;
 }
 
 /**

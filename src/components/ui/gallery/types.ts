@@ -5,12 +5,12 @@ import type { OptimisedImage } from "@components/ui/types";
  * Used by GridGallery and GalleryTile for rendering the grid.
  */
 export interface GalleryTileData {
-  thumbnail: OptimisedImage;
-  url: string;
-  title: string;
-  tags: string[];
-  orientation?: "landscape" | "portrait";
   gallery?: string;
+  orientation?: "landscape" | "portrait";
+  tags: string[];
+  thumbnail: OptimisedImage;
+  title: string;
+  url: string;
 }
 
 /**
@@ -18,6 +18,6 @@ export interface GalleryTileData {
  * Used in Astro views to generate the static description template.
  */
 export interface GalleryImage extends GalleryTileData {
-  description: string;
   date?: string;
+  description: string;
 }

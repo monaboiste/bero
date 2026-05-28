@@ -1,14 +1,14 @@
 export interface LinkItem {
-  label: string;
   href: string;
+  label: string;
   testId?: string;
 }
 
 export interface FooterLinksProps {
-  title: string;
-  links: LinkItem[];
   className?: string;
   "data-testid"?: string;
+  links: LinkItem[];
+  title: string;
 }
 
 const LOCALE_PREFIX_RE = /^\/[a-z]{2}\//;

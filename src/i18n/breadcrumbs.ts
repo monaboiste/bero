@@ -25,7 +25,7 @@ export function buildBreadcrumbs(
 ): BreadcrumbItem[] | undefined {
   const routeKey = getRoute(requestUrl);
   if (!routeKey) {
-    return undefined;
+    return;
   }
 
   const lang = getLang(currentLocale);
@@ -35,7 +35,7 @@ export function buildBreadcrumbs(
 
   const entry = routes[lang][routeKey];
   if (!entry) {
-    return undefined;
+    return;
   }
 
   return [

@@ -5,14 +5,14 @@ import { cn } from "@lib/cn";
 import type { ComponentType, SVGProps } from "react";
 
 export interface LogoProps {
-  variant?: "light" | "dark";
-  size?: "sm" | "md" | "lg";
+  className?: string;
+  "data-testid"?: string;
   lang: Lang;
+  size?: "sm" | "md" | "lg";
   svgComponent?: ComponentType<
     SVGProps<SVGSVGElement> & { className?: string }
   >;
-  className?: string;
-  "data-testid"?: string;
+  variant?: "light" | "dark";
 }
 
 const sizes = {

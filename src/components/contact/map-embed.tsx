@@ -5,10 +5,10 @@ import { scaleIn } from "@lib/motion";
 import { motion } from "motion/react";
 
 export interface MapEmbedProps {
-  src: string;
-  title?: string;
   className?: string;
   "data-testid"?: string;
+  src: string;
+  title?: string;
 }
 
 const mapMotion = scaleIn({ scale: 0.95, delay: 0.3 });

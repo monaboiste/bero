@@ -1,11 +1,11 @@
 import { Card } from "@components/ui/card";
 
 export interface ProjectCardProps {
-  title: string;
+  "data-testid"?: string;
+  date?: string;
   description: string;
   image: string;
-  date?: string;
-  "data-testid"?: string;
+  title: string;
 }
 
 export function ProjectCard({

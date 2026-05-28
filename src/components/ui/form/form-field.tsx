@@ -2,15 +2,15 @@ import { cn } from "@lib/cn";
 import type { ChangeEvent } from "react";
 
 export interface FormFieldProps {
+  "data-testid"?: string;
+  id?: string;
   label: string;
   name: string;
-  type?: "text" | "email" | "textarea";
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   required?: boolean;
   rows?: number;
-  id?: string;
+  type?: "text" | "email" | "textarea";
   value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  "data-testid"?: string;
 }
 
 const inputClasses =

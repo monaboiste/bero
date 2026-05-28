@@ -12,9 +12,9 @@ export interface ContactItem {
 }
 
 export interface ContactInfoProps {
-  items: ContactItem[];
   className?: string;
   "data-testid"?: string;
+  items: ContactItem[];
 }
 
 const containerVariants = {

@@ -2,14 +2,14 @@ import { cn } from "@lib/cn";
 import type { ReactNode } from "react";
 
 export interface CardProps {
+  children?: ReactNode;
+  className?: string;
+  "data-testid"?: string;
+  date?: string;
   image: {
     src: string;
     alt: string;
   };
-  date?: string;
-  className?: string;
-  children?: ReactNode;
-  "data-testid"?: string;
 }
 
 export function Card({

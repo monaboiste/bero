@@ -9,10 +9,10 @@ import { getTranslations } from "@i18n/locale";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export interface PortfolioGalleryProps {
-  lang: Lang;
   images: GalleryTileData[];
-  tags: TagItem[];
   initialTag?: string;
+  lang: Lang;
+  tags: TagItem[];
 }
 
 const TAG_PARAM = "tag";

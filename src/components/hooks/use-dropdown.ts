@@ -11,15 +11,15 @@ export interface UseDropdownOptions {
 }
 
 export interface UseDropdownReturn {
-  isOpen: boolean;
-  toggle: () => void;
-  close: () => void;
-  open: () => void;
-  containerRef: RefObject<HTMLDivElement | null>;
-  menuRef: RefObject<HTMLDivElement | null>;
   buttonRef: RefObject<HTMLButtonElement | null>;
+  close: () => void;
+  containerRef: RefObject<HTMLDivElement | null>;
   handleButtonKeyDown: (e: React.KeyboardEvent) => void;
   handleMenuKeyDown: (e: React.KeyboardEvent) => void;
+  isOpen: boolean;
+  menuRef: RefObject<HTMLDivElement | null>;
+  open: () => void;
+  toggle: () => void;
 }
 
 function getMenuLinks(menuRef: RefObject<HTMLDivElement | null>) {

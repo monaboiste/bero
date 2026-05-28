@@ -6,12 +6,12 @@ export interface TagItem {
 }
 
 export interface TagFilterProps {
-  tags: TagItem[];
   activeTag: string;
-  onTagChange: (tag: string) => void;
   allLabel?: string;
   className?: string;
   "data-testid"?: string;
+  onTagChange: (tag: string) => void;
+  tags: TagItem[];
 }
 
 const baseClasses =

@@ -5,7 +5,7 @@ import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import {defineConfig, fontProviders} from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import svgr from "vite-plugin-svgr";
 // noinspection ES6PreferShortImport
 import { defaultLang, locales } from "./src/i18n/locale";
@@ -28,7 +28,7 @@ export default defineConfig({
       name: "Comforter Brush",
       cssVariable: "--font-accent",
       fallbacks: ["cursive"],
-    }
+    },
   ],
 
   integrations: [
@@ -57,7 +57,5 @@ export default defineConfig({
 
   // FIXME: https://github.com/withastro/astro/issues/15878 and https://github.com/withastro/astro/issues/16029
   // added `overrides.vite` to package.json and `@astrojs/node` to devDependencies
-  adapter: process.env.VITEST
-    ? node({ mode: 'standalone' })
-    : cloudflare(),
+  adapter: process.env.VITEST ? node({ mode: "standalone" }) : cloudflare(),
 });

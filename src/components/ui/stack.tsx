@@ -2,15 +2,15 @@ import { cn } from "@lib/cn";
 import type { ElementType, ReactNode } from "react";
 
 export interface StackProps {
-  children: ReactNode;
-  direction?: "column" | "row";
-  gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
   align?: "start" | "center" | "end" | "stretch" | "baseline";
-  justify?: "start" | "center" | "end" | "between" | "around";
-  wrap?: boolean;
   as?: ElementType;
+  children: ReactNode;
   className?: string;
   "data-testid"?: string;
+  direction?: "column" | "row";
+  gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  justify?: "start" | "center" | "end" | "between" | "around";
+  wrap?: boolean;
 }
 
 const gapClasses = {

@@ -8,8 +8,8 @@ import { defaultLang, type Lang, type TranslationKey, ui } from "./locale";
  * so the caller can apply styling per tag.
  */
 export interface RichTextPart {
-  text: string;
   tag?: string;
+  text: string;
 }
 
 /**

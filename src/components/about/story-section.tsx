@@ -5,10 +5,10 @@ import { fadeX, scaleIn } from "@lib/motion";
 import { motion } from "motion/react";
 
 export interface StorySectionProps {
-  story: string;
-  mission: string;
-  image: OptimisedImage;
   "data-testid"?: string;
+  image: OptimisedImage;
+  mission: string;
+  story: string;
 }
 
 const imageMotion = fadeX(-50);

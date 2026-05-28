@@ -8,8 +8,8 @@ import type { GalleryTileData } from "./types";
 import "./grid-gallery.css";
 
 export interface GridGalleryProps {
-  images: GalleryTileData[];
   className?: string;
+  images: GalleryTileData[];
 }
 
 export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
@@ -23,12 +23,8 @@ export function GridGallery({ images, className }: Readonly<GridGalleryProps>) {
       data-testid="gallery"
       ref={containerRef}
     >
-      {images.map((image, index) => (
-        <GalleryTile
-          image={image}
-          index={index}
-          key={`${image.url}-${index}`}
-        />
+      {images.map((image) => (
+        <GalleryTile image={image} key={image.url} />
       ))}
     </div>
   );

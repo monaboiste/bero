@@ -4,11 +4,11 @@ import { cn } from "@lib/cn";
 import { LuMenu, LuX } from "react-icons/lu";
 
 export interface MobileMenuButtonProps {
-  isOpen: boolean;
-  onToggle: () => void;
-  lang: Lang;
   className?: string;
   "data-testid"?: string;
+  isOpen: boolean;
+  lang: Lang;
+  onToggle: () => void;
 }
 
 export function MobileMenuButton({

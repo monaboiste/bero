@@ -8,9 +8,9 @@ const useMock = !!import.meta.env.USE_MOCK_DATA;
 export interface PortfolioApi {
   count(): Promise<number>;
 
-  fetchPortfolioPage(page: { start: number; end: number }): Promise<Portfolio>;
-
   fetchPortfolioLatestProjects(limit: number): Promise<Portfolio>;
+
+  fetchPortfolioPage(page: { start: number; end: number }): Promise<Portfolio>;
 }
 
 export function createPortfolioApi(lang: Lang): PortfolioApi {
@@ -39,12 +39,9 @@ function createSanityApi(lang: Lang): PortfolioApi {
     fetchPortfolioPage: async (page: {
       start: number;
       end: number;
-    }): Promise<Portfolio> => {
-      return await sanityApi.fetchPortfolioPage(lang, page);
-    },
+    }): Promise<Portfolio> => await sanityApi.fetchPortfolioPage(lang, page),
 
-    fetchPortfolioLatestProjects: async (limit: number): Promise<Portfolio> => {
-      return await sanityApi.fetchPortfolioLatestProjects(lang, limit);
-    },
+    fetchPortfolioLatestProjects: async (limit: number): Promise<Portfolio> =>
+      await sanityApi.fetchPortfolioLatestProjects(lang, limit),
   };
 }

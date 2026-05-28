@@ -7,12 +7,11 @@ import type { GalleryTileData } from "./types";
 
 export interface GalleryTileProps {
   image: GalleryTileData;
-  index: number;
 }
 
 const tileMotion = fadeY(40);
 
-export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
+export function GalleryTile({ image }: Readonly<GalleryTileProps>) {
   const isLandscape = image.orientation === "landscape";
 
   return (
@@ -27,7 +26,7 @@ export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
       data-testid="gallery-tile"
       data-type="image"
       href={image.url}
-      key={`${image.url}-${index}`}
+      key={image.url}
       {...tileMotion}
     >
       <div className="gallery-tile group relative overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">

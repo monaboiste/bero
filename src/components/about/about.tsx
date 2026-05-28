@@ -11,8 +11,8 @@ import { AboutStats } from "./about-stats";
 import { StorySection } from "./story-section";
 
 export interface AboutProps {
-  lang: Lang;
   image: OptimisedImage;
+  lang: Lang;
 }
 
 export function About({ lang, image }: Readonly<AboutProps>) {

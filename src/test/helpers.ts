@@ -1,10 +1,10 @@
+import { loadRenderers } from "astro:container";
+import { getContainerRenderer as reactContainerRenderer } from "@astrojs/react";
 import {
   experimental_AstroContainer as AstroContainer,
   type ContainerRenderOptions,
 } from "astro/container";
-import type {ComponentProps} from "astro/types";
-import {getContainerRenderer as reactContainerRenderer} from "@astrojs/react";
-import {loadRenderers} from "astro:container";
+import type { ComponentProps } from "astro/types";
 import { Window } from "happy-dom";
 
 // biome-ignore lint: lint/suspicion/noExplicitAny
@@ -22,9 +22,10 @@ type ComponentContainerRenderOptions<T extends AstroComponentFactory> = Omit<
  */
 export async function renderAstroComponent<T extends AstroComponentFactory>(
   Component: T,
-  options: ComponentContainerRenderOptions<T> = {}) {
+  options: ComponentContainerRenderOptions<T> = {}
+) {
   const renderers = await loadRenderers([reactContainerRenderer()]);
-  const container = await AstroContainer.create({renderers})
+  const container = await AstroContainer.create({ renderers });
 
   const result = await container.renderToString(Component, options);
 
