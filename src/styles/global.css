@@ -52,8 +52,8 @@
 }
 
 @theme inline {
-  --font-sans: "Montserrat", system-ui, sans-serif;
-  --font-accent: "Comforter Brush", cursive;
+  --font-sans: var(--font-sans);
+  --font-accent: var(--font-accent);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

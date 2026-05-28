@@ -5,6 +5,7 @@ import { buildBreadcrumbs } from "@i18n/breadcrumbs";
 import { getLang } from "@i18n/locale";
 import { getCanonicalBasePath } from "@i18n/path";
 import "@styles/global.css";
+import Font from "astro/components/Font.astro";
 import JsonLd from "./seo/json-ld.astro";
 import SeoHead from "./seo/seo-head.astro";
 
@@ -48,12 +49,8 @@ const currentPath = getCanonicalBasePath(Astro.url);
     <JsonLd breadcrumbs={breadcrumbs} />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Montserrat:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    >
+    <Font cssVariable="--font-sans" preload />
+    <Font cssVariable="--font-accent" />
 
     <script is:inline>
       (() => {
