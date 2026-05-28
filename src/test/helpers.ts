@@ -2,7 +2,10 @@ import {
   experimental_AstroContainer as AstroContainer,
   type ContainerRenderOptions,
 } from "astro/container";
-import type { ComponentProps } from "astro/types";
+import type {ComponentProps} from "astro/types";
+import {getContainerRenderer as reactContainerRenderer} from "@astrojs/react";
+import {loadRenderers} from "astro:container";
+import { Window } from "happy-dom";
 
 // biome-ignore lint: lint/suspicion/noExplicitAny
 type AstroComponentFactory = (...args: any[]) => any;
@@ -14,17 +17,26 @@ type ComponentContainerRenderOptions<T extends AstroComponentFactory> = Omit<
   props?: ComponentProps<T>;
 };
 
+/**
+ * @see https://angelika.me/2025/02/01/astro-component-unit-tests/
+ */
 export async function renderAstroComponent<T extends AstroComponentFactory>(
   Component: T,
-  options: ComponentContainerRenderOptions<T> = {}
-): Promise<DocumentFragment> {
-  const container = await AstroContainer.create();
+  options: ComponentContainerRenderOptions<T> = {}) {
+  const renderers = await loadRenderers([reactContainerRenderer()]);
+  const container = await AstroContainer.create({renderers})
+
   const result = await container.renderToString(Component, options);
 
-  const template = document.createElement("template");
+  const window = new Window();
+
+  await window.happyDOM.waitUntilComplete();
+
+  const template = window.document.createElement("template");
   template.innerHTML = result;
 
-  return template.content;
+  await window.happyDOM.close();
+  return template.content as unknown as DocumentFragment;
 }
 
 /**

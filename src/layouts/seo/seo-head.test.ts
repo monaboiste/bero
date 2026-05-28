@@ -1,6 +1,6 @@
 import { renderAstroComponent } from "@test/helpers.ts";
 import { describe, expect, test, vi } from "vitest";
-import SeoHead from "./seo/seo-head.astro";
+import SeoHead from "./seo-head.astro";
 
 vi.stubEnv("SITE", "https://unit.vitest");
 
