@@ -1,4 +1,4 @@
-import type { GalleryImage } from "@components/ui/gallery/types";
+import type { GalleryTileData } from "@components/ui/gallery/types";
 import type { TagItem } from "@components/ui/tag-filter";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -11,7 +11,7 @@ const testTags: TagItem[] = [
   { key: "chairs", label: "Krzesła" },
 ];
 
-const testImages: GalleryImage[] = [
+const testImages: GalleryTileData[] = [
   {
     thumbnail: {
       src: "/img/1.jpg",
@@ -21,24 +21,18 @@ const testImages: GalleryImage[] = [
     },
     url: "/img/1-full.jpg",
     title: "Fotel klubowy",
-    description: "Desc 1",
-    date: "2025-01-15",
     tags: ["armchairs", "restoration"],
   },
   {
     thumbnail: { src: "/img/2.jpg", alt: "Sofa 1", width: 800, height: 600 },
     url: "/img/2-full.jpg",
     title: "Sofa nowoczesna",
-    description: "Desc 2",
-    date: "2025-02-20",
     tags: ["sofas"],
   },
   {
     thumbnail: { src: "/img/3.jpg", alt: "Chair 1", width: 800, height: 1067 },
     url: "/img/3-full.jpg",
     title: "Krzesło dębowe",
-    description: "Desc 3",
-    date: "2025-03-10",
     tags: ["chairs"],
   },
   {
@@ -50,8 +44,6 @@ const testImages: GalleryImage[] = [
     },
     url: "/img/4-full.jpg",
     title: "Fotel tapicerowany",
-    description: "Desc 4",
-    date: "2025-04-05",
     tags: ["armchairs"],
   },
 ];
