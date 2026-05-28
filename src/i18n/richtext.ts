@@ -19,7 +19,7 @@ export interface RichTextPart {
  *
  * @example
  * ```ts
- * const richText = useRichText("pl");
+ * const richText = getRichText("pl");
  * const parts = richText("hero.title", ["accent"]);
  * // [{ text: "Tapicerstwo w nowoczesnym wydaniu" }, { text: ".", tag: "accent" }]
  * ```
