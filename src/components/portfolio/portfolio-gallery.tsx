@@ -1,7 +1,7 @@
 "use client";
 
 import { GridGallery } from "@components/ui/gallery/grid-gallery";
-import type { GalleryImage } from "@components/ui/gallery/types";
+import type { GalleryTileData } from "@components/ui/gallery/types";
 import { SectionHeader } from "@components/ui/section-header";
 import { TagFilter, type TagItem } from "@components/ui/tag-filter";
 import type { Lang } from "@i18n/locale";
@@ -10,7 +10,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 export interface PortfolioGalleryProps {
   lang: Lang;
-  images: GalleryImage[];
+  images: GalleryTileData[];
   tags: TagItem[];
   initialTag?: string;
 }
@@ -80,7 +80,7 @@ export function PortfolioGallery({
         tags={tags}
       />
 
-      <GridGallery images={filteredImages} />
+      <GridGallery images={filteredImages} key={activeTag} />
     </>
   );
 }

@@ -3,17 +3,16 @@
 import { cn } from "@lib/cn";
 import { fadeY } from "@lib/motion";
 import { motion } from "motion/react";
-import type { GalleryImage } from "./types";
+import type { GalleryTileData } from "./types";
 
 export interface GalleryTileProps {
-  image: GalleryImage;
+  image: GalleryTileData;
   index: number;
 }
 
 const tileMotion = fadeY(40);
 
 export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
-  const dateLabel = image.date?.slice(0, 7);
   const isLandscape = image.orientation === "landscape";
 
   return (
@@ -48,14 +47,6 @@ export function GalleryTile({ image, index }: Readonly<GalleryTileProps>) {
         >
           <p className="text-sm text-white">{image.title}</p>
         </div>
-      </div>
-
-      <div className="glightbox-desc hidden">
-        <div className="lightbox-desc-header">
-          <h4 className="lightbox-desc-title">{image.title}</h4>
-          {dateLabel && <span className="lightbox-desc-date">{dateLabel}</span>}
-        </div>
-        <p className="lightbox-desc-text">{image.description}</p>
       </div>
     </motion.a>
   );
