@@ -1,5 +1,6 @@
 // @ts-check
 
+import node from '@astrojs/node';
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -54,5 +55,9 @@ export default defineConfig({
     plugins: [tailwindcss(), svgr()],
   },
 
-  adapter: cloudflare(),
+  // FIXME: https://github.com/withastro/astro/issues/15878 and https://github.com/withastro/astro/issues/16029
+  // added `overrides.vite` to package.json and `@astrojs/node` to devDependencies
+  adapter: process.env.VITEST
+    ? node({ mode: 'standalone' })
+    : cloudflare(),
 });
