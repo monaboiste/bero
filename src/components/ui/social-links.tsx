@@ -2,15 +2,15 @@ import { cn } from "@lib/cn";
 import type { IconType } from "react-icons";
 
 export interface SocialLink {
-  icon: IconType;
   href: string;
+  icon: IconType;
   label: string;
 }
 
 export interface SocialLinksProps {
-  links: SocialLink[];
   className?: string;
   "data-testid"?: string;
+  links: SocialLink[];
 }
 
 export function SocialLinks({

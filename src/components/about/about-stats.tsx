@@ -4,14 +4,14 @@ import { StatCard } from "./stat-card";
 
 export interface StatData {
   icon: IconType;
-  valueNumeric?: number | null;
-  suffix: string;
   label: string;
+  suffix: string;
+  valueNumeric?: number | null;
 }
 
 export interface AboutStatsProps {
-  stats: StatData[];
   "data-testid"?: string;
+  stats: StatData[];
 }
 
 export function AboutStats({

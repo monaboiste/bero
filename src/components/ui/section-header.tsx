@@ -6,11 +6,11 @@ import { motion } from "motion/react";
 import type { HeadingTag } from "./types";
 
 export interface SectionHeaderProps {
-  title: string;
-  subtitle?: string;
   as?: HeadingTag;
   className?: string;
   "data-testid"?: string;
+  subtitle?: string;
+  title: string;
 }
 
 const containerMotion = {

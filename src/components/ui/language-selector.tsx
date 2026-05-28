@@ -6,11 +6,11 @@ import { useCallback } from "react";
 import { LuGlobe } from "react-icons/lu";
 
 export interface LanguageSelectorProps {
+  className?: string;
+  currentPath?: string;
+  "data-testid"?: string;
   lang: Lang;
   variant?: "dropdown" | "inline";
-  currentPath?: string;
-  className?: string;
-  "data-testid"?: string;
 }
 
 const langEntries = Object.entries(languages) as [Lang, string][];

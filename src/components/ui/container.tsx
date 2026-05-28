@@ -2,8 +2,8 @@ import { cn } from "@lib/cn";
 import type { ElementType, ReactNode } from "react";
 
 export interface ContainerProps {
-  children: ReactNode;
   as?: ElementType;
+  children: ReactNode;
   className?: string;
   "data-testid"?: string;
 }

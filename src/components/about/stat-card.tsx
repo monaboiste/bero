@@ -7,11 +7,11 @@ import { useEffect, useRef, useState } from "react";
 import type { IconType } from "react-icons";
 
 export interface StatCardProps {
-  icon: IconType;
-  valueNumeric?: number | null;
-  suffix: string;
-  label: string;
   "data-testid"?: string;
+  icon: IconType;
+  label: string;
+  suffix: string;
+  valueNumeric?: number | null;
 }
 
 const cardMotion = fadeY(50);

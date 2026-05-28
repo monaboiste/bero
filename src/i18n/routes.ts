@@ -1,10 +1,10 @@
 import type { Lang, TranslationKey } from "./locale";
 
 export interface RouteEntry {
-  /** Locale-specific URL slug. */
-  slug: string;
   /** Translation key used as the breadcrumb label for this route. */
   breadcrumb: TranslationKey;
+  /** Locale-specific URL slug. */
+  slug: string;
 }
 
 /**

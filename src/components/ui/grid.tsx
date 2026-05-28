@@ -2,16 +2,16 @@ import { cn } from "@lib/cn";
 import type { ElementType, ReactNode } from "react";
 
 export interface GridProps {
+  as?: ElementType;
   children: ReactNode;
+  className?: string;
   cols?: {
     sm?: number;
     md?: number;
     lg?: number;
   };
-  gap?: "sm" | "md" | "lg" | "xl";
-  as?: ElementType;
-  className?: string;
   "data-testid"?: string;
+  gap?: "sm" | "md" | "lg" | "xl";
 }
 
 const gapClasses = {

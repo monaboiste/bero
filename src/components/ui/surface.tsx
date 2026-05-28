@@ -2,14 +2,14 @@ import { cn } from "@lib/cn";
 import type { ElementType, ReactNode } from "react";
 
 export interface SurfaceProps {
+  as?: ElementType;
   children: ReactNode;
-  variant?: "card" | "muted" | "elevated";
+  className?: string;
+  "data-testid"?: string;
   hover?: boolean;
   padding?: "none" | "sm" | "md" | "lg";
   rounded?: "sm" | "md" | "lg";
-  as?: ElementType;
-  className?: string;
-  "data-testid"?: string;
+  variant?: "card" | "muted" | "elevated";
 }
 
 const variantClasses = {

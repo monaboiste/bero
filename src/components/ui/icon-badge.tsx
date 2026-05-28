@@ -2,10 +2,10 @@ import { cn } from "@lib/cn";
 import type { IconType } from "react-icons";
 
 export interface IconBadgeProps {
-  icon: IconType;
-  size?: "sm" | "md" | "lg";
   className?: string;
   "data-testid"?: string;
+  icon: IconType;
+  size?: "sm" | "md" | "lg";
 }
 
 const sizeClasses = {

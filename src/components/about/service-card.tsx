@@ -8,10 +8,10 @@ import { scaleLine } from "@lib/motion";
 import { motion } from "motion/react";
 
 export interface ServiceCardProps {
-  title: string;
-  description: string;
   className?: string;
   "data-testid"?: string;
+  description: string;
+  title: string;
 }
 
 const lineMotion = scaleLine();

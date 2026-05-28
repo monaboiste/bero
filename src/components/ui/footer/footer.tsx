@@ -12,9 +12,9 @@ import { SocialLinks } from "../social-links";
 import { FooterLinks } from "./footer-links";
 
 export interface FooterProps {
-  lang: Lang;
   className?: string;
   "data-testid"?: string;
+  lang: Lang;
 }
 
 export function Footer({

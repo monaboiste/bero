@@ -144,6 +144,7 @@ export function useLightbox(
         }
         desc.classList.add("gslide-desc-visible");
         if (!animate) {
+          // biome-ignore lint/suspicious/noUnusedExpressions: force reflow
           desc.offsetHeight;
           desc.style.transition = "";
         }
@@ -242,6 +243,7 @@ export function useLightbox(
         if (desc) {
           desc.style.transition = "none";
           desc.classList.add("gslide-desc-visible");
+          // biome-ignore lint/suspicious/noUnusedExpressions: force reflow
           desc.offsetHeight;
           desc.style.transition = "";
         }

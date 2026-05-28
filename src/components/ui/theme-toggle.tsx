@@ -5,10 +5,10 @@ import { cn } from "@lib/cn";
 import { LuMoon, LuSun } from "react-icons/lu";
 
 export interface ThemeToggleProps {
-  lang: Lang;
-  id?: string;
   className?: string;
   "data-testid"?: string;
+  id?: string;
+  lang: Lang;
 }
 
 export function ThemeToggle({

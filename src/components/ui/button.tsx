@@ -2,13 +2,13 @@ import type { ReactNode } from "react";
 
 export interface ButtonProps {
   children: ReactNode;
-  href?: string;
-  variant?: "primary" | "secondary" | "ghost";
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
   className?: string;
-  onClick?: () => void;
   "data-testid"?: string;
+  disabled?: boolean;
+  href?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "ghost";
 }
 
 const baseClasses =

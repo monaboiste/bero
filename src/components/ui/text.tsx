@@ -2,11 +2,11 @@ import { cn } from "@lib/cn";
 import type { ElementType, ReactNode } from "react";
 
 export interface TextProps {
-  children: ReactNode;
-  variant?: "body" | "lead" | "muted" | "caption";
   as?: ElementType;
+  children: ReactNode;
   className?: string;
   "data-testid"?: string;
+  variant?: "body" | "lead" | "muted" | "caption";
 }
 
 const variantClasses = {

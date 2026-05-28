@@ -104,13 +104,13 @@ export const sanityApi = {
   },
 };
 interface RawPortfolioEntry {
-  title?: string;
-  slug?: string;
   date?: string;
-  images?: SanityImageSource[];
-  excerpt?: string;
   description?: string;
+  excerpt?: string;
+  images?: SanityImageSource[];
+  slug?: string;
   tags?: string[];
+  title?: string;
 }
 
 function mapSanityEntry(entry: RawPortfolioEntry): Project {
@@ -156,7 +156,7 @@ function getAssetRef(
     return asset._ref;
   }
 
-  return undefined;
+  return;
 }
 
 /**

@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import type { HeadingTag } from "./types";
 
 export interface HeadingProps {
-  children: ReactNode;
   as?: HeadingTag;
-  size?: "xl" | "2xl" | "3xl" | "4xl" | "5xl";
+  children: ReactNode;
   className?: string;
   "data-testid"?: string;
+  size?: "xl" | "2xl" | "3xl" | "4xl" | "5xl";
 }
 
 const sizeClasses = {

@@ -2,11 +2,11 @@ import { cn } from "@lib/cn";
 import type { ReactNode } from "react";
 
 export interface FormStatusProps {
-  variant: "success" | "error";
-  visible?: boolean;
-  id?: string;
   children: ReactNode;
   className?: string;
+  id?: string;
+  variant: "success" | "error";
+  visible?: boolean;
 }
 
 const variantClasses = {

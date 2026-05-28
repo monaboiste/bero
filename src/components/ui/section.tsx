@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 import { Container } from "./container";
 
 export interface SectionProps {
-  children: ReactNode;
-  id?: string;
   background?: "default" | "secondary";
-  spacing?: "sm" | "md" | "lg";
+  children: ReactNode;
   className?: string;
   "data-testid"?: string;
+  id?: string;
+  spacing?: "sm" | "md" | "lg";
 }
 
 const spacingClasses = {

@@ -10,8 +10,8 @@
 }
 
 .gallery-tile-link {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
 .gallery-tile {
@@ -19,8 +19,8 @@
 }
 
 .gallery-tile img {
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -62,12 +62,12 @@
 }
 
 .glightbox-bero .gslide-description.description-bottom {
-  background: var(--popover);
-  border-radius: var(--radius);
-  margin-top: 0.75rem;
   max-width: 700px;
   max-height: 25vh;
+  margin-top: 0.75rem;
   overflow-y: auto;
+  background: var(--popover);
+  border-radius: var(--radius);
 }
 
 /* Hide the built-in title — we render our own inside the description */
@@ -78,17 +78,17 @@
 /* Mobile lightbox: description slides up from bottom on tap. */
 .glightbox-mobile .glightbox-container.glightbox-bero .gslide-description {
   position: absolute;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
   z-index: 1;
-  margin-top: 0;
   max-height: 60vh;
+  margin-top: 0;
   overflow-y: auto;
-  border-radius: var(--radius) var(--radius) 0 0;
   background: rgba(0, 0, 0, 0.85);
-  transform: translateY(100%);
+  border-radius: var(--radius) var(--radius) 0 0;
   opacity: 0;
+  transform: translateY(100%);
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
@@ -97,8 +97,8 @@
 .glightbox-mobile
   .glightbox-container.glightbox-bero
   .gslide-description.gslide-desc-visible {
-  transform: translateY(0);
   opacity: 1;
+  transform: translateY(0);
 }
 
 /* Mobile lightbox: fit images to their longest edge without cropping. */
@@ -111,50 +111,50 @@
 }
 
 .glightbox-bero .gslide-desc {
-  font-family: var(--font-sans);
-  color: var(--muted-foreground);
-  font-size: 0.86em;
   margin-bottom: 0;
+  font-family: var(--font-sans);
+  font-size: 0.86em;
   line-height: 1.4em;
+  color: var(--muted-foreground);
 }
 
 /* Custom description layout */
 
 .lightbox-desc-header {
   display: flex;
+  gap: 1rem;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
 }
 
 .lightbox-desc-title {
+  margin: 0;
   font-family: var(--font-sans);
   font-size: 1.35em;
   font-weight: 700;
-  color: var(--foreground);
-  margin: 0;
   line-height: 1.3;
+  color: var(--foreground);
 }
 
 .lightbox-desc-date {
   flex-shrink: 0;
+  padding: 0.2em 0.65em;
+  margin-top: 0.2em;
   font-family: var(--font-sans);
   font-size: 0.8em;
   font-weight: 600;
+  line-height: 1.5;
   color: white;
   background: var(--accent);
-  padding: 0.2em 0.65em;
   border-radius: 9999px;
-  line-height: 1.5;
-  margin-top: 0.2em;
 }
 
 .lightbox-desc-text {
+  margin: 0.5em 0 0;
   font-family: var(--font-sans);
-  color: var(--muted-foreground);
   font-size: 1.05em;
   line-height: 1.55em;
-  margin: 0.5em 0 0;
+  color: var(--muted-foreground);
 }
 
 /* Mobile lightbox: light-on-dark text overrides */
@@ -168,8 +168,8 @@
 
 .glightbox-bero .gbtn {
   background-color: rgba(0, 0, 0, 0.2);
-  fill: var(--muted-foreground);
   border-radius: var(--radius);
+  fill: var(--muted-foreground);
   transition: background-color 0.3s ease;
 }
 
@@ -194,11 +194,11 @@
 }
 
 .glightbox-bero .gclose {
-  width: 35px;
-  height: 35px;
+  position: absolute;
   top: 15px;
   right: 10px;
-  position: absolute;
+  width: 35px;
+  height: 35px;
 }
 
 .glightbox-bero .gclose svg {
@@ -222,7 +222,7 @@
 
 @media (min-width: 992px) {
   .glightbox-bero .gclose {
-    opacity: 0.7;
     right: 20px;
+    opacity: 0.7;
   }
 }

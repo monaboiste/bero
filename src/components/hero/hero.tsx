@@ -11,8 +11,8 @@ import { motion } from "motion/react";
 import { LuArrowRight } from "react-icons/lu";
 
 export interface HeroProps {
-  lang: Lang;
   image: OptimisedImage;
+  lang: Lang;
 }
 
 const backgroundMotion = entranceScale({ duration: 1.5 });

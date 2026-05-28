@@ -7,13 +7,13 @@ import { NavLinks } from "./nav-links";
 import type { NavItem } from "./types";
 
 export interface MobileMenuProps {
+  className?: string;
+  currentPath?: string;
+  "data-testid"?: string;
   isOpen: boolean;
   items: NavItem[];
   lang: Lang;
-  currentPath?: string;
   onClose: () => void;
-  className?: string;
-  "data-testid"?: string;
 }
 
 export function MobileMenu({

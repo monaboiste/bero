@@ -6,14 +6,14 @@ import { motion } from "motion/react";
 import { ServiceCard } from "./service-card";
 
 export interface ServiceData {
-  title: string;
   description: string;
+  title: string;
 }
 
 export interface AboutServicesProps {
-  title: string;
-  services: ServiceData[];
   "data-testid"?: string;
+  services: ServiceData[];
+  title: string;
 }
 
 const titleMotion = fadeY(20);

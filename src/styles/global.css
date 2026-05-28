@@ -87,9 +87,8 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    /* noinspection CssNoGenericFontName */
     font-family: var(--font-sans);
+    @apply bg-background text-foreground;
   }
 
   html {
@@ -142,8 +141,8 @@
 }
 
 ::selection {
-  background-color: var(--accent);
   color: var(--accent-foreground);
+  background-color: var(--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

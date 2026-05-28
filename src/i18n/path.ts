@@ -22,7 +22,7 @@ export function getTranslatedPath(lang: Lang) {
 export function getRoute(url: URL): string | undefined {
   const slug = extractLastSegment(url.pathname);
   if (!slug) {
-    return undefined;
+    return;
   }
 
   const currentLang = getLang(extractLocaleFromPathname(url.pathname));
@@ -105,7 +105,7 @@ function getTranslatedSlug(routeKey: string, lang: Lang): string | undefined {
 function findCanonicalKey(slug: string, lang: Lang): string | undefined {
   const langRoutes = routes[lang];
   if (!langRoutes) {
-    return undefined;
+    return;
   }
   return Object.keys(langRoutes).find((key) => langRoutes[key].slug === slug);
 }

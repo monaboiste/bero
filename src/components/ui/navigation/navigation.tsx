@@ -14,10 +14,10 @@ import { NavLinks } from "./nav-links";
 import type { NavItem } from "./types";
 
 export interface NavigationProps {
-  lang: Lang;
-  currentPath?: string;
   className?: string;
+  currentPath?: string;
   "data-testid"?: string;
+  lang: Lang;
 }
 
 export function Navigation({

@@ -2,11 +2,11 @@ import { cn } from "@lib/cn";
 import type { NavItem } from "./types";
 
 export interface NavLinksProps {
-  items: NavItem[];
-  direction?: "row" | "column";
-  onLinkClick?: () => void;
   className?: string;
   "data-testid"?: string;
+  direction?: "row" | "column";
+  items: NavItem[];
+  onLinkClick?: () => void;
 }
 
 const LOCALE_PREFIX_RE = /^\/[a-z]{2}\//;
