@@ -3,10 +3,53 @@ import { type RefObject, useEffect } from "react";
 const SWIPE_THRESHOLD = 50;
 const TAP_THRESHOLD = 10;
 const ANIMATION_SETTLE_MS = 400;
+const DESCRIPTIONS_TEMPLATE_ID = "gallery-descriptions";
 
 export interface UseLightboxOptions {
   selector?: string;
   skin?: string;
+}
+
+/**
+ * Inject lightbox descriptions from a static <template> element into
+ * gallery trigger links. This avoids duplicating heavy description data
+ * in React props (Astro island serialization).
+ */
+function injectDescriptions(container: HTMLElement): void {
+  const template = document.getElementById(
+    DESCRIPTIONS_TEMPLATE_ID
+  ) as HTMLTemplateElement | null;
+  if (!template) {
+    return;
+  }
+
+  const templateContent = template.content;
+  const triggers = container.querySelectorAll<HTMLAnchorElement>("a.glightbox");
+
+  for (const trigger of triggers) {
+    // Remove any previously injected description (in case of re-render)
+    const existing = trigger.querySelector(".glightbox-desc");
+    if (existing) {
+      existing.remove();
+    }
+
+    const href = trigger.getAttribute("href");
+    if (!href) {
+      continue;
+    }
+
+    const descSource = templateContent.querySelector(
+      `[data-url="${CSS.escape(href)}"]`
+    );
+    if (!descSource) {
+      continue;
+    }
+
+    const descEl = document.createElement("div");
+    descEl.className = "glightbox-desc hidden";
+    descEl.innerHTML = descSource.innerHTML;
+    trigger.appendChild(descEl);
+  }
 }
 
 export function useLightbox(
@@ -24,6 +67,14 @@ export function useLightbox(
     let cleanup: (() => void) | null = null;
 
     async function init() {
+      const container = containerRef.current;
+      if (!container) {
+        return;
+      }
+
+      // Inject descriptions from static <template> before GLightbox init
+      injectDescriptions(container);
+
       const GLightbox = (await import("glightbox")).default;
 
       if (destroyed) {
