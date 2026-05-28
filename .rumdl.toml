@@ -1,0 +1,8 @@
+[global]
+respect-gitignore = true
+flavor = "gfm"
+
+[MD013]
+enabled = true
+line-length = 120
+reflow = true

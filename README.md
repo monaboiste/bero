@@ -36,18 +36,20 @@ npm run dev        # http://localhost:4321
 
 ## Scripts
 
-| Script                | Description                                   |
-|-----------------------|-----------------------------------------------|
-| `npm run dev`         | Start dev server                              |
-| `npm run build`       | Production build to `./dist/`                 |
-| `npm run preview`     | Build + local Cloudflare preview via Wrangler |
-| `npm run check`       | Astro TypeScript type checking                |
-| `npm run clean`       | Remove `dist/` and `.astro/`                  |
-| `npm run lint`        | Lint with Biome/Ultracite                     |
-| `npm run lint:fix`    | Auto-fix lint issues                          |
-| `npm run test:unit`   | Run unit tests (Vitest)                       |
-| `npm run test:e2e`    | Run E2E tests (Playwright)                    |
-| `npm run test:e2e:ui` | Run E2E tests with Playwright UI              |
+| Script                 | Description                                   |
+|------------------------|-----------------------------------------------|
+| `npm run dev`          | Start dev server                              |
+| `npm run build`        | Production build to `./dist/`                 |
+| `npm run preview`      | Build + local Cloudflare preview via Wrangler |
+| `npm run check`        | Astro TypeScript type checking                |
+| `npm run clean`        | Remove `dist/` and `.astro/`                  |
+| `npm run lint:app`     | Lint with Biome/Ultracite                     |
+| `npm run lint:app:fix` | Auto-fix application source code lint issues  |
+| `npm run lint:doc`     | Lint Markdown documents                       |
+| `npm run lint:doc:fix` | Auto-fix documentation lint issues            |
+| `npm run test:unit`    | Run unit tests (Vitest)                       |
+| `npm run test:e2e`     | Run E2E tests (Playwright)                    |
+| `npm run test:e2e:ui`  | Run E2E tests with Playwright UI              |
 
 ## Project Structure
 
