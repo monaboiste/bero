@@ -57,5 +57,9 @@ export default defineConfig({
 
   // FIXME: https://github.com/withastro/astro/issues/15878 and https://github.com/withastro/astro/issues/16029
   // added `overrides.vite` to package.json and `@astrojs/node` to devDependencies
-  adapter: process.env.VITEST ? node({ mode: "standalone" }) : cloudflare(),
+  adapter: process.env.VITEST
+    ? node({ mode: "standalone" })
+    : cloudflare({
+        imageService: { build: "compile", runtime: "cloudflare-binding" },
+      }),
 });
