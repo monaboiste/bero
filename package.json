@@ -8,7 +8,7 @@
     "clean": "rimraf dist .astro",
     "build": "astro build",
     "preview": "astro build && astro preview",
-    "deploy:preview": "CLOUDFLARE_ENV=preview astro build && wrangler deploy",
+    "deploy:preview": "wrangler deploy --name bero-preview",
     "lint": "npm run lint:app && npm run lint:doc",
     "lint:app": "ultracite check",
     "lint:app:fix": "ultracite fix",
