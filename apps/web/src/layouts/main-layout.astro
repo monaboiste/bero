@@ -1,0 +1,76 @@
+---
+import { getLang } from "@bero/locales";
+import { Footer } from "@components/ui/footer/footer";
+import { Navigation } from "@components/ui/navigation/navigation";
+import { buildBreadcrumbs } from "@i18n/breadcrumbs";
+import { getCanonicalBasePath } from "@i18n/path";
+import "@styles/global.css";
+import Font from "astro/components/Font.astro";
+import JsonLd from "./seo/json-ld.astro";
+import SeoHead from "./seo/seo-head.astro";
+
+interface Props {
+  description?: string;
+  image?: string;
+  mainClass?: string;
+  robots?: string;
+  title?: string;
+}
+
+const lang = getLang(Astro.currentLocale);
+const { title, description, image, robots, mainClass } = Astro.props;
+
+const breadcrumbs = buildBreadcrumbs(
+  Astro.site,
+  Astro.url,
+  Astro.currentLocale
+);
+
+const currentPath = getCanonicalBasePath(Astro.url);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#cc0000">
+    <!-- --accent -->
+    <meta name="generator" content={Astro.generator}>
+
+    <SeoHead
+      title={title}
+      description={description}
+      image={image}
+      robots={robots}
+    />
+
+    <JsonLd breadcrumbs={breadcrumbs} />
+
+    <!-- Fonts -->
+    <Font cssVariable="--font-sans" preload />
+    <Font cssVariable="--font-accent" />
+
+    <script is:inline>
+      (() => {
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else if (theme === "light") {
+          document.documentElement.classList.remove("dark");
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Navigation client:load currentPath={currentPath} lang={lang} />
+    <main class:list={["flex-1", mainClass]}>
+      <slot />
+    </main>
+    <Footer client:visible lang={lang} />
+  </body>
+</html>
