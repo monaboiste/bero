@@ -1,0 +1,59 @@
+{
+  "name": "@bero/web",
+  "type": "module",
+  "scripts": {
+    "check": "astro check",
+    "dev": "astro dev",
+    "clean": "rimraf dist .astro",
+    "build": "astro build",
+    "preview": "astro build && astro preview",
+    "deploy:preview": "wrangler deploy --name bero-preview",
+    "test:unit": "vitest --run src --exclude 'src/**/*.test.tsx' && vitest --run --config vitest.config.react.ts",
+    "test:unit:astro": "vitest --run src --exclude 'src/**/*.test.tsx'",
+    "test:unit:react": "vitest --run --config vitest.config.react.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.7.0",
+    "@astrojs/node": "^10.1.4",
+    "@astrojs/react": "^5.0.7",
+    "@astrojs/sitemap": "^3.7.3",
+    "@bero/fixture": "*",
+    "@bero/locales": "*",
+    "@bero/portfolio": "*",
+    "@bero/sanity": "*",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.6",
+    "clsx": "^2.1.1",
+    "glightbox": "^3.3.1",
+    "intl-messageformat": "^11.2.0",
+    "motion": "^12.34.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.6.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@playwright/test": "^1.58.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.1.0",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "happy-dom": "^20.9.0",
+    "rimraf": "^6.1.3",
+    "schema-dts": "^1.1.5",
+    "typescript": "^5.9.3",
+    "vite-plugin-svgr": "^5.2.0",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.0.18",
+    "wrangler": "^4.99.0"
+  },
+  "overrides": {
+    "vite": "^7.3.1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@bero/fixture",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bero/locales": "*",
+    "@bero/portfolio": "*"
+  }
+}

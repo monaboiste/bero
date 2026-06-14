@@ -2,7 +2,17 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite/biome/core", "ultracite/biome/astro"],
   "files": {
-    "includes": ["!!**/studio-bero"]
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.astro",
+      "!!**/node_modules",
+      "!!**/.sanity",
+      "!!**/dist",
+      "!!**/.astro",
+      "!!**/playwright-report",
+      "!!**/test-results"
+    ]
   },
   "overrides": [
     {
@@ -28,9 +38,9 @@
     },
     {
       "includes": [
-        "**/*.astro",
-        "**/*.ts",
-        "**/*.tsx",
+        "apps/web/**/*.astro",
+        "apps/web/**/*.ts",
+        "apps/web/**/*.tsx",
         "!**/*.test.ts",
         "!**/*.test.tsx"
       ],

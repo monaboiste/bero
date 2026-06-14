@@ -1,0 +1,74 @@
+---
+import { getImage } from "astro:assets";
+import aboutImage from "@assets/about.webp";
+import heroImage from "@assets/hero.webp";
+import { getLang, locales } from "@bero/locales";
+import { About } from "@components/about/about";
+import { Contact } from "@components/contact/contact";
+import { Hero } from "@components/hero/hero";
+import { Projects } from "@components/projects/projects";
+import { getTranslations } from "@i18n/locale";
+import MainLayout from "@layouts/main-layout.astro";
+import { createPortfolioService } from "@lib/content/content";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const lang = getLang(Astro.currentLocale);
+const t = getTranslations(lang);
+
+const heroImg = await getImage({
+  src: heroImage,
+  format: "webp",
+  widths: [640, 1024, 1600, 1920],
+  sizes: "100vw",
+});
+
+const aboutImg = await getImage({
+  src: aboutImage,
+  format: "webp",
+  widths: [400, 800, 1200],
+  sizes: "(max-width: 768px) 100vw, 50vw",
+});
+
+const portfolioApi = createPortfolioService(lang);
+const latestProjects = await portfolioApi.fetchPortfolioLatestProjects(3);
+const projectsData = latestProjects.map((project) => ({
+  title: project.title,
+  excerpt: project.excerpt,
+  date: project.date,
+  image: project.images[0]?.url ?? "",
+}));
+---
+
+<MainLayout>
+  <Hero
+    client:load
+    lang={lang}
+    image={{
+      src: heroImg.src,
+      alt: t("hero.imageAlt"),
+      srcSet: heroImg.srcSet.attribute,
+      sizes: heroImg.attributes.sizes,
+      width: heroImg.attributes.width,
+      height: heroImg.attributes.height,
+    }}
+  />
+  <Projects client:visible lang={lang} projects={projectsData} />
+  <About
+    client:visible
+    lang={lang}
+    image={{
+      src: aboutImg.src,
+      alt: t("about.craftImageAlt"),
+      srcSet: aboutImg.srcSet.attribute,
+      sizes: aboutImg.attributes.sizes,
+      width: aboutImg.attributes.width,
+      height: aboutImg.attributes.height,
+    }}
+  />
+  <Contact client:visible lang={lang} />
+</MainLayout>
