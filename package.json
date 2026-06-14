@@ -29,6 +29,9 @@
       "rumdl fmt"
     ]
   },
+  "overrides": {
+    "vite": "^7.3.1"
+  },
   "devDependencies": {
     "@biomejs/biome": "^2.3.12",
     "husky": "^9.1.7",
