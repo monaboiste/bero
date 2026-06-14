@@ -50,10 +50,7 @@
     "typescript": "^5.9.3",
     "vite-plugin-svgr": "^5.2.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.0.18",
+    "vitest": "^4.1.7",
     "wrangler": "^4.99.0"
-  },
-  "overrides": {
-    "vite": "^7.3.1"
   }
 }
