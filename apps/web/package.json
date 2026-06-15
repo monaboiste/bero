@@ -2,7 +2,7 @@
   "name": "@bero/web",
   "type": "module",
   "scripts": {
-    "check": "astro check",
+    "check": "echo 'Compiling @bero/web...' && astro check",
     "dev": "astro dev",
     "clean": "rimraf dist .astro",
     "build": "astro build",

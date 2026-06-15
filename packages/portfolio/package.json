@@ -6,6 +6,6 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "check": "tsc --noEmit"
+    "check": "echo 'Compiling @bero/portfolio...' && tsc --noEmit"
   }
 }

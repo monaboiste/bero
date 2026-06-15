@@ -3,7 +3,7 @@
   "private": true,
   "main": "package.json",
   "scripts": {
-    "check": "tsc --noEmit",
+    "check": "echo 'Compiling @bero/studio...' && tsc --noEmit",
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
