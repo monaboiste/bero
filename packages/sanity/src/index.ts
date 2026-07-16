@@ -49,6 +49,22 @@ export function createSanityPortfolioService(config: {
     };
   }
 
+  const PORTFOLIO_PROJECTION = /* groq */ `{
+    "title": coalesce(title[_key == $lang][0].value, title[_key == $defaultLang][0].value),
+    "slug": slug[$lang].current,
+    "date": date,
+    images[] {
+      _type,
+      _key,
+      asset,
+      crop,
+      hotspot,
+    },
+    "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == $defaultLang][0].value),
+    "description": coalesce(description[_key == $lang][0].value, description[_key == $defaultLang][0].value),
+    "tags": tags
+  }`;
+
   return {
     count: (): Promise<number> => {
       const query = /* groq */ `count(*[_type == "portfolio"])`;
@@ -60,22 +76,7 @@ export function createSanityPortfolioService(config: {
       end: number;
     }): Promise<Portfolio> => {
       const query = /* groq */ `
-      *[_type == "portfolio"] | order(date desc) [$start...$end]
-      {
-        "title": coalesce(title[_key == $lang][0].value, title[_key == $defaultLang][0].value),
-        "slug": slug[$lang].current,
-        "date": date,
-        images[] {
-          _type,
-          _key,
-          asset,
-          crop,
-          hotspot,
-        },
-        "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == $defaultLang][0].value),
-        "description": coalesce(description[_key == $lang][0].value, description[_key == $defaultLang][0].value),
-        "tags": tags
-      }`;
+        *[_type == "portfolio"] | order(date desc) [$start...$end] ${PORTFOLIO_PROJECTION}`;
 
       const docs = await client.fetch<SanityPortfolioDocument[]>(query, {
         lang,
@@ -92,22 +93,7 @@ export function createSanityPortfolioService(config: {
       }
 
       const query = /* groq */ `
-      *[_type == "portfolio"] | order(date desc) [0...$limit]
-      {
-        "title": coalesce(title[_key == $lang][0].value, title[_key == $defaultLang][0].value),
-        "slug": slug[$lang].current,
-        "date": date,
-        images[] {
-          _type,
-          _key,
-          asset,
-          crop,
-          hotspot,
-        },
-        "excerpt": coalesce(excerpt[_key == $lang][0].value, excerpt[_key == $defaultLang][0].value),
-        "description": coalesce(description[_key == $lang][0].value, description[_key == $defaultLang][0].value),
-        "tags": tags
-      }`;
+        *[_type == "portfolio"] | order(date desc) [0...$limit] ${PORTFOLIO_PROJECTION}`;
 
       const docs = await client.fetch<SanityPortfolioDocument[]>(query, {
         lang,
