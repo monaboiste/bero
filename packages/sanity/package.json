@@ -6,7 +6,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "check": "echo 'Compiling @bero/sanity...' && tsc --noEmit"
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@bero/locales": "*",
