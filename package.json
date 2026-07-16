@@ -13,6 +13,7 @@
     "dev": "npm run dev --workspace=apps/web",
     "build": "npm run build --workspace=apps/web",
     "preview": "npm run preview --workspace=apps/web",
+    "deploy:prod": "npm run deploy:prod --workspace=apps/web",
     "deploy:preview": "npm run deploy:preview --workspace=apps/web",
     "lint": "ultracite check",
     "lint:fix": "ultracite fix",

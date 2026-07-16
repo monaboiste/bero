@@ -7,6 +7,7 @@
     "clean": "rimraf dist .astro",
     "build": "astro build",
     "preview": "astro build && astro preview",
+    "deploy:prod": "wrangler deploy",
     "deploy:preview": "wrangler deploy --name bero-preview",
     "test:unit": "vitest --run src --exclude 'src/**/*.test.tsx' && vitest --run --config vitest.config.react.ts",
     "test:unit:astro": "vitest --run src --exclude 'src/**/*.test.tsx'",
