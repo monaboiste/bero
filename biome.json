@@ -61,6 +61,26 @@
           }
         }
       }
+    },
+    {
+      "includes": ["packages/**/*.ts", "packages/**/*.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@bero/web", "@bero/studio"],
+                    "message": "packages/* must not import from apps/*. Keep packages app-agnostic."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }
