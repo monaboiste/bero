@@ -6,10 +6,6 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@bero/fixture": ["../../packages/fixture/src/index.ts"],
-      "@bero/locales": ["../../packages/locales/src/index.ts"],
-      "@bero/portfolio": ["../../packages/portfolio/src/index.ts"],
-      "@bero/sanity": ["../../packages/sanity/src/index.ts"],
       "@test/*": ["src/test/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
