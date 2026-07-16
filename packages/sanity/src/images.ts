@@ -1,9 +1,9 @@
+import type { ProjectImage } from "@bero/portfolio";
 import type {
   SanityImageObjectStub,
   SanityImageSource,
 } from "@sanity/asset-utils";
 import type { ImageUrlBuilder } from "@sanity/image-url";
-import type { SanityProjectImage } from "./types";
 
 function isImageObject(
   image: SanityImageSource
@@ -72,7 +72,7 @@ function getImageDimensionsWithCrop(
 export function buildImages(
   builder: ImageUrlBuilder,
   images: unknown[]
-): SanityProjectImage[] {
+): ProjectImage[] {
   return (images as SanityImageSource[])
     .filter(hasAsset)
     .map((image) => buildImage(builder, image));
@@ -81,7 +81,7 @@ export function buildImages(
 function buildImage(
   builder: ImageUrlBuilder,
   image: SanityImageSource
-): SanityProjectImage {
+): ProjectImage {
   const dimensions = getImageDimensionsWithCrop(image);
 
   return {
