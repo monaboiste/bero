@@ -8,9 +8,3 @@ export interface SanityPortfolioDocument {
   description?: string;
   tags?: string[];
 }
-
-export interface SanityProjectImage {
-  thumbnail: string;
-  url: string;
-  aspectRatio: number;
-}
