@@ -1,46 +1,122 @@
 ---
 name: project-issue-generator
 description: >
-  This skill generates well-structured GitHub issues with proper Type and Area labels,
-  clear titles, and concise descriptions. It ensures each issue explains the value
-  of solving the problem and promotes consistent labeling without introducing unnecessary new labels.
+  Create well-structured GitHub issues, reuse existing labels, and publish
+  them directly using the GitHub CLI.
 compatibility: opencode
 metadata:
   audience: maintainers
   workflow: github
 ---
 
-#
+# GitHub Project Issue Generator
 
 ## What I do
 
-- Generate GitHub issue text with structured **Type** and **Area** labels.
-- Suggest clear **Title** and **Description** for each issue.
-- Always include a short explanation of **what value solving this brings** (business, UX, technical, or maintainability
-  impact).
-- Distinguish between `feature`, `enhancement`, `refactor`, `bug`, and `chore`.
-- Recommend appropriate existing `area:` labels (e.g., `area:ui`, `area:cms`, `area:i18n`, `area:build`,
-  `area:architecture`).
-- Avoid introducing new labels unless truly necessary; prefer reusing existing project labels and only suggest additions
-  when justified.
+- Generate concise, well-structured GitHub issues.
+- Create issues directly using the GitHub CLI (`gh issue create`).
+- Reuse existing repository labels whenever possible.
+- Apply one **Type** label and one or more **Area** labels.
+- Produce clear titles and concise descriptions.
+- Always explain the value of solving the issue.
+- Avoid introducing new labels unless there is no suitable existing one.
 
-## When to use me
+## Workflow
 
-- When creating a new GitHub issue and you want it to be well-structured and properly labeled.
-- When deciding whether a change is a `feature`, `enhancement`, or `refactor`.
-- When you want each issue to clearly communicate its **impact and value**.
-- When maintaining a clean, minimal, and consistent labeling system.
+1. Determine whether enough information exists to create the issue.
+2. If essential information is missing, ask only for the minimum required detail.
+3. Retrieve available labels:
 
-## Example
+   ```sh
+   gh label list --limit 100
+   ```
 
-**Type:** `feature`  
-**Area:** `area:ui`  
+4. Select labels using these rules:
+    - exactly one Type label
+    - zero or more existing Area labels
+    - reuse existing labels whenever possible
+    - never invent a label if a close existing one already fits
 
-**Title:** Implement projects gallery page with lightbox  
+5. Generate:
 
-**Description:**  
-Create a dedicated subpage showcasing completed projects in a gallery layout.  
-Include lightbox functionality to display images with descriptions.  
+    - Title
+    - Description
+    - Value
 
-**Value:**  
-Improves portfolio presentation, increases user engagement, and makes project examples easier to explore.
+6. Create the issue:
+
+   ```sh
+   gh issue create \
+     --title "<title>" \
+     --body "<generated body>" \
+     --label "<label1>" \
+     --label "<label2>"
+   ```
+
+7. Return:
+    - issue number
+    - issue URL
+    - labels that were applied
+
+## Issue format
+
+### Title
+
+Use a short imperative title.
+
+Examples:
+
+- Add dark mode toggle
+- Fix broken image loading
+- Refactor authentication service
+
+### Body
+
+```md
+## Description
+
+...
+
+## Value
+
+...
+```
+
+Keep the description concise.
+Always explain why the work is worth doing.
+
+## Label selection
+
+Always prefer existing repository labels.
+
+Choose exactly one Type label:
+
+- feature
+- enhancement
+- bug
+- refactor
+- chore
+
+Choose any matching existing Area labels, for example:
+
+- area:ui
+- area:backend
+- area:api
+- area:architecture
+- area:cms
+- area:build
+- area:i18n
+- area:docs
+
+If the repository uses a different naming convention, follow the repository convention instead of these examples.
+
+## Rules
+
+- Never create new labels.
+- Never suggest new labels unless explicitly requested.
+- Reuse existing labels whenever possible.
+- Keep issues focused on a single change.
+- Avoid implementation details unless they are necessary.
+- Explain the expected outcome rather than prescribing the solution.
+- Use Markdown.
+- Prefer concise wording.
