@@ -3,10 +3,9 @@ name: to-issue
 description: >
   Create well-structured GitHub issues, reuse existing labels, and publish
   them directly using the GitHub CLI.
-compatibility: opencode
-metadata:
-  audience: maintainers
-  workflow: github
+  Use only when the user explicitly invokes the the skill or explicitly asks to run it.
+compatibility: >
+  Requires GitHub CLI (gh) authenticated with the target repository.
 ---
 
 # GitHub Project Issue Generator
@@ -82,8 +81,7 @@ Examples:
 ...
 ```
 
-Keep the description concise.
-Always explain why the work is worth doing.
+Keep the description concise. Always explain why the work is worth doing.
 
 ## Label selection
 
